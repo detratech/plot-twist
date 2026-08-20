@@ -1,6 +1,6 @@
 'use strict';
 
-const STORAGE_KEY = 'plotTwistStateV1';
+const STORAGE_KEY = 'plotTwistStateV2';
 const defaultState = {
   mode: null,
   order: [],
@@ -8,7 +8,6 @@ const defaultState = {
   revealed: false,
   saved: [],
   settings: {
-    campMode: true,
     shuffle: true,
     keepAwake: false,
     hostPrompts: false
@@ -47,7 +46,6 @@ const el = {
   savedList: document.getElementById('savedList'),
   host1: document.getElementById('hostPromptStage1'),
   host2: document.getElementById('hostPromptStage2'),
-  campToggle: document.getElementById('campModeToggle'),
   shuffleToggle: document.getElementById('shuffleToggle'),
   wakeToggle: document.getElementById('wakeToggle'),
   hostToggle: document.getElementById('hostToggle'),
@@ -127,9 +125,7 @@ function beginGame(mode) {
   state.position = 0;
   state.revealed = false;
 
-  if (mode === 'campfire') {
-    state.order = [...CAMPFIRE_RUN_IDS];
-  } else if (mode === 'saved') {
+  if (mode === 'saved') {
     state.order = [...state.saved];
   } else if (mode === 'random') {
     state.order = shuffled(ids);
@@ -197,7 +193,7 @@ function renderCard() {
     el.scenarioChoices.hidden = true;
   }
 
-  el.modeLabel.textContent = state.mode === 'campfire' ? `CAMPFIRE RUN · ${state.position + 1}/${state.order.length}` : state.mode === 'saved' ? `SAVED RUN · ${state.position + 1}/${state.order.length}` : `GAME · ${state.position + 1}/${state.order.length}`;
+  el.modeLabel.textContent = state.mode === 'saved' ? `SAVED · ${state.position + 1}/${state.order.length}` : `GAME · ${state.position + 1}/${state.order.length}`;
 
   setRevealState(state.revealed, false);
   updateSaveButton(card.id);
@@ -304,7 +300,6 @@ function showChaos() {
 }
 
 function applySettings() {
-  document.body.classList.toggle('camp-mode', state.settings.campMode);
   syncSettingsUI();
   renderHostPrompts(currentCard() || {});
   if (state.settings.keepAwake) requestWakeLock();
@@ -312,7 +307,6 @@ function applySettings() {
 }
 
 function syncSettingsUI() {
-  el.campToggle.checked = state.settings.campMode;
   el.shuffleToggle.checked = state.settings.shuffle;
   el.wakeToggle.checked = state.settings.keepAwake;
   el.hostToggle.checked = state.settings.hostPrompts;
@@ -356,7 +350,6 @@ document.addEventListener('click', event => {
   const action = actionButton.dataset.action;
   if (action === 'resume') resumeGame();
   if (action === 'start') beginGame('full');
-  if (action === 'campfire') beginGame('campfire');
   if (action === 'random') beginGame('random');
 });
 
@@ -371,7 +364,6 @@ document.getElementById('closeChaos').addEventListener('click', () => { el.chaos
 el.chaosModal.addEventListener('click', event => { if (event.target === el.chaosModal) el.chaosModal.hidden = true; });
 document.getElementById('resetButton').addEventListener('click', resetGameData);
 
-el.campToggle.addEventListener('change', () => { state.settings.campMode = el.campToggle.checked; persist(); applySettings(); });
 el.shuffleToggle.addEventListener('change', () => { state.settings.shuffle = el.shuffleToggle.checked; persist(); });
 el.wakeToggle.addEventListener('change', () => { state.settings.keepAwake = el.wakeToggle.checked; persist(); applySettings(); });
 el.hostToggle.addEventListener('change', () => { state.settings.hostPrompts = el.hostToggle.checked; persist(); renderHostPrompts(currentCard() || {}); });
@@ -420,9 +412,7 @@ const requestedMode = params.get('mode');
 applySettings();
 updateSavedCount();
 
-if (requestedMode === 'campfire') {
-  beginGame('campfire');
-} else if (requestedMode === 'random') {
+if (requestedMode === 'random') {
   beginGame('random');
 } else if (state.mode && state.order.length && currentCard()) {
   renderCard();
