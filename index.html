@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0b0908">
   <meta name="color-scheme" content="dark">
-  <meta name="description" content="Plot Twist — a social scenario game. Pick an answer. Defend it. Then everything changes.">
+  <meta name="description" content="Plot Twist — a social scenario game. Pick a side. Defend it. Then deal with the twist.">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icons/icon-192.png" sizes="192x192">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
@@ -19,9 +19,9 @@
   <main id="app" class="app-shell">
     <section id="homeScreen" class="screen screen-home active" aria-labelledby="homeTitle">
       <div class="brand-mark" aria-hidden="true">↻</div>
-      <p class="eyebrow">SOCIAL SCENARIO GAME</p>
+      <p class="eyebrow">ARGUE FIRST. THINK AGAIN.</p>
       <h1 id="homeTitle">PLOT<br><span>TWIST</span></h1>
-      <p class="tagline">Pick an answer. Defend it. Then everything changes.</p>
+      <p class="tagline">Pick a side. Defend it. Then deal with the twist.</p>
 
       <div class="home-actions">
         <button id="resumeButton" class="btn btn-primary" data-action="resume" hidden>RESUME GAME</button>
@@ -80,6 +80,7 @@
       <div class="utility-card">
         <h2 id="howTitle">How to Play</h2>
         <ol class="rules">
+          <li>Play the main deck in order. It starts ridiculous and gets sneakier.</li>
           <li>Read the scenario aloud.</li>
           <li>Everyone chooses an answer.</li>
           <li>No “it depends” until after choosing.</li>
@@ -87,9 +88,9 @@
           <li>Reveal the Plot Twist.</li>
           <li>Change your mind if you want.</li>
           <li>Argue with the answer, not the person.</li>
-          <li>Use <b>Chaos</b> whenever the room gets too comfortable. It pressure-tests everyone’s current answer by forcing a flip, confidence check, strongest reason, or a clear condition that would change their mind.</li>
+          <li>Hit <b>Chaos</b> whenever someone gets too comfortable. The MCU-style pressure test attacks the reasoning behind the current answer.</li>
         </ol>
-        <div class="rule-highlight">Changing your answer after hearing a better argument is a win. Chaos is there to test an answer, not to derail the card.</div>
+        <div class="rule-highlight">The goal is not to protect your first answer. The best moment is when somebody says, “Okay… that actually changes it.”</div>
       </div>
     </section>
 
@@ -97,7 +98,6 @@
       <header class="utility-header"><button class="icon-btn" data-screen="home" aria-label="Go home">←</button><span>SETTINGS</span><span></span></header>
       <div class="utility-card settings-card">
         <h2 id="settingsTitle">Game Setup</h2>
-        <label class="setting-row"><span><b>Shuffle Cards</b><small>Shuffle the full deck when starting</small></span><input id="shuffleToggle" type="checkbox"></label>
         <label class="setting-row"><span><b>Keep Screen Awake</b><small id="wakeSupportText">Uses the browser wake lock when supported</small></span><input id="wakeToggle" type="checkbox"></label>
         <label class="setting-row"><span><b>Host Prompts</b><small>Show optional discussion nudges</small></span><input id="hostToggle" type="checkbox"></label>
         <button id="resetButton" class="btn btn-danger">RESET GAME DATA</button>
