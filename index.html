@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0b0908">
   <meta name="color-scheme" content="dark">
-  <meta name="description" content="Plot Twist — a campfire scenario game. Pick an answer. Defend it. Then everything changes.">
+  <meta name="description" content="Plot Twist — a social scenario game. Pick an answer. Defend it. Then everything changes.">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icons/icon-192.png" sizes="192x192">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
@@ -19,14 +19,13 @@
   <main id="app" class="app-shell">
     <section id="homeScreen" class="screen screen-home active" aria-labelledby="homeTitle">
       <div class="brand-mark" aria-hidden="true">↻</div>
-      <p class="eyebrow">CAMPFIRE SCENARIO GAME</p>
+      <p class="eyebrow">SOCIAL SCENARIO GAME</p>
       <h1 id="homeTitle">PLOT<br><span>TWIST</span></h1>
       <p class="tagline">Pick an answer. Defend it. Then everything changes.</p>
 
       <div class="home-actions">
         <button id="resumeButton" class="btn btn-primary" data-action="resume" hidden>RESUME GAME</button>
         <button class="btn btn-primary" data-action="start">START GAME</button>
-        <button class="btn btn-secondary" data-action="campfire">CAMPFIRE RUN</button>
         <button class="btn btn-ghost" data-action="random">RANDOM CARD</button>
       </div>
 
@@ -90,15 +89,14 @@
           <li>Argue with the answer, not the person.</li>
           <li>Use <b>Chaos</b> whenever the room gets too comfortable. It pressure-tests everyone’s current answer by forcing a flip, confidence check, strongest reason, or a clear condition that would change their mind.</li>
         </ol>
-        <div class="rule-highlight">Changing your answer after hearing a better argument is a win. Chaos tests an answer; it does not derail the card.</div>
+        <div class="rule-highlight">Changing your answer after hearing a better argument is a win. Chaos is there to test an answer, not to derail the card.</div>
       </div>
     </section>
 
     <section id="settingsScreen" class="screen utility-screen" aria-labelledby="settingsTitle">
       <header class="utility-header"><button class="icon-btn" data-screen="home" aria-label="Go home">←</button><span>SETTINGS</span><span></span></header>
       <div class="utility-card settings-card">
-        <h2 id="settingsTitle">Camp Setup</h2>
-        <label class="setting-row"><span><b>Camp Mode</b><small>Extra-dark interface</small></span><input id="campModeToggle" type="checkbox"></label>
+        <h2 id="settingsTitle">Game Setup</h2>
         <label class="setting-row"><span><b>Shuffle Cards</b><small>Shuffle the full deck when starting</small></span><input id="shuffleToggle" type="checkbox"></label>
         <label class="setting-row"><span><b>Keep Screen Awake</b><small id="wakeSupportText">Uses the browser wake lock when supported</small></span><input id="wakeToggle" type="checkbox"></label>
         <label class="setting-row"><span><b>Host Prompts</b><small>Show optional discussion nudges</small></span><input id="hostToggle" type="checkbox"></label>
@@ -119,7 +117,7 @@
         <div class="brand-mark small" aria-hidden="true">↻</div>
         <p class="eyebrow">RUN COMPLETE</p>
         <h2 id="completeTitle">That got weird.</h2>
-        <p>You made it through the run. Start another deck or pull a completely random card.</p>
+        <p>You made it through the deck. Start a new game or pull a completely random card.</p>
         <button class="btn btn-primary" data-action="start">NEW GAME</button>
         <button class="btn btn-ghost" data-action="random">RANDOM CARD</button>
         <button class="text-btn" data-screen="home">HOME</button>
