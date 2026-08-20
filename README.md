@@ -6,10 +6,10 @@ Offline-first Android-friendly social scenario game.
 
 - Vanilla HTML/CSS/JavaScript, no framework and no build step
 - 24 local scenario cards
-- One primary game flow with optional shuffle
-- Random Card shortcut
+- One intentionally ordered 24-card main game that progresses from silly to deeper reasoning
+- Random Card mode for off-sequence play
 - Hidden Plot Twist stage with reveal animation
-- 10 universal Chaos pressure tests
+- 10 universal MCU-themed Chaos pressure tests
 - Optional Host prompts
 - Saved cards
 - Local game-state persistence
@@ -38,16 +38,18 @@ http://localhost:8080
 
 A PWA should be served over HTTPS on Android. The simplest approach if you already use GitHub is:
 
-1. Put the contents of this folder in the repository root.
-2. In GitHub: **Settings → Pages**.
-3. Under **Build and deployment**, choose **Deploy from a branch**.
-4. Select the `main` branch and `/ (root)`, then save.
-5. Open the HTTPS Pages address in Chrome on the Android phone while you still have internet.
-6. Wait until the bottom of the Plot Twist home screen says **Offline cache ready**.
-7. In Chrome, tap **⋮ → Install app**. On some Chrome versions the menu group may be called **Install and create shortcut**.
-8. Follow the Android prompt and confirm a Plot Twist icon appears on the home screen/app launcher.
+1. Create a GitHub repository, for example `plot-twist`.
+2. Upload the contents of this folder to the repository root.
+3. In GitHub: **Settings → Pages**.
+4. Under **Build and deployment**, choose **Deploy from a branch**.
+5. Select the `main` branch and `/ (root)`, then save.
+6. GitHub will give you an HTTPS Pages address such as `https://USERNAME.github.io/plot-twist/`.
+7. Open that address in Chrome on the Android phone while you still have internet.
+8. Wait until the bottom of the Plot Twist home screen says **Offline cache ready**.
+9. In Chrome, tap **⋮ → Install app**. On some Chrome versions the menu group may be called **Install and create shortcut**.
+10. Follow the Android prompt and confirm a Plot Twist icon appears on the home screen/app launcher.
 
-## Airplane-mode test
+## Airplane-mode test before the trip
 
 Do this before relying on the app:
 
@@ -57,7 +59,7 @@ Do this before relying on the app:
 4. Enable **Airplane mode** and turn Wi-Fi off as well.
 5. Launch Plot Twist from its installed icon, not from an old Chrome tab.
 6. Confirm the same card reopens with the Plot Twist still revealed.
-7. Test **Next Card**, **Random Card**, **Chaos**, **Saved**, and **Settings**.
+7. Test **Next Card**, **Random Card**, **Chaos**, and **Settings**.
 8. Close and reopen it again while still in airplane mode.
 
 If all of that works, the required game assets are cached locally.
@@ -80,6 +82,13 @@ The fallback HTML itself can run without the internet, but service workers and n
 Keep `plot-twist-fallback.html` in your phone's local storage as a second copy of the whole game. It has the cards, styles, game logic, and local-state code embedded into one file and has no network dependency.
 
 It is not an installable PWA when opened as a raw file, but it is useful as an emergency backup if the installed app is ever removed or its browser storage is cleared.
+
+For maximum reliability, keep both:
+
+- the installed PWA, and
+- the single-file fallback in a local folder on the phone.
+
+A packaged APK would add another layer of offline reliability, but it also introduces Android packaging/signing and update overhead. For a small one-trip game, the PWA + single-file backup is the lower-risk setup.
 
 ## Editing or adding cards
 
@@ -110,7 +119,8 @@ To add a card:
 1. Copy an existing card object in `cards.js`.
 2. Give it a new unique numeric `id`.
 3. Change the title/text.
-4. Change `CACHE_NAME` in `sw.js` to a new version, such as `plot-twist-v2.0.1`, so installed devices replace the old cached files.
+4. Keep the card order intentional: the early cards are lighter and the later cards become more reflective.
+5. Change `CACHE_NAME` in `sw.js` to a new version, such as `plot-twist-v3.0.1`, so installed devices replace the old cached files.
 
 The internal `vibe` field is not shown to players.
 
