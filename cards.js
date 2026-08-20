@@ -3,434 +3,401 @@
 const PLOT_TWIST_CARDS = [
   {
     id: 1,
-    title: 'MORPHEUS\' SECOND OFFER',
-    vibe: 'mystery',
+    title: 'JUSTIN HAMMER DEMO NIGHT',
+    vibe: 'warm-up',
     scenario: [
-      'Morpheus from The Matrix sits across from you. No red pill this time. He gives you one red button.',
-      'Press it and you get the correct answer to the biggest questions you have about reality, purpose, death, right and wrong, and what actually matters. No riddles. No hallucination. You will know.'
+      'Justin Hammer rents out Rogers Arena to prove his new combat drone is better than anything Tony Stark built.',
+      'There are lasers, dancers, giant screens, a celebrity host, and 18,000 people chanting his name. Tony shows up late with one ugly little prototype that looks like it was assembled in a garage.'
     ],
-    prompt: 'Pressing it?',
+    prompt: 'You have $1,000 to bet on one machine finishing the test course. Hammer or Stark?',
     twist: [
-      'One answer proves a major belief you have held for years is wrong.',
-      'Another means a part of your current lifestyle would be very hard to justify afterward. Nobody will ever know whether you pressed the button.'
+      'Hammer gives a ten-minute speech about how advanced his drone is. Tony says almost nothing.',
+      'The test starts. Hammer’s drone freezes at obstacle two. Tony’s ugly prototype quietly finishes the course.'
     ],
-    afterPrompt: 'Do you want the truth just as badly when the truth might cost you something?',
-    hostPrompts: ['Which answer would you be most nervous to learn?', 'What would make someone prefer uncertainty over knowing?']
+    afterPrompt: 'Before the test, how much did the stage, confidence, crowd, and reputation actually prove?',
+    hostPrompts: ['What evidence mattered before the machines moved?', 'Why are confident people so easy to believe?']
   },
   {
     id: 2,
-    title: 'THE FOUR FAMILIES',
-    vibe: 'late-night',
+    title: 'HULK\'S PURPLE PANTS THEORY',
+    vibe: 'warm-up',
     scenario: [
-      'Four babies are accidentally switched at birth.',
-      'One grows up in a house that feels like The Fresh Prince of Bel-Air. One gets The Simpsons. One gets the Toretto family from Fast & Furious. One gets Harry Potter’s Dursleys.',
-      'By 30, each has a completely different idea of what a normal family, successful life, good person, and sensible adult looks like.'
+      'Your friend pauses three different Hulk scenes and announces that he has solved Bruce Banner.',
+      'Every time Hulk appears, purple pants are somehow still involved. Your friend says the pants are obviously causing the transformation.'
     ],
-    prompt: 'How much of “normal” did each person actually choose?',
+    prompt: 'How many Hulk appearances would it take before you start believing the pants are involved?',
     twist: [
-      'Years later, all four are shown the same strong evidence that challenges one major belief they learned at home.',
-      'Three immediately say some version of: “That cannot be right. That is not how I was raised.”'
+      'Banner wears purple sweatpants for an entire peaceful Sunday and nothing happens.',
+      'The next day he is wearing a white dress shirt, gets pushed too far, and you already know how that ends.'
     ],
-    afterPrompt: 'When upbringing and evidence collide, which one should get the final vote?',
-    hostPrompts: ['Which beliefs are hardest to recognize as inherited?', 'Does familiarity make a belief more likely to be true?']
+    afterPrompt: 'What would you need before calling the pants a cause instead of a coincidence?',
+    hostPrompts: ['What else happened before each transformation?', 'Where do people confuse “happened together” with “caused it”?']
   },
   {
     id: 3,
-    title: 'THE COUNTER-STRIKE ADMIN',
-    vibe: 'mystery',
+    title: 'LOKI\'S 30 WITNESSES',
+    vibe: 'warm-up',
     scenario: [
-      'It is 2009. You and the guys rent a Counter-Strike server.',
-      'One admin has every permission players can see. He changes maps, rewrites rules, spawns gear, kicks anyone, bans anyone, and shuts the game down whenever he wants.',
-      'He starts calling himself “the highest authority in this world.”'
+      'Loki walks into the room and says Thor smashed your car.',
+      'Then Loki creates 29 perfect copies of himself. All 30 Lokis point at Thor and tell the exact same story. Thor is standing alone saying, “It was not me.”'
     ],
-    prompt: 'From inside the server, does his claim look reasonable?',
+    prompt: 'Thirty witnesses against one. How bad does this look for Thor?',
     twist: [
-      'The hosting company can reset his password, remove every permission, delete the server, cut the hardware, or stop hosting him completely.',
-      'He also has to keep paying them for his “world” to remain online.'
+      'Nick Fury pulls up security footage. Loki smashed the car.',
+      'The 30 witnesses were never 30 independent sources. They were one source repeated 30 times.'
     ],
-    afterPrompt: 'Can something be ultimate if its power and continued existence depend on something above it?',
-    hostPrompts: ['What one fact settles this?', 'Is massive power the same thing as independence?']
+    afterPrompt: 'When does “lots of people are saying it” actually become stronger evidence, and when is it just an echo?',
+    hostPrompts: ['Would 300 Loki copies improve the evidence?', 'How do you tell many sources from one story repeated many times?']
   },
   {
     id: 4,
-    title: 'TONY STARK\'S BLACK BOX',
-    vibe: 'wild',
+    title: 'NICK FURY\'S THREE FILES',
+    vibe: 'warm-up',
     scenario: [
-      'Tony Stark drops a strange black box on your table and walks away before explaining it.',
-      'You discover it charges a phone, warms a coffee, plays music, and makes a surprisingly good paperweight. Everyone starts arguing about what the box is “for.”'
+      'Nick Fury drops three files on the table about the same incident.',
+      'File A is a dramatic 20-second clip with five million views. File B is a confident news breakdown. File C is two hours of ugly raw security footage with timestamps and no commentary.'
     ],
-    prompt: 'How would you decide its actual purpose?',
+    prompt: 'Which file are you opening first if you actually need to know what happened?',
     twist: [
-      'Tony comes back and says those are accidental side uses.',
-      'He built it for one specific job: detecting a deadly gas leak before a human can smell it.'
+      'A and B are both based on C.',
+      'Both edited out different parts because those parts made their story less dramatic.'
     ],
-    afterPrompt: 'If users can invent a hundred enjoyable uses, does that change what the maker actually designed it for?',
-    hostPrompts: ['Can usefulness tell you purpose by itself?', 'Who is in the best position to explain why something was made?']
+    afterPrompt: 'When everyone is arguing about a source, how often should you skip the argument and open the source itself?',
+    hostPrompts: ['Why are summaries easier to consume than evidence?', 'What should make you trust a secondary source?']
   },
   {
     id: 5,
-    title: 'THE VIRAL CLIP',
-    vibe: 'late-night',
+    title: 'CAPTAIN AMERICA GETS CALLED A BOOMER',
+    vibe: 'warm-up',
     scenario: [
-      'A 12-second clip goes viral. A guy you have never met looks arrogant, cruel, and obviously guilty.',
-      'Millions of views. Thousands of comments. Your entire group chat agrees: “This guy is trash.”'
+      'Someone leaves a mystery USB stick in Avengers Tower labelled “SECRET AVENGERS PAYROLL.”',
+      'Steve Rogers says nobody should plug an unknown device into the network. Tony laughs that the guy from 1943 is giving cybersecurity advice.'
     ],
-    prompt: 'How confident are you that you know what happened?',
+    prompt: 'Does Steve being hilariously behind on technology make his advice weaker?',
     twist: [
-      'The full four-minute video appears the next day.',
-      'The 12 seconds were completely real, but the minute immediately before them changes the meaning of what he said.'
+      'An intern plugs it in anyway because the label looks official.',
+      'Every screen in the building locks and JARVIS spends the afternoon cleaning up the mess.'
     ],
-    afterPrompt: 'If every frame was authentic but your conclusion was wrong, what exactly did the viral clip prove?',
-    hostPrompts: ['Can true pieces create a false picture?', 'How much should the crowd affect your confidence?']
+    afterPrompt: 'Should an idea lose points because it sounds old-fashioned, or only because the reasoning behind it is bad?',
+    hostPrompts: ['Can old advice survive new technology?', 'When does “that is outdated” actually answer an argument?']
   },
   {
     id: 6,
-    title: 'YOUR ALGORITHM TWIN',
-    vibe: 'late-night',
+    title: 'WHO IS THE STRONGEST AVENGER?',
+    vibe: 'warm-up',
     scenario: [
-      'You and a friend disagree about something important. Both of you say, “Bro, the evidence is everywhere.”',
-      'You open YouTube, Instagram, Reddit, and Google. Your feeds are packed with people who sound informed and agree with you. His feeds are packed with people who sound informed and agree with him.'
+      'The argument starts exactly how you would expect.',
+      'Thor says he is the strongest Avenger. Hulk looks offended. Tony says strength without intelligence is useless. Steve says the best Avenger is the one you can trust to lead the team.'
     ],
-    prompt: 'Whose internet is showing reality?',
+    prompt: 'Who wins the argument?',
     twist: [
-      'You both open the original source everyone has been arguing about instead of clips discussing it.',
-      'It turns out several confident creators on both sides left out important parts that hurt their own argument.'
+      'JARVIS interrupts and asks one annoying question: “What does strongest mean?”',
+      'Raw lifting power? Combat ability? Leadership? Intelligence? Durability? Suddenly half the disagreement was about four different definitions using the same word.'
     ],
-    afterPrompt: 'When your feed has spent years learning what keeps you watching, what should outrank the feed?',
-    hostPrompts: ['How often do you reach the primary source?', 'Could “everyone I see agrees” be a personalized illusion?']
+    afterPrompt: 'How many arguments survive once everyone is forced to define the important word the same way?',
+    hostPrompts: ['Pick one definition of strongest and answer again.', 'What words cause arguments because people quietly mean different things?']
   },
   {
     id: 7,
-    title: 'THE BOSS VOICE NOTE',
-    vibe: 'mystery',
+    title: 'DOM TORETTO\'S USED CIVIC',
+    vibe: 'evidence',
     scenario: [
-      'At 10 p.m. an unknown number sends you a WhatsApp voice note.',
-      'It sounds exactly like your boss: “Do not come in tomorrow. Buy $3,000 in gift cards for a client tonight. I will reimburse you in the morning.”'
+      'You are buying a used Civic. From a stranger on Marketplace, you want the Carfax, service records, cold start, inspection, and test drive.',
+      'Then Dom Toretto appears, puts a hand on your shoulder, and says the seller is family.'
     ],
-    prompt: 'What has to happen before you spend a dollar?',
+    prompt: 'Are you still doing the inspection?',
     twist: [
-      'The voice knows your nickname, mentions a private meeting from earlier that day, and sounds perfect.',
-      'You also know convincing voice clones exist.'
+      'Everyone acts offended that you would inspect a family car.',
+      'The mechanic finds a disabled check-engine light and brake work that absolutely should have been disclosed.'
     ],
-    afterPrompt: 'What would actually verify the source instead of merely making the message look more convincing?',
-    hostPrompts: ['Would you call a number you already trusted?', 'What makes testimony reliable?']
+    afterPrompt: 'Did knowing the seller justify a lower standard, or did it only make a lower standard feel nicer?',
+    hostPrompts: ['When should trust change how much evidence you need?', 'Where do we use tougher standards on outsiders than on our own side?']
   },
   {
     id: 8,
-    title: 'GOOGLE MAPS VS WAZE VS TOMTOM',
-    vibe: 'mystery',
+    title: 'THE IKEA IRON MAN SUIT',
+    vibe: 'evidence',
     scenario: [
-      'You are driving home from a cabin at night with almost no signal and just enough gas for one wrong detour.',
-      'Google Maps says turn north. Waze says south. An old TomTom says the connecting road does not exist.'
+      'Tony Stark releases a ridiculous flat-pack Iron Man suit. The box has 600 parts, three Allen keys, and a manual thicker than a phone book.',
+      'Your friend says he has built enough IKEA furniture to figure it out without instructions.'
     ],
-    prompt: 'Can all three directions be correct in the same sense?',
+    prompt: 'How far are you letting him get before grabbing the manual?',
     twist: [
-      'All three correctly show your current location, the lake, the highway, and most of the nearby roads.',
-      'They still contradict each other on the exact turn that decides whether you get home.'
+      'Annoyingly, he gets almost everything right.',
+      'Then he installs the power cell in the wrong order. The manual has one boring sentence explaining that this exact mistake cooks the gauntlet.'
     ],
-    afterPrompt: 'Does being right about many surrounding details erase a contradiction on the point that matters?',
-    hostPrompts: ['What would you verify before moving?', 'Can two opposite directions both be right at the same time and in the same sense?']
+    afterPrompt: 'Does being good at figuring things out make the maker’s instructions unnecessary?',
+    hostPrompts: ['What kind of knowledge does the maker have that the user may not?', 'When is experience enough, and when should you check the manual?']
   },
   {
     id: 9,
-    title: 'THE MINECRAFT REDSTONE ROOM',
-    vibe: 'wild',
+    title: 'INCEPTION: EVERYONE SAYS YOU\'RE AWAKE',
+    vibe: 'evidence',
     scenario: [
-      'You start a brand-new Minecraft world on a private server nobody else has joined.',
-      'Twenty minutes in, you find a giant underground redstone machine. Every circuit works. A sign on the wall has your gamer tag on it.'
+      'You are sitting in a restaurant and something feels wrong.',
+      'Fifty people around you insist you are obviously awake. Your closest friend agrees. The waiter laughs at you. Everyone looks completely sincere.'
     ],
-    prompt: 'What is your first serious explanation?',
+    prompt: 'At what point does the crowd become enough to settle it?',
     twist: [
-      'Your friend says: “Maybe the blocks just generated like that. Huge world, enough time, weird things happen.”',
-      'You check the world-generation rules. They do not generate working redstone machines or personalized signs.'
+      'Your personal totem is behaving in the one way you know it should not behave in reality.',
+      'Later you learn the fifty people were all part of the same constructed dream.'
     ],
-    afterPrompt: 'At what point does appealing to randomness stop explaining what is actually in front of you?',
-    hostPrompts: ['Which detail needs a cause beyond normal generation?', 'What would count as an explanation rather than a possibility?']
+    afterPrompt: 'If the crowd and your independent check disagree, what should decide which one gets more weight?',
+    hostPrompts: ['When is consensus powerful evidence?', 'What makes an independent test independent?']
   },
   {
     id: 10,
-    title: 'THE PS5 TEARDOWN',
-    vibe: 'mystery',
+    title: 'THE HOGWARTS HOUSE EXPERIMENT',
+    vibe: 'evidence',
     scenario: [
-      'A hardware engineer tears down a PlayStation 5 and explains everything: the power supply, cooling, memory, processor, data flow, fan control, and exactly what happens when you press the power button.',
-      'He can describe the physical mechanism better than anyone in the room.'
+      'Imagine Hogwarts does something stupid for 30 years: children are assigned a House as babies instead of when they arrive at school.',
+      'Gryffindor families raise Gryffindors, Slytherin families raise Slytherins, and every child grows up hearing why their House sees the world correctly.'
     ],
-    prompt: 'Has he explained everything there is to explain about the PS5?',
+    prompt: 'By age 30, how many people would think they independently figured out that their House is the best?',
     twist: [
-      'You ask, “Why was this machine made in the first place, and who decided what it should do?”',
-      'He replies, “I already explained the electricity and components. There is nothing left to ask.”'
+      'A new Sorting Hat tests everyone from scratch.',
+      'A huge number of adults belong in a different House than the one they spent their whole life defending.'
     ],
-    afterPrompt: 'Does explaining how a system operates automatically answer why it exists or where its purpose came from?',
-    hostPrompts: ['Are “how?” and “why?” always the same question?', 'Can a mechanism be complete while a different kind of explanation is still missing?']
+    afterPrompt: 'How do you tell the difference between a belief you reached and a belief that reached you first?',
+    hostPrompts: ['Which beliefs feel like personality because you learned them early?', 'Does inheriting an idea make it false, true, or simply untested?']
   },
   {
     id: 11,
-    title: 'MIKE HOLMES VS THE REALTOR',
-    vibe: 'choices',
+    title: 'BARBOSSA\'S VERY CONVENIENT CODE',
+    vibe: 'evidence',
     scenario: [
-      'You are about to buy a house. The realtor says it is a steal and warns that ten other buyers are ready to waive inspection.',
-      'Then Mike Holmes walks through, points at one foundation crack, and says, “I would not buy this until that is checked.”'
+      'Captain Barbossa has a pirate rulebook.',
+      'Whenever a rule helps him, he treats it like sacred law. Whenever the same rule hurts him, he suddenly explains that the code is flexible and everyone is being too literal.'
     ],
-    prompt: 'Who gets more weight before you sign?',
+    prompt: 'How many convenient exceptions before you stop calling this a rule?',
     twist: [
-      'The realtor has hundreds of five-star reviews and has sold houses for 20 years.',
-      'Mike shows you moisture readings, movement around the crack, and exactly what he thinks needs testing.'
+      'You catch him using opposite interpretations of the exact same rule within ten minutes.',
+      'Both interpretations just happen to benefit Barbossa.'
     ],
-    afterPrompt: 'When status, experience, popularity, and evidence point in different directions, what should actually decide?',
-    hostPrompts: ['When is expertise legitimate evidence?', 'Would ten competing offers make the crack disappear?']
+    afterPrompt: 'What would a fair standard look like if you had to accept it even when it worked against you?',
+    hostPrompts: ['When is an exception legitimate?', 'What rule do people suddenly reinterpret when they are the one losing?']
   },
   {
     id: 12,
-    title: 'THE ONE WRONG BELIEF',
-    vibe: 'late-night',
+    title: 'THE AVENGERS PRANK VOTE',
+    vibe: 'evidence',
     scenario: [
-      'A machine scans your brain and prints one sentence:',
-      '“One major thing you currently believe is completely wrong.”',
-      'It refuses to tell you which belief.'
+      'The Avengers group chat votes 5–1 to replace Thor’s shampoo with permanent glitter dye while he sleeps.',
+      'Everyone except Thor thinks it is hilarious. The majority has spoken.'
     ],
-    prompt: 'What part of your life are you investigating first?',
-    choices: ['Money', 'Marriage', 'Health', 'Politics', 'Parenting', 'Morality', 'Life purpose', 'Something else'],
+    prompt: 'Does a 5–1 vote make the prank fair?',
     twist: [
-      'The wrong belief entered your head before age 18.',
-      'You cannot remember ever choosing it. You just heard it enough times that eventually it became part of “how the world works.”'
+      'The next week the group votes 5–1 to factory-reset your PlayStation and delete every save file because they think your reaction will be hilarious.',
+      'You are the one vote.'
     ],
-    afterPrompt: 'How do you test something that has always felt like common sense?',
-    hostPrompts: ['What would you use as evidence against yourself?', 'Which beliefs have you never actually had to defend?']
+    afterPrompt: 'If majority approval creates the rule, what argument do you have when the majority turns on you?',
+    hostPrompts: ['Does popularity decide what is right?', 'Would your rule survive if you were always in the minority?']
   },
   {
     id: 13,
-    title: 'THE COUSIN\'S CIVIC',
-    vibe: 'choices',
+    title: 'THE DARK KNIGHT CLIP',
+    vibe: 'pressure',
     scenario: [
-      'You are buying a used Civic on Marketplace.',
-      'From a stranger, you demand service records, a Carfax, a cold start, an inspection, and a test drive. Fair enough.'
+      'A real security clip hits the internet showing Batman throwing a man through a glass door.',
+      'No CGI. No deepfake. The clip is authentic. Everyone watching the twelve seconds reaches the same obvious conclusion.'
     ],
-    prompt: 'Would you use the same checklist if the seller was your cousin?',
+    prompt: 'If the video is genuine, how confident are you that the conclusion is genuine too?',
     twist: [
-      'Your cousin says, “Come on, you know me. I would never screw you.”',
-      'Later you learn the check-engine light was disabled before the sale.'
+      'The full recording appears.',
+      'Seconds earlier, the man grabbed a detonator and was about to trigger something. The twelve-second clip was real and still told a badly incomplete story.'
     ],
-    afterPrompt: 'Did knowing the seller justify lowering the standard of evidence, or did it only make lowering it feel comfortable?',
-    hostPrompts: ['When is trust relevant evidence?', 'Where else do we demand proof from strangers but accept “trust me” from our own side?']
+    afterPrompt: 'Can every piece of evidence shown to you be true while the picture built from those pieces is false?',
+    hostPrompts: ['What was missing: facts or context?', 'How do you notice when someone selected only the part that helps them?']
   },
   {
     id: 14,
-    title: 'SEAT 1A',
-    vibe: 'late-night',
+    title: 'MORPHEUS\' THREE BUTTONS',
+    vibe: 'pressure',
     scenario: [
-      'You wake up in a luxury first-class seat on a plane. You do not remember boarding.',
-      'The food is amazing. The seat turns into a bed. Your favourite movies are loaded. Wi-Fi works. Everyone keeps telling you to relax and enjoy it.'
+      'Morpheus puts three buttons on the table.',
+      'Blue gives you $10,000. Green permanently settles every sports and movie argument you have ever had. Red gives you the correct answer to one major question about your life that you have never been able to settle.'
     ],
-    prompt: 'What are the first three things you would want to know?',
+    prompt: 'Which button are you pressing?',
     twist: [
-      'Every time you ask where the plane came from, where it is going, why you are on it, or what happens when it lands, someone hands you better food or puts on another movie.',
-      'Nobody answers the questions.'
+      'The red button comes with one warning: the answer may prove that something you enjoy, defend, or have built part of your identity around is wrong.',
+      'Nobody else will ever know what the answer was.'
     ],
-    afterPrompt: 'Can comfort make questions about origin, purpose, and destination stop mattering?',
-    hostPrompts: ['How long would entertainment distract you?', 'Which question becomes impossible to ignore?']
+    afterPrompt: 'How much easier is truth-seeking when the answer cannot cost you anything?',
+    hostPrompts: ['What kind of answer would make the blue button tempting?', 'What is the difference between wanting an answer and wanting your answer confirmed?']
   },
   {
     id: 15,
-    title: 'THE FOUR BOSSES',
-    vibe: 'wild',
+    title: 'JURASSIC PARK IN YOUR BACKYARD',
+    vibe: 'pressure',
     scenario: [
-      'Your life somehow turns into The Office and four people believe they are your boss.',
-      'Michael wants you at the party. Dwight wants you on an emergency safety drill. Corporate wants the report finished tonight. Your biggest client says ignore all three and fix his problem now.',
-      'Each can reward you, punish you, or make tomorrow painful.'
+      'John Hammond offers you one cloned dinosaur for free.',
+      'Your choice. Triceratops, raptor, T-Rex, whatever. The technology works and the dinosaur is genuinely yours.'
     ],
-    prompt: 'Who are you actually obeying?',
+    prompt: 'What are you picking?',
     twist: [
-      'David Wallace calls and says only one of those people has final authority over your role. The others matter, but their demands are subordinate to his decision.',
-      'Suddenly the conflict becomes much easier to sort.'
+      'Hammond explains that “we can make it” was the easy question.',
+      'Now you need insurance, food, fencing, a veterinarian, neighbours who do not hate you, and a plan for the first time your dinosaur ignores the fence.'
     ],
-    afterPrompt: 'What happens to a person when several competing things all act like the final boss?',
-    hostPrompts: ['What gets your obedience when priorities collide?', 'Can you have several ultimate priorities at once?']
+    afterPrompt: 'How often do people answer “Can we?” and quietly pretend they also answered “Should we?”',
+    hostPrompts: ['What consequences should be considered before the exciting part?', 'Can something be possible and still be a terrible idea?']
   },
   {
     id: 16,
-    title: 'JACK BAUER\'S LAST 24',
-    vibe: 'late-night',
+    title: 'TONY STARK\'S MYSTERY GADGET',
+    vibe: 'pressure',
     scenario: [
-      'You get the Jack Bauer clock: 24:00:00.',
-      'You know with absolute certainty that when it hits zero, your life ends. You are healthy, awake, and cannot spend the time trying to stop it.'
+      'Tony Stark leaves a strange metal gadget on your kitchen counter without explaining it.',
+      'You discover it charges phones, keeps coffee warm, opens stubborn jar lids, and is heavy enough to stop a door. Everyone starts arguing about what Tony made it for.'
     ],
-    prompt: 'What are you doing with the first six hours?',
+    prompt: 'How would you figure out its actual intended purpose?',
     twist: [
-      'Your bank balance, job title, unread emails, online arguments, unfinished shows, and every thing you wanted to buy will still exist tomorrow.',
-      'You will not.'
+      'Tony returns and says every use you discovered is real but secondary.',
+      'He designed the gadget to detect a dangerous gas leak before a human can smell it.'
     ],
-    afterPrompt: 'What just moved up your priority list, and what suddenly looks embarrassingly small?',
-    hostPrompts: ['What would you regret not fixing?', 'Why do some priorities change only when time becomes visible?']
+    afterPrompt: 'Can users discover useful things about an object without being the best source for why it was made?',
+    hostPrompts: ['Is “what I enjoy using it for” the same as “what it is for”?', 'Who is uniquely positioned to know the intended purpose?']
   },
   {
     id: 17,
-    title: 'THE TRUMAN SHOW EXIT',
-    vibe: 'mystery',
+    title: 'GTA INVINCIBLE MODE',
+    vibe: 'pressure',
     scenario: [
-      'You discover your life has a Truman Show problem. The town is staged, the news is curated, and some people around you have been steering what you believe.',
-      'At the edge of the set is one real exit door.'
+      'You turn on every cheat in GTA.',
+      'Infinite health. Unlimited weapons. Spawn any vehicle. Change the weather. Police cannot touch you. Inside Los Santos, you look basically unstoppable.'
     ],
-    prompt: 'Walking through it?',
+    prompt: 'From the perspective of an NPC, are you the highest power in that world?',
     twist: [
-      'Life inside is comfortable. Your job is secure. Your friends stay. Your routines stay.',
-      'Outside, you get reality, but you may lose status, certainty, and some people who think leaving is stupid.'
+      'Your little brother walks into the room and pulls the console plug.',
+      'Then Rockstar patches the cheat. Your entire “unlimited power” existed only while a system outside the game allowed it.'
     ],
-    afterPrompt: 'How much comfort would it take to make you voluntarily stay inside something you knew was false?',
-    hostPrompts: ['Does social cost change what is true?', 'Would you rather be comfortable and wrong or unsettled and right?']
+    afterPrompt: 'Can something be ultimate inside a system if it still depends on something beyond that system?',
+    hostPrompts: ['What matters more: how much power you have or whether your power is dependent?', 'Does invincibility inside the game make the player independent of the console?']
   },
   {
     id: 18,
-    title: 'THE GROUP CHAT VOTE',
-    vibe: 'choices',
+    title: 'THE PS5 TEARDOWN GUY',
+    vibe: 'pressure',
     scenario: [
-      'A friend leaves his unlocked phone on the table. Someone in the guys’ chat says it is fine to read his messages because “if he has nothing to hide, who cares?”',
-      'The group votes 9 to 1 that checking is acceptable.'
+      'Your friend can explain a PlayStation 5 down to an absurd level.',
+      'He knows the processor, memory, cooling, voltage, data flow, fan curves, controller signals, and exactly what happens electrically when you press the power button.'
     ],
-    prompt: 'Does the vote make it okay?',
+    prompt: 'Has he completely explained the PS5?',
     twist: [
-      'The next week the same group votes 9 to 1 that your phone should be searched because you have been “acting suspicious.”',
-      'Everyone repeats the exact argument you accepted last week.'
+      'You ask why the console was made, why the controller has the layout it does, and what goal the designers were trying to achieve.',
+      'He says those questions are unnecessary because he already explained the hardware.'
     ],
-    afterPrompt: 'Does a rule become weaker when you are the one underneath it, or did your standard change?',
-    hostPrompts: ['Would you accept your own principle from the other side?', 'Can popularity turn a wrong action into a right one?']
+    afterPrompt: 'Does a complete explanation of how something operates automatically answer every question about why it exists?',
+    hostPrompts: ['Can “how?” and “why?” both be valid questions?', 'What kind of question can a teardown answer, and what kind can it not answer by itself?']
   },
   {
     id: 19,
-    title: 'THE FORUM LEGEND',
-    vibe: 'wild',
+    title: 'THE TRUMAN SHOW PREMIUM PACKAGE',
+    vibe: 'deeper',
     scenario: [
-      'Your car has a weird transmission problem. On an old enthusiast forum, a member with 42,000 posts says, “Trust me, these transmissions all do that. Drive it.”',
-      'A brand-new account says the opposite.'
+      'You discover your life is a Truman Show set.',
+      'There is one exit door to the real world. But inside the set your mortgage is paid, traffic is light, every restaurant has a table, and the Leafs win the Stanley Cup every three years.'
     ],
-    prompt: 'Whose advice are you following?',
+    prompt: 'Are you still walking out?',
     twist: [
-      'The new account posts the factory service manual, the exact pressure specification, a scan log from your model, and measurements showing yours is outside spec.',
-      'The forum legend replies: “Bro, I have been here since 2004.”'
+      'Outside the door is ordinary reality: bills, uncertainty, bad weather, and the Leafs return to being the Leafs.',
+      'Inside is comfortable, but you now know the entire environment was built to keep you from asking what is outside.'
     ],
-    afterPrompt: 'When does reputation stop being an argument?',
-    hostPrompts: ['What should relevant expertise look like?', 'Can accomplishment replace evidence for the exact claim?']
+    afterPrompt: 'How comfortable would a false world have to become before you willingly stopped caring that it was false?',
+    hostPrompts: ['Does comfort change truth or only motivation?', 'What would make someone defend the set after discovering the door?']
   },
   {
     id: 20,
-    title: 'THE LEAFS JERSEY',
-    vibe: 'chaos',
+    title: 'THE ONE RING: ONE WEEK ONLY',
+    vibe: 'deeper',
     scenario: [
-      'Your friend wears the same Leafs jersey during six straight wins.',
-      'He now refuses to watch without it because, according to him, “the numbers do not lie.”'
+      'You get the One Ring for exactly seven days.',
+      'You cannot keep it afterward. You can use it to fix one financial problem, get out of one embarrassing situation, or pull one legendary prank before destroying it.'
     ],
-    prompt: 'Are you letting him say the jersey is helping?',
+    prompt: 'Can you safely use it for one week?',
     twist: [
-      'They lose when he wears it: “I washed it wrong.”',
-      'They win when he forgets it: “The luck carried over.” Every possible result somehow keeps the jersey theory alive.'
+      'Every person in the room immediately explains why they personally would be disciplined enough to handle it.',
+      'Unfortunately, nearly everyone who has ever been corrupted by the Ring also believed they would be the exception.'
     ],
-    afterPrompt: 'If no possible result could prove a claim wrong, what exactly is being tested?',
-    hostPrompts: ['What evidence would actually connect the jersey to the score?', 'What would he have to see to change his mind?']
+    afterPrompt: 'When the thing being tested is your own judgement, how much should “I know myself” count as evidence?',
+    hostPrompts: ['What evidence about yourself would you trust more than confidence?', 'Why do people notice bias more easily in everyone else?']
   },
   {
     id: 21,
-    title: 'THE GOAT DEBATE',
-    vibe: 'chaos',
+    title: 'BACK TO THE FUTURE: SCREEN TIME 2036',
+    vibe: 'deeper',
     scenario: [
-      'The room makes the terrible decision to settle the GOAT debate.',
-      'One guy says Michael Jordan. One says LeBron. Someone brings up Kobe. Statistics are flying. Nobody is backing down.'
+      'Doc Brown takes you ten years into the future and hands you your phone.',
+      'Your Screen Time report says you averaged six hours a day for the decade. You have watched thousands of videos, finished an unreasonable number of shows, and are still saving “life-changing” videos to Watch Later.'
     ],
-    prompt: 'What does “greatest” actually mean before the argument starts?',
+    prompt: 'Is future-you going to be impressed with how current-you spent the time?',
     twist: [
-      'You notice everyone keeps changing the definition whenever his favourite player loses a category.',
-      '“Greatest means rings.” Then longevity. Then peak dominance. Then cultural impact. Then back to rings.'
+      'Doc explains this future is not fixed.',
+      'He did not show you a curse. He showed you the boring result of your current habits continuing without interruption.'
     ],
-    afterPrompt: 'Can an argument ever finish if the key word changes meaning every time the conclusion is threatened?',
-    hostPrompts: ['What definition would everyone agree to before seeing the numbers?', 'How often do arguments survive only because a word keeps moving?']
+    afterPrompt: 'If a habit keeps producing the same direction, when does “I will deal with it later” stop being a plan?',
+    hostPrompts: ['What small habit compounds hardest over ten years?', 'What outcome do people want while keeping the habits that prevent it?']
   },
   {
     id: 22,
-    title: 'THE SIDE HUSTLE',
-    vibe: 'choices',
+    title: 'THE CLICK REMOTE',
+    vibe: 'deeper',
     scenario: [
-      'You have spent two years and $20,000 building a side business.',
-      'You like the idea. Your friends know about it. You have a logo, website, equipment, and a lot of pride tied to making it work.'
+      'You get the remote from Click.',
+      'You can fast-forward traffic, chores, workouts, boring meetings, awkward family events, waiting rooms, and any conversation that feels repetitive.'
     ],
-    prompt: 'How much evidence would you need before admitting the idea itself may be bad?',
+    prompt: 'What are you fast-forwarding first?',
     twist: [
-      'After six months of proper testing, almost nobody will pay for it. A simpler idea you discovered last week is getting real customers immediately.',
-      'The only strong argument for the old project is: “I have already put too much into this to quit.”'
+      'The remote learns your preferences.',
+      'Eventually it starts skipping anything you repeatedly treated as “boring,” including moments that later turn out to be the ones you wish you had actually lived through.'
     ],
-    afterPrompt: 'Should yesterday’s investment decide tomorrow’s decision?',
-    hostPrompts: ['What would you advise a friend in the same position?', 'When does persistence become ego protecting a sunk cost?']
+    afterPrompt: 'How good are we at judging which boring moments are actually worthless while we are inside them?',
+    hostPrompts: ['What would younger-you fast-forward that current-you would keep?', 'Can constant convenience train you to avoid things that matter?']
   },
   {
     id: 23,
-    title: 'THE SCREEN TIME RECEIPT',
-    vibe: 'late-night',
+    title: 'THE FOUR BOSSES OF SATURDAY',
+    vibe: 'deeper',
     scenario: [
-      'Someone asks what matters most to you. You answer quickly: family, health, becoming better, doing something meaningful with your life.',
-      'Fair answer.'
+      'Saturday morning gets ridiculous.',
+      'Nick Fury wants you to answer a work emergency. Thor wants you at the gym. Dom Toretto wants you at the family barbecue. Tony Stark has box seats and says the boys are leaving in twenty minutes.'
     ],
-    prompt: 'What would you expect your actual week to look like if that answer is true?',
+    prompt: 'Who gets the Saturday?',
     twist: [
-      'Your phone prints a receipt for the last 52 weeks: hundreds of hours of short videos, feeds, sports clips, arguments, shows, and random scrolling.',
-      'It also prints how much deliberate time went toward the things you said matter most.'
+      'At 4 p.m. you realize you chose none of them.',
+      'You spent four hours bouncing between YouTube, group chats, news, Marketplace, and one video explaining why you should stop wasting time on your phone.'
     ],
-    afterPrompt: 'When stated beliefs and repeated behaviour disagree, which one better predicts the person you are becoming?',
-    hostPrompts: ['What does a habit strengthen over five years?', 'What would have to change if the belief were more than a slogan?']
+    afterPrompt: 'When your stated priorities and your actual attention disagree, which one is a better clue about what is really in charge?',
+    hostPrompts: ['What wins your attention without ever being chosen?', 'What does a priority look like in behaviour instead of words?']
   },
   {
     id: 24,
-    title: 'THE SIMPSONS PREDICTED IT',
-    vibe: 'wild',
+    title: 'TONY STARK\'S $10,000 BET',
+    vibe: 'finale',
     scenario: [
-      'Your friend sends you another compilation: “The Simpsons predicted the future AGAIN.”',
-      'Smartwatches. Presidents. Technology. Weird headlines. The coincidences look creepy when they are edited together.'
+      'Tony Stark puts $10,000 on the table.',
+      'To win it, pick one important opinion you defended tonight and name one specific piece of evidence that would genuinely make you change your mind.'
     ],
-    prompt: 'How strong is the case that the show somehow predicts future events?',
+    prompt: 'Can you name the evidence without changing the subject?',
     twist: [
-      'You are shown thousands of jokes, scenes, inventions, elections, disasters, products, and predictions from decades of episodes that never happened.',
-      'The viral compilation was built only after looking backward and selecting the hits.'
+      'If your answer is “nothing could change my mind,” Tony keeps the money.',
+      'If you can name a real condition and admit you would follow the evidence even if it embarrassed you, the money is yours.'
     ],
-    afterPrompt: 'How different does a pattern look when you see the misses instead of drawing the target around the hits?',
-    hostPrompts: ['Was the pattern predicted first or found afterward?', 'What does the complete dataset do to the claim?']
+    afterPrompt: 'Which is harder: having a strong belief, or having a strong belief that is still allowed to lose?',
+    hostPrompts: ['Which card tonight actually changed your answer?', 'What is one belief you are confident about but still willing to test?']
   }
 ];
 
+// Chaos is a universal pressure-test. The MCU labels keep it playful, but every
+// modifier applies to any card and tests the reasoning behind the current answer.
 const CHAOS_MODIFIERS = [
-  {
-    name: 'FLIP IT',
-    text: 'For 30 seconds, make the strongest possible case against your current answer. No cartoon version of the other side.'
-  },
-  {
-    name: 'PROVE IT',
-    text: 'What is the best actual evidence for your current answer? Separate evidence from intuition, popularity, and confidence.'
-  },
-  {
-    name: 'LINE IN THE SAND',
-    text: 'Name one specific fact that would make you change your answer. If nothing could, explain why your answer is impossible to test.'
-  },
-  {
-    name: 'SAME STANDARD',
-    text: 'Would you accept this exact reasoning if it supported the opposite side? If not, identify the relevant difference.'
-  },
-  {
-    name: 'SOURCE CHECK',
-    text: 'What are you trusting here: the claim, the evidence, the person saying it, the crowd repeating it, or the source behind it?'
-  },
-  {
-    name: 'CAUSE CHECK',
-    text: 'You have an outcome. What evidence shows the thing you named actually caused it instead of merely appearing beside it?'
-  },
-  {
-    name: 'DEFINE IT',
-    text: 'Pick the most important word in the argument. Define it in one sentence and keep that definition fixed for the rest of the card.'
-  },
-  {
-    name: 'NO AUDIENCE',
-    text: 'Imagine nobody you respect will ever know your answer. Same answer, or was social pressure doing part of the thinking?'
-  },
-  {
-    name: 'ONE REASON',
-    text: 'Delete every weak argument. What is the single strongest reason for your answer?'
-  },
-  {
-    name: 'WHAT FOLLOWS?',
-    text: 'Assume your answer is true. What would logically have to change in your behaviour, priorities, or next decision?'
-  }
+  { name: 'LOKI MODE', text: 'For 30 seconds, defend the opposite answer as convincingly as you can. No deliberately weak version.' },
+  { name: 'STARK RECEIPTS', text: 'Give one actual piece of evidence for your answer. Confidence, vibes, and “everyone knows” do not count.' },
+  { name: 'CAP\'S STANDARD', text: 'Would you accept the exact same reasoning if it supported the other side instead?' },
+  { name: 'FURY CHECK', text: 'What is the source of the claim you are relying on? How close is it to the original evidence?' },
+  { name: 'BANNER TEST', text: 'Name one specific fact that would make you change your answer before this turns into a Hulk situation.' },
+  { name: 'JARVIS: DEFINE IT', text: 'Pick the most important word in the argument and define exactly what you mean by it.' },
+  { name: 'HAWKEYE BLIND SPOT', text: 'What relevant fact would hurt your answer the most if it turned out to be true?' },
+  { name: 'BLACK WIDOW MOTIVE CHECK', text: 'What do you personally gain if your answer is right? That does not make you wrong, but it may explain a bias worth checking.' },
+  { name: 'MJOLNIR', text: 'You get one reason only. Which single reason is strong enough to carry your whole answer?' },
+  { name: 'COULSON CALLBACK', text: 'If your answer is actually true, what should logically follow from it in the real world?' }
 ];
