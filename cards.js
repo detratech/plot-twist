@@ -3,404 +3,401 @@
 const PLOT_TWIST_CARDS = [
   {
     id: 1,
-    title: 'TELEPORT SNEEZE',
+    title: 'THE NIGHTCRAWLER SNEEZE',
     vibe: 'chaos',
     scenario: [
-      'You get $5 million, tax-free. It is in your account tonight.',
-      'The catch: every time you sneeze, you instantly teleport to a random spot somewhere within 50 km.'
+      'You get $5 million tonight.',
+      'You also get basically Nightcrawler’s X-Men power, except you do not control it. Every time you sneeze, you teleport somewhere random within 50 km.'
     ],
-    prompt: 'You have ten seconds. Taking the deal?',
+    prompt: 'Taking the money and the power?',
     twist: [
-      'Your phone, wallet, keys, and whatever you were carrying stay behind.',
+      'Your clothes come with you. Your phone, wallet, keys, groceries, coffee, and anything you were holding do not.',
       'If you sneeze again before getting home, the next 50 km starts from wherever you landed.'
     ],
-    afterPrompt: 'Still worth it, or did $5 million just buy you a lifetime of never trusting your own nose?',
-    hostPrompts: ['What is your first rule for allergy season?', 'How much money would make this an automatic yes?']
+    afterPrompt: 'Still taking it, or did $5 million just turn allergy season into a survival game?',
+    hostPrompts: ['What is your first rule for leaving the house?', 'How much money would make the risk worth it?']
   },
   {
     id: 2,
-    title: 'THE OLD SEARCH HISTORY',
+    title: 'YOUR 2006 SEARCH HISTORY',
     vibe: 'chaos',
     scenario: [
       'Someone offers you $250,000 cash.',
-      'In return, your complete browser and search history from age 15 to 22 gets sent to your closest friends, your spouse or future spouse, and your parents.'
+      'The price is your complete internet history from age 15 to 22: Google searches, YouTube rabbit holes, weird forums, old MSN-era nonsense, all of it. Your closest friends, spouse or future spouse, and parents get a copy.'
     ],
     prompt: 'Taking the money?',
     twist: [
-      'You are allowed to permanently delete exactly one search before the file gets sent.',
-      'Everyone will know you used the deletion.'
+      'You can permanently delete exactly one search before the file goes out.',
+      'Everyone will see a giant line that says: ONE ITEM DELETED.'
     ],
-    afterPrompt: 'Is one mystery worse than letting them see the whole thing?',
-    hostPrompts: ['Would you rather explain everything or leave one suspicious blank?', 'How much of your younger self still feels like “you”?']
+    afterPrompt: 'Deleting one, or is the mysterious blank somehow worse than the truth?',
+    hostPrompts: ['What would make the blank more suspicious than the actual history?', 'How much should dumb teenage-you count against adult-you?']
   },
   {
     id: 3,
-    title: 'THE BABY MIX-UP',
+    title: 'THE FOUR FAMILIES',
     vibe: 'late-night',
     scenario: [
-      'A hospital makes a massive mistake. Four babies go home with four completely different families in four different parts of the world.',
-      'Different languages. Different rules. Different ideas about family, success, right and wrong, and what a normal life looks like.',
-      'Twenty-five years later, all four meet.'
+      'Four babies are accidentally switched at birth.',
+      'One grows up in a home that feels like The Fresh Prince of Bel-Air. One gets The Simpsons. One gets the Toretto family from Fast & Furious. One gets Harry Potter’s Dursleys.',
+      'Same starting age. Completely different rules, heroes, fears, expectations, and definitions of “normal.”'
     ],
-    prompt: 'How much of what they believe came from them, and how much came from where they happened to land?',
+    prompt: 'At 30 years old, how different are these four people going to be?',
     twist: [
-      'All four are intelligent and sincere.',
-      'All four are also completely convinced that their own way of seeing life is just “obviously normal.”'
+      'All four are intelligent, decent people who sincerely think the household they grew up in taught them the normal way to see life.',
+      'None of them chose the family that taught them what “obvious” meant.'
     ],
-    afterPrompt: 'If four smart people can inherit four different versions of “obvious,” what should actually decide who is right?',
-    hostPrompts: ['What would be hardest for each person to question?', 'Which of your own beliefs did you choose, and which did you inherit?']
+    afterPrompt: 'When four sincere people inherit four different versions of normal, what should decide which beliefs survive adulthood?',
+    hostPrompts: ['What would each person find hardest to question?', 'Which of your own beliefs did you actually choose?']
   },
   {
     id: 4,
-    title: 'THE LIMEWIRE DOWNLOAD',
+    title: 'THE LIMEWIRE GAMBLE',
     vibe: 'wild',
     scenario: [
-      'It is 2007. You have waited two hours for a movie to download.',
-      'File A has thousands of downloads and a pile of comments saying “works perfect.” File B has almost no downloads, but it came from the one uploader your friend has trusted for years.'
+      'It is 2008. You have spent two hours downloading “The Dark Knight DVDRip REAL FINAL.avi” on LimeWire.',
+      'File A has 20,000 downloads and comments saying “100% legit.” File B has barely any downloads, but it came from the one uploader your friend has trusted for years.'
     ],
-    prompt: 'Which file are you opening first?',
+    prompt: 'Which one are you double-clicking?',
     twist: [
-      'File A has the exact right title, file size, and thumbnail.',
-      'The uploader created the account yesterday.'
+      'File A has the perfect title, file size, thumbnail, and thousands of happy comments.',
+      'The uploader account was created yesterday. Also, somewhere in the folder is an .exe file wearing a movie icon.'
     ],
-    afterPrompt: 'What matters more when you cannot inspect the file yourself: popularity, appearance, or where it actually came from?',
-    hostPrompts: ['What used to make you trust something online?', 'How much did a crowd of strangers influence you back then?']
+    afterPrompt: 'What should matter most when something can look convincing before you know where it really came from?',
+    hostPrompts: ['What made something online feel trustworthy back then?', 'How much should popularity count as evidence?']
   },
   {
     id: 5,
-    title: 'THE RED BUTTON',
+    title: 'MORPHEUS HAS A BUTTON',
     vibe: 'mystery',
     scenario: [
-      'You find a ridiculous red button in the forest.',
-      'The sign says: “Press once and learn the real answer to every major mystery about life.”',
-      'No trick. It actually works.'
+      'Morpheus from The Matrix sits across from you and slides over a red button.',
+      'Press it once and you instantly learn the real answer to every major mystery about your life, reality, purpose, and what actually matters. No riddles. No uncertainty.'
     ],
     prompt: 'Pressing it?',
     twist: [
-      'The button does not force you to change anything afterward.',
-      'But some answers could make your current habits, priorities, friendships, or way of living much harder to justify to yourself.'
+      'Nothing forces you to act on what you learn.',
+      'But some answers could make the way you currently spend your time, money, attention, or weekends very hard to defend to yourself afterward.'
     ],
-    afterPrompt: 'Do you still want the truth if ignorance would be more comfortable?',
-    hostPrompts: ['Which answer would you be most nervous to learn?', 'Is there anything you would rather stay comfortably wrong about?']
+    afterPrompt: 'Do you still want the answer if knowing might cost you a comfortable life?',
+    hostPrompts: ['Which answer would you be most nervous to learn?', 'Is there anything you would genuinely rather stay wrong about?']
   },
   {
     id: 6,
-    title: 'THE IMPOSSIBLE CABIN',
+    title: 'THE RON SWANSON CABIN',
     vibe: 'mystery',
     scenario: [
-      'You and the guys hike hours into untouched wilderness. No road, no trail, no footprints, no sign anyone has been there.',
-      'Then you find a perfect cabin. Fire burning. Food hot. Beds made. Dry firewood stacked.',
-      'Each bed has one of your names written above it.'
+      'You and the guys hike hours into untouched wilderness. No road, no trail, no tracks.',
+      'Then you find a cabin that looks like Ron Swanson personally spent six months building it: perfect joinery, stacked firewood, steaks resting beside a hot cast-iron pan, beds made, fire going.',
+      'Each bed has one of your names carved into a wooden plaque.'
     ],
     prompt: 'What is your first serious explanation?',
     twist: [
-      'One guy shrugs: “Maybe nobody prepared it. Weird stuff happens if you give nature enough time.”',
-      'He cannot explain the names, the hot food, or why it was ready on the exact night you arrived.'
+      'One guy says, “Nobody had to make it. Forests are old. Give random stuff enough time and weird things happen.”',
+      'He has no explanation for the names, hot food, cut lumber, or why it was ready tonight.'
     ],
-    afterPrompt: 'At what point is “weird stuff happens” not actually an explanation anymore?',
-    hostPrompts: ['Which detail carries the most weight?', 'What does a good explanation have to explain rather than ignore?']
+    afterPrompt: 'When does “random stuff happens” stop being an explanation and become a way of avoiding one?',
+    hostPrompts: ['Which detail is hardest to dismiss?', 'What must an explanation actually account for?']
   },
   {
     id: 7,
-    title: 'THE FACEBOOK ALBUM',
+    title: 'FACEBOOK: SUMMER 2009',
     vibe: 'chaos',
     scenario: [
       'You get $1 million.',
-      'But every tagged photo of you from 2007 to 2012 comes back online permanently. Frosted tips, terrible outfits, awkward poses, everything.'
+      'But every Facebook photo of you from 2007 to 2012 comes back online permanently: blurry club photos, terrible hair, BlackBerry mirror selfies, questionable outfits, album names like “SUMMER 09!!!”, everything.'
     ],
     prompt: 'Easy money?',
     twist: [
-      'Whenever someone searches your name, those photos appear before anything you have done as an adult.',
-      'You are never allowed to explain that “it was a different time.”'
+      'Whenever someone searches your name, those photos appear before your career, family, accomplishments, or anything you did later.',
+      'You are never allowed to say, “Bro, it was a different time.”'
     ],
-    afterPrompt: 'How much money is it worth to let your dumbest younger moments become your public identity forever?',
-    hostPrompts: ['Would you judge someone else by their worst old photo?', 'How much should the past control how people see you now?']
+    afterPrompt: 'How much money is it worth to let the dumbest version of you become the first version everyone meets?',
+    hostPrompts: ['Would you judge someone else by their worst old photo?', 'How much should a past version of you define the current one?']
   },
   {
     id: 8,
-    title: 'THE SERVER ADMIN',
+    title: 'THE COUNTER-STRIKE ADMIN',
     vibe: 'mystery',
     scenario: [
-      'It is 2009 and you and the guys rent a private game server.',
-      'One admin has every permission inside it. He can kick anyone, rewrite the rules, change the map, wipe inventories, and shut the game down for every player.',
-      'He starts calling himself “the absolute owner of this world.”'
+      'It is 2008 and your crew rents a Counter-Strike server.',
+      'One guy has full admin. He can kick players, ban anyone, change maps, rewrite server rules, spawn whatever the server allows, and shut the whole match down.',
+      'After a week of abusing admin commands, he declares himself the highest authority in that entire world.'
     ],
-    prompt: 'Based only on what the players can see, does that sound fair?',
+    prompt: 'From inside the server, does he look like the top authority?',
     twist: [
-      'Then the hosting company emails him.',
-      'They can reset his password, remove his admin rights, delete the server, cut the power, or stop hosting him entirely. He has to keep paying them for the server to exist.'
+      'The hosting company can reset his password, remove his access, wipe the server, cancel the account, or cut the machine off completely.',
+      'If the monthly payment stops, his entire “world” disappears whether he likes it or not.'
     ],
-    afterPrompt: 'Can he really be the highest authority if his power and continued existence depend on something above him?',
-    hostPrompts: ['What single fact settles the question?', 'Is being extremely powerful the same as being independent of everything else?']
+    afterPrompt: 'Can he really be the highest authority if both his power and his world depend on something above him?',
+    hostPrompts: ['What one fact settles it?', 'Is huge power the same thing as ultimate independence?']
   },
   {
     id: 9,
-    title: 'THREE GPS ROUTES',
+    title: 'GOOGLE MAPS VS WAZE VS TOMTOM',
     vibe: 'mystery',
     scenario: [
-      'You are driving back from a cabin at night with almost no signal.',
-      'Three offline navigation apps disagree. One says turn north. One says south. One says the road ahead does not exist.',
-      'You have fuel for one wrong detour, not two.'
+      'You are driving back from a cabin at night with almost no signal and barely enough fuel for one wrong detour.',
+      'Google Maps says turn north. Waze says south. The old TomTom someone insisted on bringing says the road ahead does not exist.'
     ],
     prompt: 'Can all three directions be right in the same sense?',
     twist: [
-      'All three correctly show your location, the lake, the highway, and most of the surrounding roads.',
-      'They still contradict each other on the exact turn that decides whether you get home.'
+      'All three correctly show your current location, the lake, the highway, and most of the surrounding roads.',
+      'They still contradict each other on the one turn that decides whether you get home or spend the night in the car.'
     ],
-    afterPrompt: 'Does being right about a lot of things make the contradiction on the important thing disappear?',
-    hostPrompts: ['What would you verify before moving?', 'How much accuracy is enough when the sources disagree on the destination?']
+    afterPrompt: 'Does being right about 95% of the map make the contradiction on the destination disappear?',
+    hostPrompts: ['What would you verify before moving?', 'When sources disagree on the crucial point, what matters next?']
   },
   {
     id: 10,
-    title: 'THE VIRAL CLIP',
+    title: 'JIM VS DWIGHT: THE CLIP',
     vibe: 'late-night',
     scenario: [
-      'A 12-second video blows up online. A guy you have never met looks arrogant, cruel, and completely guilty.',
-      'Millions of people are roasting him. Your group chat is unanimous: “This guy is trash.”'
+      'Imagine a 12-second clip from The Office goes viral with no context.',
+      'All you see is Jim shove Dwight away from a doorway. TikTok, Reddit, and your group chat decide Jim is a workplace bully. Millions agree.'
     ],
-    prompt: 'How confident are you that the clip tells you what happened?',
+    prompt: 'How much confidence should you have from the clip alone?',
     twist: [
-      'The full four-minute video appears the next day.',
-      'The 12 seconds were real, but the minute before them completely changes why he said what he said.'
+      'The full scene comes out. Seconds earlier, Dwight had triggered a fake emergency, blocked the doorway, and people were trying to get out.',
+      'The 12 seconds were completely real. The conclusion people built from them was not.'
     ],
-    afterPrompt: 'If the clip was technically real but gave you the wrong conclusion, what exactly did “millions of people saw it” prove?',
-    hostPrompts: ['How often do you watch the full source before forming an opinion?', 'Can true pieces still create a false picture?']
+    afterPrompt: 'If every frame was authentic, how did a true clip create a false story?',
+    hostPrompts: ['How often do you look for what happened before the clip?', 'Can true pieces still build a false picture?']
   },
   {
     id: 11,
-    title: 'THE BOSS VOICE NOTE',
+    title: 'MISSION: IMPOSSIBLE BOSS',
     vibe: 'mystery',
     scenario: [
       'At 10 p.m. you get a WhatsApp voice note from an unknown number.',
-      'It sounds exactly like your boss: “Do not come in tomorrow. I need you to buy $3,000 in gift cards for a client. I will reimburse you in the morning.”'
+      'It sounds exactly like your boss: same voice, same laugh, same nickname for you. He says not to come in tomorrow and asks you to buy $3,000 in gift cards for a client.'
     ],
-    prompt: 'What would you do before spending a dollar?',
+    prompt: 'Before spending one dollar, what do you do?',
     twist: [
-      'The voice uses your nickname, mentions a private meeting from earlier that day, and sounds perfect.',
-      'You also know convincing voice clones now exist.'
+      'The message knows details from a private meeting that morning and includes a video that looks straight out of Mission: Impossible: your boss’s face, voice, office, everything.',
+      'You also know deepfakes and voice clones are good enough that “it looked and sounded right” is no longer proof.'
     ],
-    afterPrompt: 'When a message can imitate every surface detail, what kind of verification actually matters?',
-    hostPrompts: ['Would you call a number you already trusted?', 'What evidence proves the source instead of just making the message look convincing?']
+    afterPrompt: 'When a fake can copy every surface detail, what proves the source rather than just the appearance?',
+    hostPrompts: ['Would you call a number you already trusted?', 'What kind of verification cannot be copied from the message itself?']
   },
   {
     id: 12,
-    title: 'THE SECRET SPONSOR',
+    title: 'TONY STARK PAYS THE TAB',
     vibe: 'late-night',
     scenario: [
-      'Someone quietly pays for the entire guys’ trip. Gas. Food. Gear. Campsite. Everything.',
-      'At the end, another guy who paid for nothing lets everyone thank him like he funded the whole weekend.'
+      'Imagine Tony Stark quietly pays for the entire guys’ trip: gas, cabins, food, gear, everything.',
+      'At the end, Michael Scott somehow ends up giving a speech where everyone thinks he paid for the weekend. He does not exactly correct them.'
     ],
-    prompt: 'Would that bother you enough to say something?',
+    prompt: 'Would watching Michael take the credit bother you?',
     twist: [
-      'The actual person who paid tells you privately: “Do not announce it was me. I do not need the attention.”',
-      'The other guy keeps enjoying the credit.'
+      'Tony tells you privately, “Do not announce that it was me. I do not want the attention.”',
+      'Michael keeps accepting thank-yous like he personally saved everyone’s vacation.'
     ],
-    afterPrompt: 'Can you respect the real sponsor’s privacy without letting your gratitude land on the wrong person?',
-    hostPrompts: ['Why does giving proper credit matter?', 'Does someone deserve thanks even if they never ask for it?']
+    afterPrompt: 'Can the real person deserve gratitude even if he refuses public credit?',
+    hostPrompts: ['Why does proper credit matter?', 'Can gratitude be owed even when recognition is not requested?']
   },
   {
     id: 13,
-    title: 'THE ALGORITHM RESET',
+    title: 'TWO DIFFERENT YOUTUBES',
     vibe: 'late-night',
     scenario: [
-      'You and a friend argue about something important and both say, “Just look it up. The evidence is everywhere.”',
-      'You each open the apps and sites you have used for years. Your feeds are full of completely different experts, clips, headlines, and comments.'
+      'You and a friend argue about something important and both say, “Bro, the evidence is everywhere. Just look at YouTube.”',
+      'One phone is wall-to-wall gym bros, podcasts, and clips supporting his side. The other phone is documentaries, experts, and creators supporting yours.'
     ],
-    prompt: 'If both feeds make each side look obviously right, what do you trust?',
+    prompt: 'If both of you can scroll for an hour without seeing the other side, what does “it is everywhere” actually prove?',
     twist: [
-      'You create two brand-new accounts with no history and search the exact same topic.',
-      'The recommendations change again because the old accounts had spent years learning what each of you already clicked, watched, and agreed with.'
+      'You both create brand-new accounts and search the exact same topic.',
+      'The recommendations change because your old feeds spent years learning what each of you clicked, watched, skipped, and argued with.'
     ],
-    afterPrompt: 'How much of what feels like “everyone knows this” might actually mean “my feed keeps showing me this”?',
-    hostPrompts: ['What would you check outside your normal feed?', 'When did the internet stop showing everyone the same internet?']
+    afterPrompt: 'How much of “everyone knows this” might really mean “my algorithm knows me”?',
+    hostPrompts: ['What would you check outside your normal feed?', 'When did your feed stop being a window and start becoming a mirror?']
   },
   {
     id: 14,
-    title: 'THE $50,000 MACHINE',
+    title: 'STARK TECH VS DWIGHT',
     vibe: 'choices',
     scenario: [
-      'You buy a ridiculous $50,000 camping machine. It purifies water, generates electricity, cooks food, heats shelter, and runs half the campsite.',
-      'The manufacturer’s manual is sitting right beside it.'
+      'Tony Stark builds a ridiculous $50,000 camping machine. It purifies water, generates power, cooks food, heats shelter, and runs half the campsite.',
+      'The Stark Industries manual is sitting beside it. Dwight Schrute says manuals are for people who lack instinct and insists he can operate it.'
     ],
-    prompt: 'Your friend says he can figure it out without the manual. Letting him?',
+    prompt: 'Who are you trusting with the controls?',
     twist: [
-      'Annoyingly, he guesses the first four controls correctly and now feels completely vindicated.',
-      'The fifth control is the emergency pressure release. Getting that one wrong can destroy the machine.'
+      'Annoyingly, Dwight guesses the first four controls correctly and becomes unbearable about it.',
+      'The fifth control is an emergency pressure release. Getting that one wrong destroys the machine and could seriously hurt someone.'
     ],
-    afterPrompt: 'Do four successful guesses make him a better authority than the people who designed the machine?',
-    hostPrompts: ['What should confidence be worth here?', 'When should experience give way to the maker’s instructions?']
+    afterPrompt: 'Do four successful guesses make Dwight a better authority than the person who actually designed the machine?',
+    hostPrompts: ['What should confidence be worth here?', 'At what point does “I figured it out” stop being enough?']
   },
   {
     id: 15,
     title: 'THE ANIMAL FIGHT',
     vibe: 'chaos',
     scenario: [
-      'You cannot run. Pick one opponent:',
-      'One horse-sized duck, or one hundred duck-sized horses.'
+      'Classic campfire nonsense. You cannot run.',
+      'Pick one: one horse-sized duck, or one hundred duck-sized horses. Think Pokémon battle logic, except you are the Pokémon and you get no special moves.'
     ],
-    prompt: 'Choose now and give the group your plan.',
+    prompt: 'Choose now and explain the first ten seconds of your strategy.',
     twist: [
-      'The tiny horses move as one organized team and know how to flank.',
+      'The tiny horses move like a coordinated Call of Duty squad and know how to flank.',
       'The giant duck is terrified of bread. You have exactly one hamburger bun.'
     ],
-    afterPrompt: 'Switching sides, or are you emotionally committed to the terrible plan you already defended?',
-    hostPrompts: ['What is the first ten seconds of your strategy?', 'How much did having to defend your first answer make you want to keep it?']
+    afterPrompt: 'Switching sides, or are you now defending your first answer just because it became “your” answer?',
+    hostPrompts: ['What changed your answer: new evidence or embarrassment?', 'Who in the group has the worst survival plan?']
   },
   {
     id: 16,
-    title: 'EVERYONE THINKS YOU’RE WRONG',
+    title: 'THE NEO PROBLEM',
     vibe: 'choices',
     scenario: [
-      'Pick one:',
-      'A: Every friend, coworker, expert, and person online agrees with you about something important, but you are wrong.',
-      'B: Everyone thinks you are an idiot, but you are right.'
+      'You get the basic Neo problem from The Matrix.',
+      'Option A: everyone around you agrees with your view of reality and treats you like the sensible one, but you are wrong.',
+      'Option B: you are right about something huge, but everyone thinks you have completely lost it.'
     ],
     prompt: 'A or B? No third option.',
     twist: [
-      'In B, your closest friends and family are against you too.',
-      'Nobody proves you right for twenty years. When they finally do, you get no credit and nobody apologizes.'
+      'In B, your closest friends and family think you are wrong too.',
+      'You are finally proven right twenty years later, but nobody apologizes, nobody gives you credit, and it does not make you famous.'
     ],
-    afterPrompt: 'If being right gives you no status, no applause, and years of pressure, do you still want to be right?',
-    hostPrompts: ['How much does agreement affect your confidence?', 'Do you want the truth, or do you want the feeling of being confirmed?']
+    afterPrompt: 'If being right gives you no applause at all, do you still choose being right?',
+    hostPrompts: ['How much does agreement affect what feels true?', 'Do you want truth, or the social reward of being confirmed?']
   },
   {
     id: 17,
-    title: 'THE GROUP CHAT LEAK',
+    title: 'THE WHATSAPP LEAK',
     vibe: 'chaos',
     scenario: [
       'You are offered $500,000.',
-      'The price: every message you have sent in your main guys’ group chat for the last five years becomes public under your real name.'
+      'The price: the last five years of your main guys’ WhatsApp chat becomes public under everyone’s real names. Every meme, rant, voice note, bad joke, argument, and 2 a.m. message.'
     ],
     prompt: 'Taking the deal?',
     twist: [
-      'The other guys do not get paid, but their messages appear too because they were part of the same conversations.',
-      'They will know you were the person who accepted the deal.'
+      'You get all $500,000. The other guys get nothing.',
+      'They will know you were the one who pressed YES and turned their private messages into public property.'
     ],
-    afterPrompt: 'Does the answer change when the thing you are selling is not only yours?',
-    hostPrompts: ['How much money would make betrayal feel justifiable?', 'What do you owe people who trusted a private space?']
+    afterPrompt: 'Does the answer change when the thing you are selling contains pieces of other people?',
+    hostPrompts: ['How much money makes betrayal feel justifiable?', 'What do you owe people who trusted the room was private?']
   },
   {
     id: 18,
-    title: 'THE ONE WRONG BELIEF',
+    title: 'THE TRUMAN SHOW WARNING',
     vibe: 'late-night',
     scenario: [
-      'A machine scans your brain and prints one sentence:',
-      '“One major thing you currently believe is completely wrong.”',
-      'It refuses to tell you which one.'
+      'A machine scans your brain and gives you one Truman Show-level warning:',
+      '“One major thing you currently believe about life is completely wrong.”',
+      'It refuses to tell you which belief.'
     ],
-    prompt: 'What part of your life are you investigating first?',
+    prompt: 'What area are you investigating first?',
     choices: ['Money', 'Marriage', 'Health', 'Politics', 'Parenting', 'Morality', 'Life purpose', 'Something else'],
     twist: [
-      'The wrong belief is something you picked up before age 18.',
-      'You cannot remember ever sitting down and deciding it was true. It just became part of how you see the world.'
+      'The wrong belief entered your head before you turned 18.',
+      'You cannot remember ever choosing it. It came from some mix of family, school, friends, movies, music, TV, and the early internet until it simply felt like common sense.'
     ],
-    afterPrompt: 'How do you test a belief that feels like common sense precisely because you learned it before you knew to question it?',
-    hostPrompts: ['Which inherited belief would cost the most to discover was wrong?', 'What did movies, friends, family, or the internet teach you before you had a filter?']
+    afterPrompt: 'How do you examine something that feels obvious specifically because it got there before your adult filter existed?',
+    hostPrompts: ['Which inherited belief would cost the most to discover was wrong?', 'What did entertainment teach you before real life got a vote?']
   },
   {
     id: 19,
-    title: 'BACK TO GRADE 8',
+    title: 'BACK TO 2006',
     vibe: 'late-night',
     scenario: [
-      'You wake up back in Grade 8 with your current mind.',
-      'Same school. Same family. Same friends. MSN, early YouTube, movies, music, gaming, and the whole teenage internet era are about to hit you again.'
+      'You wake up back in Grade 8 with your current adult mind.',
+      'MSN display names. MuchMusic. Linkin Park and 50 Cent. Dragon Ball Z reruns. Pokémon. PS2. GTA: San Andreas. Jackass. Early YouTube. Facebook is about to arrive. Smartphones are still years away.'
     ],
-    prompt: 'What is the first thing you refuse to let shape you the same way twice?',
+    prompt: 'Knowing what you know now, what are you refusing to let shape you the same way twice?',
     twist: [
-      'You are allowed to keep only three beliefs or habits from your original upbringing without re-examining them.',
-      'Everything else has to earn its way back into your life.'
+      'You may keep only three beliefs or habits from your original upbringing without re-examining them.',
+      'Everything else has to earn its way back into adult-you.'
     ],
-    afterPrompt: 'Which three survive automatically, and what did you absorb the first time just because it was everywhere?',
-    hostPrompts: ['What would you protect your younger self from?', 'What did entertainment teach you that real adulthood later corrected?']
+    afterPrompt: 'Which three get grandfathered in, and what did you absorb the first time just because everyone around you did?',
+    hostPrompts: ['What would you protect your younger self from?', 'Which “normal” idea from that era aged the worst?']
   },
   {
     id: 20,
-    title: 'THE FORUM LEGEND',
+    title: 'THE JEREMY CLARKSON FORUM GUY',
     vibe: 'wild',
     scenario: [
-      'You are trying to fix a serious car problem.',
-      'One forum user has 40,000 posts, a legendary username, and twenty people thanking him for his answer.',
-      'Another account was created today and says the famous guy is wrong.'
+      'Your car develops a serious problem and you end up on an old forum thread.',
+      'User A has 40,000 posts, a legendary username, and writes with Jeremy Clarkson-level confidence. Twenty people thank him and say he has been fixing cars forever.',
+      'User B created an account today and says User A is wrong.'
     ],
-    prompt: 'Who are you trusting before you start taking the car apart?',
+    prompt: 'Whose advice gets your wrench moving?',
     twist: [
-      'The new account posts the factory service manual, wiring diagram, and measurements from your exact model.',
-      'The famous user replies: “I have been doing this longer than you have been alive.”'
+      'The brand-new account posts the factory service manual, the wiring diagram, torque specs, and measurements from your exact model.',
+      'The forum legend replies, “Son, I was fixing these before you could drive.”'
     ],
-    afterPrompt: 'At that point, what should carry more weight: reputation, confidence, years of experience, or evidence you can actually check?',
-    hostPrompts: ['What would make you change sides?', 'How often do status and expertise get mistaken for proof?']
+    afterPrompt: 'What should win now: reputation, age, confidence, popularity, or evidence you can actually inspect?',
+    hostPrompts: ['What would make you change sides?', 'When does expertise become an appeal to status instead of proof?']
   },
   {
     id: 21,
-    title: 'THE LAST 24 HOURS',
+    title: 'THE 24 CLOCK',
     vibe: 'late-night',
     scenario: [
-      'You somehow know with absolute certainty that you have exactly 24 hours left.',
-      'You feel completely healthy. Nothing hurts. Tomorrow, you are simply gone.'
+      'A giant countdown appears in your vision like the clock from 24: 23:59:59.',
+      'This is not Jack Bauer’s mission timer. It is yours. When it reaches zero tomorrow, you are gone. You feel completely healthy and cannot stop the clock.'
     ],
-    prompt: 'What are you doing tonight, and who absolutely has to be part of it?',
+    prompt: 'What are you doing tonight, and who absolutely has to be there?',
     twist: [
-      'You cannot spend the day trying to prevent it.',
-      'Your inbox, work problems, unfinished arguments, social feeds, purchases, and things you were saving “for later” are all still there. You just know exactly how little time they have left to matter.'
+      'Your inbox, work problems, unread notifications, unfinished arguments, shopping carts, social feeds, and things you were saving “for later” all still exist.',
+      'You simply know exactly how little time they have left to matter.'
     ],
     afterPrompt: 'What suddenly becomes important, and what turns out to have been stealing time from you?',
     hostPrompts: ['Who do you need to speak to?', 'What would you be embarrassed to spend your final hour doing?']
   },
   {
     id: 22,
-    title: 'THE HOUSE INSPECTION',
+    title: 'YOUR BUDDY THINKS HE IS MIKE HOLMES',
     vibe: 'choices',
     scenario: [
-      'You finally find a house you can afford. The photos look great, the neighbourhood is good, and there are already other offers.',
-      'Your realtor says, “If we put an inspection condition in, we might lose it.”'
+      'You finally find a house you can afford. The neighbourhood is good, the photos look clean, and there are already competing offers.',
+      'Your realtor warns that an inspection condition might lose the deal. Your buddy walks through for ten minutes, taps a few walls, and suddenly turns into Mike Holmes: “Bro, this place is solid.”'
     ],
-    prompt: 'Do you make the clean offer or insist on the inspection?',
+    prompt: 'Clean offer, or insist on the inspection?',
     twist: [
-      'A friend who “knows houses” walks through for ten minutes and says it looks solid.',
-      'The seller then casually mentions the basement was finished by the previous owner without permits.'
+      'The seller casually mentions the basement was finished by the previous owner with no permits.',
+      'Your buddy doubles down: “I watch this stuff all the time. I know what bad work looks like.”'
     ],
-    afterPrompt: 'How much certainty do you need before making a decision that could cost you for twenty-five years?',
-    hostPrompts: ['What risk are you actually accepting?', 'When does fear of missing out become a bad reason to stop verifying?']
+    afterPrompt: 'How much confidence do you need before gambling twenty-five years of payments on somebody’s ten-minute walkthrough?',
+    hostPrompts: ['What are you actually paying an inspector for?', 'When does fear of missing out become a reason to stop checking?']
   },
   {
     id: 23,
-    title: 'THE LUCKY HOODIE',
+    title: 'THE LEAFS HOODIE',
     vibe: 'mystery',
     scenario: [
-      'Your friend wears the same hoodie to five hockey games. His team wins all five.',
-      'He now refuses to watch without it because the hoodie is “clearly doing something.”'
+      'Your friend wears the same Leafs hoodie for five games. Toronto wins all five.',
+      'He now refuses to watch without it because, in his words, “Why would I mess with what is working?”'
     ],
-    prompt: 'Funny superstition, or are you giving the hoodie even one percent of the credit?',
+    prompt: 'Are you giving that hoodie even one percent of the credit?',
     twist: [
-      'Game six: he forgets it and the team wins 8–0.',
-      'Game seven: he wears it and they lose badly. He says, “That does not prove anything. The hoodie cannot win every game.”'
+      'Game six: he forgets it and the Leafs win 8–0.',
+      'Game seven: he wears it and they lose badly. He says, “That proves nothing. The hoodie cannot control every game.”'
     ],
-    afterPrompt: 'If every possible result can be explained away, what result would ever prove the belief wrong?',
-    hostPrompts: ['What would count as real evidence of cause?', 'Can a belief be tested if nothing is allowed to count against it?']
+    afterPrompt: 'If wins support the hoodie but losses never count against it, what possible result could prove him wrong?',
+    hostPrompts: ['What would count as actual evidence of cause?', 'Can a belief be tested if no outcome is allowed to count against it?']
   },
   {
     id: 24,
-    title: 'THE MYSTERY TOOL',
+    title: 'THE MACGYVER TOOL',
     vibe: 'late-night',
     scenario: [
-      'You find a weird metal tool in a garage. Nobody knows what it is for.',
-      'One guy uses it to open a paint can. It works. Another uses it as a doorstop. That works too. Someone else says it makes a decent bottle opener.'
+      'You find a strange metal tool in a garage with no label.',
+      'MacGyver would be proud: one guy opens a paint can with it, another uses it as a doorstop, somebody discovers it can open bottles, and all three uses work perfectly.'
     ],
-    prompt: 'Do those successful uses tell you what the tool was actually made for?',
+    prompt: 'Do successful uses tell you what the tool was actually made for?',
     twist: [
-      'You find the manufacturer’s diagram. It was designed for one very specific job none of you guessed.',
-      'All the other uses still technically work.'
+      'You find the manufacturer’s original diagram. The tool was designed for one specific job nobody guessed.',
+      'The paint-can, doorstop, and bottle-opener tricks still work.'
     ],
-    afterPrompt: 'Can something be useful for many things without any of those things being its actual purpose?',
-    hostPrompts: ['Who is in the best position to tell you what it was made for?', 'Is “I found a use for it” the same as “I know why it exists”?']
+    afterPrompt: 'Can something have many useful functions while all of you still miss the reason it was made?',
+    hostPrompts: ['Who is in the best position to explain its intended purpose?', 'Is “I found a use for it” the same as “I know why it exists”?']
   }
 ];
 
-const CAMPFIRE_RUN_IDS = [2, 4, 3, 7, 5, 6, 15, 8, 10, 13, 11, 12, 19, 21];
+const CAMPFIRE_RUN_IDS = [1, 4, 7, 3, 15, 5, 10, 8, 14, 23, 11, 13, 19, 21];
 
-// Chaos is a universal pressure-test mechanic. Every modifier is written to work
-// with any card, whether the current answer is a preference, prediction, explanation,
-// or factual claim.
+// Chaos is a universal pressure-test mechanic. Every modifier works with any card,
+// whether the current answer is a preference, prediction, explanation, or factual claim.
 const CHAOS_MODIFIERS = [
   {
     name: 'FLIP IT',
