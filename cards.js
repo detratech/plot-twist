@@ -3,423 +3,451 @@
 const PLOT_TWIST_CARDS = [
   {
     id: 1,
-    title: 'WHO WANTS TO BE A MILLIONAIRE?',
-    vibe: 'warm-up',
+    title: 'THE TELEPORT SNEEZE',
+    vibe: 'chaos',
     scenario: [
-      'You are on the $500,000 question. You have no idea, so you use two lifelines.',
-      'The studio audience votes 91% for B. Your phone-a-friend is your annoyingly smart cousin, and he says D because he remembers the exact fact from school.'
+      'You get $5 million tonight, tax-free.',
+      'The catch: every time you sneeze, you instantly teleport to a random place somewhere within 50 km.'
     ],
-    prompt: 'Who are you trusting: the crowd or your cousin?',
-    choices: ['91% crowd', 'Smart cousin'],
+    prompt: 'Taking the deal?',
+    choices: ['Take it', 'No chance'],
     twist: [
-      'The correct answer is D. Your cousin was right.',
-      'The audience was not lying. Most of them were just confidently guessing together.'
+      'Your clothes come with you. Your phone, wallet, keys, food, and anything in your hands stay behind.',
+      'If you sneeze again, the next 50 km starts from wherever you just landed.'
     ],
-    afterPrompt: 'What mattered more: how many people believed it, or why they believed it?',
-    hostPrompts: ['When is a crowd useful?', 'When is a crowd just a lot of guesses?']
+    afterPrompt: 'Still taking the money?',
+    hostPrompts: ['What is your allergy-season plan?', 'How much money would make this worth it?']
   },
   {
     id: 2,
-    title: 'DWIGHT\'S LUCKY TIE',
-    vibe: 'warm-up',
+    title: 'THE GROUP CHAT SCREENSHOT',
+    vibe: 'real-life',
     scenario: [
-      'Dwight has his three best sales days of the year while wearing the same ugly mustard-coloured tie.',
-      'He tells Jim the tie is clearly improving his sales and refuses to meet a client without it.'
+      'A screenshot from your main group chat gets posted online.',
+      'It contains one terrible joke you made five years ago. Everything before and after it is cropped out.'
     ],
-    prompt: 'Lucky tie or coincidence?',
-    choices: ['Lucky tie', 'Coincidence'],
+    prompt: 'Do you explain yourself or ignore it?',
+    choices: ['Explain it', 'Ignore it'],
     twist: [
-      'The next day Dwight wears the tie and sells nothing.',
-      'Jim checks the numbers and finds that all three big days came from the same company-wide promotion.'
+      'The full conversation makes the joke look completely different.',
+      'But posting the full chat would expose private messages from everyone else too.'
     ],
-    afterPrompt: 'Did the tie cause the sales just because both happened together?',
-    hostPrompts: ['What was the better cause?', 'What else do people confuse with cause and effect?']
+    afterPrompt: 'Do you clear your name if it means exposing your friends?',
+    hostPrompts: ['What matters more here: context or privacy?', 'What would you want a friend to do?']
   },
   {
     id: 3,
-    title: 'JACK SPARROW\'S 30 PIRATES',
-    vibe: 'warm-up',
+    title: 'THE DUCK PROBLEM',
+    vibe: 'chaos',
     scenario: [
-      'Thirty pirates in Tortuga warn you that a nearby island is cursed. Every one of them tells the story slightly differently, but they all swear it is true.',
-      'Jack Sparrow asks one question: “Where did each of you hear it?”'
+      'You are locked in a hockey rink for ten minutes.',
+      'You must face either one horse-sized duck or one hundred duck-sized horses.'
     ],
-    prompt: 'Thirty witnesses sounds strong. Do you believe them?',
-    choices: ['Believe them', 'Check first'],
+    prompt: 'Pick your opponent.',
+    choices: ['Giant duck', 'Tiny horses'],
     twist: [
-      'All thirty stories trace back to the same drunk sailor who claimed he saw a ghost from half a mile away.',
-      'One rumour turned into thirty retellings.'
+      'The tiny horses coordinate like a team.',
+      'The giant duck is terrified of hamburger buns. You have one bun in your pocket.'
     ],
-    afterPrompt: 'Do thirty copies of one source count like thirty independent sources?',
-    hostPrompts: ['What makes a source independent?', 'How often does repetition feel like proof?']
+    afterPrompt: 'Switching sides?',
+    hostPrompts: ['What is your first move?', 'Who has the better survival plan?']
   },
   {
     id: 4,
-    title: 'THE DARK KNIGHT CLIP',
-    vibe: 'warm-up',
+    title: 'THE USED CIVIC',
+    vibe: 'real-life',
     scenario: [
-      'A ten-second video hits YouTube. Batman punches a man, throws him through a glass door, and disappears before police arrive.',
-      'The comments are brutal. Everyone says the clip finally proves Batman is just a violent lunatic.'
+      'You find a clean used Civic for a great price.',
+      'From a stranger, you would ask for records and get an inspection. This seller is your cousin, and he says, “Bro, you know me. The car is perfect.”'
     ],
-    prompt: 'Based on the clip, fair conclusion or too fast?',
-    choices: ['Fair conclusion', 'Too fast'],
+    prompt: 'Inspect it or trust your cousin?',
+    choices: ['Inspect it', 'Trust him'],
     twist: [
-      'The full security video appears. The man had a detonator and was seconds away from setting off a bomb in the building.',
-      'Nothing in the ten-second clip was fake. It was just missing the part that changed the meaning.'
+      'The inspection finds a hidden problem that will cost $3,000 next month.',
+      'Your cousin genuinely did not know about it.'
     ],
-    afterPrompt: 'Can completely real evidence still create the wrong conclusion when context is missing?',
-    hostPrompts: ['What did the short clip prove?', 'What did it fail to prove?']
+    afterPrompt: 'Was checking the car a sign of distrust?',
+    hostPrompts: ['When should trust change your evidence standard?', 'Would you want your cousin to inspect a car you sold him?']
   },
   {
     id: 5,
-    title: 'THE BEST WIZARD',
-    vibe: 'warm-up',
+    title: 'THE $500,000 QUESTION',
+    vibe: 'pop',
     scenario: [
-      'Harry, Hermione, and Neville are arguing at Hogwarts about who is the “best wizard.”',
-      'Harry points to duelling. Hermione points to grades and knowledge. Neville points to the fact that neither of them should be trusted near a greenhouse.'
+      'You are on Who Wants to Be a Millionaire and have no clue.',
+      'The audience votes 88% for B. Your phone-a-friend is your annoyingly smart cousin, and he says D because he remembers the exact answer.'
     ],
-    prompt: 'Who is the best wizard?',
-    choices: ['Harry', 'Hermione', 'Neville'],
+    prompt: 'Who gets your trust?',
+    choices: ['88% audience', 'Smart cousin'],
     twist: [
-      'Dumbledore walks past and asks, “Best at what?”',
-      'Suddenly everyone realizes they were using the same word for three different things.'
+      'The answer is D.',
+      'The audience was not lying. Most of them simply guessed the same wrong answer.'
     ],
-    afterPrompt: 'Can you settle an argument before agreeing on what the important word means?',
-    hostPrompts: ['Pick one definition of “best.”', 'Who wins under that definition?']
+    afterPrompt: 'What mattered more: the number of people, or why they believed it?',
+    hostPrompts: ['When is popularity useful evidence?', 'When is it just a lot of guesses?']
   },
   {
     id: 6,
-    title: 'BUMBLEBEE IN THE GARAGE',
-    vibe: 'warm-up',
+    title: 'THE CABIN WITH YOUR NAME',
+    vibe: 'mystery',
     scenario: [
-      'Your friend calls you at midnight and says his old yellow Camaro is actually an alien robot.',
-      'He sounds completely serious. You know he has also said some very stupid things at midnight.'
+      'You hike deep into an area with no roads or trails and find a perfect cabin.',
+      'The fire is burning, dinner is hot, and every bed has one of your names written above it.'
     ],
-    prompt: 'Believe him or assume he has lost it?',
-    choices: ['Believe him', 'He has lost it'],
+    prompt: 'Prepared for you or random coincidence?',
+    choices: ['Prepared', 'Coincidence'],
     twist: [
-      'You walk into the garage. The Camaro stands up, looks at you, and turns into Bumblebee.',
-      'Your original disbelief was reasonable. Keeping the same answer now would not be.'
+      'Your friend says, “Forests are huge. Given enough time, weird stuff happens.”',
+      'He still cannot explain the hot food or your names.'
     ],
-    afterPrompt: 'Is changing your mind weakness, or exactly what you should do when the evidence changes?',
-    hostPrompts: ['Was disbelief reasonable at first?', 'At what point would refusing to change become stubbornness?']
+    afterPrompt: 'How much can “weird stuff happens” actually explain?',
+    hostPrompts: ['Which detail matters most?', 'What would a good explanation need to account for?']
   },
   {
     id: 7,
-    title: 'DOM\'S MARKETPLACE CIVIC',
-    vibe: 'evidence',
+    title: 'FREE FOOD FOREVER',
+    vibe: 'chaos',
     scenario: [
-      'You are buying a used Civic on Facebook Marketplace. From a stranger, you want service records, a Carfax, a cold start, and a mechanic inspection.',
-      'Then you find out the seller is Dom Toretto\'s cousin. Dom says, “He is family. You can trust him.”'
+      'Every meal you eat for the rest of your life becomes completely free.',
+      'Restaurants, groceries, steak, sushi, whatever you want. You never pay for food again.'
     ],
-    prompt: 'Same inspection or trust the family connection?',
-    choices: ['Same inspection', 'Trust family'],
+    prompt: 'Taking the deal?',
+    choices: ['Absolutely', 'No'],
     twist: [
-      'The mechanic finds a disabled check-engine light and an oil leak hidden by a fresh engine wash.',
-      'The cousin may still be a nice guy. The car is still leaking oil.'
+      'You do not choose the meals. A mystery chef chooses every meal for you.',
+      'You can reject one meal per year. Reject a second and the deal ends forever.'
     ],
-    afterPrompt: 'Should your standard of evidence get weaker just because the claim comes from your own side?',
-    hostPrompts: ['When is trust relevant?', 'Where do people use tougher standards on outsiders than insiders?']
+    afterPrompt: 'Still worth it?',
+    hostPrompts: ['What meal would break you?', 'How much is choice worth?']
   },
   {
     id: 8,
-    title: 'SORTED AT BIRTH',
-    vibe: 'evidence',
+    title: 'THE VIRAL CLIP',
+    vibe: 'internet',
     scenario: [
-      'Imagine Hogwarts sorts every baby into a House before they can even speak.',
-      'For thirty years, your family, friends, teachers, posters, sports teams, and social circle all tell you your House is obviously the best one.'
+      'A 12-second video blows up online.',
+      'A guy looks arrogant, cruel, and obviously guilty. Millions of people are roasting him and your group chat agrees.'
     ],
-    prompt: 'At age 30, how much of that loyalty feels chosen?',
-    choices: ['Mostly chosen', 'Mostly inherited'],
+    prompt: 'Enough to judge him?',
+    choices: ['Yes', 'Need more context'],
     twist: [
-      'A new Sorting Hat tests adults from every House and moves a huge number of them somewhere else.',
-      'Most people get angry before asking whether the new test is accurate.'
+      'The full four-minute video appears the next day.',
+      'The 12 seconds were real, but the minute before them completely changes why he said what he said.'
     ],
-    afterPrompt: 'If something has always felt normal, does that make it true or just familiar?',
-    hostPrompts: ['Does inherited automatically mean wrong?', 'How would you test something you inherited?']
+    afterPrompt: 'Can a real clip still create a false picture?',
+    hostPrompts: ['How often do you watch the full source?', 'Does a true piece guarantee a true conclusion?']
   },
   {
     id: 9,
-    title: 'JURASSIC PARK: SPARED NO EXPENSE',
-    vibe: 'evidence',
+    title: 'THE PAUSE BUTTON',
+    vibe: 'chaos',
     scenario: [
-      'John Hammond invites you to Jurassic Park before opening day. He keeps repeating that he “spared no expense.” The jeeps look amazing, the visitor centre is beautiful, and everyone is impressed.',
-      'Ian Malcolm points at the safety systems and says the park is not ready.'
+      'You get a button that freezes the entire world except you.',
+      'You can sleep, travel, finish work, play games, or just enjoy complete silence while everyone else is paused.'
     ],
-    prompt: 'Open the park or delay it?',
-    choices: ['Open it', 'Delay it'],
+    prompt: 'How much would you use it?',
+    choices: ['All the time', 'Sometimes', 'Almost never'],
     twist: [
-      'A technician discovers the electric fences, door locks, and tracking systems all depend on one vulnerable control system.',
-      'The fancy visitor centre did not make the weak point disappear.'
+      'You keep ageing while the world is frozen.',
+      'Every paused hour comes directly out of your lifespan.'
     ],
-    afterPrompt: 'When the sales pitch and the evidence disagree, which one should win?',
-    hostPrompts: ['What looked impressive but proved little?', 'What single fact mattered most?']
+    afterPrompt: 'How valuable is an extra hour now?',
+    hostPrompts: ['What would still be worth pausing for?', 'Would you spend a year of life for a year of private time?']
   },
   {
     id: 10,
-    title: 'THE SIMPSONS PREDICTED IT',
-    vibe: 'evidence',
+    title: 'DWIGHT’S EMERGENCY PLAN',
+    vibe: 'pop',
     scenario: [
-      'Your friend has a folder called “THE SIMPSONS KNOW THE FUTURE.” It contains twelve clips that look strangely similar to things that happened years later.',
-      'He says twelve hits are impossible to explain by coincidence.'
+      'Dwight from The Office gives everyone a detailed emergency plan for a building fire.',
+      'It sounds ridiculous, he is extremely confident, and nobody wants to listen to a fifteen-minute lecture from Dwight.'
     ],
-    prompt: 'Real prediction or cherry-picking?',
-    choices: ['Real prediction', 'Cherry-picking'],
+    prompt: 'Read his plan or ignore Dwight?',
+    choices: ['Read it', 'Ignore it'],
     twist: [
-      'You remind him that the show has hundreds of episodes and thousands of jokes, guesses, signs, headlines, and random scenes.',
-      'You ask him to use the show to predict one specific event next month. He cannot.'
+      'Most of the plan is over-the-top nonsense.',
+      'But one page correctly identifies a blocked emergency exit that nobody else noticed.'
     ],
-    afterPrompt: 'Is finding matches afterward the same as predicting something beforehand?',
-    hostPrompts: ['What happened to all the misses?', 'What would make a prediction genuinely impressive?']
+    afterPrompt: 'Does a bad source make every claim from that source false?',
+    hostPrompts: ['Can an annoying person still be right?', 'How do you separate the claim from the person?']
   },
   {
     id: 11,
-    title: 'THE CALL OF DUTY HACKER',
-    vibe: 'evidence',
+    title: 'ONE DELETED SEARCH',
+    vibe: 'nostalgia',
     scenario: [
-      'A guy in your Call of Duty lobby hits one ridiculous wallbang and the entire lobby starts yelling that he is hacking.',
-      'Someone clips the kill and posts it to the group chat. Watching only that five seconds, it really does look suspicious.'
+      'Someone offers you $250,000.',
+      'In return, your complete internet history from age 15 to 22 gets sent to your closest friends, spouse or future spouse, and parents.'
     ],
-    prompt: 'Hacker or lucky shot?',
-    choices: ['Hacker', 'Lucky shot'],
+    prompt: 'Taking the money?',
+    choices: ['Take it', 'Keep my dignity'],
     twist: [
-      'You watch the full match. He finishes 3 kills and 19 deaths and misses almost every other shot.',
-      'The “impossible” clip was his one lucky moment.'
+      'You may permanently delete exactly one search before the file is sent.',
+      'Everyone will see a giant line saying: ONE ITEM DELETED.'
     ],
-    afterPrompt: 'How much should one dramatic example tell you about the whole pattern?',
-    hostPrompts: ['What sample would be more useful?', 'Why do dramatic examples stick so hard?']
+    afterPrompt: 'Delete one or leave everything?',
+    hostPrompts: ['Is the mystery worse than the history?', 'How much should teenage-you count against adult-you?']
   },
   {
     id: 12,
-    title: 'BLACKBERRY VS IPHONE',
-    vibe: 'evidence',
+    title: 'THREE GPS APPS',
+    vibe: 'real-life',
     scenario: [
-      'It is 2010. You are in a Facebook group full of BlackBerry die-hards. Your friend is in an iPhone group.',
-      'Your feed makes it look like everyone knows physical keyboards are better. His feed makes it look like everyone knows touchscreens are the future.'
+      'You are driving back from a cabin at night with barely enough gas for one wrong detour.',
+      'Three offline maps agree on your location and the nearby roads. One says turn north, one says south, and one says the road ahead does not exist.'
     ],
-    prompt: 'Whose feed shows what “everyone” really thinks?',
-    choices: ['My feed', 'His feed', 'Neither'],
+    prompt: 'Can all three be right about the turn?',
+    choices: ['Yes', 'No'],
     twist: [
-      'You both leave the fan groups and look at a broad survey. The public is badly split.',
-      'Both groups were real. Both groups were also selected because they already agreed with themselves.'
+      'All three are accurate about almost everything else in the area.',
+      'They still directly disagree on the turn that decides whether you get home.'
     ],
-    afterPrompt: 'Can your environment make a minority view feel universal?',
-    hostPrompts: ['What does your feed select for?', 'What would you check outside your normal circle?']
+    afterPrompt: 'Does being right about many things erase one direct contradiction?',
+    hostPrompts: ['What would you verify next?', 'Can opposite directions both be right in the same sense?']
   },
   {
     id: 13,
-    title: 'THE MATRIX OFFER',
-    vibe: 'pressure',
+    title: 'JURASSIC PARK DELIVERY',
+    vibe: 'pop',
     scenario: [
-      'Morpheus gives you a choice. One option lets you stay in a comfortable fake world where your life is easy and nothing challenges you.',
-      'The other gives you the truth, but it may make your life harder and force you to rethink things you were comfortable with.'
+      'John Hammond offers to deliver one baby dinosaur to your house for free.',
+      'You choose the species. It is legal, healthy, and yours forever.'
     ],
-    prompt: 'Comfort or truth?',
-    choices: ['Comfort', 'Truth'],
+    prompt: 'Taking one?',
+    choices: ['Obviously', 'Absolutely not'],
     twist: [
-      'Nobody will ever know which one you picked. There is no reputation to gain from choosing truth.',
-      'You only have to live with the answer yourself.'
+      'It grows to full size.',
+      'You are responsible for food, fencing, neighbours, insurance, cleanup, and whatever happens if it escapes.'
     ],
-    afterPrompt: 'Do you still want truth when there is no applause for choosing it?',
-    hostPrompts: ['What makes truth expensive?', 'Would your answer change if the truth cost you a habit you enjoy?']
+    afterPrompt: 'Which dinosaur are you still crazy enough to choose?',
+    hostPrompts: ['What sounded fun before the consequences arrived?', 'What is your containment plan?']
   },
   {
     id: 14,
-    title: 'Q\'S MYSTERY GADGET',
-    vibe: 'pressure',
+    title: 'THE PERFECT LIAR',
+    vibe: 'mystery',
     scenario: [
-      'Q from James Bond leaves a strange gadget on your table without explaining it.',
-      'You discover it works as a flashlight, charges a phone, opens a bottle, and is heavy enough to hold a door open. The guys start arguing about what it was made for.'
+      'Two people tell you opposite stories about the same event.',
+      'Person A is calm, confident, detailed, and looks you straight in the eye. Person B is nervous, awkward, and keeps forgetting small details.'
     ],
-    prompt: 'Can you figure out its intended purpose from those uses alone?',
-    choices: ['Yes', 'Not for sure'],
+    prompt: 'Who sounds more believable?',
+    choices: ['Person A', 'Person B', 'Need evidence'],
     twist: [
-      'Q comes back and says it is actually an emergency locator beacon hidden inside an ordinary object.',
-      'Everything else you discovered was real, but none of it was the main reason he built it.'
+      'A security camera shows Person B was telling the truth.',
+      'Person A was simply much better at telling a story.'
     ],
-    afterPrompt: 'Can useful side effects tell you what something was ultimately made for?',
-    hostPrompts: ['Who knows intended purpose best?', 'Can users invent uses without changing the maker’s purpose?']
+    afterPrompt: 'How much should confidence count as evidence?',
+    hostPrompts: ['What makes someone seem trustworthy?', 'How often do presentation skills fool us?']
   },
   {
     id: 15,
-    title: 'GTA GOD MODE',
-    vibe: 'pressure',
+    title: 'THE MYSTERY MACHINE',
+    vibe: 'weird',
     scenario: [
-      'You turn on every GTA cheat. Infinite health. Every weapon. Any car. Police cannot stop you. Nothing inside the game can really threaten you.',
-      'Your character feels like the most powerful thing in that entire world.'
+      'You buy a strange machine at an estate sale with no label or instructions.',
+      'It charges a phone, warms coffee, opens jars, and makes a great doorstop. Everyone has a different idea about what it was built for.'
     ],
-    prompt: 'Inside the game, are you basically all-powerful?',
-    choices: ['Yes', 'No'],
+    prompt: 'Can the users figure out its real purpose just from using it?',
+    choices: ['Probably', 'Not for sure'],
     twist: [
-      'Your little brother walks into the room and pulls the console plug.',
-      'Every cheat, car, weapon, and rule disappears instantly because your power was always depending on something outside the game.'
+      'You find the original designer.',
+      'He says those are side effects. He built it to detect a dangerous gas leak before humans can smell it.'
     ],
-    afterPrompt: 'Can something be ultimate if its whole existence depends on something above it?',
-    hostPrompts: ['Was your character powerful?', 'Is powerful the same as independent?']
+    afterPrompt: 'Who knows the intended purpose best: users or maker?',
+    hostPrompts: ['Is usefulness the same as intended purpose?', 'Can something have many uses but one original purpose?']
   },
   {
     id: 16,
-    title: 'THE PS5 TEARDOWN',
-    vibe: 'pressure',
+    title: 'THE $2 MILLION SECRET',
+    vibe: 'choices',
     scenario: [
-      'A Sony engineer takes apart a PS5 and explains everything: processor, cooling, memory, power supply, controller input, storage, and exactly what happens when you press the power button.',
-      'By the end, nobody in the room understands the machine better than he does.'
+      'You get $2 million cash today.',
+      'The only condition is that your best friend can never know you received it.'
     ],
-    prompt: 'Has he explained everything worth asking about the PS5?',
-    choices: ['Yes', 'No'],
+    prompt: 'Taking the money?',
+    choices: ['Take it', 'No'],
     twist: [
-      'Someone asks, “Why did Sony decide to build this machine at all? What was it designed to do for people?”',
-      'The engineer replies, “I already explained the components.”'
+      'Your friend later loses his job and asks to borrow $8,000.',
+      'You can help him, but if he ever discovers where your money came from, you lose everything you have left.'
     ],
-    afterPrompt: 'Does explaining how something works automatically answer why it exists or what it was intended for?',
-    hostPrompts: ['Are “how” and “why” the same question?', 'Can both kinds of explanation be valid?']
+    afterPrompt: 'Helping him or protecting the deal?',
+    hostPrompts: ['What would make you suspicious if the roles were reversed?', 'How much does secrecy change a friendship?']
   },
   {
     id: 17,
-    title: 'FOUR BOSSES AT DUNDER MIFFLIN',
-    vibe: 'pressure',
+    title: 'GTA GOD MODE',
+    vibe: 'pop',
     scenario: [
-      'You are working at Dunder Mifflin. Michael wants you planning his party. Dwight orders you into a safety drill. Corporate wants a report tonight. Your biggest client wants an emergency problem fixed now.',
-      'All four are demanding your attention at the same time.'
+      'You are playing GTA with every cheat turned on.',
+      'Infinite health, unlimited weapons, unlimited money, any car you want. Inside the game, almost nothing can stop you.'
     ],
-    prompt: 'Whose order matters most?',
-    choices: ['Michael', 'Dwight', 'Corporate', 'Client'],
+    prompt: 'Are you basically all-powerful inside that world?',
+    choices: ['Pretty much', 'Not really'],
     twist: [
-      'David Wallace calls and tells you exactly who has final authority over your job. The other demands still matter, but they now have an order.',
-      'The conflict becomes much easier once there is one clear highest authority.'
+      'Your little brother walks past the console and pulls the power cable.',
+      'Your entire world disappears instantly.'
     ],
-    afterPrompt: 'What happens when several things all try to act like your final boss?',
-    hostPrompts: ['What gets the final vote in your real life?', 'Can every priority be number one?']
+    afterPrompt: 'Can something be ultimate if its existence depends on something outside itself?',
+    hostPrompts: ['What were all your powers depending on?', 'Is power the same as independence?']
   },
   {
     id: 18,
-    title: 'THE ONE RING FOR A WEEK',
-    vibe: 'pressure',
+    title: 'THE ALGORITHM RESET',
+    vibe: 'internet',
     scenario: [
-      'Gandalf offers you the One Ring for seven days. You can use its power, but at the end of the week you must hand it back.',
-      'You have seen what it does to other people, but you are pretty confident you would handle it better.'
+      'You and a friend argue about something important. Both of you say, “The evidence is everywhere.”',
+      'You open your feeds and nearly every video supports you. He opens his and nearly every video supports him.'
     ],
-    prompt: 'Use it or refuse it?',
-    choices: ['Use it', 'Refuse it'],
+    prompt: 'Whose feed is showing reality?',
+    choices: ['Mine', 'His', 'Neither proves it'],
     twist: [
-      'Gandalf reminds you that almost everyone corrupted by the Ring also believed they were the exception.',
-      'Their confidence in themselves was part of the problem.'
+      'You both make fresh accounts with no history.',
+      'The recommendations look completely different because your old feeds had spent years learning what kept each of you watching.'
     ],
-    afterPrompt: 'Is “I know myself” enough evidence when every biased person says the same thing?',
-    hostPrompts: ['Why is bias easier to see in other people?', 'What evidence about yourself would matter more than confidence?']
+    afterPrompt: 'How much can “everyone I see agrees” actually prove?',
+    hostPrompts: ['What would you check outside your feed?', 'When did your internet become personalized?']
   },
   {
     id: 19,
-    title: 'DOC BROWN\'S TEN-YEAR PREVIEW',
-    vibe: 'deeper',
+    title: 'THE CLONE AT THE DOOR',
+    vibe: 'weird',
     scenario: [
-      'Doc Brown takes you ten years into the future for five minutes. Your job is fine. Your family is fine. But you are annoyed by how much of your life disappeared into your phone, random videos, and things you barely remember watching.',
-      'You ask what went wrong.'
+      'Someone knocks on your door who looks exactly like you.',
+      'Same voice, same memories, same scars, same passwords, same childhood stories. He calmly says you are the clone and he is the original.'
     ],
-    prompt: 'Bad luck or your current habits continuing?',
-    choices: ['Bad luck', 'Current habits'],
+    prompt: 'What is the first thing you test?',
     twist: [
-      'Doc shows you the numbers. Nothing dramatic happened. Your daily habits simply stayed almost exactly the same for ten years.',
-      'Small choices became a huge total because they repeated.'
+      'DNA matches. Fingerprints match. Your family cannot tell. Even your private memories match.',
+      'Only one of you can keep your current life.'
     ],
-    afterPrompt: 'If the cause keeps repeating, why should you expect a completely different result?',
-    hostPrompts: ['What small habit compounds quietly?', 'What future result would require changing something now?']
+    afterPrompt: 'What makes you “you” if every measurable detail can be copied?',
+    hostPrompts: ['Would memory settle it?', 'What would you refuse to give up?']
   },
   {
     id: 20,
-    title: 'THE CLICK REMOTE',
-    vibe: 'deeper',
+    title: 'THE TRUMAN SHOW EXIT',
+    vibe: 'pop',
     scenario: [
-      'You get the remote from Click. You can skip traffic, chores, workouts, awkward conversations, boring family events, and anything else you do not feel like dealing with.',
-      'At first it feels like the best invention ever made.'
+      'You discover your life has been a Truman Show-style set.',
+      'Inside, life is comfortable: no mortgage, little stress, your friends stay nearby, and somehow the Leafs win the Cup every few years. There is one exit to the real world.'
     ],
-    prompt: 'Use it a lot or only rarely?',
-    choices: ['Use it a lot', 'Rarely'],
+    prompt: 'Stay or leave?',
+    choices: ['Stay', 'Leave'],
     twist: [
-      'The remote learns what you usually skip and starts doing it automatically.',
-      'Soon it skips hard conversations and ordinary family moments that felt boring at the time but mattered later.'
+      'Outside is ordinary life: bills, traffic, bad weather, uncertainty, and normal Leafs hockey.',
+      'But outside is real.'
     ],
-    afterPrompt: 'Can avoiding every uncomfortable thing slowly train you into a life you never meant to choose?',
-    hostPrompts: ['What uncomfortable thing is still valuable?', 'What does constant escape teach you?']
+    afterPrompt: 'How much comfort would it take to make you choose something you knew was fake?',
+    hostPrompts: ['Does comfort change what is true?', 'Would your answer change if your family wanted to stay?']
   },
   {
     id: 21,
-    title: 'WALTER WHITE, CAR EXPERT',
-    vibe: 'deeper',
+    title: 'THE OLD FRIEND’S BUSINESS',
+    vibe: 'real-life',
     scenario: [
-      'Walter White is clearly a brilliant chemist. Now imagine he looks at a used BMW for thirty seconds and tells you the engine is perfect.',
-      'Your friend says, “He is a genius. If Walter says it is good, buy it.”'
+      'Your friend has spent three years and $60,000 building a side business.',
+      'It has never made a profit. He hates working on it now, but keeps saying, “I have put too much into this to stop.”'
     ],
-    prompt: 'Would his intelligence be enough for you to skip a mechanic?',
-    choices: ['Yes', 'No'],
+    prompt: 'Keep going or walk away?',
+    choices: ['Keep going', 'Walk away'],
     twist: [
-      'A mechanic finds a failing water pump and signs of overheating.',
-      'Walter may still be the smartest person in the room. It just was not his field.'
+      'A new opportunity appears that he actually enjoys and has better numbers.',
+      'He refuses because quitting the old business would make the last three years feel wasted.'
     ],
-    afterPrompt: 'Does being an expert in one area make someone an authority in every area?',
-    hostPrompts: ['When should expertise count?', 'What makes an authority relevant?']
+    afterPrompt: 'Should past cost decide the next three years?',
+    hostPrompts: ['When does persistence become stubbornness?', 'What matters more: money already spent or future opportunity?']
   },
   {
     id: 22,
-    title: 'THE 80-HOUR SAVE FILE',
+    title: 'THE ONE WRONG BELIEF',
     vibe: 'deeper',
     scenario: [
-      'You are 80 hours into a game you no longer enjoy. Every time the guys ask why you are still playing, you say, “I already put 80 hours into this. I cannot quit now.”',
-      'A new game you actually want to play is sitting unopened beside the console.'
+      'A machine scans your brain and prints one sentence:',
+      '“One major thing you currently believe is completely wrong.” It refuses to say which belief.'
     ],
-    prompt: 'Keep grinding or quit?',
-    choices: ['Keep grinding', 'Quit'],
+    prompt: 'What part of your life do you investigate first?',
+    choices: ['Money', 'Family', 'Health', 'Politics', 'Right & wrong', 'Life direction'],
     twist: [
-      'You check a guide and discover the game has another 100 hours left.',
-      'The first 80 hours are gone either way. Only the next 100 are still yours to choose.'
+      'The false belief entered your head before age 18.',
+      'You cannot remember ever choosing it. You simply heard it enough times that it became normal.'
     ],
-    afterPrompt: 'Should past investment decide what you do next if the future no longer makes sense?',
-    hostPrompts: ['What past cost cannot be recovered?', 'Where does ego make quitting harder?']
+    afterPrompt: 'How do you test something that has always felt obvious?',
+    hostPrompts: ['Which beliefs have you never had to defend?', 'Does inherited automatically mean false?']
   },
   {
     id: 23,
-    title: 'THE TRUMAN SHOW DEAL',
+    title: 'THE LAST 24 HOURS',
     vibe: 'deeper',
     scenario: [
-      'You discover your whole town is a Truman Show set. Your friends are actors, the news is controlled, and the world around you was built to keep you comfortable.',
-      'There is an exit door. Outside is real life: bills, traffic, bad weather, uncertainty, and the Leafs still cannot guarantee you a Cup.'
+      'You know with absolute certainty that you have 24 healthy hours left.',
+      'Nothing can extend the time. You are not allowed to spend it trying to stop the clock.'
     ],
-    prompt: 'Stay in the comfortable fake world or leave for the real one?',
-    choices: ['Stay', 'Leave'],
+    prompt: 'What gets your first six hours?',
     twist: [
-      'If you stay, nobody will judge you. The producers promise to make your life even easier.',
-      'The only thing you lose is the chance to know what is actually real.'
+      'Your unread emails, job title, bank balance, unfinished shows, online arguments, and shopping cart will all still exist tomorrow.',
+      'You will not.'
     ],
-    afterPrompt: 'How much comfort would it take to make you knowingly choose something false?',
-    hostPrompts: ['Does comfort change reality?', 'What truth would be hardest to accept if it disrupted your life?']
+    afterPrompt: 'What suddenly became important, and what suddenly looked ridiculous?',
+    hostPrompts: ['What would you regret leaving unfixed?', 'Why do some priorities change only when time becomes visible?']
   },
   {
     id: 24,
-    title: 'SHARK TANK: YOUR BELIEF',
-    vibe: 'finale',
+    title: 'THE PHONE RECEIPT',
+    vibe: 'real-life',
     scenario: [
-      'You walk onto Shark Tank with one opinion you strongly believe. It can be about money, health, relationships, society, success, or anything else you care about.',
-      'Mark Cuban says he will hear the pitch, but first he wants to know what evidence could make you admit your belief is wrong.'
+      'You list the five things you say matter most in your life.',
+      'Then your phone generates a brutally accurate report showing where your free time actually went for the last twelve months.'
     ],
-    prompt: 'Can you name something that would genuinely change your mind?',
-    choices: ['Yes', 'Nothing would'],
+    prompt: 'Would your list and your time match?',
+    choices: ['Mostly', 'Not even close'],
     twist: [
-      'Mark says, “If no possible evidence could count against your idea, then you are not really testing it. You are protecting it.”',
-      'He asks you to use the same standard on your own belief that you would use on somebody else’s.'
+      'The report also predicts the next ten years by simply continuing your current habits.',
+      'No dramatic disaster. Just more of the same.'
     ],
-    afterPrompt: 'Should a strong belief still be allowed to lose if the evidence goes against it?',
-    hostPrompts: ['What would genuinely change your mind?', 'Which card tonight made you change an answer?']
+    afterPrompt: 'Which tells the truth about your priorities: what you say, or what you repeatedly do?',
+    hostPrompts: ['What habit would you least want multiplied by ten years?', 'What would have to change this week?']
   }
 ];
 
 const CHAOS_MODIFIERS = [
-  { name: 'REWIND', text: 'Defend the opposite answer for 30 seconds.' },
-  { name: 'SHOW RECEIPTS', text: 'Give one real reason or piece of evidence for your answer.' },
-  { name: 'SAME RULE', text: 'Would you accept the same reasoning if it supported the other side?' },
-  { name: 'SOURCE CHECK', text: 'Where did the important claim come from?' },
-  { name: 'MYTHBUST IT', text: 'Name one fact that would make you change your answer.' },
-  { name: 'DEFINE IT', text: 'Pick the most important word in the argument and define it.' },
-  { name: 'NO AUDIENCE', text: 'Nobody you know will hear your answer. Same choice?' },
-  { name: 'FULL CLIP', text: 'What missing context could change this answer?' },
-  { name: 'BET YOUR SAVE FILE', text: 'How confident are you from 0 to 100? What keeps it from 100?' },
-  { name: 'FAST FORWARD', text: 'If you follow this answer for five years, where does it lead?' }
+  {
+    name: 'SWITCH SIDES',
+    text: 'For 30 seconds, defend the opposite answer as strongly as you can.'
+  },
+  {
+    name: 'SHOW RECEIPTS',
+    text: 'Give one actual reason or piece of evidence for your answer. No vibes.'
+  },
+  {
+    name: 'NO AUDIENCE',
+    text: 'Nobody you know will ever hear your answer. Do you still choose the same thing?'
+  },
+  {
+    name: 'BET $100',
+    text: 'You lose $100 if your answer turns out badly. Same choice?'
+  },
+  {
+    name: 'SAME RULE',
+    text: 'Would you accept the same reasoning if it helped the opposite side?'
+  },
+  {
+    name: 'FAST FORWARD',
+    text: 'Imagine your choice plays out for ten years. Does it still look good?'
+  },
+  {
+    name: 'ONE REASON',
+    text: 'You only get one reason. What is the strongest reason for your answer?'
+  },
+  {
+    name: 'CHANGE ONE FACT',
+    text: 'Name one new fact that would make you switch your answer.'
+  },
+  {
+    name: 'PICK A LAWYER',
+    text: 'Choose someone else in the group to defend your answer for you.'
+  },
+  {
+    name: 'LOCK IT IN',
+    text: 'No “it depends.” Everyone picks one answer right now and gives one sentence why.'
+  }
 ];
