@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0908">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Plot Twist — a campfire scenario game. Pick an answer. Defend it. Then everything changes.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png" sizes="192x192">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+  <title>Plot Twist</title>
+</head>
+<body>
+  <div class="ember ember-a" aria-hidden="true"></div>
+  <div class="ember ember-b" aria-hidden="true"></div>
+
+  <main id="app" class="app-shell">
+    <section id="homeScreen" class="screen screen-home active" aria-labelledby="homeTitle">
+      <div class="brand-mark" aria-hidden="true">↻</div>
+      <p class="eyebrow">CAMPFIRE SCENARIO GAME</p>
+      <h1 id="homeTitle">PLOT<br><span>TWIST</span></h1>
+      <p class="tagline">Pick an answer. Defend it. Then everything changes.</p>
+
+      <div class="home-actions">
+        <button id="resumeButton" class="btn btn-primary" data-action="resume" hidden>RESUME GAME</button>
+        <button class="btn btn-primary" data-action="start">START GAME</button>
+        <button class="btn btn-secondary" data-action="campfire">CAMPFIRE RUN</button>
+        <button class="btn btn-ghost" data-action="random">RANDOM CARD</button>
+      </div>
+
+      <div class="home-links">
+        <button class="text-btn" data-screen="how">HOW TO PLAY</button>
+        <button class="text-btn" data-screen="saved" id="savedHomeButton">SAVED <span id="savedCount">0</span></button>
+        <button class="text-btn" data-screen="settings">SETTINGS</button>
+      </div>
+
+      <button id="installButton" class="install-chip" hidden>INSTALL APP</button>
+      <p id="offlineStatus" class="offline-status" role="status">Preparing offline mode…</p>
+    </section>
+
+    <section id="gameScreen" class="screen screen-game" aria-live="polite">
+      <header class="game-header">
+        <button class="icon-btn" data-screen="home" aria-label="Go home">←</button>
+        <div id="modeLabel" class="mode-label">GAME</div>
+        <button class="icon-btn" data-screen="settings" aria-label="Open settings">⚙</button>
+      </header>
+
+      <article class="card" id="card">
+        <div class="card-topline">
+          <span id="cardNumber">CARD 01</span>
+          <button id="saveButton" class="save-btn" aria-pressed="false">☆ SAVE</button>
+        </div>
+        <h2 id="cardTitle">TITLE</h2>
+        <div id="scenarioText" class="scenario-text"></div>
+        <div id="scenarioBullets" class="bullet-wrap" hidden></div>
+        <div id="scenarioChoices" class="choice-wrap" hidden></div>
+        <p id="mainPrompt" class="main-prompt"></p>
+
+        <div id="hostPromptStage1" class="host-nudge" hidden></div>
+
+        <button id="revealButton" class="btn btn-reveal">REVEAL PLOT TWIST</button>
+
+        <div id="twistPanel" class="twist-panel" hidden>
+          <div class="twist-rule"><span></span><b>PLOT TWIST</b><span></span></div>
+          <div id="twistText" class="twist-text"></div>
+          <p id="afterPrompt" class="after-prompt"></p>
+          <div id="hostPromptStage2" class="host-nudge" hidden></div>
+        </div>
+      </article>
+
+      <div class="game-actions">
+        <button id="chaosButton" class="btn btn-ghost compact">CHAOS</button>
+        <button id="nextButton" class="btn btn-primary compact">NEXT CARD</button>
+      </div>
+    </section>
+
+    <section id="howScreen" class="screen utility-screen" aria-labelledby="howTitle">
+      <header class="utility-header"><button class="icon-btn" data-screen="home" aria-label="Go home">←</button><span>HOW TO PLAY</span><span></span></header>
+      <div class="utility-card">
+        <h2 id="howTitle">How to Play</h2>
+        <ol class="rules">
+          <li>Read the scenario aloud.</li>
+          <li>Everyone chooses an answer.</li>
+          <li>No “it depends” until after choosing.</li>
+          <li>Defend your answer.</li>
+          <li>Reveal the Plot Twist.</li>
+          <li>Change your mind if you want.</li>
+          <li>Argue with the answer, not the person.</li>
+        </ol>
+        <div class="rule-highlight">Changing your answer after hearing a better argument is a win.</div>
+      </div>
+    </section>
+
+    <section id="settingsScreen" class="screen utility-screen" aria-labelledby="settingsTitle">
+      <header class="utility-header"><button class="icon-btn" data-screen="home" aria-label="Go home">←</button><span>SETTINGS</span><span></span></header>
+      <div class="utility-card settings-card">
+        <h2 id="settingsTitle">Camp Setup</h2>
+        <label class="setting-row"><span><b>Camp Mode</b><small>Extra-dark interface</small></span><input id="campModeToggle" type="checkbox"></label>
+        <label class="setting-row"><span><b>Shuffle Cards</b><small>Shuffle the full deck when starting</small></span><input id="shuffleToggle" type="checkbox"></label>
+        <label class="setting-row"><span><b>Keep Screen Awake</b><small id="wakeSupportText">Uses the browser wake lock when supported</small></span><input id="wakeToggle" type="checkbox"></label>
+        <label class="setting-row"><span><b>Host Prompts</b><small>Show optional discussion nudges</small></span><input id="hostToggle" type="checkbox"></label>
+        <button id="resetButton" class="btn btn-danger">RESET GAME DATA</button>
+      </div>
+    </section>
+
+    <section id="savedScreen" class="screen utility-screen" aria-labelledby="savedTitle">
+      <header class="utility-header"><button class="icon-btn" data-screen="home" aria-label="Go home">←</button><span>SAVED CARDS</span><span></span></header>
+      <div class="utility-card">
+        <h2 id="savedTitle">Saved for Later</h2>
+        <div id="savedList" class="saved-list"></div>
+      </div>
+    </section>
+
+    <section id="completeScreen" class="screen utility-screen" aria-labelledby="completeTitle">
+      <div class="complete-card">
+        <div class="brand-mark small" aria-hidden="true">↻</div>
+        <p class="eyebrow">RUN COMPLETE</p>
+        <h2 id="completeTitle">That got weird.</h2>
+        <p>You made it through the run. Start another deck or pull a completely random card.</p>
+        <button class="btn btn-primary" data-action="start">NEW GAME</button>
+        <button class="btn btn-ghost" data-action="random">RANDOM CARD</button>
+        <button class="text-btn" data-screen="home">HOME</button>
+      </div>
+    </section>
+  </main>
+
+  <div id="chaosModal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="chaosName">
+    <div class="modal-card">
+      <p class="eyebrow">CHAOS CARD</p>
+      <h3 id="chaosName"></h3>
+      <p id="chaosText"></p>
+      <button id="closeChaos" class="btn btn-primary compact">BACK TO CARD</button>
+    </div>
+  </div>
+
+  <script src="cards.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
