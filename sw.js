@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_NAME = 'plot-twist-v1.1.0';
+const CACHE_NAME = 'plot-twist-v1.2.0';
 const APP_SHELL = [
   './',
   './index.html',
@@ -32,22 +32,21 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
 
-  if (event.request.mode === 'navigate') {
-    event.respondWith(
-      caches.match('./index.html').then(cached => cached || fetch(event.request))
-    );
-    return;
-  }
-
   event.respondWith(
     caches.match(event.request).then(cached => {
       if (cached) return cached;
-      return fetch(event.request).then(response => {
-        if (!response || response.status !== 200 || response.type === 'opaque') return response;
-        const copy = response.clone();
-        caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
-        return response;
-      });
+
+      return fetch(event.request)
+        .then(response => {
+          if (!response || response.status !== 200 || response.type === 'opaque') return response;
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
+          return response;
+        })
+        .catch(() => {
+          if (event.request.mode === 'navigate') return caches.match('./index.html');
+          return undefined;
+        });
     })
   );
 });
