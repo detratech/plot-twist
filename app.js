@@ -1,6 +1,6 @@
 'use strict';
 
-const STORAGE_KEY = 'plotTwistStateV3';
+const STORAGE_KEY = 'plotTwistStateV4';
 const defaultState = {
   mode: null,
   order: [],
@@ -125,11 +125,8 @@ function beginGame(mode) {
 
   if (mode === 'saved') {
     state.order = [...state.saved];
-  } else if (mode === 'random') {
-    state.order = shuffled(ids);
   } else {
-    // The main game is intentionally ordered: light/funny first, deeper later.
-    state.order = ids;
+    state.order = shuffled(ids);
   }
 
   if (!state.order.length) {
@@ -292,7 +289,7 @@ function renderSavedList() {
 }
 
 function escapeHtml(value) {
-  return String(value).replace(/[&<>'"]/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]));
+  return String(value).replace(/[&<>'\"]/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','\"':'&quot;'}[char]));
 }
 
 function showChaos() {
