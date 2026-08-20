@@ -1,7 +1,7 @@
 {
   "name": "Plot Twist",
   "short_name": "Plot Twist",
-  "description": "Pick an answer. Defend it. Then everything changes.",
+  "description": "Pick a side. Defend it. Then deal with the twist.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
