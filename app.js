@@ -1,6 +1,6 @@
 'use strict';
 
-const STORAGE_KEY = 'plotTwistStateV2';
+const STORAGE_KEY = 'plotTwistStateV3';
 const defaultState = {
   mode: null,
   order: [],
@@ -8,7 +8,6 @@ const defaultState = {
   revealed: false,
   saved: [],
   settings: {
-    shuffle: true,
     keepAwake: false,
     hostPrompts: false
   }
@@ -46,7 +45,6 @@ const el = {
   savedList: document.getElementById('savedList'),
   host1: document.getElementById('hostPromptStage1'),
   host2: document.getElementById('hostPromptStage2'),
-  shuffleToggle: document.getElementById('shuffleToggle'),
   wakeToggle: document.getElementById('wakeToggle'),
   hostToggle: document.getElementById('hostToggle'),
   wakeSupportText: document.getElementById('wakeSupportText'),
@@ -130,7 +128,8 @@ function beginGame(mode) {
   } else if (mode === 'random') {
     state.order = shuffled(ids);
   } else {
-    state.order = state.settings.shuffle ? shuffled(ids) : ids;
+    // The main game is intentionally ordered: light/funny first, deeper later.
+    state.order = ids;
   }
 
   if (!state.order.length) {
@@ -193,7 +192,11 @@ function renderCard() {
     el.scenarioChoices.hidden = true;
   }
 
-  el.modeLabel.textContent = state.mode === 'saved' ? `SAVED · ${state.position + 1}/${state.order.length}` : `GAME · ${state.position + 1}/${state.order.length}`;
+  el.modeLabel.textContent = state.mode === 'saved'
+    ? `SAVED · ${state.position + 1}/${state.order.length}`
+    : state.mode === 'random'
+      ? `RANDOM · ${state.position + 1}/${state.order.length}`
+      : `GAME · ${state.position + 1}/${state.order.length}`;
 
   setRevealState(state.revealed, false);
   updateSaveButton(card.id);
@@ -307,7 +310,6 @@ function applySettings() {
 }
 
 function syncSettingsUI() {
-  el.shuffleToggle.checked = state.settings.shuffle;
   el.wakeToggle.checked = state.settings.keepAwake;
   el.hostToggle.checked = state.settings.hostPrompts;
   if (!('wakeLock' in navigator)) {
@@ -349,7 +351,7 @@ document.addEventListener('click', event => {
   if (!actionButton) return;
   const action = actionButton.dataset.action;
   if (action === 'resume') resumeGame();
-  if (action === 'start') beginGame('full');
+  if (action === 'start') beginGame('main');
   if (action === 'random') beginGame('random');
 });
 
@@ -364,7 +366,6 @@ document.getElementById('closeChaos').addEventListener('click', () => { el.chaos
 el.chaosModal.addEventListener('click', event => { if (event.target === el.chaosModal) el.chaosModal.hidden = true; });
 document.getElementById('resetButton').addEventListener('click', resetGameData);
 
-el.shuffleToggle.addEventListener('change', () => { state.settings.shuffle = el.shuffleToggle.checked; persist(); });
 el.wakeToggle.addEventListener('change', () => { state.settings.keepAwake = el.wakeToggle.checked; persist(); applySettings(); });
 el.hostToggle.addEventListener('change', () => { state.settings.hostPrompts = el.hostToggle.checked; persist(); renderHostPrompts(currentCard() || {}); });
 
