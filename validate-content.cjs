@@ -231,7 +231,8 @@ for (const file of DECK_FILES) {
   if (!sw.includes(`'./${file}'`)) fail(`sw.js does not precache ${file}.`);
 }
 
-if (!sw.includes("plot-twist-v6.1.0")) fail('Service-worker cache is not plot-twist-v6.1.0.');
+if (!sw.includes("plot-twist-v6.1.1")) fail('Service-worker cache is not plot-twist-v6.1.1.');
+if (!index.includes('<b>App Version</b>') || !index.includes('<strong>v6.1.1</strong>')) fail('Settings does not display app version v6.1.1.');
 if (!app.includes("masterpiece-200-v1")) fail('App deck version is not masterpiece-200-v1.');
 if (/\b(?:card|scenario)\s*#?\d+\b/i.test(index)) fail('Visible card/scenario numbering pattern found in index.html.');
 if (!index.includes('Both are meant to be defensible before the reveal.')) fail('How to Play does not state the two-sided dilemma rule.');
@@ -261,5 +262,6 @@ console.log('PASS: prohibited explicit worldview terms were not found in card or
 console.log('PASS: authoring/meta-instruction leak patterns were not found in player-facing card or shell text.');
 console.log('PASS: all eight deck files are loaded and precached.');
 console.log('PASS: the user-facing rules require two defensible choices and allow switching after the Plot Twist.');
-console.log('PASS: deck version masterpiece-200-v1 and cache plot-twist-v6.1.0 are wired.');
+console.log('PASS: settings visibly reports app version v6.1.1.');
+console.log('PASS: deck version masterpiece-200-v1 and cache plot-twist-v6.1.1 are wired.');
 console.log('Category memberships:', distribution);
