@@ -6,424 +6,424 @@ PLOT_TWIST_CARDS.push(
     title: 'HAPPINESS: PREMIUM EDITION',
     vibe: 'absurd',
     scenario: [
-      'A clinic offers a safe brain upgrade that makes you calm, confident, and genuinely happy every day. Mondays lose jurisdiction. Group chats become emotionally harmless.',
-      'The upgrade does not make you wiser, kinder, braver, more disciplined, or better at hard conversations. It just makes your brain say, “Honestly? We are crushing it.”'
+      'A clinic offers MoodOS: 25% less anxiety, faster recovery from rejection, calmer arguments, better sleep, and no known physical side effects. Monday is still Monday, but it can no longer legally enter your chest.',
+      'You still laugh, cry, love, and care. The only catch is that unpleasant emotions arrive with the volume turned down. The brochure calls this “finally muting the group chat inside your skull.”'
     ],
-    prompt: 'You taking permanent happiness?',
-    choices: ['Install the sunshine', 'Keep the full human package'],
+    prompt: 'Do you patch the misery bugs, or keep your emotional dashboard painfully factory-standard?',
+    choices: ['INSTALL IT — smoother emotions', 'KEEP IT STOCK — full-strength signals'],
     twist: [
-      'Ten years later, many users feel amazing but stopped fixing problems because nothing feels urgent. One man has been “totally at peace” with the same broken relationship, unfinished degree, and IKEA box in his hallway since 2036.'
+      'Five years later, users sleep better and fight less. They also stay longer in some bad jobs and broken relationships because dissatisfaction no longer screams. Non-users suffer more false alarms, but some act faster when the warning light is real.'
     ],
-    conclusion: 'Pleasure and fulfilment are not the same thing. A good feeling can be valuable, but it is a terrible substitute for becoming good at living.',
-    afterPrompt: 'What discomfort in your life is actually trying to teach you something?',
-    hostPrompts: ['Which painful feelings protect you from becoming careless?', 'What would you refuse to trade away for comfort?']
+    conclusion: 'Pleasure and fulfilment are not the same thing. Good feelings matter, but discomfort can also carry information. A better life is not simply the life with the fewest unpleasant sensations.',
+    afterPrompt: 'Which uncomfortable feelings in your life are noise, and which might be useful warning lights?',
+    hostPrompts: ['What would you happily turn down forever?', 'What discomfort would you be nervous to lose completely?']
   },
   {
     id: 2,
     title: 'THE ENVELOPE THAT RUINS BRUNCH',
     vibe: 'truth',
     scenario: [
-      'A red envelope contains one completely accurate answer about a major belief or life choice you currently have wrong.',
-      'Opening it might change nothing. Or it might force you to admit that a comfortable part of your life is built on nonsense. Your pancakes have requested that you leave this until after brunch.'
+      'A red envelope contains one completely accurate correction to a major belief or life plan you currently have wrong. Opening it could change nothing, or it could force a truly inconvenient conversation before the weekend.',
+      'Nothing terrible happens if you leave it sealed tonight. Your pancakes have formally requested a 24-hour extension.'
     ],
-    prompt: 'Open it?',
-    choices: ['Give me the truth', 'Protect the pancakes'],
+    prompt: 'Do you open the truth grenade now, or leave one peaceful Tuesday intact?',
+    choices: ['OPEN IT — deal with the fallout', 'LEAVE IT SEALED — functioning life first'],
     twist: [
-      'Nobody will ever know what you chose. There is no social reward for being brave, and no embarrassment if the envelope proves you wrong. This is now just you versus the truth, with syrup nearby.'
+      'As you put it away, you notice one line printed on the back: “This mistake directly affects an irreversible decision you are making Friday.” The pancakes immediately withdraw their legal advice.'
     ],
-    conclusion: 'Truth does not become less true because accepting it is expensive. If comfort gets veto power over evidence, you are no longer investigating; you are negotiating.',
-    afterPrompt: 'What kind of truth would be hardest for you to accept because of what it would require afterward?',
-    hostPrompts: ['What would changing your mind actually cost you?', 'Do you want truth, or only truth that leaves your lifestyle untouched?']
+    conclusion: 'Truth does not become less true because accepting it is expensive. Comfort can affect timing and preparation, but it cannot be allowed to veto evidence when a decision depends on what is actually true.',
+    afterPrompt: 'When is “I am not ready to know” a reasonable delay, and when is it avoidance wearing a cardigan?',
+    hostPrompts: ['What kind of truth would be hardest because of what it would require next?', 'How much should emotional readiness matter when a decision cannot be undone?']
   },
   {
     id: 3,
     title: 'THERMOSTAT SUPREME COURT',
     vibe: 'funny',
     scenario: [
-      'Two roommates are fighting over the temperature. One is wearing three hoodies and says the apartment is “basically Antarctica.” The other is shirtless beside a fan claiming to be “one degree from death.”',
-      'The thermostat reads 21°C and has quietly started looking for another apartment.'
+      'Two roommates are fighting over the apartment. One is in three hoodies saying, “Antarctica has better zoning.” The other is shirtless beside a fan claiming his organs are now sous-vide.',
+      'The smart thermostat says 21°C and carries the smug confidence of a machine that has never paid rent.'
     ],
-    prompt: 'Whose claim should settle the room temperature?',
-    choices: ['The experience', 'The measurement'],
+    prompt: 'Who gets custody of the thermostat: the number, or the humans currently living inside it?',
+    choices: ['TRUST THE SENSOR — numbers beat drama', 'TRUST THE ROOMMATES — bodies live here'],
     twist: [
-      'The thermostat is later found to be off by 2°C. Both roommates were sincere, and both were also describing different things: how the room felt versus what temperature it actually was.'
+      'A second thermometer reveals the thermostat sensor sits beside a warm router and reads 2°C high. Unfortunately Hoodie Roommate also just came in from the snow, while Shirtless Roommate finished a workout. Everyone brought evidence. Nobody brought enough evidence.'
     ],
-    conclusion: 'Feelings are real experiences, but they do not automatically become measurements of the outside world. Use the right kind of evidence for the kind of claim being made.',
-    afterPrompt: 'Where in life do people accidentally turn “this feels true” into “this is true”?',
-    hostPrompts: ['Can an experience be real while the explanation of it is wrong?', 'What questions require something outside your own feelings?']
+    conclusion: 'Feelings are real evidence about experience, while measurements answer different questions. The right move is not to worship either one; it is to use evidence suited to the claim and check whether the evidence itself is reliable.',
+    afterPrompt: 'Where do people confuse “this feels true,” “this measures true,” and “therefore my explanation is true”?',
+    hostPrompts: ['When should lived experience outweigh a measurement?', 'What makes a measurement trustworthy rather than merely numerical?']
   },
   {
     id: 4,
     title: 'FOUR GPS APPS, ONE BRIDGE',
     vibe: 'absurd',
     scenario: [
-      'Four navigation apps give opposite directions to the same cabin. One says left at the bridge. One says right. One says the bridge was demolished in 2019. The fourth says roads are a limiting mindset.',
-      'Everyone agrees that arguing feels negative, so the group announces that all four routes are equally correct.'
+      'You are driving to a cabin in heavy rain. Live GPS says the bridge route is 35 minutes faster and shows traffic moving. Gary, who has driven these roads every week since flip phones, says, “Never take that bridge after rain.”',
+      'GPS has satellites. Gary has scar tissue from every pothole in the county. You have one steering wheel and a passenger who is already blaming you.'
     ],
-    prompt: 'What should decide the route?',
-    choices: ['Keep every route equally valid', 'Find which route matches reality'],
+    prompt: 'Who gets the steering wheel: Silicon Valley or Gary Valley?',
+    choices: ['FOLLOW GPS — current data wins', 'FOLLOW GARY — local experience wins'],
     twist: [
-      'The car reaches the bridge. It cannot turn left and right at the same time. The ditch also turns out to have very traditional views about gravity.'
+      'At the junction, a brand-new road sign says the bridge reopened after flood upgrades this morning, while Gary’s alternate road is closed by a fresh rockslide that GPS has not received yet. Gary was right about the old risk. GPS was right about the bridge. Neither knew the whole present situation.'
     ],
-    conclusion: 'Respecting people does not require pretending contradictory claims are all true. Kindness belongs to people; truth belongs to reality.',
-    afterPrompt: 'Why do we sometimes confuse respecting a person with validating every claim they make?',
-    hostPrompts: ['Can two sincere people disagree while one is still mistaken?', 'What actually breaks a tie between incompatible claims?']
+    conclusion: 'Sincerity, experience, and technology can all provide useful evidence without becoming automatic truth. When claims conflict, update toward the evidence that best matches the present reality.',
+    afterPrompt: 'What should break a tie when two credible sources disagree?',
+    hostPrompts: ['Which source had the better reason before the new sign appeared?', 'How quickly should confidence change when better evidence arrives?']
   },
   {
     id: 5,
     title: 'THE VIBES LABORATORY',
     vibe: 'funny',
     scenario: [
-      'Two self-discovery coaches claim their inner method reveals reliable truth. Coach A stares at a candle. Coach B listens to a singing bowl. Both have beige websites and suspiciously peaceful profile photos.',
-      'After a month, they reach opposite conclusions about the same question. Each says the other person “was not open enough.”'
+      'Coach A runs an intense self-discovery retreat. Hundreds of clients say it changed their lives, repaired relationships, and gave them the strongest sense of certainty they have ever felt. Coach B runs a painfully boring method involving controls, repeatable tests, and absolutely no candles.',
+      'Coach A has transformed people. Coach B has spreadsheets. Both would like custody of the word “truth.”'
     ],
-    prompt: 'What gives the insight real weight?',
-    choices: ['The strength of the experience', 'A way to test the conclusion'],
+    prompt: 'Whose clipboard gets to make claims about reality outside the retreat?',
+    choices: ['THE TRANSFORMATION — repeated lived experience', 'THE TEST — independently checkable results'],
     twist: [
-      'A third coach enters with crystals, reaches a third answer, and launches a certification course by lunch. The experiences may be meaningful. They still cannot all settle the same external claim.'
+      'A second retreat using the same emotional method produces equally powerful transformations but reaches the opposite external conclusion. Meanwhile the boring test correctly predicts a concrete outcome neither retreat expected. Everyone still feels deeply changed. Reality remains annoyingly single-player.'
     ],
-    conclusion: 'A powerful personal experience can change you without proving your explanation of it. When experiences conflict, you need a method that can detect error.',
-    afterPrompt: 'What can personal experience tell you well, and what can it not settle by itself?',
-    hostPrompts: ['How would this method ever admit it was wrong?', 'Would you accept the same evidence from somebody reaching the opposite conclusion?']
+    conclusion: 'A powerful experience can be personally meaningful without proving every explanation attached to it. When sincere experiences conflict, you need a method capable of distinguishing interpretation from what can be checked outside the experience.',
+    afterPrompt: 'What can a personal experience establish strongly, and what still needs evidence beyond the person who felt it?',
+    hostPrompts: ['Would the same experience persuade you if it supported the opposite conclusion?', 'What kind of test could genuinely prove your explanation wrong?']
   },
   {
     id: 6,
     title: 'THE MYSTERY BOX CONSULTANT',
     vibe: 'mystery',
     scenario: [
-      'Engineers discover a sealed black box doing something important. Nobody yet knows how it works.',
-      'Within six minutes, three online experts explain it as hidden energy, government technology, and “definitely quantum.” One has put QUANTUM in all caps, so things are getting serious.'
+      'Engineers find a sealed black box controlling backup power in a hospital wing. Nobody fully understands it, but one model gives a 70% chance that flipping Switch B will stabilize the system.',
+      'You have thirty minutes before the wing loses power. “Let us simply remain epistemically humble” has received poor feedback from the ICU.'
     ],
-    prompt: 'What is the strongest answer right now?',
-    choices: ['Pick the best guess', 'Say we do not know yet'],
+    prompt: 'Do you act on the best unproven model, or refuse to gamble with a hospital?',
+    choices: ['ACT — best hypothesis, clearly provisional', 'WAIT — no guessing with ICU power'],
     twist: [
-      'A year later, the box is opened and every confident explanation is wrong. The boring person who said “we do not know yet” has become unbearable at dinner parties.'
+      'Switch B does stabilize the system, but the model’s explanation of why was wrong. Waiting for certainty would have lost the wing. Acting worked because the team treated the model as a justified risk, not as proven truth.'
     ],
-    conclusion: 'A mystery is not evidence for your favourite explanation. “I do not know” is stronger than invented certainty, and a tentative hypothesis should remain tentative until evidence earns more confidence.',
-    afterPrompt: 'Where do people use a fancy label to hide the fact that they still do not understand the thing?',
-    hostPrompts: ['What separates a useful hypothesis from a confident guess?', 'Why does uncertainty make people so uncomfortable?']
+    conclusion: '“We do not know for certain” does not mean “we know nothing” or “do nothing.” Good reasoning separates confidence from certainty: act on the best justified evidence when necessary, while keeping the explanation open to correction.',
+    afterPrompt: 'Where do people confuse admitting uncertainty with having no rational basis to act?',
+    hostPrompts: ['How much confidence should be enough when delay also carries risk?', 'What language would let you act without pretending the hypothesis is proven?']
   },
   {
     id: 7,
     title: 'THE ELEVATOR MATH SUPPORT GROUP',
     vibe: 'absurd',
     scenario: [
-      'A school decides every answer on a math test is personally valid. One student writes 2 + 2 = 4. Another writes 5. Kevin writes “numbers are colonial” and draws a dragon.',
-      'Nobody wants to make Kevin feel excluded.'
+      'A nervous student solves a difficult maths problem with excellent reasoning but makes one arithmetic mistake at the end. A teacher worries that a giant red WRONG will make the student shut down again.',
+      'Another teacher says, “If the answer is wrong, pretending otherwise is emotional accounting fraud.” Kevin has drawn a dragon in the margin and would like partial credit for atmosphere.'
     ],
-    prompt: 'Should the teacher mark one answer correct?',
-    choices: ['Yes, reality gets a vote', 'No, protect every answer'],
+    prompt: 'What matters more in the moment: protecting confidence or making the error unmistakable?',
+    choices: ['COACH GENTLY — confidence keeps learning alive', 'MARK IT CLEARLY — wrong must still mean wrong'],
     twist: [
-      'The class is immediately hired to calculate the weight limit of the elevator you are standing in. Kevin’s dragon is now part of the engineering packet.'
+      'Months later the same arithmetic error appears in a medication calculation. The student says nobody ever made clear that the mistake mattered. But an earlier brutally blunt teacher had also trained the student to hide questions instead of asking for help.'
     ],
-    conclusion: 'Compassion does not require abandoning correction. When a question has a true answer, protecting people from being wrong is not the same as protecting people from being humiliated.',
-    afterPrompt: 'How do you correct error without turning correction into cruelty?',
-    hostPrompts: ['Which questions allow preference and which describe reality?', 'Why does truth suddenly matter more when consequences arrive?']
+    conclusion: 'Compassion and correction are not opposites. A person can be treated with dignity while an error is named clearly. Protecting someone from humiliation is good; protecting an error from correction is not.',
+    afterPrompt: 'How do you make “you are wrong here” feel safe enough that a person can actually learn from it?',
+    hostPrompts: ['When does gentleness become vagueness?', 'When does blunt correction become more about the corrector than the learner?']
   },
   {
     id: 8,
     title: 'THE BLUE-CHECK MECHANIC',
     vibe: 'internet',
     scenario: [
-      'Your car starts making a horrifying noise. A celebrity with eight million followers says the transmission is dead. A quiet mechanic says, “Probably a forty-dollar belt.”',
-      'The celebrity has studio lighting. The mechanic has a coffee stain shaped like Australia.'
+      'Your car makes a horrible grinding noise. A famous former race mechanic with eight million followers hears a recording and says, “Classic transmission failure.” Your local mechanic inspects the car and says, “I think it is a forty-dollar belt.”',
+      'The famous guy has elite credentials. The local guy has your actual car on a lift and a coffee stain shaped like Australia.'
     ],
-    prompt: 'Who gets your trust first?',
-    choices: ['The famous confident voice', 'The relevant expert with evidence'],
+    prompt: 'Whose diagnosis gets your wallet first?',
+    choices: ['THE SPECIALIST — elite pattern recognition', 'THE INSPECTION — the actual car beats the clip'],
     twist: [
-      'The mechanic replaces the belt and the noise disappears. The celebrity posts a 17-minute reaction video titled WHY THIS PROVES I WAS BASICALLY RIGHT.'
+      'The famous mechanic correctly recognized a sound that often comes from transmissions, but the local inspection finds a damaged belt creating a nearly identical noise. The transmission is fine. The internet diagnoses three more components in the comments for emotional support.'
     ],
-    conclusion: 'Status, confidence, and audience size are not substitutes for relevant expertise and evidence. Authority matters when it is actually connected to the question.',
-    afterPrompt: 'Where are you most tempted to confuse fame with competence?',
-    hostPrompts: ['What makes an expert relevant rather than merely impressive?', 'Would the same claim persuade you without the follower count?']
+    conclusion: 'Credentials and experience matter, but relevant evidence matters too. The strongest authority is the one whose expertise actually connects to the question and whose conclusion fits the available evidence.',
+    afterPrompt: 'When should general expertise lose to direct inspection?',
+    hostPrompts: ['What would make the remote specialist’s view stronger?', 'What would make you suspicious that the local expert is overconfident?']
   },
   {
     id: 9,
     title: 'IKEA: DIRECTOR’S CUT',
     vibe: 'funny',
     scenario: [
-      'You buy a 600-part machine. The engineer included numbered instructions. Your friend throws them aside because “everyone has their own interpretation.”',
-      'He installs Part 84 where Part 12 should go because the angle feels more authentic to him.'
+      'You are assembling a complicated machine. The official manual says Step 42 one way. Your friend has built twelve of these and says the printed step is notorious: “Everyone who follows that line ends up swearing in Swedish.”',
+      'The manual has diagrams. Your friend has forearms, experience, and a small collection of leftover screws he refuses to discuss.'
     ],
-    prompt: 'What should guide the build?',
-    choices: ['The source instructions', 'Whatever seems right during assembly'],
+    prompt: 'Who wins Step 42: the manual or the veteran with mysterious spare parts?',
+    choices: ['FOLLOW THE MANUAL — source before improvisation', 'FOLLOW THE BUILDER — experience found the real-world fix'],
     twist: [
-      'The machine produces one sad puff of smoke and an error message that says, “We literally numbered the parts.” Your friend would like to discuss how labels are restrictive.'
+      'An official erratum confirms your friend is right about Step 42. Unfortunately, he also skips the safety latch because “I never bother with that bit.” The manufacturer’s updated instructions say the latch prevents the machine from becoming a briefly airborne lawsuit.'
     ],
-    conclusion: 'Interpretation is not permission to make a source mean anything. The strongest reading is the one that best fits the source, context, structure, and intended function.',
-    afterPrompt: 'When does interpretation become an excuse to ignore inconvenient instructions?',
-    hostPrompts: ['What makes one interpretation better than another?', 'Would you use the same freedom of interpretation when safety is involved?']
+    conclusion: 'Interpretation is not permission to ignore a source, and a source is not understood well by pretending context never matters. The strongest reading fits the text, updates, structure, and intended function rather than whichever line is most convenient.',
+    afterPrompt: 'What should make you depart from a literal instruction without turning “experience” into a blank cheque?',
+    hostPrompts: ['When can later context legitimately change how a line is applied?', 'What makes an interpretation better than “this is how I prefer to read it”?']
   },
   {
     id: 10,
     title: 'DELETE ALL HISTORY',
     vibe: 'absurd',
     scenario: [
-      'Your friend announces that nothing from the past can be known unless he personally witnessed it.',
-      'You ask whether his grandparents existed before he met them. He says, “Allegedly.” His grandmother is sitting beside him and is not enjoying the framework.'
+      'A 40-year-old incident has one surviving eyewitness who remembers a blue car. Three newspaper archives say the car was red. You did not personally witness any of it because you were busy not existing yet.',
+      'The witness is sincere. The archives agree. Your group chat has already split into Team Grandma and Team PDF.'
     ],
-    prompt: 'Is personal eyewitness the only reasonable way to know the past?',
-    choices: ['Yes, witness it yourself', 'No, reliable records and testimony count'],
+    prompt: 'Who gets the first draft of history?',
+    choices: ['THE WITNESS — memory from the scene', 'THE RECORDS — multiple documented sources'],
     twist: [
-      'He now cannot confidently say who won last year’s championship, what happened at his own birth, or whether he owes you the $200 he borrowed yesterday. His new standard has become financially convenient.'
+      'An old photograph shows the car was blue: the newspapers all copied the same mistaken police report. The eyewitness was right about the colour but wrong about the time by nearly an hour. Independence has entered the chat.'
     ],
-    conclusion: 'You can know things you did not personally witness. Reliable testimony, records, multiple sources, preservation, and cross-checking are normal parts of rational knowledge.',
-    afterPrompt: 'What makes a record trustworthy enough to use without making it unquestionable?',
-    hostPrompts: ['How much of your ordinary knowledge depends on testimony?', 'What would make you reject a normally reliable source?']
+    conclusion: 'We can know the past without personally witnessing it, but neither memory nor documents are magical. Reliable history comes from provenance, independence, preservation, corroboration, and cross-checking different kinds of evidence.',
+    afterPrompt: 'What makes several sources genuinely stronger rather than several copies of the same mistake?',
+    hostPrompts: ['When is eyewitness memory especially valuable?', 'What would make a written record less independent than it appears?']
   },
   {
     id: 11,
     title: 'THE QUANTUM PARKING DEFENCE',
     vibe: 'funny',
     scenario: [
-      'You receive a parking ticket and explain that your car is not really a car. At a deeper level it is particles, fields, forces, and mostly empty space.',
-      'You conclude that a mostly-empty-space arrangement cannot legally occupy a parking spot.'
+      'A self-driving car rolls into a decorative fountain. The software engineer calls it “a navigation-model failure.” The insurer calls it “a vehicle collision.” Both descriptions are true and both parties would very much like the other description to pay the bill.',
+      'The fountain describes it as “Tuesday.”'
     ],
-    prompt: 'Ticket dismissed?',
-    choices: ['The technical description wins', 'The everyday description still counts'],
+    prompt: 'Which description should lead the investigation: the code failure or the car crash?',
+    choices: ['START WITH SOFTWARE — find the underlying mechanism', 'START WITH THE CRASH — deal with the real-world event'],
     twist: [
-      'The tow truck is also particles and fields. It removes your mostly-empty-space car with astonishing practical confidence.'
+      'Logs reveal a software bug caused the wrong turn, but the impact became serious because a physical safety barrier had been removed. Fixing only the code leaves the site unsafe; fixing only the barrier leaves the bug in every car.'
     ],
-    conclusion: 'A deeper description does not automatically erase a higher-level description. Use the level of explanation that actually answers the question being asked.',
-    afterPrompt: 'Where does technical language clarify reality, and where does it simply dodge the ordinary question?',
-    hostPrompts: ['Can two descriptions both be true at different levels?', 'Does explaining what something is made of explain what it is for?']
+    conclusion: 'A deeper description does not erase a higher-level one. Different levels of explanation can both be true while answering different questions. Use the level—or combination of levels—that actually explains the problem you are trying to solve.',
+    afterPrompt: 'Where do people use a technically deeper description to pretend the everyday-level problem disappeared?',
+    hostPrompts: ['Which question belongs to the engineer and which belongs to the insurer?', 'Can explaining mechanism settle purpose, responsibility, or meaning by itself?']
   },
   {
     id: 12,
     title: 'GRANDMA VS THE PODCAST',
     vibe: 'family',
     scenario: [
-      'Grandma says, “We have always done it this way.” A podcaster with a ring light says, “Everything old is toxic.”',
-      'Both are extremely confident. Neither has opened a source. Grandma has snacks, which is admittedly persuasive.'
+      'You inherit a family rule nobody can explain before tonight: Grandma says, “Keep it. People learned things the hard way.” A podcaster with a ring light says, “Delete it. Old rules are just peer pressure from dead people.”',
+      'You cannot research it until tomorrow. Grandma has snacks. The podcaster has a microphone. Both have dangerous levels of confidence.'
     ],
-    prompt: 'How should an inherited idea be treated?',
-    choices: ['Keep it because it survived', 'Test it before giving it loyalty'],
+    prompt: 'What is your default until you can investigate: preserve the old rule or suspend it?',
+    choices: ['PRESERVE IT — survival may contain wisdom', 'SUSPEND IT — tradition has to earn authority'],
     twist: [
-      'One old rule turns out to preserve hard-earned wisdom. Another exists because someone’s great-grandfather once misunderstood a neighbour and nobody asked a follow-up question for 90 years.'
+      'When you finally investigate, one family rule prevents a problem previous generations repeatedly suffered. Another exists because a great-grandfather misunderstood a neighbour in 1934 and nobody wanted to admit the casserole feud had no basis.'
     ],
-    conclusion: 'Inherited does not mean false, and familiar does not mean true. Give traditions the respect of serious examination, not automatic obedience or automatic contempt.',
-    afterPrompt: 'Which belief in your life feels too familiar to need an explanation?',
-    hostPrompts: ['Would you believe the same thing if you were raised elsewhere?', 'What would make an inherited rule earn confidence?']
+    conclusion: 'Inherited does not mean false, and familiar does not mean true. Tradition deserves serious examination rather than automatic obedience or automatic contempt.',
+    afterPrompt: 'Which inherited belief in your life has never had to explain itself because it arrived before your questions did?',
+    hostPrompts: ['When is preserving a rule during uncertainty sensible?', 'What evidence should make an old rule lose your loyalty?']
   },
   {
     id: 13,
     title: 'THE HOTEL HALLWAY INCIDENT',
     vibe: 'awkward',
     scenario: [
-      'A woman opens her hotel door in underwear, sees a stranger, performs the fastest emergency cover-up in recorded history, and disappears.',
-      'Twenty minutes later she is at the pool in a bikini covering roughly the same amount, completely relaxed. Several of the same people are nearby.'
+      'A resort needs one dress-code rule. Option A regulates by physical coverage: if two outfits reveal roughly the same amount, they are treated the same. Option B regulates by setting: swimwear is normal by the pool, business clothes at the conference, pajamas at breakfast only if your dignity has already left.',
+      'Both rules sound reasonable until actual humans arrive with fashion designers and loopholes.'
     ],
-    prompt: 'What changed most?',
-    choices: ['The physical exposure', 'The social meaning of the setting'],
+    prompt: 'Do you regulate the amount of skin, or let context decide what counts as appropriate?',
+    choices: ['SAME COVERAGE, SAME RULE — measurable and consistent', 'CONTEXT MATTERS — places carry different expectations'],
     twist: [
-      'Her body barely changed. The amount covered barely changed. The context did. The hallway and pool carried different expectations before anyone consciously argued for them.'
+      'The coverage rule bans ordinary swimwear at the pool. The context rule allows two nearly identical outfits to be treated differently because one was sold as “resort wear.” The resort has accidentally discovered that social meaning is real and also occasionally ridiculous.'
     ],
-    conclusion: 'Social context can legitimately change meaning, but “this feels normal here” is not a complete moral argument. Customs still deserve examination instead of automatic obedience.',
-    afterPrompt: 'Which social rules feel natural mainly because you learned them before you learned to question them?',
-    hostPrompts: ['When is context a real moral difference?', 'How do you separate meaningful context from habit?']
+    conclusion: 'Context can legitimately change social meaning, but “this feels normal here” is not a complete moral argument. Customs need reasons; consistency needs attention to the differences that actually matter.',
+    afterPrompt: 'When is context a real difference, and when is it merely a habit everyone forgot to question?',
+    hostPrompts: ['What should a fair dress rule actually be trying to protect?', 'Which part of the rule would still make sense in a different culture?']
   },
   {
     id: 14,
     title: 'THE LEGALLY TERRIBLE DEAL',
     vibe: 'money',
     scenario: [
-      'On your 18th birthday, a company offers you $50,000 today for 20% of every dollar you earn for the rest of your life.',
-      'A lawyer explains every detail. No trick. No pressure. You are officially old enough to financially body-slam 35-year-old you.'
+      'On your 18th birthday, a company offers $50,000 today for 20% of every dollar you earn for life. A lawyer explains every clause in plain language. No hidden fee, no intoxication, no pressure, and you pass a comprehension test before signing.',
+      'It is the cleanest possible version of a deal that makes 35-year-old you want to time-travel with a folding chair.'
     ],
-    prompt: 'Does full consent make the deal fair?',
-    choices: ['I agreed, so yes', 'Consent is not the whole test'],
+    prompt: 'Do you enforce the signature forever, or give young adults a cooling-off escape from deals like this?',
+    choices: ['ENFORCE IT — adults have to own signatures', 'ALLOW EXIT — some commitments deserve a safety valve'],
     twist: [
-      'At 35 you earn $200,000 a year and desperately regret it. The company responds with the most annoying sentence ever invented: “Nobody forced you.”'
+      'Internal documents show the company offers the deal almost exclusively to 18-to-20-year-olds because older adults nearly always reject it once they understand lifetime earnings. The contract was informed and voluntary. The business model was also built around predictable inexperience.'
     ],
-    conclusion: 'Consent matters, but consent alone does not turn exploitation, foolishness, or predictable harm into wisdom. Freedom needs judgement, responsibility, and limits.',
-    afterPrompt: 'What important questions remain after everyone involved says yes?',
-    hostPrompts: ['Can a voluntary choice still be predatory?', 'When should society protect adults from contracts they freely accept?']
+    conclusion: 'Consent matters, but consent alone does not settle wisdom, fairness, exploitation, or predictable harm. Freedom requires responsibility from the chooser and moral limits on people who deliberately profit from weakness.',
+    afterPrompt: 'What should full consent protect, and what problems can remain even after everyone knowingly says yes?',
+    hostPrompts: ['When does protecting adults become paternalism?', 'When does targeting predictable weakness become exploitation even without deception?']
   },
   {
     id: 15,
     title: 'SAINT ACCORDING TO THE PARKING BYLAW',
     vibe: 'moral',
     scenario: [
-      'A man obeys every law. Taxes paid. Seatbelt on. Recycling sorted with terrifying precision.',
-      'He also lies to friends, humiliates employees for entertainment, breaks promises whenever convenient, and visits family only when he needs a ride to the airport.'
+      'Your neighbour runs a legal public-camera page. It has caught package thieves, reunited lost dogs, and once identified the man who keeps reversing into everyone’s bins like it is a hobby.',
+      'It also posts embarrassing but legal clips of innocent people tripping, arguing, or having terrible parallel-parking days. Everything was filmed from public space. The law is completely relaxed.'
     ],
-    prompt: 'Is obeying the law enough to call him good?',
-    choices: ['The rules are the standard', 'Goodness goes beyond legality'],
+    prompt: 'Keep the public feed, or send useful footage privately and kill the spectacle?',
+    choices: ['KEEP THE FEED — public accountability works', 'PRIVATE REPORTS ONLY — usefulness without the humiliation show'],
     twist: [
-      'He says, “If it were truly wrong, they would have made it illegal,” then waits as if he has just completed morality.'
+      'A viral clip from the page helps identify a repeat thief and gets several stolen packages returned. The same week, an innocent teenager becomes a meme after a panic attack outside his house. Both outcomes came from the exact same legal upload policy.'
     ],
-    conclusion: 'Law can restrain behaviour, but legality cannot be the highest moral standard because laws themselves can be unjust and many forms of cruelty remain legal.',
-    afterPrompt: 'What standard do you use to judge a law when the law itself is the thing on trial?',
-    hostPrompts: ['Name something legal that can still be wrong.', 'Can a society vote an injustice into goodness?']
+    conclusion: 'Legality can create a floor for behaviour without becoming the ceiling of goodness. A legal action can still need to be judged by dignity, harm, purpose, fairness, and responsibility.',
+    afterPrompt: 'What legal behaviour would you still refuse to do because “allowed” is not the same as “good”?',
+    hostPrompts: ['How much public benefit would justify public embarrassment?', 'What standard should judge the rule if the law itself permits both outcomes?']
   },
   {
     id: 16,
     title: 'THE STUDY THAT LOVES YOU BACK',
     vibe: 'internet',
     scenario: [
-      'A viral graphic says NEW STUDY DESTROYS PEOPLE WHO DISAGREE WITH YOU. The bar chart is enormous. The font is red. Your side has finally been scientifically declared gorgeous.',
-      'You are one tap away from sending it to the group chat.'
+      'A new preprint strongly supports a policy you already favour. The result is from a reputable team, the data are public, and a vote happens tonight. Waiting for peer review means the debate will move without the study.',
+      'Sharing it now means trusting research that has not finished being kicked by other researchers, which is apparently how science shows affection.'
     ],
-    prompt: 'What do you do first?',
-    choices: ['Share the victory', 'Read what the study actually found'],
+    prompt: 'Do you use the fresh study tonight, or keep it holstered until the review process has had a turn?',
+    choices: ['USE IT NOW — label the uncertainty', 'WAIT — unfinished evidence should not drive the vote'],
     twist: [
-      'The real study is narrower, cautious, and mildly interesting. The viral graphic has committed emotional fraud with a bar chart.'
+      'Peer review later confirms the direction of the result but cuts the estimated effect roughly in half and uncovers one caveat that changes who the policy helps. The headline was not fake; it was just wearing shoulder pads.'
     ],
-    conclusion: 'Evidence should be examined most carefully when it flatters what you already believe. Confirmation bias feels like intelligence because it arrives wearing your team colours.',
-    afterPrompt: 'What evidence do you scrutinize less because you want it to be true?',
-    hostPrompts: ['Would you accept the same graphic from the other side?', 'What part of the original claim did the source actually establish?']
+    conclusion: 'Evidence should be examined most carefully when it flatters what you already believe. Early evidence can matter, but confidence, wording, and decisions should match what the evidence actually establishes.',
+    afterPrompt: 'How should you talk about evidence that is useful now but still capable of changing?',
+    hostPrompts: ['Would you use the same preprint standard if the result hurt your side?', 'Which part of the claim survived and which part was overconfident?']
   },
   {
     id: 17,
     title: 'YOUR BELIEF HAS BOSS ARMOUR',
     vibe: 'game',
     scenario: [
-      'You are offered $10,000 if you can name one realistic kind of evidence that would make you seriously reconsider an important belief.',
-      'You cannot say, “Nothing, because I am built different.” The host has already heard that one.'
+      'You have held a well-supported belief for ten years. A new study finds one result that does not fit. The study is small but serious. Your friend says one anomaly should not bulldoze a decade of evidence; another says protecting the core belief is exactly how people become impossible to correct.',
+      'Your belief is standing in the boss arena wondering how many health bars it is legally entitled to.'
     ],
-    prompt: 'Can your belief lose?',
-    choices: ['Yes, evidence could beat it', 'No, it survives every possible result'],
+    prompt: 'Does the anomaly trigger an immediate rematch, or does the old belief keep the belt until replication?',
+    choices: ['DEFEND THE CORE — one weird result is not a coup', 'REOPEN THE CASE — real counterevidence earns attention now'],
     twist: [
-      'If every result confirms the belief, every contradiction strengthens it, and every failed prediction is reinterpreted as secret proof, you have not built a strong belief. You have enabled invincibility mode.'
+      'The result replicates. It genuinely disproves one broad part of the belief, but the narrower core survives the rest of the evidence. The correct update is neither “nothing happened” nor “burn the whole building.”'
     ],
-    conclusion: 'A belief that no possible evidence can count against is protected from learning. Strong conviction should be able to explain what would weaken it.',
-    afterPrompt: 'What would a fair loss condition look like for one of your strongest beliefs?',
-    hostPrompts: ['Do you demand more openness from opponents than from yourself?', 'What evidence would make you narrow your claim?']
+    conclusion: 'A strong belief needs a real loss condition. Being open to correction does not mean abandoning a well-supported view at the first anomaly; it means letting genuine counterevidence narrow, revise, or defeat what the evidence no longer supports.',
+    afterPrompt: 'What would make you revise a belief without overreacting to every new claim?',
+    hostPrompts: ['What part of a belief should survive when only one component fails?', 'Do you set a higher bar for evidence against your view than for evidence supporting it?']
   },
   {
     id: 18,
     title: 'ONE CLOWN, WHOLE TEAM',
     vibe: 'group',
     scenario: [
-      'At a huge trivia tournament, one player from Team Orange gets caught cheating. Security removes him.',
-      'A rival fan immediately demands that all 8,000 Orange supporters be searched because, quote, “You people clearly do this.” Most of them were just trying to buy nachos.'
+      'A huge trivia tournament has a cheating problem. Seven of the last ten cheaters came from Team Orange. Organizers can either add extra checks for Orange this round or keep identical screening for all 8,000 players.',
+      'Orange fans say targeted checks are collective punishment. Everyone else says statistics have entered the building and would like a clipboard.'
     ],
-    prompt: 'How far should the cheater’s guilt travel?',
-    choices: ['Treat the group as suspicious', 'Keep guilt attached to evidence'],
+    prompt: 'Do you target the pattern, or keep the same checks for everyone?',
+    choices: ['TARGET EXTRA CHECKS — follow the pattern', 'SAME CHECKS — guilt stays individual'],
     twist: [
-      'The next round, a player from your team cheats. You instantly discover several advanced theories of individual responsibility.'
+      'Targeted checks catch one more Orange cheater. They also hassle hundreds of innocent Orange players, while a cheater from another team sails through lighter screening. The pattern was real. So were the individuals who did not fit it.'
     ],
-    conclusion: 'Group identity is not evidence of individual guilt. Patterns can justify investigation, but accusation must stay attached to the person, action, and evidence that support it.',
-    afterPrompt: 'When does group information become relevant, and when does it become a shortcut around judging the individual?',
-    hostPrompts: ['Would you accept the same rule when your group is judged?', 'What evidence would justify moving from one offender to a wider claim?']
+    conclusion: 'Group patterns can be relevant to investigation or risk without becoming proof of individual guilt. Use group information carefully, then keep accusation and punishment attached to evidence about the person actually being judged.',
+    afterPrompt: 'When may a pattern justify extra attention without justifying suspicion as a verdict?',
+    hostPrompts: ['What safeguards would make targeted screening less unfair?', 'What individual evidence should always be required before punishment?']
   },
   {
     id: 19,
     title: 'THE RED-YARN DETECTIVE',
     vibe: 'absurd',
     scenario: [
-      'Your cousin covers a wall with photos of seven executives connected by red yarn. Four attended the same university. Two play golf. Three have summer birthdays.',
-      'He has been awake since 3 a.m. The wall now includes a photograph of a sandwich, and Kevin Bacon is apparently “central to everything.”'
+      'Seven executives share donors, schools, board members, and one suspiciously expensive golf weekend. There is enough overlap to make the red yarn feel emotionally employed, but no direct proof of coordination yet.',
+      'You can open a serious investigation based on the network pattern, or refuse to spend resources until somebody finds the smoking email. A sandwich photo has been removed from the evidence wall pending appeal.'
     ],
-    prompt: 'What would turn association into evidence of coordination?',
-    choices: ['The pattern is enough', 'Show the actual causal link'],
+    prompt: 'Does the pattern earn an investigation, or is that how corkboards start ruining Thanksgiving?',
+    choices: ['INVESTIGATE — patterns can be real leads', 'WAIT FOR DIRECT PROOF — association is cheap'],
     twist: [
-      'You later find real emails proving two executives coordinated one decision. The emails strengthen that specific claim. They still do not magically make the sandwich part of the operation.'
+      'Subpoenaed emails show two executives coordinated one specific decision. The investigation was justified. The evidence still does not support claims that all seven executives, every donor, their university, and Kevin Bacon were part of one master plan.'
     ],
-    conclusion: 'Association can suggest where to look; it cannot replace proof of coordination, motive, or control. Name the smallest actor the evidence actually supports.',
-    afterPrompt: 'Where do people jump from “connected” to “controlled” without proving the missing steps?',
-    hostPrompts: ['What evidence would prove coordination rather than similarity?', 'Are you making a claim about influence, pressure, cooperation, or total control?']
+    conclusion: 'Association can justify looking; it cannot substitute for proof of coordination, motive, or control. Follow the lead, then make the smallest claim the evidence actually supports.',
+    afterPrompt: 'How do you investigate a pattern seriously without upgrading “connected” into “controlled”?',
+    hostPrompts: ['What evidence would justify widening the claim beyond the two executives?', 'When does refusing to investigate become as unreasonable as overclaiming?']
   },
   {
     id: 20,
     title: 'CAMERA TWO HAS ENTERED THE CHAT',
     vibe: 'internet',
     scenario: [
-      'A 12-second clip shows a man shouting at a cashier. The internet completes his entire personality, childhood, voting record, and likely zodiac sign before lunch.',
-      'Your group chat is preparing the ceremonial outrage GIFs.'
+      'A 12-second clip shows a teacher screaming at a student in a hallway. Parents want the teacher suspended immediately. The principal can remove the teacher pending review, or keep them teaching until the full context is known.',
+      'The clip is ugly. The context is missing. The school group chat has achieved temperatures normally associated with re-entry.'
     ],
-    prompt: 'Is the clip enough to judge the whole event?',
-    choices: ['The video speaks for itself', 'Context first'],
+    prompt: 'Do you bench the teacher now, or refuse to punish from twelve seconds of cinema?',
+    choices: ['SUSPEND PENDING REVIEW — protect students first', 'WAIT FOR CONTEXT — punishment needs the whole event'],
     twist: [
-      'Camera Two shows the cashier had just mocked the man’s disabled father. The shouting is still ugly, but the simple villain story has suffered a catastrophic loss of Wi-Fi.'
+      'Camera Two shows the student had just shoved another child down the stairs and the teacher was shouting for everyone to move back. The teacher still used insulting language that violated policy. The simple hero/villain edit has been cancelled after one season.'
     ],
-    conclusion: 'Context does not automatically excuse bad behaviour, but incomplete evidence cannot support a complete story. Judge what the evidence shows, not the movie your imagination edits around it.',
-    afterPrompt: 'How much certainty should a short clip be allowed to buy?',
-    hostPrompts: ['What changed when the missing context appeared?', 'Can an act still be wrong after the person becomes more understandable?']
+    conclusion: 'Context does not automatically excuse bad behaviour, but incomplete evidence cannot support a complete story. Risk can justify temporary safeguards; judgement should still stay proportional to what the evidence actually shows.',
+    afterPrompt: 'What can you responsibly do before the full story is known without pretending the temporary decision is a verdict?',
+    hostPrompts: ['Which part of the teacher’s behaviour changed meaning after Camera Two?', 'What action would be fair if the missing context had never appeared?']
   },
   {
     id: 21,
     title: 'SOURCE: TRUST ME BRO',
     vibe: 'internet',
     scenario: [
-      'An anonymous account posts BREAKING in all caps, three siren emojis, and a claim that perfectly confirms what your side already suspected.',
-      'The source is a screenshot of another screenshot from an account named RealTruthPatriotDragon88.'
+      'An anonymous local account posts that tap water may be contaminated. The source is unnamed, officials have not confirmed it, and the post includes enough siren emojis to qualify as municipal infrastructure.',
+      'If it is true, warning people quickly matters. If it is false, panic-buying bottled water will turn Costco into the Thunderdome.'
     ],
-    prompt: 'Send it?',
-    choices: ['The people must know', 'Verify before detonating the group chat'],
+    prompt: 'Do you warn people now with a giant UNCONFIRMED label, or wait for verification?',
+    choices: ['WARN NOW — uncertainty beats preventable harm', 'WAIT — serious claims need confirmation'],
     twist: [
-      'The claim is false. A week later, a different serious allegation about the same issue is verified with strong evidence, but half your friends now dismiss it because they remember the fake story you confidently launched at them.'
+      'The warning is false and causes a run on water. A month later a real contamination alert appears, but many residents dismiss it because they remember the last viral scare. False urgency has managed to damage future urgency.'
     ],
-    conclusion: 'False evidence does not strengthen a true cause. It damages trust and makes real evidence easier to dismiss. Accuracy is part of moral seriousness.',
-    afterPrompt: 'Why are we most careless with evidence when the conclusion already feels emotionally useful?',
-    hostPrompts: ['What minimum verification should happen before sharing a serious claim?', 'Does urgency lower the evidence standard or raise it?']
+    conclusion: 'Accuracy is part of moral seriousness. Urgency can justify communicating uncertainty quickly, but it raises rather than erases the duty to distinguish warning, evidence, and confirmed fact.',
+    afterPrompt: 'How should you communicate a potentially dangerous claim when waiting and spreading can both cause harm?',
+    hostPrompts: ['What minimum verification is possible before sharing?', 'How should wording change when the evidence is preliminary?']
   },
   {
     id: 22,
     title: 'THE BANK THAT MOVED TO A RIVER',
     vibe: 'wordplay',
     scenario: [
-      'A man argues: “Every bank is beside a river. I keep my money in a bank. Therefore my savings account should have ducks.”',
-      'He has arrived at the branch with breadcrumbs and confidence.'
+      'Your friend texts, “Meet me at the bank after lunch.” In this tiny town there is First National Bank on Main Street and a riverside picnic spot everyone calls The Bank.',
+      'He is late, his phone is dead, and you have exactly enough time to choose one location before the other person begins a lifelong story about how you abandoned them.'
     ],
-    prompt: 'What broke in the argument?',
-    choices: ['The logic is fine', 'The word changed meaning'],
+    prompt: 'Which bank are you betting your friendship on?',
+    choices: ['FIRST NATIONAL — ordinary meaning wins', 'THE RIVER BANK — local context wins'],
     twist: [
-      'The financial adviser confirms that ducks are not included with chequing accounts, even at premium tier.'
+      'You reread the previous message: “Bring the fishing rods.” One sentence of context has ended a philosophical crisis that was moments away from becoming a podcast.'
     ],
-    conclusion: 'An argument collapses when a key word quietly changes meaning. Define important terms and keep the definition stable long enough to finish the thought.',
-    afterPrompt: 'Which big words in public arguments are often used without anyone agreeing what they mean?',
-    hostPrompts: ['What happens when “freedom,” “harm,” or “fairness” changes meaning mid-argument?', 'Which definition is doing hidden work in your own answer?']
+    conclusion: 'Words do not carry meaning in isolation. Definitions and context matter, and arguments fail when a key term quietly changes meaning halfway through the reasoning.',
+    afterPrompt: 'Which words in serious arguments cause trouble because everyone thinks the definition is obvious?',
+    hostPrompts: ['When should ordinary usage beat a technical definition?', 'What context would make the same word mean something else without contradiction?']
   },
   {
     id: 23,
     title: 'TWO DOCTORS, ONE KALE SMOOTHIE',
     vibe: 'absurd',
     scenario: [
-      'Two doctors both tell you to exercise, sleep, and eat vegetables. Excellent advice.',
-      'Doctor A says your headaches are from dehydration. Doctor B says you have a rare condition and need urgent treatment. They cannot both be right about the diagnosis.'
+      'Doctor A has fantastic patient reviews and a simple explanation for your headaches: dehydration. Doctor B is less charming, orders tests, and says there may be a rarer condition. Both tell you to sleep, exercise, drink water, and stop pretending coffee is a food group.',
+      'The shared lifestyle advice works. Your headaches improve. Everybody would like to declare the diagnostic disagreement cancelled.'
     ],
-    prompt: 'Does shared good advice make both diagnoses equally true?',
-    choices: ['They both help, so close enough', 'The diagnosis still needs evidence'],
+    prompt: 'Do you stop at the advice that helped, or keep testing the diagnosis nobody wants to talk about?',
+    choices: ['STOP THERE — improvement is meaningful evidence', 'KEEP TESTING — shared good advice does not settle the cause'],
     twist: [
-      'A third doctor recommends the same kale smoothie and gives a third incompatible diagnosis. Kale has become suspiciously powerful in this hospital.'
+      'The tests find the rare condition early. Hydration genuinely reduced the headaches, so Doctor A was useful. It still was not the full explanation. Kale is cleared of all charges.'
     ],
-    conclusion: 'Different worldviews can share good moral advice without becoming equally true in their deeper claims. Shared virtue does not erase contradiction.',
-    afterPrompt: 'What kinds of agreement matter, and what kinds of disagreement still need to be resolved?',
-    hostPrompts: ['Can a person give good advice while being wrong about the bigger explanation?', 'Why do common morals not settle questions about reality?']
+    conclusion: 'People can share useful advice and still disagree about deeper explanations. Practical overlap does not erase contradictory claims; the explanation still has to be tested on its own evidence.',
+    afterPrompt: 'Where do shared good outcomes tempt us to stop asking whether the underlying explanation is actually true?',
+    hostPrompts: ['Can an explanation be partly useful and still fundamentally incomplete?', 'What evidence would have justified stopping the investigation?']
   },
   {
     id: 24,
     title: 'ALL ROADS LEAD TO THE CABIN',
     vibe: 'road-trip',
     scenario: [
-      'Your friends say every route leads to the same cabin. One road goes north. One goes south. One ends at a ferry. One route appears to enter a Costco and never return.',
-      'The group declares that insisting on a destination is “too rigid.”'
+      'Three luxury buses offer the same comfy seats, good snacks, kind staff, seatbelts, and surprisingly decent coffee. Your friends say the packages are “basically the same” because the rules for a pleasant journey overlap so much.',
+      'One bus ends at a mountain cabin, one at the coast, and one at an industrial conference centre beside an airport. The brochures have been aggressively focused on the snacks.'
     ],
-    prompt: 'Can all routes be equally correct if they make incompatible claims about where they go?',
-    choices: ['Every route has its truth', 'Destinations still constrain routes'],
+    prompt: 'When comparing the trips, do you judge mainly by how they travel or where their claims say they end?',
+    choices: ['THE RIDE — shared good practices matter most', 'THE DESTINATION — endpoints still have to match'],
     twist: [
-      'Three hours later, one car reaches the cabin, one reaches the ocean, one is at a farm, and Costco Car has purchased 48 rolls of paper towel but no longer remembers the original mission.'
+      'All three buses deliver exactly the good ride they promised. They also arrive at three genuinely different places. Nobody was lying about the snacks; the snacks simply never settled the destination question.'
     ],
-    conclusion: 'Different paths can contain wisdom, beauty, or good intentions and still lead to different destinations. Contradictory claims do not become one truth merely because disagreement is uncomfortable.',
-    afterPrompt: 'What would you need to compare before saying two paths really lead to the same place?',
-    hostPrompts: ['Do shared values prove shared conclusions?', 'When is “many paths” a statement of respect rather than a statement of fact?']
+    conclusion: 'Different systems can share good practices, wisdom, and admirable behaviour while still making incompatible claims about reality and destination. Shared virtue does not make contradictory conclusions identical.',
+    afterPrompt: 'What kind of agreement shows common ground without proving that the larger explanations are the same?',
+    hostPrompts: ['Which shared values are genuinely important even when conclusions differ?', 'What would you need to compare before saying two paths really lead to the same place?']
   },
   {
     id: 25,
     title: 'THE ALIEN TOASTER MANUAL',
     vibe: 'sci-fi',
     scenario: [
-      'You find a strange device in a field. It has 400 parts, a power source, sensors, and one button labelled DO NOT PRESS WHILE WET.',
-      'Your friend says its purpose is whatever makes you happy. He wants to use it as a footrest. The device has begun humming in a legally concerning way.'
+      'You find a strange alien device. The manufacturer’s manual says it is an emergency beacon. Your friend discovers it also makes an incredible foot-warmer and argues that successful users can give objects new purposes the original designer never imagined.',
+      'His feet are warm. The device is humming. Somewhere, a lawyer is already billing by the hour.'
     ],
-    prompt: 'Who is best positioned to tell you what the device is for?',
-    choices: ['The user invents the purpose', 'The maker knows the intended purpose'],
+    prompt: 'Who gets final say on what the device is “for”: the maker or the user who found a better use?',
+    choices: ['MAKER — intended purpose sets the baseline', 'USER — useful function can redefine purpose'],
     twist: [
-      'A manufacturer’s guide is found inside the casing. It explains a specific emergency function nobody guessed from staring at the outside. Your friend removes his feet.'
+      'The manual’s buried safety section reveals that heater-mode slowly drains the emergency battery and disables the beacon when it is needed most. The foot-warmer genuinely works. It also quietly defeats the device’s central design.'
     ],
-    conclusion: 'Purpose is not discovered by desire alone. If something was made intentionally, the maker is the strongest authority on what it is for and how it should be used.',
-    afterPrompt: 'Where in life do we confuse “what I want this for” with “what this is actually for”?',
-    hostPrompts: ['Can function be inferred perfectly from appearance alone?', 'What happens when a user treats design limits as oppression?']
+    conclusion: 'Users can discover creative secondary uses, but desire alone does not erase intended function or design limits. If something was made for a purpose, the maker is uniquely positioned to explain what that purpose is and what uses undermine it.',
+    afterPrompt: 'When does repurposing something become clever adaptation, and when does it sabotage what the thing was designed to do?',
+    hostPrompts: ['Can a user-created purpose coexist with the intended purpose?', 'What evidence would justify rejecting the maker’s stated purpose?']
   }
 );
