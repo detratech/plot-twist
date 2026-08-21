@@ -1,7 +1,7 @@
 'use strict';
 
 const STORAGE_KEY = 'plotTwistStateV4';
-const DECK_VERSION = 'masterpiece-100-v1';
+const DECK_VERSION = 'masterpiece-200-v1';
 const defaultState = {
   deckVersion: DECK_VERSION,
   mode: null,
