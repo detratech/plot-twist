@@ -31,27 +31,26 @@ Saved-card playback is independent of the current topic filter.
 
 The card rhythm is:
 
-`pick topics → funny/quirky scenario → two answer bubbles → commitment → discussion → Plot Twist → The Point → deeper question → Where This Can Go`
+`pick topics → funny/quirky dilemma → two clear answer bubbles → commitment → discussion → Plot Twist introduces new information → reconsider/switch if warranted → The Point → deeper question → Where This Can Go`
 
-`The Point` is intentionally declarative. The deck is not designed around a forced middle-ground conclusion. Each scenario is built to land a principle while still giving players something worth discussing before and after the reveal.
+`The Point` is intentionally declarative. The deck is not designed around a forced middle-ground conclusion, but it is also not allowed to cheat by making the correct principle obvious in the pre-reveal buttons.
 
-## Content design rules
+## Editorial audit standard
 
-The deck is audited against these standing rules:
+Every scenario in the dilemma rewrite is reviewed against the following questions:
 
-- adult game-night energy rather than classroom or self-help-workbook energy
-- humour can be dry, dark, absurd, awkward, petty, corporate, relational, internet-based, or occasionally pop-culture-flavoured
-- jokes should make the dilemma easier to picture or remember, not replace the reasoning
-- no visible question/card numbering
-- exactly two answer bubbles so the player commits before the reveal
-- no `it depends` answer escape
-- the Plot Twist should materially change how the setup is viewed rather than merely restating the intended answer
-- `The Point` states the conclusion instead of retreating into artificial neutrality
-- `Where This Can Go` keeps the deeper discussion optional and may use questions, prompts, or concise topic directions
-- cards should use analogies and ordinary situations rather than exposing the source material or instructions that informed them
-- sensitive social/political cards should target claims, incentives, evidence, framing, institutions, or conduct rather than assigning collective guilt to an identity group
+1. **Can two smart adults reasonably disagree before the reveal?** If one side sounds unserious, the card fails.
+2. **Are the two choices clear?** Each button must state a real action, priority, rule, or judgement rather than a vague mood.
+3. **Does either choice secretly contain the conclusion?** Labels such as “use the obviously correct evidence” versus a caricature are not acceptable.
+4. **Does the Plot Twist add information the player did not already have?** A consequence already stated in the setup is not a twist.
+5. **Is the new information relevant to the exact choice?** It must change the trade-off rather than merely add trivia.
+6. **Could the reveal credibly make at least one thoughtful player switch, narrow, or substantially revise the reason for their answer?** A reveal that simply congratulates one side is weak.
+7. **Does the conclusion still land the intended principle?** The card may become more nuanced after the twist, but `The Point` should not retreat into empty “both sides are valid” language.
+8. **Is the card enjoyable aloud?** The setup/question should have adult game-night energy: dry, dark, awkward, absurd, relatable, witty, or selectively pop-culture-flavoured rather than classroom energy.
+9. **Is the humour aimed at the situation rather than making one answer-holder the joke?** The funny line must not rig the vote.
+10. **Does the card stay neutral about the source material?** The runtime uses ordinary analogies and principles without exposing the source-worldview terminology or authoring instructions behind them.
 
-The recurring reasoning themes include evidence versus confidence, reliable testimony, contradiction versus difference, complete context versus cropped evidence, influence versus control, individual evidence versus collective guilt, legality/popularity versus moral rightness, cause and effect, purpose versus mechanism, inherited assumptions, responsibility versus blame, self-command versus appetite/dependence, long-term consequences, financial risk and obligation, marriage/family responsibilities, attention and algorithms, institutional incentives, speech discipline, and consistent standards.
+The 200-card rewrite was performed across all eight 25-card files using this standard. The final block, `deck-h.js`, was rebuilt after the earlier audit specifically because several old cards still behaved like obvious-answer quizzes.
 
 ## Automated source audit
 
@@ -67,33 +66,38 @@ The validator requires:
 6. each scenario has exactly two non-empty paragraphs
 7. each card has exactly two non-empty, distinct answer choices
 8. no answer choice contains an `it depends` escape
-9. main prompts are question-form
-10. Plot Twists are present
-11. conclusions are present
-12. deeper prompts are question-form
-13. each card has exactly two non-empty conversation paths, which may be questions, prompts, or topic directions
-14. each card resolves to one or two valid category IDs
-15. all six selectable categories exist and have meaningful deck coverage
-16. all eight deck files are loaded by `index.html`
-17. all eight deck files are precached by `sw.js`
-18. `app.js` uses `masterpiece-200-v1`
-19. `sw.js` uses `plot-twist-v6.0.0`
-20. explicit source-worldview terminology intentionally excluded from the runtime is absent from card text and the user-facing runtime shell
+9. each answer choice is substantive enough to state a side
+10. obviously insulting/loaded choice labels are rejected by a conservative wording lint
+11. main prompts are question-form
+12. Plot Twists are present and contain substantive text
+13. a Plot Twist cannot be an exact repeat of the scenario
+14. conclusions are present
+15. deeper prompts are question-form
+16. each card has exactly two non-empty conversation paths, which may be questions, prompts, or topic directions
+17. each card resolves to one or two valid category IDs
+18. all six selectable categories exist and have meaningful deck coverage
+19. all eight deck files are loaded by `index.html`
+20. all eight deck files are precached by `sw.js`
+21. `index.html` explicitly states that both answer choices are intended to be defensible before the reveal
+22. `index.html` explicitly allows switching after the Plot Twist adds new information
+23. `app.js` keeps `masterpiece-200-v1` for compatible local state
+24. `sw.js` uses `plot-twist-v6.1.0` so installed copies receive the rewritten content
+25. explicit source-worldview terminology intentionally excluded from the runtime is absent from card text and the user-facing runtime shell
 
-Automated structural validation does not prove that a joke is funny or that a scenario is editorially excellent. Those remain editorial checks and were reviewed separately during the expansion.
+Automated structural validation does **not** prove that a joke is funny, that a dilemma is genuinely balanced, or that a twist will persuade a human to switch. Those remain editorial checks. The automation exists to prevent structural regressions around that editorial work, not to fake certainty about it.
 
 ## State behaviour
 
-`app.js` retains the `plotTwistStateV4` local-storage key so compatible settings and Saved IDs can be migrated rather than blindly discarded.
+`app.js` retains the `plotTwistStateV4` local-storage key so compatible settings and Saved IDs are preserved.
 
-The deck version is now `masterpiece-200-v1`. A user moving from the 100-card version gets a fresh game order so new scenarios can enter the shuffle, while valid Saved IDs, selected categories, and settings are preserved.
+The deck/state identifier remains `masterpiece-200-v1`. The dilemma rewrite changes scenario wording and reveal logic without changing internal card IDs, so there is no reason to discard compatible Saved IDs, selected categories, settings, or the current shuffled order merely to force a new version number.
 
 If no valid category selection exists, the app falls back to `Mix Everything`. Selecting a specific category removes `Mix Everything`; selecting the final active category again returns to `Mix Everything` rather than leaving an empty selection.
 
 ## Offline/PWA source check
 
 - Runtime remains vanilla HTML/CSS/JavaScript with no external runtime API, CDN, remote font, analytics, authentication, or server-side feature.
-- `sw.js` uses cache name `plot-twist-v6.0.0`.
+- `sw.js` uses cache name `plot-twist-v6.1.0`.
 - The service-worker app shell includes all eight deck files plus category logic/styles and existing app assets.
 - The manifest remains configured for standalone PWA installation.
 
@@ -103,13 +107,13 @@ The automated audit and repository checks are source/static validation. A real A
 
 Before treating an installed phone copy as final, verify:
 
-1. `Mix Everything` can draw from the expanded deck.
+1. `Mix Everything` can draw from the complete 200-card deck.
 2. A single category draws only cards tagged to that category.
 3. Several selected categories combine into one shuffled run without duplicate cards.
 4. `Random From Selected` respects the filter.
 5. Saved-card playback works independently of the filter.
 6. Category selection survives closing and reopening the app.
-7. A pre-v6 install migrates without losing compatible Saved cards or settings.
+7. Existing Saved cards/settings survive the v6.1 content update.
 8. Reveal, The Point, Where This Can Go, Chaos, Next Card, and Settings work.
-9. The category UI remains usable on a narrow phone screen.
-10. The airplane-mode test in the README succeeds after service worker `plot-twist-v6.0.0` activates.
+9. The category UI and longer two-sided answer labels remain usable on a narrow phone screen.
+10. The airplane-mode test in the README succeeds after service worker `plot-twist-v6.1.0` activates.
