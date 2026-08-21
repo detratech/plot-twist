@@ -369,7 +369,7 @@ PLOT_TWIST_CARDS.push(
     prompt: 'Which bank are you betting your friendship on?',
     choices: ['FIRST NATIONAL — ordinary meaning wins', 'THE RIVER BANK — local context wins'],
     twist: [
-      'You reread the previous message: “Bring the fishing rods.” One sentence of context has ended a philosophical crisis that was moments away from becoming a podcast.'
+      'You reread the previous message: “Bring the fishing rods.” One sentence of context has ended a navigation crisis that was moments away from becoming a podcast.'
     ],
     conclusion: 'Words do not carry meaning in isolation. Definitions and context matter, and arguments fail when a key term quietly changes meaning halfway through the reasoning.',
     afterPrompt: 'Which words in serious arguments cause trouble because everyone thinks the definition is obvious?',
