@@ -5,14 +5,13 @@ Offline-first Android-friendly social scenario game.
 ## What is included
 
 - Vanilla HTML/CSS/JavaScript, no framework and no build step
-- 100 local scenario cards
+- **200 local scenario cards**
 - Six broad selectable topic categories plus `Mix Everything`
 - Multi-select topic mixing so players can combine several categories in one run
 - Start Game shuffles only the currently selected topics
 - Random Card also respects the current topic selection
 - No visible card numbering in the game or Saved list
-- Mixed scenario styles: absurd hypotheticals, everyday dilemmas, relationships, family chaos, internet culture, money, work, morality, technology, group behaviour, institutions, mystery, dark humour, and occasional pop-culture flavour
-- Adult game-night tone: dry sarcasm, ridiculous stakes, awkward social situations, petty human behaviour, strange corporate logic, and quirky wording
+- Adult game-night tone: dry sarcasm, ridiculous stakes, awkward social situations, petty human behaviour, strange corporate logic, dark humour, and occasional pop-culture flavour
 - Two answer bubbles under each main question so players commit before the reveal
 - Hidden Plot Twist stage with reveal animation
 - A declarative `The Point` section after every twist that states the principle the scenario was built to expose
@@ -29,8 +28,6 @@ Offline-first Android-friendly social scenario game.
 
 The home screen lets players choose one category, combine several, or leave `Mix Everything` selected for the full deck.
 
-The six broad categories are:
-
 - **Mind & Truth** — evidence, beliefs, logic, assumptions
 - **Relationships & Family** — marriage, dating, parenting, boundaries
 - **Money & Success** — work, ambition, debt, status, responsibility
@@ -38,7 +35,7 @@ The six broad categories are:
 - **Society & Culture** — social rules, politics, groups, public life
 - **Life & Purpose** — character, pleasure, freedom, meaning, time
 
-Cards may fit more than one category. `categories.js` assigns broad topic tags from each card's existing vibe and content, then the game filters by the selected tags. Selecting multiple categories creates one combined shuffled deck without duplicating a card inside that run.
+Cards may fit more than one category. The newer cards carry deliberate authored category tags. Older cards without authored tags are classified by `categories.js` from their content and vibe. Selecting several categories creates one combined shuffled deck without duplicating a card inside that run.
 
 Saved cards remain independent of the category filter so players can revisit anything they previously saved.
 
@@ -46,31 +43,11 @@ Saved cards remain independent of the category filter so players can revisit any
 
 The deck is shuffled so players should not know whether the next card will be absurd, personal, social, technological, moral, financial, political, relational, or uncomfortable within the topics they selected.
 
-The core rule is **funny setup, sharp conclusion**. The card should feel like something adults would actually enjoy reading aloud. The deeper idea arrives through the Plot Twist and then lands clearly in `The Point`.
+The core rule is **funny setup, sharp conclusion**. A card should feel like something adults would actually enjoy reading aloud. Humour can be dry, dark, awkward, ridiculous, or pop-culture-flavoured, but it should make the dilemma easier to picture rather than bury the idea.
 
-The deck is intentionally not written as a neutral debate workbook. Each scenario is built around a principle and the reveal is allowed to show why one way of thinking is stronger, more coherent, more responsible, or more grounded in evidence than the alternative.
+The deck is intentionally not a neutral debate workbook. Each scenario is built around a principle. Players commit before the reveal, the Plot Twist adds the fact or consequence that exposes the reasoning problem, and `The Point` states the conclusion the scenario was designed to land.
 
-The recurring principles include:
-
-- evidence over slogans, vibes, confidence, status, and popularity
-- truth over comfort and ego-protection
-- individual responsibility over collective guilt
-- precise claims over conspiracy-style overreach
-- cause and effect over wishful thinking
-- responsibility over blame
-- substance over image and potential
-- self-control over appetite and dependency
-- long-term consequences over short-term convenience
-- family duty, communication, boundaries, and responsibility over performance
-- meaningful freedom over endless trivial choice
-- moral standards deeper than legality, polling, or personal disgust
-- reality over simulation and appearance
-- purpose over distraction and accumulation
-- reliable testimony, context, and preservation over shallow slogans
-- mechanism and purpose as different questions
-- equality of dignity without pretending every role or function is identical
-
-The humour must not replace the idea. Every joke should either make the scenario easier to picture, make adults want to answer it, or make the contradiction memorable.
+Recurring ideas include evidence over slogans and vibes, truth over comfort, precise claims over exaggeration, individual responsibility over collective guilt, cause and effect, substance over image, responsibility over blame, restraint over dependency, long-term consequences over short-term convenience, healthy family duties and boundaries, meaningful freedom over endless trivial choice, moral standards deeper than popularity or legality, reality over performance, purpose over distraction, reliable testimony and context, and consistent standards applied even when the conclusion is uncomfortable.
 
 The intended rhythm is:
 
@@ -78,18 +55,22 @@ The intended rhythm is:
 
 ## Card files
 
-`cards.js` defines the shared card array and Chaos pressure tests.
+`cards.js` initializes the shared card array and defines the 16 reusable Chaos pressure tests.
 
-The 100-card deck is split into four readable files:
+The 200-card deck is split into eight 25-card files:
 
 - `deck-a.js`
 - `deck-b.js`
 - `deck-c.js`
 - `deck-d.js`
+- `deck-e.js`
+- `deck-f.js`
+- `deck-g.js`
+- `deck-h.js`
 
-`categories.js` assigns the broad selectable topic tags after all four deck files have loaded.
+`categories.js` runs after all eight deck files load. It preserves valid authored tags and infers tags for cards that do not already have them.
 
-The numeric `id` values exist only for internal state and saved-card handling. They are not displayed to players.
+Numeric `id` values exist only for local state and saved-card handling. They are not shown to players.
 
 Each card contains:
 
@@ -103,8 +84,28 @@ Each card contains:
 - `conclusion`
 - `afterPrompt`
 - `hostPrompts`
+- optional authored `categories`
 
-Runtime category tags are added after the deck loads.
+## Automated validation
+
+`validate-content.cjs` audits the full deck. GitHub Actions runs it together with `node --check` on the runtime JavaScript.
+
+The validator checks, among other things:
+
+- exactly 200 cards load
+- internal IDs 1–200 are complete and unique
+- titles and scenarios are not exact duplicates
+- every scenario has the required card structure
+- every card has exactly two distinct answer choices
+- answer choices do not use an `it depends` escape
+- prompts and follow-up paths are question-form where required
+- every card resolves to one or two valid categories
+- all eight deck files load in `index.html` and are precached by the service worker
+- the app uses deck version `masterpiece-200-v1`
+- the service worker uses cache `plot-twist-v6.0.0`
+- explicit source-worldview terminology that is intentionally excluded from the runtime is not present in the game text or app shell
+
+These are source/static checks. They do not substitute for testing an installed phone copy.
 
 ## Fast local desktop test
 
@@ -142,7 +143,7 @@ After a new version is published:
 
 Avoid clearing site data unless necessary because that removes saved cards and local game state.
 
-The current deck migration preserves compatible Saved IDs, topic choices, and settings when possible.
+The `masterpiece-200-v1` migration intentionally starts a fresh run while preserving compatible Saved IDs, topic choices, and settings.
 
 ## Airplane-mode test
 
@@ -160,6 +161,6 @@ Before relying on the app offline:
 
 ## Offline design notes
 
-The service worker precaches every essential local asset, including the category logic and category styles. Navigation requests use cached `index.html` when the network is unavailable. Game state is stored in `localStorage`, including deck order, card position, reveal state, saved cards, selected categories, and settings.
+The service worker precaches every essential local asset, including all eight deck files, category logic, and category styles. Navigation requests use cached `index.html` when the network is unavailable. Game state is stored in `localStorage`, including deck order, card position, reveal state, saved cards, selected categories, and settings.
 
-No external API, CDN, remote font, remote image, authentication service, analytics service, or server-side feature is used.
+No external API, CDN, remote font, remote image, authentication service, analytics service, or server-side feature is used at runtime.
