@@ -47,7 +47,7 @@ The deck is audited against these standing rules:
 - no `it depends` answer escape
 - the Plot Twist should materially change how the setup is viewed rather than merely restating the intended answer
 - `The Point` states the conclusion instead of retreating into artificial neutrality
-- `Where This Can Go` keeps the deeper discussion optional
+- `Where This Can Go` keeps the deeper discussion optional and may use questions, prompts, or concise topic directions
 - cards should use analogies and ordinary situations rather than exposing the source material or instructions that informed them
 - sensitive social/political cards should target claims, incentives, evidence, framing, institutions, or conduct rather than assigning collective guilt to an identity group
 
@@ -71,7 +71,7 @@ The validator requires:
 10. Plot Twists are present
 11. conclusions are present
 12. deeper prompts are question-form
-13. each card has exactly two question-form conversation paths
+13. each card has exactly two non-empty conversation paths, which may be questions, prompts, or topic directions
 14. each card resolves to one or two valid category IDs
 15. all six selectable categories exist and have meaningful deck coverage
 16. all eight deck files are loaded by `index.html`
