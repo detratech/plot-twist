@@ -5,14 +5,16 @@ Offline-first Android-friendly social scenario game.
 ## What is included
 
 - Vanilla HTML/CSS/JavaScript, no framework and no build step
-- 24 local scenario cards
+- 50 local scenario cards
 - Start Game shuffles the full deck every time
-- Mixed scenario styles: absurd hypotheticals, everyday dilemmas, internet culture, social norms, money, privacy, sports, a small amount of mainstream pop culture, and deeper thought experiments
-- Every card is designed to pressure-test at least one useful thinking habit without making the deck feel like a lesson plan
+- Mixed scenario styles: absurd hypotheticals, everyday dilemmas, relationships, family chaos, internet culture, social norms, money, privacy, technology, group behaviour, a small amount of mainstream pop culture, and deeper thought experiments
+- Game-night-first tone: each card should be funny, awkward, ridiculous, competitive, relatable, or immediately intriguing before the deeper question lands
+- Every card pressure-tests at least one useful thinking habit without making the deck feel like a lesson plan
 - Random Card mode
 - Hidden Plot Twist stage with reveal animation
-- 10 universal Chaos pressure tests
+- 12 universal Chaos pressure tests
 - Optional Host prompts
+- `Where This Can Go` follow-up paths after the reveal
 - Saved cards
 - Local game-state persistence
 - Optional Screen Wake Lock support
@@ -21,11 +23,15 @@ Offline-first Android-friendly social scenario game.
 
 ## Content design
 
-The subjects are randomized, but each card has a reason to exist. Cards may test whether players follow consequences, check evidence, separate repetition from independent confirmation, use the same standard on both sides, notice social pressure and defaults, examine inherited norms, distinguish stated values from behaviour, define what would change their mind, or ask where an assumption came from.
+The deck is shuffled so players should not know whether the next card will be absurd, personal, social, technological, moral, political, or uncomfortable.
 
-The deck also uses familiar contradictions of modern life: privacy versus convenience, authenticity versus performance, individual choice versus defaults and recommendation systems, environmental concern versus actual purchases, stated priorities versus attention, and the way social context can make the same physical situation feel completely different.
+The design rule is **fun setup, serious aftertaste**. A card should not begin like a lecture, worksheet, or abstract debate prompt. The group should want to answer before they realise what deeper assumption the card is testing.
 
-The cards are discussion prompts and analogies, not proofs. A good card should make the group commit to an answer before the twist adds a fact, changes the context, or exposes an assumption they did not notice.
+Cards may test whether players follow consequences, check evidence, separate repetition from independent confirmation, use the same standard on both sides, notice social pressure and defaults, examine inherited norms, distinguish stated values from behaviour, define what would change their mind, or ask where an assumption came from.
+
+The deck also uses familiar contradictions of modern life: privacy versus convenience, authenticity versus performance, individual choice versus defaults and recommendation systems, endless options versus meaningful control, stated priorities versus actual attention, status versus competence, personal freedom versus dependence, and the way social context can make the same situation feel completely different.
+
+The cards are discussion prompts and analogies, not proofs. A good card makes the group commit to an answer before the twist adds a fact, changes the context, or exposes an assumption they did not notice.
 
 ## Fast local desktop test
 
@@ -78,9 +84,9 @@ Before relying on the app offline:
 
 ## Editing cards
 
-All card content is in `cards.js`.
+Cards 1–24 are in `cards.js`. Cards 25–50 are in `cards-extra.js`. Both files load before `app.js` and form one 50-card deck.
 
-Each card has a unique numeric `id`, title, scenario, prompt, optional choices, twist, follow-up prompt, and optional host prompts.
+Each card has a unique numeric `id`, title, scenario, prompt, optional choices, twist, follow-up prompt, and optional host prompts. Host prompts are also used to populate the visible `Where This Can Go` section after the reveal.
 
 When changing card content, bump `CACHE_NAME` in `sw.js` so installed devices replace the old cached deck.
 
