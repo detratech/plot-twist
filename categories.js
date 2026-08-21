@@ -41,7 +41,7 @@ const GAME_CATEGORIES = [
 
 const CATEGORY_RULES = {
   mind: {
-    vibes: ['truth', 'logic', 'mystery', 'evidence', 'wordplay'],
+    vibes: ['truth', 'logic', 'mystery', 'evidence', 'wordplay', 'mind'],
     keywords: [
       'truth', 'evidence', 'claim', 'argument', 'logic', 'contradiction', 'source', 'testimony',
       'record', 'expert', 'measurement', 'context', 'quote', 'proof', 'belief', 'interpretation',
@@ -81,7 +81,7 @@ const CATEGORY_RULES = {
     ]
   },
   life: {
-    vibes: ['absurd', 'deeper', 'moral', 'choices', 'time', 'health', 'discipline', 'identity', 'pleasure', 'finale', 'freedom', 'habits', 'food'],
+    vibes: ['absurd', 'deeper', 'moral', 'choices', 'time', 'health', 'discipline', 'identity', 'pleasure', 'finale', 'freedom', 'habits', 'food', 'life'],
     keywords: [
       'happiness', 'pleasure', 'fulfilment', 'purpose', 'meaning', 'death', 'life', 'time', 'health',
       'freedom', 'responsibility', 'character', 'discipline', 'morality', 'moral', 'appetite', 'desire',
@@ -131,6 +131,13 @@ function inferCardCategories(card) {
   return selected.length ? selected : ['life'];
 }
 
+function normalizeAuthoredCategories(card) {
+  if (!Array.isArray(card.categories)) return [];
+  const validIds = new Set(GAME_CATEGORIES.map(category => category.id));
+  return [...new Set(card.categories.filter(id => validIds.has(id)))].slice(0, 2);
+}
+
 PLOT_TWIST_CARDS.forEach(card => {
-  card.categories = inferCardCategories(card);
+  const authored = normalizeAuthoredCategories(card);
+  card.categories = authored.length ? authored : inferCardCategories(card);
 });
