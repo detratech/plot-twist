@@ -36,6 +36,7 @@ jobs:
           node --check history-b.js
           node --check history-c.js
           node --check history-d.js
+          node --check history-reviewed.js
           node --check history-ui.js
           node --check categories.js
           node --check app.js
