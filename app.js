@@ -1,7 +1,9 @@
 'use strict';
 
 const STORAGE_KEY = 'plotTwistStateV4';
+const DECK_VERSION = 'masterpiece-100-v1';
 const defaultState = {
+  deckVersion: DECK_VERSION,
   mode: null,
   order: [],
   position: 0,
@@ -27,7 +29,6 @@ const screens = {
 };
 
 const el = {
-  cardNumber: document.getElementById('cardNumber'),
   cardTitle: document.getElementById('cardTitle'),
   scenarioText: document.getElementById('scenarioText'),
   scenarioBullets: document.getElementById('scenarioBullets'),
@@ -36,6 +37,8 @@ const el = {
   revealButton: document.getElementById('revealButton'),
   twistPanel: document.getElementById('twistPanel'),
   twistText: document.getElementById('twistText'),
+  conclusionBox: document.getElementById('conclusionBox'),
+  conclusionText: document.getElementById('conclusionText'),
   afterPrompt: document.getElementById('afterPrompt'),
   conversationPaths: document.getElementById('conversationPaths'),
   conversationPathList: document.getElementById('conversationPathList'),
@@ -62,11 +65,29 @@ function loadState() {
   try {
     const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY));
     if (!parsed) return structuredCloneCompat(defaultState);
+
+    const preservedSettings = { ...defaultState.settings, ...(parsed.settings || {}) };
+    const validSaved = Array.isArray(parsed.saved)
+      ? parsed.saved.filter(id => PLOT_TWIST_CARDS.some(card => card.id === id))
+      : [];
+
+    if (parsed.deckVersion !== DECK_VERSION) {
+      return {
+        ...structuredCloneCompat(defaultState),
+        settings: preservedSettings,
+        saved: validSaved
+      };
+    }
+
     return {
       ...structuredCloneCompat(defaultState),
       ...parsed,
-      settings: { ...defaultState.settings, ...(parsed.settings || {}) },
-      saved: Array.isArray(parsed.saved) ? parsed.saved : []
+      deckVersion: DECK_VERSION,
+      settings: preservedSettings,
+      saved: validSaved,
+      order: Array.isArray(parsed.order)
+        ? parsed.order.filter(id => PLOT_TWIST_CARDS.some(card => card.id === id))
+        : []
     };
   } catch {
     return structuredCloneCompat(defaultState);
@@ -78,6 +99,7 @@ function structuredCloneCompat(value) {
 }
 
 function persist() {
+  state.deckVersion = DECK_VERSION;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   updateSavedCount();
 }
@@ -177,12 +199,20 @@ function renderCard() {
     return;
   }
 
-  el.cardNumber.textContent = `CARD ${String(card.id).padStart(2, '0')}`;
   el.cardTitle.textContent = card.title;
   renderParagraphs(el.scenarioText, card.scenario);
   el.mainPrompt.textContent = card.prompt;
   renderParagraphs(el.twistText, card.twist);
-  el.afterPrompt.textContent = card.afterPrompt || 'Still your answer?';
+
+  if (card.conclusion) {
+    el.conclusionText.textContent = card.conclusion;
+    el.conclusionBox.hidden = false;
+  } else {
+    el.conclusionText.textContent = '';
+    el.conclusionBox.hidden = true;
+  }
+
+  el.afterPrompt.textContent = card.afterPrompt || 'What does the twist change?';
   renderConversationPaths(card);
 
   el.scenarioBullets.innerHTML = '';
@@ -213,10 +243,10 @@ function renderCard() {
   }
 
   el.modeLabel.textContent = state.mode === 'saved'
-    ? `SAVED · ${state.position + 1}/${state.order.length}`
+    ? 'SAVED'
     : state.mode === 'random'
-      ? `RANDOM · ${state.position + 1}/${state.order.length}`
-      : `GAME · ${state.position + 1}/${state.order.length}`;
+      ? 'RANDOM'
+      : 'GAME';
 
   setRevealState(state.revealed, false);
   updateSaveButton(card.id);
@@ -240,7 +270,7 @@ function renderHostPrompts(card) {
   el.host2.hidden = !enabled;
   if (enabled) {
     el.host1.textContent = card.hostPrompts[0] || 'Ask: Why?';
-    el.host2.textContent = card.hostPrompts[1] || 'Ask: Still your answer?';
+    el.host2.textContent = card.hostPrompts[1] || 'Ask: What does the twist change?';
   }
 }
 
@@ -287,10 +317,11 @@ function renderSavedList() {
     el.savedList.appendChild(empty);
     return;
   }
+
   state.saved.map(cardById).filter(Boolean).forEach(card => {
     const button = document.createElement('button');
     button.className = 'saved-item';
-    button.innerHTML = `<small>CARD ${String(card.id).padStart(2, '0')}</small>${escapeHtml(card.title)}`;
+    button.textContent = card.title;
     button.addEventListener('click', () => {
       state.mode = 'saved';
       state.order = [...state.saved];
@@ -309,10 +340,6 @@ function renderSavedList() {
   play.style.marginTop = '10px';
   play.addEventListener('click', () => beginGame('saved'));
   el.savedList.appendChild(play);
-}
-
-function escapeHtml(value) {
-  return String(value).replace(/[&<>'"]/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]));
 }
 
 function showChaos() {
