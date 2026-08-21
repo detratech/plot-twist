@@ -37,6 +37,8 @@ const el = {
   twistPanel: document.getElementById('twistPanel'),
   twistText: document.getElementById('twistText'),
   afterPrompt: document.getElementById('afterPrompt'),
+  conversationPaths: document.getElementById('conversationPaths'),
+  conversationPathList: document.getElementById('conversationPathList'),
   nextButton: document.getElementById('nextButton'),
   chaosButton: document.getElementById('chaosButton'),
   modeLabel: document.getElementById('modeLabel'),
@@ -148,6 +150,26 @@ function renderParagraphs(container, paragraphs) {
   });
 }
 
+function renderConversationPaths(card) {
+  const paths = (card.hostPrompts || []).filter(Boolean).slice(0, 3);
+  el.conversationPathList.innerHTML = '';
+
+  if (!paths.length) {
+    el.conversationPaths.hidden = true;
+    return;
+  }
+
+  paths.forEach(text => {
+    const p = document.createElement('p');
+    p.textContent = `→ ${text}`;
+    p.style.margin = '8px 0 0';
+    p.style.lineHeight = '1.45';
+    el.conversationPathList.appendChild(p);
+  });
+
+  el.conversationPaths.hidden = false;
+}
+
 function renderCard() {
   const card = currentCard();
   if (!card) {
@@ -161,6 +183,7 @@ function renderCard() {
   el.mainPrompt.textContent = card.prompt;
   renderParagraphs(el.twistText, card.twist);
   el.afterPrompt.textContent = card.afterPrompt || 'Still your answer?';
+  renderConversationPaths(card);
 
   el.scenarioBullets.innerHTML = '';
   if (card.bullets?.length) {
