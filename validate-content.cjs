@@ -7,7 +7,7 @@ const DECK_FILES = [
   'deck-a.js', 'deck-b.js', 'deck-c.js', 'deck-d.js',
   'deck-e.js', 'deck-f.js', 'deck-g.js', 'deck-h.js'
 ];
-const HISTORY_FILES = ['history-a.js', 'history-b.js', 'history-c.js', 'history-d.js'];
+const HISTORY_FILES = ['history-a.js', 'history-b.js', 'history-c.js', 'history-d.js', 'history-reviewed.js'];
 const REQUIRED_FIELDS = [
   'id', 'title', 'vibe', 'scenario', 'prompt', 'choices',
   'twist', 'conclusion', 'afterPrompt', 'hostPrompts'
@@ -295,7 +295,7 @@ console.log('PASS: no "it depends" answer escape choices or obviously insulting 
 console.log('PASS: all cards have one or two valid selectable categories.');
 console.log('PASS: exactly 200 substantive real-world examples map one-to-one to the 200 cards.');
 console.log('PASS: prohibited explicit worldview terms and authoring/meta-instruction leaks were not found in cards, historical examples, or runtime shell text.');
-console.log('PASS: all eight deck files and four history files are loaded and precached.');
+console.log('PASS: all eight deck files and all history layers are loaded and precached.');
 console.log('PASS: the post-Point question is followed by the Real-World Example layer.');
 console.log('PASS: the two answer choices are locked to a prominent left-vs-right layout with a divider.');
 console.log('PASS: the user-facing rules require two defensible choices and allow switching after the Plot Twist.');
