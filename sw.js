@@ -23,6 +23,7 @@ const APP_SHELL = [
   './history-reviewed.js',
   './categories.js',
   './app.js',
+  './choice-ui.js',
   './history-ui.js',
   './manifest.webmanifest',
   './icons/icon-192.png',
