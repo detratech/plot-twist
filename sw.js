@@ -20,6 +20,7 @@ const APP_SHELL = [
   './history-b.js',
   './history-c.js',
   './history-d.js',
+  './history-reviewed.js',
   './categories.js',
   './app.js',
   './history-ui.js',
