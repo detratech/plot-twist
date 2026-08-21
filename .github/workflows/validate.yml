@@ -32,10 +32,15 @@ jobs:
           node --check deck-f.js
           node --check deck-g.js
           node --check deck-h.js
+          node --check history-a.js
+          node --check history-b.js
+          node --check history-c.js
+          node --check history-d.js
+          node --check history-ui.js
           node --check categories.js
           node --check app.js
           node --check sw.js
           node --check validate-content.cjs
 
-      - name: Audit complete 200-card deck
+      - name: Audit complete 200-card deck and history layer
         run: node validate-content.cjs
