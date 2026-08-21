@@ -41,6 +41,18 @@ const FORBIDDEN_RUNTIME_TERMS = [
   /\bhijab\b/i
 ];
 
+// These are not a semantic substitute for editorial review. They simply catch
+// button copy that would make one side obviously unserious before the reveal.
+const LOADED_CHOICE_TERMS = [
+  /\bobviously\b/i,
+  /\bstupid\b/i,
+  /\bdumb\b/i,
+  /\bnonsense\b/i,
+  /\bidiot(?:ic)?\b/i,
+  /\bbrain[- ]?dead\b/i,
+  /\bclown answer\b/i
+];
+
 function fail(message) {
   throw new Error(message);
 }
@@ -54,6 +66,11 @@ function normalize(text) {
     .toLowerCase()
     .replace(/[^\p{L}\p{N}]+/gu, ' ')
     .trim();
+}
+
+function wordCount(text) {
+  const normalized = normalize(text);
+  return normalized ? normalized.split(/\s+/).length : 0;
 }
 
 const context = {};
@@ -110,12 +127,31 @@ for (const card of cards) {
     fail(`Card ${card.id} contains an "it depends" escape choice.`);
   }
 
+  if (card.choices.some(choice => wordCount(choice) < 2)) {
+    fail(`Card ${card.id} has an answer choice too vague to state a clear side.`);
+  }
+
+  for (const choice of card.choices) {
+    for (const pattern of LOADED_CHOICE_TERMS) {
+      const match = choice.match(pattern);
+      if (match) fail(`Loaded choice wording "${match[0]}" found in card ${card.id}.`);
+    }
+  }
+
   if (typeof card.prompt !== 'string' || !card.prompt.trim().endsWith('?')) {
     fail(`Card ${card.id} main prompt must be a question.`);
   }
 
   if (!Array.isArray(card.twist) || card.twist.length < 1 || card.twist.some(x => typeof x !== 'string' || !x.trim())) {
     fail(`Card ${card.id} must have a non-empty Plot Twist.`);
+  }
+
+  if (wordCount(card.twist.join(' ')) < 12) {
+    fail(`Card ${card.id} Plot Twist is too thin to introduce meaningful new information.`);
+  }
+
+  if (normalize(card.twist.join(' ')) === normalize(card.scenario.join(' '))) {
+    fail(`Card ${card.id} Plot Twist merely repeats the scenario.`);
   }
 
   if (typeof card.conclusion !== 'string' || !card.conclusion.trim()) {
@@ -172,9 +208,11 @@ for (const file of DECK_FILES) {
   if (!sw.includes(`'./${file}'`)) fail(`sw.js does not precache ${file}.`);
 }
 
-if (!sw.includes("plot-twist-v6.0.0")) fail('Service-worker cache is not plot-twist-v6.0.0.');
+if (!sw.includes("plot-twist-v6.1.0")) fail('Service-worker cache is not plot-twist-v6.1.0.');
 if (!app.includes("masterpiece-200-v1")) fail('App deck version is not masterpiece-200-v1.');
 if (/\b(?:card|scenario)\s*#?\d+\b/i.test(index)) fail('Visible card/scenario numbering pattern found in index.html.');
+if (!index.includes('Both are meant to be defensible before the reveal.')) fail('How to Play does not state the two-sided dilemma rule.');
+if (!index.includes('switching sides is completely allowed.')) fail('How to Play does not state that the Plot Twist may justify switching sides.');
 
 for (const pattern of FORBIDDEN_RUNTIME_TERMS) {
   const match = runtimeStatic.match(pattern);
@@ -192,10 +230,11 @@ for (const [id, count] of Object.entries(distribution)) {
 
 console.log(`PASS: ${cards.length} unique scenarios loaded.`);
 console.log('PASS: internal IDs 1-200 are unique and complete.');
-console.log('PASS: every card has two scenario paragraphs, two distinct choices, a Plot Twist, The Point, and three follow-up/conversation directions total.');
-console.log('PASS: no "it depends" answer escape choices.');
+console.log('PASS: every card has two scenario paragraphs, two distinct choices, a substantive Plot Twist, The Point, and three follow-up/conversation directions total.');
+console.log('PASS: no "it depends" answer escape choices or obviously insulting choice labels.');
 console.log('PASS: all cards have one or two valid selectable categories.');
 console.log('PASS: prohibited explicit worldview terms were not found in card or runtime shell text.');
 console.log('PASS: all eight deck files are loaded and precached.');
-console.log('PASS: deck version masterpiece-200-v1 and cache plot-twist-v6.0.0 are wired.');
+console.log('PASS: the user-facing rules require two defensible choices and allow switching after the Plot Twist.');
+console.log('PASS: deck version masterpiece-200-v1 and cache plot-twist-v6.1.0 are wired.');
 console.log('Category memberships:', distribution);
