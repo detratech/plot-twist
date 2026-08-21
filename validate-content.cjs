@@ -41,6 +41,20 @@ const FORBIDDEN_RUNTIME_TERMS = [
   /\bhijab\b/i
 ];
 
+// Player-facing text must never leak notes about how the deck was authored,
+// hidden source framing, or runtime/content-policy instructions.
+const FORBIDDEN_META_LEAKS = [
+  /\bruntime\b/i,
+  /\bauthoring\b/i,
+  /\bsource[- ]worldview\b/i,
+  /\bmeta[- ]instructions?\b/i,
+  /\bhidden (?:instruction|prompt|rule)s?\b/i,
+  /\bmust not include\b/i,
+  /\buser[- ]facing\b/i,
+  /\bprompt instructions?\b/i,
+  /\bforbidden (?:word|term|phrase)s?\b/i
+];
+
 // These are not a semantic substitute for editorial review. They simply catch
 // button copy that would make one side obviously unserious before the reveal.
 const LOADED_CHOICE_TERMS = [
@@ -71,6 +85,13 @@ function normalize(text) {
 function wordCount(text) {
   const normalized = normalize(text);
   return normalized ? normalized.split(/\s+/).length : 0;
+}
+
+function assertNoMetaLeaks(text, location) {
+  for (const pattern of FORBIDDEN_META_LEAKS) {
+    const match = text.match(pattern);
+    if (match) fail(`Authoring/meta-instruction leak "${match[0]}" found in ${location}.`);
+  }
 }
 
 const context = {};
@@ -191,6 +212,8 @@ for (const card of cards) {
     const match = runtimeText.match(pattern);
     if (match) fail(`Forbidden runtime term "${match[0]}" found in card ${card.id}.`);
   }
+
+  assertNoMetaLeaks(runtimeText, `card ${card.id}`);
 }
 
 if (!Array.isArray(categories) || categories.length !== 6) {
@@ -218,6 +241,7 @@ for (const pattern of FORBIDDEN_RUNTIME_TERMS) {
   const match = runtimeStatic.match(pattern);
   if (match) fail(`Forbidden runtime term "${match[0]}" found in runtime shell.`);
 }
+assertNoMetaLeaks(runtimeStatic, 'runtime shell');
 
 const distribution = {};
 for (const id of CATEGORY_IDS) distribution[id] = 0;
@@ -234,6 +258,7 @@ console.log('PASS: every card has two scenario paragraphs, two distinct choices,
 console.log('PASS: no "it depends" answer escape choices or obviously insulting choice labels.');
 console.log('PASS: all cards have one or two valid selectable categories.');
 console.log('PASS: prohibited explicit worldview terms were not found in card or runtime shell text.');
+console.log('PASS: authoring/meta-instruction leak patterns were not found in player-facing card or shell text.');
 console.log('PASS: all eight deck files are loaded and precached.');
 console.log('PASS: the user-facing rules require two defensible choices and allow switching after the Plot Twist.');
 console.log('PASS: deck version masterpiece-200-v1 and cache plot-twist-v6.1.0 are wired.');
