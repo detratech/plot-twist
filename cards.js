@@ -3,441 +3,437 @@
 const PLOT_TWIST_CARDS = [
   {
     id: 1,
-    title: 'THE TELEPORT SNEEZE',
-    vibe: 'chaos',
+    title: 'THE HAPPINESS CHIP',
+    vibe: 'deeper',
     scenario: [
-      'You get $5 million tonight, tax-free.',
-      'The catch: every time you sneeze, you instantly teleport to a random place somewhere within 50 km.'
+      'A new brain chip can make you feel calm, happy, confident, and fulfilled almost every waking hour. It is safe, legal, and has no physical side effects.',
+      'It does not make you healthier, wiser, more skilled, more loving, or more useful. It only guarantees the feeling that your life is going great.'
     ],
-    prompt: 'Taking the deal?',
-    choices: ['Take it', 'No chance'],
+    prompt: 'Would you install it?',
+    choices: ['Install it', 'No'],
     twist: [
-      'Your clothes come with you. Your phone, wallet, keys, food, and anything in your hands stay behind.',
-      'A second sneeze starts another 50 km jump from wherever you landed.'
+      'Ten years later you still feel fantastic, but you have barely grown. Difficult relationships were ignored, hard skills were never learned, and responsibilities became easy to avoid because nothing feels wrong anymore.'
     ],
-    afterPrompt: 'What mattered more: the $5 million headline, or the consequences you did not think about at first?',
-    hostPrompts: ['What hidden cost did you ignore first?', 'How often do we judge an idea before following it to the end?']
+    afterPrompt: 'If feeling fulfilled and living a fulfilling life can come apart, which one should lead?',
+    hostPrompts: ['Is happiness a feeling or a way of living?', 'Would you want the chip for someone you love?']
   },
   {
     id: 2,
+    title: 'THE RED ENVELOPE',
+    vibe: 'truth',
+    scenario: [
+      'A sealed envelope contains one completely accurate answer about a major belief or life choice you currently have wrong.',
+      'Opening it may cost you nothing. Or it may force you to admit you were wrong, change a comfortable habit, disappoint your social circle, or rethink years of decisions.'
+    ],
+    prompt: 'Open it or destroy it?',
+    choices: ['Open it', 'Destroy it'],
+    twist: [
+      'Nobody will ever know which option you chose. There is no embarrassment for opening it and no punishment for destroying it.'
+    ],
+    afterPrompt: 'When truth has a price but nobody is watching, how badly do you actually want it?',
+    hostPrompts: ['What kind of answer would you be afraid to find?', 'Can the consequences of a truth make the truth itself less true?']
+  },
+  {
+    id: 3,
+    title: 'THE PERFECT SATURDAY LOOP',
+    vibe: 'funny',
+    scenario: [
+      'You can relive the best Saturday of your life every weekend: favourite food, perfect weather, your favourite people, no chores, no stress, everything exactly right.',
+      'You remember every previous Saturday, but the day itself repeats perfectly.'
+    ],
+    prompt: 'Taking the deal?',
+    choices: ['Absolutely', 'No'],
+    twist: [
+      'By Saturday 60 you know every joke before it is told, every bite tastes familiar, and every activity feels ordinary. Nothing got worse. Your reaction to it changed.'
+    ],
+    afterPrompt: 'If the perfect pleasure becomes normal through repetition, can “more of it” ever create enough?',
+    hostPrompts: ['What enjoyable thing in your life became normal?', 'Why does novelty matter so much to pleasure?']
+  },
+  {
+    id: 4,
+    title: 'BORN SOMEWHERE ELSE',
+    vibe: 'identity',
+    scenario: [
+      'Two identical babies are separated at birth and raised in homes with opposite ideas about success, relationships, money, modesty, family, and what a normal adult life looks like.',
+      'At 30, both are intelligent and both confidently say, “I thought about life for myself.”'
+    ],
+    prompt: 'How much of their “common sense” did they actually choose?',
+    choices: ['Most of it', 'Some of it', 'Very little'],
+    twist: [
+      'Neither person can remember deciding many of their deepest assumptions. They mostly remember growing up around people who already treated those assumptions as obvious.'
+    ],
+    afterPrompt: 'Being taught a belief does not make it false. So how would you tell which inherited beliefs are actually true?',
+    hostPrompts: ['Which beliefs feel too obvious to examine?', 'Would you believe the same things if you had been raised somewhere else?']
+  },
+  {
+    id: 5,
+    title: 'THE SELF-MADE MEDAL',
+    vibe: 'absurd',
+    scenario: [
+      'A new race has one rule: every runner chooses their own starting line, distance, finish line, and definition of winning.',
+      'One person runs 42 km. One runs 100 metres. One takes three steps. Everyone receives a gold medal because nobody is allowed to judge another runner by an outside standard.'
+    ],
+    prompt: 'Did everyone truly win?',
+    choices: ['Yes', 'No', 'The word lost meaning'],
+    twist: [
+      'The organizer says an external standard would be unfair because somebody might discover they did not win.'
+    ],
+    afterPrompt: 'If a standard can never tell you that you are wrong, is it guiding you or only validating you?',
+    hostPrompts: ['Can achievement exist without a standard?', 'Where should standards come from when people disagree?']
+  },
+  {
+    id: 6,
+    title: 'THE APP THAT KNOWS YOU',
+    vibe: 'modern-life',
+    scenario: [
+      'An app predicts what video, meal, product, song, and news story you will choose next with 96% accuracy.',
+      'It also quietly changes the order of your options so the thing it wants you to choose appears first, looks popular, and is easiest to tap.'
+    ],
+    prompt: 'Are the final choices still completely yours?',
+    choices: ['Yes', 'Not completely'],
+    twist: [
+      'For one month the recommendation system is secretly turned off. Your choices noticeably change even though you never knew anything had changed.'
+    ],
+    afterPrompt: 'If your environment can train your preferences, what does it take to call a preference truly your own?',
+    hostPrompts: ['How would you separate preference from conditioning?', 'What choices do you make only after something puts them in front of you?']
+  },
+  {
+    id: 7,
+    title: 'THE 9–1 PHONE VOTE',
+    vibe: 'group',
+    scenario: [
+      'Ten friends are hanging out. One person leaves his unlocked phone on the table.',
+      'The group votes 9–1 that it would be hilarious to read his private messages aloud because “the majority wants it.”'
+    ],
+    prompt: 'Does the vote make it okay?',
+    choices: ['Yes', 'No'],
+    twist: [
+      'Next weekend you are the one who leaves your phone behind. The vote is again 9–1.'
+    ],
+    afterPrompt: 'If being outvoted does not erase your rights, what exactly can a majority decide?',
+    hostPrompts: ['Can popularity turn a wrong action into a right one?', 'Would your rule survive if you were always the 1?']
+  },
+  {
+    id: 8,
+    title: 'THE CONSENT CONTRACT',
+    vibe: 'modern-life',
+    scenario: [
+      'At 18, you are offered $50,000 cash today in exchange for 20% of every dollar you earn for the rest of your life.',
+      'A lawyer explains the contract clearly. There is no trick, no pressure, and you are legally an adult. You understand it and sign voluntarily.'
+    ],
+    prompt: 'Is the deal fair because you freely agreed?',
+    choices: ['Yes', 'Not necessarily'],
+    twist: [
+      'At 35 you are earning $200,000 a year and desperately regret the deal. The company answers, “Nobody forced you. You chose this.”'
+    ],
+    afterPrompt: 'Is consent enough to make every voluntary choice good, fair, or wise?',
+    hostPrompts: ['What does consent settle?', 'What important questions remain after consent is established?']
+  },
+  {
+    id: 9,
+    title: 'THE PERFECTLY LEGAL MAN',
+    vibe: 'moral',
+    scenario: [
+      'A man carefully follows every law. He pays his taxes, never steals, never assaults anyone, and has no criminal record.',
+      'He also lies to friends when useful, humiliates employees for fun, breaks promises whenever convenient, and ignores his family unless he needs something.'
+    ],
+    prompt: 'Is he a good person?',
+    choices: ['Yes', 'No'],
+    twist: [
+      'He replies, “If any of those things were truly wrong, the law would ban them.”'
+    ],
+    afterPrompt: 'If legal and good are not the same thing, where does the extra standard come from?',
+    hostPrompts: ['Name something legal that can still be wrong.', 'Can law create morality, or does law itself need to be judged?']
+  },
+  {
+    id: 10,
+    title: 'THE QUIET ROOM',
+    vibe: 'modern-life',
+    scenario: [
+      'You get $1,000 for spending 24 hours alone in a comfortable room with good food, a bed, a shower, and a window.',
+      'No phone, music, TV, books, games, work, conversation, or internet. Nothing painful happens. You are simply left with silence and your own thoughts.'
+    ],
+    prompt: 'Could you finish the 24 hours?',
+    choices: ['Easy', 'Probably', 'I would struggle'],
+    twist: [
+      'After four hours you can leave whenever you want. The only thing making you want to quit is boredom and the urge for stimulation.'
+    ],
+    afterPrompt: 'When low stimulation feels unbearable, are you using entertainment or depending on it?',
+    hostPrompts: ['What would you reach for first?', 'What thoughts show up when nothing is distracting you?']
+  },
+  {
+    id: 11,
+    title: 'THE MOVING FINISH LINE',
+    vibe: 'money',
+    scenario: [
+      'At 22 your friend says, “If I ever make $100,000 a year, I will be set.”',
+      'At $100,000 the number becomes $150,000. Then $250,000. Then a bigger house. Then a better car. Every new level becomes normal surprisingly quickly.'
+    ],
+    prompt: 'When would you believe the next milestone will finally be enough?',
+    choices: ['The next one', 'Probably never'],
+    twist: [
+      'Nothing is wrong with earning more. The strange part is that the definition of “enough” changes every time he reaches it.'
+    ],
+    afterPrompt: 'Can more satisfy you if “enough” keeps moving whenever more arrives?',
+    hostPrompts: ['What number once seemed huge to you?', 'What would a fixed definition of enough look like?']
+  },
+  {
+    id: 12,
+    title: 'THE MATRIX DEAL',
+    vibe: 'pop',
+    scenario: [
+      'You can enter a simulation that feels completely real. Inside, you have the perfect career, perfect relationships, exciting travel, status, comfort, and every experience you ever wanted.',
+      'Your real body is safe. Once connected, you will forget the outside world and genuinely believe the simulated life is real.'
+    ],
+    prompt: 'Plug in forever?',
+    choices: ['Plug in', 'Stay in reality'],
+    twist: [
+      'Inside the simulation you will probably feel happier than you do now. But none of the people love you, none of the achievements happened, and none of the experiences are real.'
+    ],
+    afterPrompt: 'If pleasure and good feelings were enough by themselves, why would reality matter?',
+    hostPrompts: ['What does reality add that a perfect feeling cannot?', 'Would you plug in someone you love?']
+  },
+  {
+    id: 13,
+    title: 'THE FUTURE-YOU LOAN',
+    vibe: 'choices',
+    scenario: [
+      'A doctor offers you a strange deal. For the next five years you can have incredible energy, recover instantly, sleep four hours, party whenever you want, and feel physically amazing.',
+      'The cost is ten healthy years removed from the end of your life. The effect is guaranteed.'
+    ],
+    prompt: 'Take the five great years?',
+    choices: ['Take them', 'No'],
+    twist: [
+      'Imagine your 60-year-old self could send one message back to you before you sign. He remembers making the choice, but he is the one who must pay it.'
+    ],
+    afterPrompt: 'Why should the desire of your present self automatically outrank the person your choices are creating?',
+    hostPrompts: ['Do you owe anything to your future self?', 'Which current habits are really loans from later?']
+  },
+  {
+    id: 14,
     title: 'SAME BODY, DIFFERENT RULE',
     vibe: 'modern-life',
     scenario: [
       'At a hotel, a woman accidentally opens her room door wearing only underwear. She immediately covers herself and looks embarrassed.',
-      'Twenty minutes later she is at the pool in a bikini that covers about the same amount of skin, and she feels completely normal.'
+      'Twenty minutes later she is beside the pool in a bikini covering about the same amount of skin, completely comfortable.'
     ],
     prompt: 'What changed most?',
     choices: ['Her body', 'The setting', 'The people'],
     twist: [
-      'Some of the exact same people from the hallway are now sitting beside the pool.',
-      'Her body did not change. The amount of skin barely changed. The social setting did.'
+      'Several of the same people from the hallway are now beside the pool. Her body barely changed. The social rule attached to the setting did.'
     ],
-    afterPrompt: 'How much of what feels “obviously normal” comes from the rule attached to the setting rather than the physical thing itself?',
-    hostPrompts: ['Is this really about skin, or about context?', 'Which everyday rules feel natural only because everyone around us treats them as natural?']
-  },
-  {
-    id: 3,
-    title: 'THE $500,000 QUESTION',
-    vibe: 'pop',
-    scenario: [
-      'You are on Who Wants to Be a Millionaire and have no clue.',
-      'The audience votes 88% for B. Your phone-a-friend is your annoyingly smart cousin, and he says D because he remembers the exact fact.'
-    ],
-    prompt: 'Who gets your trust?',
-    choices: ['88% crowd', 'Smart cousin'],
-    twist: [
-      'The correct answer is D.',
-      'The audience was not lying. Most of them were simply guessing with confidence.'
-    ],
-    afterPrompt: 'What should matter more: how many people believe something, or why they believe it?',
-    hostPrompts: ['When is popularity useful evidence?', 'When is a majority just a lot of people repeating the same weak reason?']
-  },
-  {
-    id: 4,
-    title: 'NOBODY LIKES THE SHOTS',
-    vibe: 'real-life',
-    scenario: [
-      'Ten friends are on a weekend trip. Someone orders another round of shots.',
-      'Every guy drinks because he thinks everyone else is enjoying it and he does not want to be the boring one.'
-    ],
-    prompt: 'Would you say you do not want one?',
-    choices: ['Say it', 'Just take it'],
-    twist: [
-      'Later, everyone admits they were tired of drinking hours ago.',
-      'Nine people did something they did not really want because each thought the other nine wanted it.'
-    ],
-    afterPrompt: 'If nobody actually wanted the “normal” thing, who was everyone following?',
-    hostPrompts: ['How can a norm survive when most people privately dislike it?', 'What else do people do because they think everyone else expects it?']
-  },
-  {
-    id: 5,
-    title: 'THE USED CIVIC',
-    vibe: 'real-life',
-    scenario: [
-      'You find a clean used Civic for a great price.',
-      'From a stranger, you would ask for records and get an inspection. This seller is your cousin, and he says, “Bro, you know me. The car is perfect.”'
-    ],
-    prompt: 'Inspect it or trust your cousin?',
-    choices: ['Inspect it', 'Trust him'],
-    twist: [
-      'The inspection finds a hidden problem that will cost $3,000 next month.',
-      'Your cousin genuinely did not know about it.'
-    ],
-    afterPrompt: 'Should liking or trusting the source change the standard you use to test the claim?',
-    hostPrompts: ['When is trust useful?', 'Where do we demand proof from outsiders but accept weaker proof from our own side?']
-  },
-  {
-    id: 6,
-    title: 'THE FREE WI-FI',
-    vibe: 'modern-life',
-    scenario: [
-      'A coffee shop offers free high-speed Wi-Fi.',
-      'The sign-in page asks for your full name, email, birthday, location access, and permission to track which stores you visit afterward.'
-    ],
-    prompt: 'Connect or use your data?',
-    choices: ['Free Wi-Fi', 'Use my data'],
-    twist: [
-      'Five minutes earlier you were complaining that companies know too much about people.',
-      'The Wi-Fi saves you about 200 MB of mobile data.'
-    ],
-    afterPrompt: 'How much is a stated value worth if a tiny convenience can make you abandon it?',
-    hostPrompts: ['What privacy would you actually pay to protect?', 'Do our actions reveal our real priorities better than our opinions do?']
-  },
-  {
-    id: 7,
-    title: 'THE DUCK PROBLEM',
-    vibe: 'chaos',
-    scenario: [
-      'You are locked in a hockey rink for ten minutes.',
-      'You must face either one horse-sized duck or one hundred duck-sized horses.'
-    ],
-    prompt: 'Pick your opponent.',
-    choices: ['Giant duck', 'Tiny horses'],
-    twist: [
-      'The tiny horses coordinate and attack as a team.',
-      'The giant duck is terrified of hamburger buns. You have one bun in your pocket.'
-    ],
-    afterPrompt: 'Switching sides? Which new fact changed your answer?',
-    hostPrompts: ['What did you assume without being told?', 'Are you defending your first answer or updating to the better one?']
-  },
-  {
-    id: 8,
-    title: 'THE DEFAULT BUTTON',
-    vibe: 'modern-life',
-    scenario: [
-      'Two identical apps ask the same question during setup: “Share anonymous usage data to improve the product?”',
-      'App A starts with YES selected. App B starts with NO selected. You can change either with one tap.'
-    ],
-    prompt: 'Will most users make the same choice in both apps?',
-    choices: ['Probably yes', 'Probably no'],
-    twist: [
-      'Imagine both companies later announce that most users “chose” the option that happened to be preselected for them.'
-    ],
-    afterPrompt: 'When the default changes behaviour, how much of the final choice was really a carefully formed preference?',
-    hostPrompts: ['Why does doing nothing feel like a choice?', 'How many decisions in your life arrive with a default already selected?']
-  },
-  {
-    id: 9,
-    title: 'NO FILTER, TAKE 37',
-    vibe: 'modern-life',
-    scenario: [
-      'Someone posts a selfie with the caption: “Stop caring what people think. Just be yourself.”',
-      'Before posting it, they took 37 photos, chose the best angle, adjusted the lighting, smoothed the skin, and deleted the ones they hated.'
-    ],
-    prompt: 'Hypocritical or just normal?',
-    choices: ['Hypocritical', 'Just normal', 'Both'],
-    twist: [
-      'Almost everyone seeing the post knows photos are curated, yet the likes still feel like approval of the “real” person.'
-    ],
-    afterPrompt: 'Can a culture celebrate authenticity while training everyone to perform for approval?',
-    hostPrompts: ['Who is the photo really for?', 'How much of “being yourself” gets edited for the audience?']
-  },
-  {
-    id: 10,
-    title: 'FORTY REPOSTS',
-    vibe: 'internet',
-    scenario: [
-      'A shocking claim appears in your feed.',
-      'You see it from a news account, three influencers, two podcasts, a meme page, Reddit, and about thirty people reposting screenshots.'
-    ],
-    prompt: 'Does that make the claim feel well confirmed?',
-    choices: ['Yes', 'Not yet'],
-    twist: [
-      'Every post traces back to one anonymous account. Nobody checked the original claim before repeating it.'
-    ],
-    afterPrompt: 'Did you see forty sources, or one source forty times?',
-    hostPrompts: ['What makes evidence independent?', 'Does repetition create confidence even when it adds no new proof?']
-  },
-  {
-    id: 11,
-    title: 'OUTRAGE PAYS',
-    vibe: 'internet',
-    scenario: [
-      'You post a calm opinion online and get 12 likes.',
-      'The next day you post the same point with insults, outrage, and “THIS IS INSANE.” It gets 4,000 likes and hundreds of shares.'
-    ],
-    prompt: 'Which style are you more likely to use next time?',
-    choices: ['Stay calm', 'Turn it up'],
-    twist: [
-      'After a month, your most angry posts keep winning the most attention.',
-      'You now sound much more extreme online than you do when talking face-to-face.'
-    ],
-    afterPrompt: 'If the platform rewards one version of you, can it slowly train which version you become?',
-    hostPrompts: ['What behaviour does attention reward?', 'Would you still say it that way if likes were invisible?']
-  },
-  {
-    id: 12,
-    title: 'GRANDPA’S ADVICE, REBRANDED',
-    vibe: 'funny',
-    scenario: [
-      'Your grandfather tells you: sleep properly, stop wasting money, walk every day, and do not let your phone own you.',
-      'You laugh and say he does not understand modern life.'
-    ],
-    prompt: 'Good advice or outdated advice?',
-    choices: ['Good advice', 'Outdated'],
-    twist: [
-      'Six months later a famous productivity creator sells the same four ideas as a “dopamine reset protocol.” You send the video to everyone.'
-    ],
-    afterPrompt: 'Did the idea become smarter, or did the packaging become more modern?',
-    hostPrompts: ['Do we mistake new language for new truth?', 'Would you reject a good idea just because it sounds old?']
-  },
-  {
-    id: 13,
-    title: 'EXPLAIN THE TOILET',
-    vibe: 'funny',
-    scenario: [
-      'Everyone in the room has used a toilet thousands of times.',
-      'Without looking anything up, explain exactly how pressing the handle makes the bowl empty and refill.'
-    ],
-    prompt: 'Could you explain it properly?',
-    choices: ['Easy', 'I know the rough idea', 'Not really'],
-    twist: [
-      'Now imagine someone saying, “I have used toilets my whole life, so obviously I understand how the system works.”'
-    ],
-    afterPrompt: 'How many things do we feel certain about because they are familiar, even though we could not actually explain them?',
-    hostPrompts: ['Name something else you “know” until someone asks how it works.', 'Does familiarity create fake confidence?']
-  },
-  {
-    id: 14,
-    title: 'SAME CALL, DIFFERENT JERSEY',
-    vibe: 'sports',
-    scenario: [
-      'A referee makes a borderline call against your team in the final minute. You say it is one of the worst calls you have ever seen.',
-      'Next week the exact same call goes in your team’s favour.'
-    ],
-    prompt: 'Are you calling it terrible again?',
-    choices: ['Yes', 'Probably not'],
-    twist: [
-      'The league later shows the two plays side by side. They are almost identical.'
-    ],
-    afterPrompt: 'If your standard changes when your jersey changes, were you judging the rule or protecting your side?',
-    hostPrompts: ['Where else do we use different standards for our team?', 'Would you trust a judge who reasoned like a fan?']
+    afterPrompt: 'How many things feel naturally “normal” only because the surrounding culture gives the situation a different meaning?',
+    hostPrompts: ['Is context a real difference?', 'How would you tell a meaningful distinction from a social habit you never examined?']
   },
   {
     id: 15,
-    title: 'GREEN CHECKOUT',
-    vibe: 'modern-life',
+    title: 'THE VALIDATION FRIEND',
+    vibe: 'relationships',
     scenario: [
-      'You tell people you care about waste and the environment.',
-      'At checkout, the more sustainable option costs $4 more and takes two extra days to arrive. The cheaper option arrives tonight.'
+      'You have two close friends. One is endlessly supportive and almost always tells you that your feelings and choices are valid.',
+      'The other cares about you just as much but will tell you, “You are wrong,” when he thinks you are about to damage your life.'
     ],
-    prompt: 'Which one are you buying?',
-    choices: ['Sustainable option', 'Cheaper tonight'],
+    prompt: 'Which friend would you rather have?',
+    choices: ['Always supportive', 'Will challenge me'],
     twist: [
-      'Neither answer makes you a good or bad person. But one of them reveals what happens when a stated value meets money and inconvenience.'
+      'You are about to make a decision that will seriously hurt you. The first friend can see it but stays supportive because disagreement might upset you.'
     ],
-    afterPrompt: 'Which tells us more about a belief: saying it when it is free, or acting on it when it costs something?',
-    hostPrompts: ['How much inconvenience would you accept for a value?', 'Which values disappear fastest when they become expensive?']
+    afterPrompt: 'Is making someone feel affirmed always the same thing as caring about them?',
+    hostPrompts: ['When does kindness require disagreement?', 'Would you rather be comforted or corrected when the stakes are high?']
   },
   {
     id: 16,
-    title: 'TWO BRAND-NEW ACCOUNTS',
+    title: 'THE STUDY THAT AGREES WITH YOU',
     vibe: 'internet',
     scenario: [
-      'You make two new social-media accounts with no history.',
-      'On Account A you spend one evening clicking angry political clips. On Account B you click cooking, travel, and comedy.'
-    ],
-    prompt: 'A month later, will the two feeds feel like the same world?',
-    choices: ['Mostly the same', 'Completely different'],
-    twist: [
-      'Now imagine each account belongs to a real person who says, “Look around. This is what everyone is talking about.”'
-    ],
-    afterPrompt: 'When a system chooses what you repeatedly see, can it also influence what feels common, urgent, or obvious?',
-    hostPrompts: ['How much of your feed did you deliberately choose?', 'Does seeing something constantly make it feel more important than it is?']
-  },
-  {
-    id: 17,
-    title: 'THE INVISIBLE CAMERA',
-    vibe: 'deeper',
-    scenario: [
-      'You find a wallet with $800 cash and an ID inside.',
-      'There are no people around and you are completely certain there are no cameras.'
-    ],
-    prompt: 'Return it or keep the cash?',
-    choices: ['Return everything', 'Keep the cash'],
-    twist: [
-      'Now change one fact: there is a security camera pointed directly at you.'
-    ],
-    afterPrompt: 'If the camera changes the choice, was the original rule a principle or just fear of consequences?',
-    hostPrompts: ['Would your answer change if nobody could ever know?', 'What does a principle mean when there is no audience?']
-  },
-  {
-    id: 18,
-    title: 'FAMILY FIRST',
-    vibe: 'real-life',
-    scenario: [
-      'You say family is one of the most important things in your life.',
-      'At dinner your phone keeps buzzing. Work email, sports updates, group chat, YouTube, a sale notification, then another group chat.'
-    ],
-    prompt: 'Phone on the table or phone away?',
-    choices: ['Keep it nearby', 'Put it away'],
-    twist: [
-      'Your weekly screen-time report later shows 29 hours of social apps and entertainment.',
-      'You also say you have been “too busy” to spend more time with people you care about.'
-    ],
-    afterPrompt: 'When stated priorities and repeated behaviour disagree, which one is the better evidence of what is actually running your life?',
-    hostPrompts: ['What gets your best attention?', 'Which thing do you claim matters more than your calendar suggests?']
-  },
-  {
-    id: 19,
-    title: 'THE SCIENCE GRAPHIC',
-    vibe: 'internet',
-    scenario: [
-      'A clean infographic says, “STUDY PROVES...” and gives a dramatic conclusion you already agree with.',
-      'It has a university logo, a chart, and 200,000 shares.'
+      'A polished graphic appears in your feed: “NEW STUDY PROVES...” followed by a conclusion you already strongly agree with.',
+      'It has a university logo, a dramatic chart, 300,000 shares, and everyone in the comments is celebrating.'
     ],
     prompt: 'Share it or check the study first?',
     choices: ['Share it', 'Check first'],
     twist: [
-      'The actual study exists, but its conclusion is much narrower than the graphic claims.',
-      'The graphic was made by an advocacy account, not the researchers.'
+      'The actual paper is real, but its conclusion is much narrower than the viral graphic. The graphic exaggerated exactly the part your side wanted to hear.'
     ],
-    afterPrompt: 'Do we really follow evidence if we only verify claims that challenge us?',
-    hostPrompts: ['Would you have checked it if you disagreed with it?', 'What does “evidence-based” require from your own side?']
+    afterPrompt: 'Do you demand the same quality of evidence from claims that flatter your beliefs as from claims that challenge them?',
+    hostPrompts: ['Which side do you fact-check harder?', 'What would fair evidence standards look like?']
+  },
+  {
+    id: 17,
+    title: 'THE ONE FACT',
+    vibe: 'truth',
+    scenario: [
+      'Pick one important belief you are very confident about.',
+      'You receive $10,000 if you can name one realistic fact, discovery, or piece of evidence that would make you admit the belief is wrong.'
+    ],
+    prompt: 'Can you name one?',
+    choices: ['Yes', 'Nothing could'],
+    twist: [
+      'If no possible evidence could count against the belief, then every future result can be explained in a way that protects it.'
+    ],
+    afterPrompt: 'If a belief is never allowed to lose, are you testing it or protecting it?',
+    hostPrompts: ['What would genuinely change your mind?', 'Do you ask opponents to be more open to correction than you are?']
+  },
+  {
+    id: 18,
+    title: 'THE PERFECTLY TOLERANT CLUB',
+    vibe: 'social',
+    scenario: [
+      'A club has one founding rule: every member may speak, disagree, and argue without being silenced simply for having an unpopular opinion.',
+      'A new member joins and uses every meeting to demand that everyone who disagrees with him lose the right to speak.'
+    ],
+    prompt: 'Can the club remove him without betraying its own rule?',
+    choices: ['Remove him', 'Must tolerate him'],
+    twist: [
+      'If he succeeds, the club will no longer allow disagreement. If they stop him, he immediately says, “So much for tolerance.”'
+    ],
+    afterPrompt: 'Can a principle survive if it refuses to defend the conditions that make the principle possible?',
+    hostPrompts: ['Is every limit automatically hypocrisy?', 'What is the difference between tolerating disagreement and surrendering the rule itself?']
+  },
+  {
+    id: 19,
+    title: 'THE ENGINEER’S ANSWER',
+    vibe: 'mystery',
+    scenario: [
+      'You find an unfamiliar machine in a warehouse. An engineer can explain every wire, gear, sensor, chemical reaction, and line of code inside it.',
+      'He can tell you exactly how every component works, but he has never met the designer and has no idea what job the machine was built to perform.'
+    ],
+    prompt: 'Has he explained everything important about the machine?',
+    choices: ['Yes', 'No'],
+    twist: [
+      'A label from the designer is later found explaining that the machine was built for a specific emergency task nobody had guessed from watching the parts move.'
+    ],
+    afterPrompt: 'Can a complete explanation of how something works automatically answer what it is for?',
+    hostPrompts: ['Are “how?” and “what for?” the same question?', 'Who is best placed to explain intended purpose?']
   },
   {
     id: 20,
-    title: 'ONE RING FOR A WEEK',
-    vibe: 'pop',
+    title: 'THE NO-REPUTATION YEAR',
+    vibe: 'modern-life',
     scenario: [
-      'You get the One Ring for seven days. It gives you real advantages, and after the week you must destroy it.',
-      'You know what happened to nearly everyone else who believed they could control it.'
+      'For one year, nobody can see your car brand, clothes brand, job title, follower count, vacation photos, house, watch, phone, or anything else that signals status.',
+      'You still own everything and can enjoy it privately. Other people simply cannot know about it.'
     ],
-    prompt: 'Use it or refuse it?',
-    choices: ['Use it', 'Refuse it'],
+    prompt: 'Would your spending or goals change?',
+    choices: ['A lot', 'A little', 'Not at all'],
     twist: [
-      'Your main argument for using it is: “Those people were weaker than me. I know myself.”'
+      'The same rule applies to everybody. There is no audience to impress and no social reward for appearing successful.'
     ],
-    afterPrompt: 'Why are we often more willing to trust our own self-control than the evidence we would use to judge someone else?',
-    hostPrompts: ['What makes you the exception?', 'When is confidence about yourself evidence, and when is it just confidence?']
+    afterPrompt: 'Which desires would remain if nobody could ever admire you for satisfying them?',
+    hostPrompts: ['What do you want mainly because other people can see it?', 'Would invisible luxury still be luxury to you?']
   },
   {
     id: 21,
-    title: 'THE PERFECT FAKE TOWN',
-    vibe: 'deeper',
+    title: 'THE CLICK REMOTE',
+    vibe: 'pop',
     scenario: [
-      'You discover your entire town is a controlled set. Your job, neighbours, news, and routines are staged.',
-      'But life there is excellent: no mortgage, no traffic, great weather, your friends stay, and your favourite team wins regularly.'
+      'You get a remote that can fast-forward anything unpleasant or boring: traffic, chores, workouts, waiting rooms, awkward talks, paperwork, bad moods, even difficult weeks.',
+      'You stay physically safe and instantly arrive at the next enjoyable part.'
     ],
-    prompt: 'Stay or walk through the exit?',
-    choices: ['Stay', 'Leave'],
+    prompt: 'How often would you use it?',
+    choices: ['Constantly', 'Sometimes', 'Almost never'],
     twist: [
-      'Outside is ordinary reality: bills, uncertainty, bad weather, arguments, and no guarantee things work out better.'
+      'The remote learns what you usually skip. Eventually it starts skipping difficult conversations that would have repaired relationships, boring practice that would have built skill, and ordinary family moments you did not realize you would miss.'
     ],
-    afterPrompt: 'If comfort cannot make something true, why does comfort have so much power over whether we want to examine it?',
-    hostPrompts: ['How much comfort would make you tolerate something you knew was fake?', 'Do unpleasant consequences make a fact less true?']
+    afterPrompt: 'Could a life designed to remove discomfort also remove the things that give life depth?',
+    hostPrompts: ['Which difficult thing became valuable only later?', 'Is all discomfort a problem to eliminate?']
   },
   {
     id: 22,
-    title: 'THE MYSTERY MACHINE',
-    vibe: 'mystery',
+    title: 'THE ISLAND RULE',
+    vibe: 'moral',
     scenario: [
-      'You find a strange machine in a storage unit.',
-      'You discover it can charge a phone, heat coffee, hold a door open, and play music. Everyone argues about what it was made for.'
+      'You visit an island where every local agrees on one rule: cheating an outsider is acceptable, but cheating another local is wrong.',
+      'The rule is legal, traditional, popular, and taught from childhood. A shop owner uses it to trick you out of your life savings.'
     ],
-    prompt: 'Can the users figure out its real purpose just from what they can do with it?',
-    choices: ['Probably', 'Not for sure'],
+    prompt: 'Was what happened to you actually wrong, or just against your values?',
+    choices: ['Actually wrong', 'Just different values'],
     twist: [
-      'The original designer appears with the plans. The machine was built to detect a dangerous gas leak. Every other use was accidental.'
+      'Every local sincerely approves of the rule. There is no hidden local opposition for you to appeal to.'
     ],
-    afterPrompt: 'Can something have many useful uses while its intended purpose still comes from the one who designed it?',
-    hostPrompts: ['Is usefulness the same thing as intended purpose?', 'Who has the strongest claim to know why something was made?']
+    afterPrompt: 'If an entire society can be wrong about a moral rule, what standard are you using to judge the society?',
+    hostPrompts: ['Does agreement create right and wrong?', 'What would make a moral rule more than local preference?']
   },
   {
     id: 23,
-    title: 'THE ONE FACT',
+    title: 'ONE YEAR LEFT',
     vibe: 'deeper',
     scenario: [
-      'Pick one belief or opinion you feel very confident about.',
-      'Now imagine someone offers you $10,000 if you can honestly name one piece of evidence that would make you admit you were wrong.'
+      'You learn with complete certainty that you have exactly one healthy year left to live. Nothing can extend it, and you are not allowed to tell anyone why your behaviour changes.',
+      'Your job, bank account, notifications, subscriptions, unfinished shows, purchases, grudges, relationships, and normal responsibilities all still exist.'
     ],
-    prompt: 'Can you name one?',
-    choices: ['Yes', 'No'],
+    prompt: 'What changes first?',
+    choices: ['People', 'Work', 'Money', 'Habits', 'Nothing'],
     twist: [
-      'If the answer is “nothing could change my mind,” you do not get the money.',
-      'The other person asks: “Then what role is evidence actually playing in your belief?”'
+      'Nobody gives you extra praise for changing. The only difference is that your remaining time has become visible to you.'
     ],
-    afterPrompt: 'Can a belief be called open-minded if it has no possible losing condition?',
-    hostPrompts: ['What would genuinely change your mind?', 'Which of your beliefs gets the toughest protection from contrary evidence?']
+    afterPrompt: 'If knowing your time is limited changes what matters, why should uncertainty about the exact date make those priorities disappear?',
+    hostPrompts: ['What suddenly looks trivial?', 'What would you regret spending another year avoiding?']
   },
   {
     id: 24,
-    title: 'TEN YEARS OF YOU',
-    vibe: 'deeper',
+    title: 'THE EXIT DOOR',
+    vibe: 'finale',
     scenario: [
-      'A machine shows you an accurate preview of yourself ten years from now if your current habits simply continue.',
-      'Same sleep habits, spending habits, screen habits, friendships, exercise, work patterns, and ways of handling stress.'
+      'You discover that your comfortable world has been carefully filtered for you. Your news agrees with you, your friends mostly agree with you, your entertainment keeps you happy, and uncomfortable questions rarely reach you.',
+      'There is one exit door. Outside you will see reality without the filter, but you may lose certainty, status, routines, relationships, or beliefs that currently make life comfortable.'
     ],
-    prompt: 'Would you press PLAY?',
-    choices: ['Show me', 'I would rather not know'],
+    prompt: 'Walk through the door?',
+    choices: ['Walk through', 'Stay'],
     twist: [
-      'The machine cannot show intentions. It only projects repeated behaviour.',
-      'It does not care what you planned to become.'
+      'You are guaranteed that whatever is outside is real. You are not guaranteed that you will like it.'
     ],
-    afterPrompt: 'If your current causes keep running, what reason do you have to expect a completely different result?',
-    hostPrompts: ['Which habit would you be most nervous to see compounded?', 'What future do your actions predict better than your goals do?']
+    afterPrompt: 'When truth and comfort finally point in opposite directions, which one gets the final vote?',
+    hostPrompts: ['What would make you stay?', 'Is wanting truth different from wanting truth only when it agrees with you?']
   }
 ];
 
 const CHAOS_MODIFIERS = [
   {
     name: 'SWITCH SIDES',
-    text: 'Defend the opposite answer for 30 seconds. Make it as strong as you can.'
-  },
-  {
-    name: 'SHOW RECEIPTS',
-    text: 'Give one actual reason or piece of evidence for your answer. No vibes.'
-  },
-  {
-    name: 'NO AUDIENCE',
-    text: 'Nobody will ever know what you chose. Same answer?'
-  },
-  {
-    name: 'SAME RULE',
-    text: 'Would you accept the same reasoning if it helped the opposite side?'
-  },
-  {
-    name: 'FAST FORWARD',
-    text: 'Imagine your choice plays out for ten years. Does it still look good?'
-  },
-  {
-    name: 'ONE REASON',
-    text: 'You only get one reason. What is the strongest reason for your answer?'
-  },
-  {
-    name: 'CHANGE ONE FACT',
-    text: 'Name one new fact that would make you switch your answer.'
-  },
-  {
-    name: 'PICK A LAWYER',
-    text: 'Choose someone else in the group to defend your answer for you.'
-  },
-  {
-    name: 'LOCK IT IN',
-    text: 'No “it depends.” Everyone picks one answer right now and gives one sentence why.'
+    text: 'Defend the answer you did not choose as strongly as you can.'
   },
   {
     name: 'WHO TAUGHT YOU THAT?',
-    text: 'Where did your first instinct on this question come from: experience, evidence, family, friends, media, habit, or something else?'
+    text: 'Where did your first instinct come from: evidence, experience, family, friends, media, habit, or something else?'
+  },
+  {
+    name: 'ONE FACT',
+    text: 'Name one new fact that would genuinely make you change your answer.'
+  },
+  {
+    name: 'SAME RULE',
+    text: 'Would you accept the exact same reasoning if it worked against you or your side?'
+  },
+  {
+    name: 'NO AUDIENCE',
+    text: 'Nobody will ever know your choice. Does your answer change?'
+  },
+  {
+    name: 'PRICE IT',
+    text: 'What is the largest real cost you would accept before abandoning your answer?'
+  },
+  {
+    name: 'TEN YEARS LATER',
+    text: 'Imagine everyone lives by your answer for ten years. What happens next?'
+  },
+  {
+    name: 'DEFINE IT',
+    text: 'Pick the most important word in the argument, define it clearly, and keep that definition fixed.'
+  },
+  {
+    name: 'WHAT ARE YOU PROTECTING?',
+    text: 'If changing your answer feels uncomfortable, what exactly would you lose by changing it?'
+  },
+  {
+    name: 'SOURCE CHECK',
+    text: 'What are you actually relying on: evidence, a person, a crowd, familiarity, or your own intuition?'
+  },
+  {
+    name: 'REMOVE THE REWARD',
+    text: 'Take away money, pleasure, praise, status, and approval. Would you still choose the same thing?'
+  },
+  {
+    name: 'BET SOMETHING',
+    text: 'If being wrong cost you $10,000, what would you verify before locking in your answer?'
   }
 ];
