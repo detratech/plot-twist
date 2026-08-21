@@ -3,7 +3,8 @@
 (() => {
   const cardTitle = document.getElementById('cardTitle');
   const afterPrompt = document.getElementById('afterPrompt');
-  if (!cardTitle || !afterPrompt || typeof HISTORICAL_EXAMPLES !== 'object') return;
+  const choiceWrap = document.getElementById('scenarioChoices');
+  if (!cardTitle || !afterPrompt || !choiceWrap || typeof HISTORICAL_EXAMPLES !== 'object') return;
 
   const box = document.createElement('section');
   box.className = 'history-example';
@@ -19,6 +20,31 @@
 
   box.append(label, heading, text);
   afterPrompt.insertAdjacentElement('afterend', box);
+
+  function enhanceChoices() {
+    choiceWrap.querySelectorAll('.choice-pill').forEach(choice => {
+      if (choice.dataset.enhanced === 'true') return;
+
+      const raw = choice.textContent.trim();
+      const separator = raw.indexOf(' — ');
+      const choiceLabel = separator >= 0 ? raw.slice(0, separator).trim() : raw;
+      const reason = separator >= 0 ? raw.slice(separator + 3).trim() : '';
+
+      choice.textContent = '';
+
+      const strong = document.createElement('strong');
+      strong.textContent = choiceLabel;
+      choice.appendChild(strong);
+
+      if (reason) {
+        const small = document.createElement('small');
+        small.textContent = reason;
+        choice.appendChild(small);
+      }
+
+      choice.dataset.enhanced = 'true';
+    });
+  }
 
   function renderHistoricalExample() {
     const current = PLOT_TWIST_CARDS.find(card => card.title === cardTitle.textContent);
@@ -41,6 +67,8 @@
     characterData: true,
     subtree: true
   });
+  new MutationObserver(enhanceChoices).observe(choiceWrap, { childList: true });
 
+  enhanceChoices();
   renderHistoricalExample();
 })();
