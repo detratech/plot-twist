@@ -6,18 +6,35 @@ Validation notes for the current source.
 
 - The intended deck contains 100 local scenarios, split into four 25-card source files: `deck-a.js`, `deck-b.js`, `deck-c.js`, and `deck-d.js`.
 - `cards.js` initializes the shared deck array and defines 16 reusable Chaos pressure tests.
-- `index.html` loads `cards.js`, all four deck files, and then `app.js`.
-- The previous `cards-extra.js`, `cards-balance.js`, and `cards-party.js` layers have been removed from the active architecture.
-- Every newly authored scenario includes a title, scenario, main prompt, two answer choices, Plot Twist, declarative conclusion, deeper follow-up, and conversation paths.
+- `categories.js` assigns broad topic categories after the full deck loads.
+- `index.html` loads `cards.js`, all four deck files, `categories.js`, and then `app.js`.
+- Every authored scenario includes a title, scenario, main prompt, two answer choices, Plot Twist, declarative conclusion, deeper follow-up, and conversation paths.
 - Numeric IDs still exist internally for saved-card and state handling, but card IDs and run-position numbers are not displayed in the game UI or Saved list.
+
+## Selectable categories
+
+The home screen now exposes six broad topic selectors plus `Mix Everything`:
+
+- Mind & Truth
+- Relationships & Family
+- Money & Success
+- Tech & Modern Life
+- Society & Culture
+- Life & Purpose
+
+The selector is multi-select. Players can combine categories into one shuffled run. `Mix Everything` restores the full-deck behaviour.
+
+Category tags are inferred from each card's existing `vibe` plus topic words in its title, scenario, choices, twist, conclusion, and follow-up material. A card may therefore belong to more than one broad category. Filtering uses overlap logic and does not duplicate a card inside a single shuffled run.
+
+Saved-card playback is independent of the current topic filter.
 
 ## Current reveal structure
 
 The current card rhythm is:
 
-`funny/quirky scenario → two answer bubbles → commitment → discussion → Plot Twist → The Point → deeper question → Where This Can Go`
+`pick topics → funny/quirky scenario → two answer bubbles → commitment → discussion → Plot Twist → The Point → deeper question → Where This Can Go`
 
-`The Point` is intentionally declarative. The deck is no longer designed around a neutral middle-ground conclusion or around making both original positions equally correct after the reveal. Each scenario is built to land a source-grounded principle while still giving players something worth discussing before and after the reveal.
+`The Point` is intentionally declarative. The deck is not designed around a neutral middle-ground conclusion. Each scenario is built to land a source-grounded principle while still giving players something worth discussing before and after the reveal.
 
 ## Content design check
 
@@ -49,34 +66,35 @@ The current deck repeatedly tests themes such as:
 
 Humour is used to make the dilemma memorable rather than to replace the reasoning. The deck uses absurd corporate logic, adult relationship situations, internet behaviour, money mistakes, family chaos, dry sarcasm, awkward hypotheticals, occasional dark humour, and limited pop-culture flavour.
 
-## Runtime wording check
+## State behaviour
 
-A repository search was run against the current runtime/user-facing source for the prohibited explicit worldview vocabulary used by earlier project constraints. No matches were returned for the searched terms, including the explicit names/categories that are not meant to appear in the game. A separate search for `god` also returned no result.
+`app.js` keeps the existing `plotTwistStateV4` local-storage key and the current 100-card deck version marker.
 
-This is a source-level check. It does not claim semantic proof that every possible indirect reference has been eliminated.
+State now also stores `selectedCategories`.
 
-## State migration
+If no valid category selection exists, the app falls back to `Mix Everything`. Selecting a specific category removes `Mix Everything`; selecting the final active category again returns the app to `Mix Everything` rather than leaving an empty selection.
 
-`app.js` keeps the existing `plotTwistStateV4` local-storage key but adds `DECK_VERSION = 'masterpiece-100-v1'`.
-
-When an older deck state is found:
-
-- compatible settings are preserved
-- saved IDs that still exist in the new deck are preserved
-- the old in-progress run/order is discarded
-- the next new game is generated from the new deck
-
-This avoids blindly changing the storage key and unnecessarily wiping all user preferences.
+Compatible settings and saved IDs remain preserved.
 
 ## Offline/PWA source check
 
 - Runtime remains vanilla HTML/CSS/JavaScript with no external runtime API, CDN, remote font, analytics, authentication, or server-side feature.
-- `sw.js` uses cache name `plot-twist-v5.0.0`.
-- The service-worker app shell includes `cards.js`, all four new deck files, `app.js`, `index.html`, styles, manifest, and local icons.
+- `sw.js` uses cache name `plot-twist-v5.1.0`.
+- The service-worker app shell includes `categories.js` and `categories.css` in addition to the four deck files and the existing app assets.
 - The manifest remains configured for standalone PWA installation.
 
 ## Validation limits
 
 The current checks are source/static checks. A real Android/Chrome installation has not been physically certified from this environment.
 
-A full JavaScript parser/runtime syntax check of all newly created deck files has not been claimed here. Before treating an installed phone copy as final, load the hosted build, confirm the deck starts correctly, reveal several cards, test Saved/Chaos/Next Card, then perform the airplane-mode test described in the README.
+Before treating an installed phone copy as final, load the hosted build and verify:
+
+1. `Mix Everything` starts a full mixed game.
+2. A single category only draws cards matching that category.
+3. Several selected categories combine into one shuffled run without duplicate cards.
+4. `Random From Selected` respects the filter.
+5. Saved-card playback still works independently of the filter.
+6. Category selection survives closing and reopening the app.
+7. Reveal, The Point, Where This Can Go, Chaos, Next Card, and Settings still work.
+8. The category UI remains usable on a narrow phone screen.
+9. The airplane-mode test in the README succeeds after the new service worker activates.
