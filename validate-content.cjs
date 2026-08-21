@@ -7,12 +7,11 @@ const DECK_FILES = [
   'deck-a.js', 'deck-b.js', 'deck-c.js', 'deck-d.js',
   'deck-e.js', 'deck-f.js', 'deck-g.js', 'deck-h.js'
 ];
-
+const HISTORY_FILES = ['history-a.js', 'history-b.js', 'history-c.js', 'history-d.js'];
 const REQUIRED_FIELDS = [
   'id', 'title', 'vibe', 'scenario', 'prompt', 'choices',
   'twist', 'conclusion', 'afterPrompt', 'hostPrompts'
 ];
-
 const CATEGORY_IDS = new Set(['mind', 'relationships', 'money', 'tech', 'society', 'life']);
 
 const FORBIDDEN_RUNTIME_TERMS = [
@@ -41,8 +40,6 @@ const FORBIDDEN_RUNTIME_TERMS = [
   /\bhijab\b/i
 ];
 
-// Player-facing text must never leak notes about how the deck was authored,
-// hidden source framing, or runtime/content-policy instructions.
 const FORBIDDEN_META_LEAKS = [
   /\bruntime\b/i,
   /\bauthoring\b/i,
@@ -55,8 +52,6 @@ const FORBIDDEN_META_LEAKS = [
   /\bforbidden (?:word|term|phrase)s?\b/i
 ];
 
-// These are not a semantic substitute for editorial review. They simply catch
-// button copy that would make one side obviously unserious before the reveal.
 const LOADED_CHOICE_TERMS = [
   /\bobviously\b/i,
   /\bstupid\b/i,
@@ -87,6 +82,13 @@ function wordCount(text) {
   return normalized ? normalized.split(/\s+/).length : 0;
 }
 
+function assertNoForbiddenRuntimeTerms(text, location) {
+  for (const pattern of FORBIDDEN_RUNTIME_TERMS) {
+    const match = text.match(pattern);
+    if (match) fail(`Forbidden runtime term "${match[0]}" found in ${location}.`);
+  }
+}
+
 function assertNoMetaLeaks(text, location) {
   for (const pattern of FORBIDDEN_META_LEAKS) {
     const match = text.match(pattern);
@@ -101,14 +103,18 @@ vm.runInContext(read('cards.js'), context, { filename: 'cards.js' });
 for (const file of DECK_FILES) {
   vm.runInContext(read(file), context, { filename: file });
 }
+for (const file of HISTORY_FILES) {
+  vm.runInContext(read(file), context, { filename: file });
+}
 vm.runInContext(
-  read('categories.js') + '\nglobalThis.__cards = PLOT_TWIST_CARDS; globalThis.__categories = GAME_CATEGORIES;',
+  read('categories.js') + '\nglobalThis.__cards = PLOT_TWIST_CARDS; globalThis.__categories = GAME_CATEGORIES; globalThis.__history = HISTORICAL_EXAMPLES;',
   context,
   { filename: 'categories.js' }
 );
 
 const cards = context.__cards;
 const categories = context.__categories;
+const historicalExamples = context.__history;
 
 if (!Array.isArray(cards)) fail('PLOT_TWIST_CARDS did not load as an array.');
 if (cards.length !== 200) fail(`Expected 200 cards, found ${cards.length}.`);
@@ -208,12 +214,31 @@ for (const card of cards) {
     ...card.hostPrompts
   ].join('\n');
 
-  for (const pattern of FORBIDDEN_RUNTIME_TERMS) {
-    const match = runtimeText.match(pattern);
-    if (match) fail(`Forbidden runtime term "${match[0]}" found in card ${card.id}.`);
+  assertNoForbiddenRuntimeTerms(runtimeText, `card ${card.id}`);
+  assertNoMetaLeaks(runtimeText, `card ${card.id}`);
+}
+
+if (!historicalExamples || typeof historicalExamples !== 'object' || Array.isArray(historicalExamples)) {
+  fail('HISTORICAL_EXAMPLES did not load as an object.');
+}
+
+const historyIds = Object.keys(historicalExamples).map(Number).sort((a, b) => a - b);
+if (historyIds.length !== 200) fail(`Expected 200 historical examples, found ${historyIds.length}.`);
+for (let expected = 1; expected <= 200; expected += 1) {
+  if (!historyIds.includes(expected)) fail(`Missing historical example for card ${expected}.`);
+
+  const example = historicalExamples[expected];
+  if (!example || typeof example !== 'object') fail(`Historical example ${expected} is invalid.`);
+  if (typeof example.title !== 'string' || wordCount(example.title) < 2) {
+    fail(`Historical example ${expected} needs a substantive title.`);
+  }
+  if (typeof example.text !== 'string' || wordCount(example.text) < 20) {
+    fail(`Historical example ${expected} is too thin; expected at least 20 words.`);
   }
 
-  assertNoMetaLeaks(runtimeText, `card ${card.id}`);
+  const exampleText = `${example.title}\n${example.text}`;
+  assertNoForbiddenRuntimeTerms(exampleText, `historical example ${expected}`);
+  assertNoMetaLeaks(exampleText, `historical example ${expected}`);
 }
 
 if (!Array.isArray(categories) || categories.length !== 6) {
@@ -224,24 +249,34 @@ const index = read('index.html');
 const sw = read('sw.js');
 const app = read('app.js');
 const manifest = read('manifest.webmanifest');
-const runtimeStatic = [index, app, manifest].join('\n');
+const historyUi = read('history-ui.js');
+const gameCss = read('game-v6.2.css');
+const runtimeStatic = [index, app, manifest, historyUi].join('\n');
+const runtimeFiles = [...DECK_FILES, ...HISTORY_FILES, 'game-v6.2.css', 'history-ui.js'];
 
-for (const file of DECK_FILES) {
+for (const file of [...DECK_FILES, ...HISTORY_FILES]) {
   if (!index.includes(`<script src="${file}"></script>`)) fail(`index.html does not load ${file}.`);
+}
+if (!index.includes('<link rel="stylesheet" href="game-v6.2.css">')) fail('index.html does not load game-v6.2.css.');
+if (!index.includes('<script src="history-ui.js"></script>')) fail('index.html does not load history-ui.js.');
+for (const file of runtimeFiles) {
   if (!sw.includes(`'./${file}'`)) fail(`sw.js does not precache ${file}.`);
 }
 
-if (!sw.includes("plot-twist-v6.1.1")) fail('Service-worker cache is not plot-twist-v6.1.1.');
-if (!index.includes('<b>App Version</b>') || !index.includes('<strong>v6.1.1</strong>')) fail('Settings does not display app version v6.1.1.');
+if (!sw.includes("plot-twist-v6.2.0")) fail('Service-worker cache is not plot-twist-v6.2.0.');
+if (!index.includes('<b>App Version</b>') || !index.includes('<strong>v6.2.0</strong>')) fail('Settings does not display app version v6.2.0.');
 if (!app.includes("masterpiece-200-v1")) fail('App deck version is not masterpiece-200-v1.');
 if (/\b(?:card|scenario)\s*#?\d+\b/i.test(index)) fail('Visible card/scenario numbering pattern found in index.html.');
 if (!index.includes('Both are meant to be defensible before the reveal.')) fail('How to Play does not state the two-sided dilemma rule.');
 if (!index.includes('switching sides is completely allowed.')) fail('How to Play does not state that the Plot Twist may justify switching sides.');
+if (!index.includes('<b>Real-World Example</b>')) fail('How to Play does not explain the Real-World Example step.');
+if (!historyUi.includes("label.textContent = 'REAL-WORLD EXAMPLE'")) fail('Historical example UI label is missing.');
+if (!historyUi.includes("afterPrompt.insertAdjacentElement('afterend', box)")) fail('Historical example is not inserted immediately after the post-Point question.');
+if (!gameCss.includes('grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)')) fail('Choice UI is not locked to two side-by-side columns.');
+if (!gameCss.includes('.choice-wrap::before')) fail('Choice UI is missing the center divider.');
+if (!gameCss.includes("content: 'VS'")) fail('Choice UI is missing the VS marker.');
 
-for (const pattern of FORBIDDEN_RUNTIME_TERMS) {
-  const match = runtimeStatic.match(pattern);
-  if (match) fail(`Forbidden runtime term "${match[0]}" found in runtime shell.`);
-}
+assertNoForbiddenRuntimeTerms(runtimeStatic, 'runtime shell');
 assertNoMetaLeaks(runtimeStatic, 'runtime shell');
 
 const distribution = {};
@@ -258,10 +293,12 @@ console.log('PASS: internal IDs 1-200 are unique and complete.');
 console.log('PASS: every card has two scenario paragraphs, two distinct choices, a substantive Plot Twist, The Point, and three follow-up/conversation directions total.');
 console.log('PASS: no "it depends" answer escape choices or obviously insulting choice labels.');
 console.log('PASS: all cards have one or two valid selectable categories.');
-console.log('PASS: prohibited explicit worldview terms were not found in card or runtime shell text.');
-console.log('PASS: authoring/meta-instruction leak patterns were not found in player-facing card or shell text.');
-console.log('PASS: all eight deck files are loaded and precached.');
+console.log('PASS: exactly 200 substantive real-world examples map one-to-one to the 200 cards.');
+console.log('PASS: prohibited explicit worldview terms and authoring/meta-instruction leaks were not found in cards, historical examples, or runtime shell text.');
+console.log('PASS: all eight deck files and four history files are loaded and precached.');
+console.log('PASS: the post-Point question is followed by the Real-World Example layer.');
+console.log('PASS: the two answer choices are locked to a prominent left-vs-right layout with a divider.');
 console.log('PASS: the user-facing rules require two defensible choices and allow switching after the Plot Twist.');
-console.log('PASS: settings visibly reports app version v6.1.1.');
-console.log('PASS: deck version masterpiece-200-v1 and cache plot-twist-v6.1.1 are wired.');
+console.log('PASS: settings visibly reports app version v6.2.0.');
+console.log('PASS: deck version masterpiece-200-v1 and cache plot-twist-v6.2.0 are wired.');
 console.log('Category memberships:', distribution);
