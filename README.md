@@ -12,7 +12,7 @@ Offline-first Android-friendly social scenario game.
 - Random Card also respects the current topic selection
 - No visible card numbering in the game or Saved list
 - Adult game-night tone: dry sarcasm, ridiculous stakes, awkward social situations, petty human behaviour, strange corporate logic, dark humour, and occasional pop-culture flavour
-- Two answer bubbles under each main question so players commit before the reveal
+- Exactly two clearly stated answer bubbles under each main question so players commit before the reveal
 - Hidden Plot Twist stage with reveal animation
 - A declarative `The Point` section after every twist that states the principle the scenario was built to expose
 - `Where This Can Go` follow-up paths for deeper discussion
@@ -43,15 +43,24 @@ Saved cards remain independent of the category filter so players can revisit any
 
 The deck is shuffled so players should not know whether the next card will be absurd, personal, social, technological, moral, financial, political, relational, or uncomfortable within the topics they selected.
 
-The core rule is **funny setup, sharp conclusion**. A card should feel like something adults would actually enjoy reading aloud. Humour can be dry, dark, awkward, ridiculous, or pop-culture-flavoured, but it should make the dilemma easier to picture rather than bury the idea.
+The core rule is **funny dilemma, real commitment, meaningful reversal, sharp conclusion**. A card should feel like something adults would actually enjoy reading aloud. Humour can be dry, dark, awkward, ridiculous, or pop-culture-flavoured, but it should make the dilemma easier to picture rather than bury the idea.
 
-The deck is intentionally not a neutral debate workbook. Each scenario is built around a principle. Players commit before the reveal, the Plot Twist adds the fact or consequence that exposes the reasoning problem, and `The Point` states the conclusion the scenario was designed to land.
+Every card is written around these editorial requirements:
+
+1. **Two intelligent choices.** Before the reveal, a reasonable adult should be able to defend either answer without sounding like the designated idiot at the table.
+2. **Clear buttons.** Each answer bubble states a real course, rule, priority, or judgement. `It depends` is not a pre-reveal escape hatch.
+3. **No conclusion hidden in the choices.** One bubble should not be labelled with the obvious virtue while the other is written as a caricature.
+4. **New information in the Plot Twist.** The reveal must add a fact, consequence, trade-off, missing context, or changed condition the player did not already have.
+5. **The reveal must matter to the choice.** It should create a credible reason to reconsider the original answer rather than simply congratulate whoever picked the intended side.
+6. **The Point still lands.** After the dilemma has done its work, `The Point` states the source-grounded principle rather than retreating into forced neutrality.
+
+The game is therefore not designed as `sensible answer vs obviously bad answer → reveal that sensible answer was sensible`. The target rhythm is closer to `two defensible positions → commitment → new information changes the trade-off → reconsider → principle`.
 
 Recurring ideas include evidence over slogans and vibes, truth over comfort, precise claims over exaggeration, individual responsibility over collective guilt, cause and effect, substance over image, responsibility over blame, restraint over dependency, long-term consequences over short-term convenience, healthy family duties and boundaries, meaningful freedom over endless trivial choice, moral standards deeper than popularity or legality, reality over performance, purpose over distraction, reliable testimony and context, and consistent standards applied even when the conclusion is uncomfortable.
 
-The intended rhythm is:
+The intended game flow is:
 
-`pick topics → funny/quirky scenario → answer bubbles → commit → defend → Plot Twist → The Point → deeper question → Where This Can Go`
+`pick topics → funny/quirky dilemma → two clear answer bubbles → commit → defend → Plot Twist adds new information → reconsider/switch if needed → The Point → deeper question → Where This Can Go`
 
 ## Card files
 
@@ -96,16 +105,18 @@ The validator checks, among other things:
 - internal IDs 1–200 are complete and unique
 - titles and scenarios are not exact duplicates
 - every scenario has the required card structure
-- every card has exactly two distinct answer choices
-- answer choices do not use an `it depends` escape
-- prompts and follow-up paths are question-form where required
+- every card has exactly two distinct and substantive answer choices
+- answer choices do not use an `it depends` escape or obviously insulting loaded labels
+- Plot Twists contain substantive reveal text rather than an empty one-liner or exact scenario repeat
+- prompts and follow-up paths are present in the required form
 - every card resolves to one or two valid categories
 - all eight deck files load in `index.html` and are precached by the service worker
-- the app uses deck version `masterpiece-200-v1`
-- the service worker uses cache `plot-twist-v6.0.0`
+- the user-facing rules explicitly say both choices are intended to be defensible and that switching after the reveal is allowed
+- the app keeps deck version `masterpiece-200-v1` so compatible Saved IDs/state remain stable
+- the service worker uses cache `plot-twist-v6.1.0` so installed copies receive the rewritten deck
 - explicit source-worldview terminology that is intentionally excluded from the runtime is not present in the game text or app shell
 
-These are source/static checks. They do not substitute for testing an installed phone copy.
+Structural validation cannot prove that a joke lands or that two arguments are genuinely balanced. Those are editorial judgements and are reviewed card-by-card in addition to the automated checks.
 
 ## Fast local desktop test
 
@@ -143,7 +154,7 @@ After a new version is published:
 
 Avoid clearing site data unless necessary because that removes saved cards and local game state.
 
-The `masterpiece-200-v1` migration intentionally starts a fresh run while preserving compatible Saved IDs, topic choices, and settings.
+The 200-card dilemma rewrite intentionally keeps the existing `masterpiece-200-v1` deck/state identifier because internal IDs and compatible local state did not change. The service-worker cache is bumped instead so revised scenario text is downloaded without needlessly discarding Saved cards or the current order.
 
 ## Airplane-mode test
 
