@@ -37,9 +37,10 @@ jobs:
           node --check history-c.js
           node --check history-d.js
           node --check history-reviewed.js
-          node --check history-ui.js
           node --check categories.js
           node --check app.js
+          node --check choice-ui.js
+          node --check history-ui.js
           node --check sw.js
           node --check validate-content.cjs
 
