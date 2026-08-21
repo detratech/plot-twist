@@ -23,10 +23,49 @@
       <h1 id="homeTitle">PLOT<br><span>TWIST</span></h1>
       <p class="tagline">Pick a side. Defend it. Then deal with the twist.</p>
 
+      <section class="category-picker" aria-labelledby="categoryTitle">
+        <p class="eyebrow" id="categoryTitle">PICK YOUR VIBE</p>
+        <p class="category-help">Choose one, stack a few, or throw everything into the blender.</p>
+
+        <button class="category-chip category-chip-all" type="button" data-category="all" aria-pressed="true">
+          <span class="category-icon" aria-hidden="true">🎲</span>
+          <span><b>MIX EVERYTHING</b><small>Maximum unpredictability</small></span>
+        </button>
+
+        <div class="category-grid">
+          <button class="category-chip" type="button" data-category="mind" aria-pressed="false">
+            <span class="category-icon" aria-hidden="true">🧠</span>
+            <span><b>Mind &amp; Truth</b><small>Evidence, beliefs, logic, assumptions</small></span>
+          </button>
+          <button class="category-chip" type="button" data-category="relationships" aria-pressed="false">
+            <span class="category-icon" aria-hidden="true">❤️</span>
+            <span><b>Relationships &amp; Family</b><small>Marriage, dating, parenting, boundaries</small></span>
+          </button>
+          <button class="category-chip" type="button" data-category="money" aria-pressed="false">
+            <span class="category-icon" aria-hidden="true">💸</span>
+            <span><b>Money &amp; Success</b><small>Work, ambition, debt, status, responsibility</small></span>
+          </button>
+          <button class="category-chip" type="button" data-category="tech" aria-pressed="false">
+            <span class="category-icon" aria-hidden="true">📱</span>
+            <span><b>Tech &amp; Modern Life</b><small>Phones, algorithms, attention, convenience</small></span>
+          </button>
+          <button class="category-chip" type="button" data-category="society" aria-pressed="false">
+            <span class="category-icon" aria-hidden="true">🌎</span>
+            <span><b>Society &amp; Culture</b><small>Social rules, politics, groups, public life</small></span>
+          </button>
+          <button class="category-chip" type="button" data-category="life" aria-pressed="false">
+            <span class="category-icon" aria-hidden="true">🧭</span>
+            <span><b>Life &amp; Purpose</b><small>Character, pleasure, freedom, meaning, time</small></span>
+          </button>
+        </div>
+
+        <p id="categorySummary" class="category-summary" role="status">Everything is in the mix.</p>
+      </section>
+
       <div class="home-actions">
-        <button id="resumeButton" class="btn btn-primary" data-action="resume" hidden>RESUME GAME</button>
-        <button class="btn btn-primary" data-action="start">START GAME</button>
-        <button class="btn btn-ghost" data-action="random">RANDOM CARD</button>
+        <button id="resumeButton" class="btn btn-secondary" data-action="resume" hidden>RESUME GAME</button>
+        <button class="btn btn-primary" data-action="start">START SELECTED MIX</button>
+        <button class="btn btn-ghost" data-action="random">RANDOM FROM SELECTED</button>
       </div>
 
       <div class="home-links">
@@ -88,7 +127,8 @@
       <div class="utility-card">
         <h2 id="howTitle">How to Play</h2>
         <ol class="rules">
-          <li>Start Game shuffles the entire deck. You should not know what kind of scenario is coming next.</li>
+          <li>Pick one or more topics on the home screen, or leave <b>Mix Everything</b> selected.</li>
+          <li>Start Game shuffles only the topics you picked.</li>
           <li>Read the scenario aloud.</li>
           <li>Pick one of the answer bubbles before anyone reveals the twist.</li>
           <li>No “it depends” escape tunnel until after you commit.</li>
@@ -125,10 +165,9 @@
         <div class="brand-mark small" aria-hidden="true">↻</div>
         <p class="eyebrow">RUN COMPLETE</p>
         <h2 id="completeTitle">That got weird.</h2>
-        <p>You made it through the deck. Start a new shuffled game or pull another random card.</p>
-        <button class="btn btn-primary" data-action="start">NEW GAME</button>
-        <button class="btn btn-ghost" data-action="random">RANDOM CARD</button>
-        <button class="text-btn" data-screen="home">HOME</button>
+        <p>You made it through your selected mix. Pick a new combination or shuffle it again.</p>
+        <button class="btn btn-primary" data-screen="home">CHOOSE NEW MIX</button>
+        <button class="btn btn-ghost" data-action="start">RESHUFFLE SAME MIX</button>
       </div>
     </section>
   </main>
@@ -147,6 +186,7 @@
   <script src="deck-b.js"></script>
   <script src="deck-c.js"></script>
   <script src="deck-d.js"></script>
+  <script src="categories.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
