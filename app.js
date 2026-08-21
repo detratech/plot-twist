@@ -9,6 +9,7 @@ const defaultState = {
   position: 0,
   revealed: false,
   saved: [],
+  selectedCategories: ['all'],
   settings: {
     keepAwake: false,
     hostPrompts: false
@@ -56,10 +57,24 @@ const el = {
   offlineStatus: document.getElementById('offlineStatus'),
   installButton: document.getElementById('installButton'),
   resumeButton: document.getElementById('resumeButton'),
+  categorySummary: document.getElementById('categorySummary'),
   chaosModal: document.getElementById('chaosModal'),
   chaosName: document.getElementById('chaosName'),
   chaosText: document.getElementById('chaosText')
 };
+
+function validCategoryIds() {
+  return GAME_CATEGORIES.map(category => category.id);
+}
+
+function normalizeSelectedCategories(value) {
+  if (!Array.isArray(value)) return ['all'];
+  if (value.includes('all')) return ['all'];
+
+  const valid = new Set(validCategoryIds());
+  const cleaned = [...new Set(value.filter(id => valid.has(id)))];
+  return cleaned.length ? cleaned : ['all'];
+}
 
 function loadState() {
   try {
@@ -67,6 +82,7 @@ function loadState() {
     if (!parsed) return structuredCloneCompat(defaultState);
 
     const preservedSettings = { ...defaultState.settings, ...(parsed.settings || {}) };
+    const preservedCategories = normalizeSelectedCategories(parsed.selectedCategories);
     const validSaved = Array.isArray(parsed.saved)
       ? parsed.saved.filter(id => PLOT_TWIST_CARDS.some(card => card.id === id))
       : [];
@@ -75,6 +91,7 @@ function loadState() {
       return {
         ...structuredCloneCompat(defaultState),
         settings: preservedSettings,
+        selectedCategories: preservedCategories,
         saved: validSaved
       };
     }
@@ -84,6 +101,7 @@ function loadState() {
       ...parsed,
       deckVersion: DECK_VERSION,
       settings: preservedSettings,
+      selectedCategories: preservedCategories,
       saved: validSaved,
       order: Array.isArray(parsed.order)
         ? parsed.order.filter(id => PLOT_TWIST_CARDS.some(card => card.id === id))
@@ -100,6 +118,7 @@ function structuredCloneCompat(value) {
 
 function persist() {
   state.deckVersion = DECK_VERSION;
+  state.selectedCategories = normalizeSelectedCategories(state.selectedCategories);
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   updateSavedCount();
 }
@@ -121,12 +140,72 @@ function currentCard() {
   return cardById(state.order[state.position]);
 }
 
+function selectedCategoryObjects() {
+  const selected = normalizeSelectedCategories(state.selectedCategories);
+  if (selected.includes('all')) return [];
+  return GAME_CATEGORIES.filter(category => selected.includes(category.id));
+}
+
+function eligibleCards() {
+  const selected = normalizeSelectedCategories(state.selectedCategories);
+  if (selected.includes('all')) return [...PLOT_TWIST_CARDS];
+
+  const filtered = PLOT_TWIST_CARDS.filter(card =>
+    (card.categories || []).some(categoryId => selected.includes(categoryId))
+  );
+
+  return filtered.length ? filtered : [...PLOT_TWIST_CARDS];
+}
+
+function selectionModeLabel() {
+  const categories = selectedCategoryObjects();
+  if (!categories.length) return 'MIXED';
+  if (categories.length === 1) return categories[0].label.toUpperCase();
+  return 'CUSTOM MIX';
+}
+
+function renderCategoryPicker() {
+  const selected = normalizeSelectedCategories(state.selectedCategories);
+  document.querySelectorAll('[data-category]').forEach(button => {
+    const active = selected.includes(button.dataset.category);
+    button.classList.toggle('active', active);
+    button.setAttribute('aria-pressed', String(active));
+  });
+
+  if (!el.categorySummary) return;
+
+  const categories = selectedCategoryObjects();
+  el.categorySummary.textContent = categories.length
+    ? `Mixing: ${categories.map(category => category.label).join(' + ')}.`
+    : 'Everything is in the mix.';
+}
+
+function toggleCategory(categoryId) {
+  if (categoryId === 'all') {
+    state.selectedCategories = ['all'];
+  } else {
+    const current = normalizeSelectedCategories(state.selectedCategories).filter(id => id !== 'all');
+    const exists = current.includes(categoryId);
+    state.selectedCategories = exists
+      ? current.filter(id => id !== categoryId)
+      : [...current, categoryId];
+
+    if (!state.selectedCategories.length) state.selectedCategories = ['all'];
+  }
+
+  persist();
+  renderCategoryPicker();
+}
+
 function showScreen(name) {
   Object.values(screens).forEach(screen => screen.classList.remove('active'));
   screens[name].classList.add('active');
   if (name === 'settings') syncSettingsUI();
   if (name === 'saved') renderSavedList();
-  if (name === 'home') updateResumeButton();
+  if (name === 'home') {
+    updateResumeButton();
+    renderCategoryPicker();
+  }
   window.scrollTo({ top: 0, behavior: 'auto' });
 }
 
@@ -142,7 +221,6 @@ function resumeGame() {
 }
 
 function beginGame(mode) {
-  const ids = PLOT_TWIST_CARDS.map(card => card.id);
   state.mode = mode;
   state.position = 0;
   state.revealed = false;
@@ -150,7 +228,7 @@ function beginGame(mode) {
   if (mode === 'saved') {
     state.order = [...state.saved];
   } else {
-    state.order = shuffled(ids);
+    state.order = shuffled(eligibleCards().map(card => card.id));
   }
 
   if (!state.order.length) {
@@ -245,8 +323,8 @@ function renderCard() {
   el.modeLabel.textContent = state.mode === 'saved'
     ? 'SAVED'
     : state.mode === 'random'
-      ? 'RANDOM'
-      : 'GAME';
+      ? `RANDOM · ${selectionModeLabel()}`
+      : `GAME · ${selectionModeLabel()}`;
 
   setRevealState(state.revealed, false);
   updateSaveButton(card.id);
@@ -382,15 +460,22 @@ async function releaseWakeLock() {
 }
 
 function resetGameData() {
-  if (!window.confirm('Reset the current game, saved cards, and settings?')) return;
+  if (!window.confirm('Reset the current game, saved cards, topic choices, and settings?')) return;
   localStorage.removeItem(STORAGE_KEY);
   state = structuredCloneCompat(defaultState);
   applySettings();
   persist();
+  renderCategoryPicker();
   showScreen('home');
 }
 
 document.addEventListener('click', event => {
+  const categoryButton = event.target.closest('[data-category]');
+  if (categoryButton) {
+    toggleCategory(categoryButton.dataset.category);
+    return;
+  }
+
   const screenButton = event.target.closest('[data-screen]');
   if (screenButton) showScreen(screenButton.dataset.screen);
 
@@ -459,6 +544,7 @@ const params = new URLSearchParams(location.search);
 const requestedMode = params.get('mode');
 applySettings();
 updateSavedCount();
+renderCategoryPicker();
 
 if (requestedMode === 'random') {
   beginGame('random');
