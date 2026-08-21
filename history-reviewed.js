@@ -20,6 +20,10 @@ Object.assign(HISTORICAL_EXAMPLES, {
     title: 'Vietnam veterans and heroin relapse · 1970s',
     text: 'Studies of U.S. soldiers who had used heroin in Vietnam found surprisingly low rates of renewed addiction after they returned home. The drug had not changed, but availability, social setting, routines, and life circumstances had. Environment can make self-control easier or harder without making personal choice disappear.'
   },
+  34: {
+    title: 'Y2K remediation · 1990s',
+    text: 'Governments and companies knew years in advance that old date-handling code could fail when 1999 became 2000. The extra time only helped because teams spent it finding systems, repairing code, testing, rehearsing, and building contingency plans. Waiting was useful when the waiting period contained preparation rather than hope.'
+  },
   35: {
     title: 'ALS Ice Bucket Challenge · 2014',
     text: 'Millions publicly filmed themselves dumping ice water over their heads and challenged friends to do the same. The performance was inseparable from attention and social visibility, yet the campaign raised $115 million for the ALS Association and greatly expanded research and care. Publicity can feed ego and multiply real good at the same time.'
