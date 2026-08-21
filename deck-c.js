@@ -6,424 +6,424 @@ PLOT_TWIST_CARDS.push(
     title: 'BUILD-A-PARTNER™',
     vibe: 'relationships',
     scenario: [
-      'Your friend says their partner is falling behind. Evidence: Person A online cooks amazing meals, Person B plans luxury trips, Person C writes poetry, Person D has perfect abs, and Person E apparently wakes up cheerful.',
-      'The prosecution has assembled five different humans into one terrifying imaginary spouse.'
+      'Your friend says their partner is “falling behind.” Online, Person A cooks amazing meals, Person B plans luxury trips, Person C writes poetry, Person D has perfect abs, and Person E wakes up cheerful for reasons currently under investigation.',
+      'To be fair, the real partner has also stopped planning dates and is coasting a little. So this is not just “internet bad.” There is a real unmet need hiding inside an extremely fake comparison.'
     ],
-    prompt: 'Is the real partner actually losing?',
-    choices: ['Yes, standards are standards', 'No, the comparison is fake'],
+    prompt: 'Do you use the highlight reel to raise the bar, or ban the imaginary super-spouse from the relationship?',
+    choices: ['RAISE THE BAR — examples can expose real neglect', 'BAN THE COMPOSITE — one human cannot compete with five'],
     twist: [
-      'You ask to meet the superhuman competitor. Unfortunately, it does not exist. It is a highlight reel stitched together from strangers who are each imperfect in entirely different directions.'
+      'You investigate the five examples. The romantic poet never helps at home. The amazing cook hates travel. The luxury-trip person is drowning in debt. The real partner still needs to step up on dates—but the “standard” was assembled from five people who each fail somewhere else.'
     ],
-    conclusion: 'Comparing one real person to the best visible trait of many people creates a standard no human can satisfy. Judge relationships by real character, responsibility, compatibility, and effort rather than a composite fantasy.',
-    afterPrompt: 'Which expectations in relationships came from real life, and which came from edited examples?',
-    hostPrompts: ['What good quality in a partner is easy to overlook because it is not flashy?', 'What standard would you hate being judged by in reverse?']
+    conclusion: 'Outside examples can reveal a genuine need, but comparing one real person to the best visible trait of many people creates a fantasy standard no human can satisfy. Judge the actual relationship by real character, compatibility, responsibility, and effort.',
+    afterPrompt: 'How do you raise a legitimate relationship standard without importing a fictional person as the benchmark?',
+    hostPrompts: ['Which expectation is a real need and which is a collage?', 'What standard would feel absurd if your partner built the same composite person to judge you?']
   },
   {
     id: 52,
     title: 'PERFECT FAMILY — TAKE 28',
     vibe: 'family',
     scenario: [
-      'A tired parent watches a 20-second clip of a spotless home, smiling children, homemade lunch, matching outfits, and a peaceful craft involving zero glue in anyone’s hair.',
-      'Their own living room currently looks like a toy store lost a court case.'
+      'A tired parent follows a family creator whose home is calm, meals are homemade, children help with chores, and nobody appears to have ever stepped barefoot on a plastic brick at 2 a.m.',
+      'Some of the creator’s routines actually look useful. Copying them might improve your home. Or it might turn your family into unpaid extras in somebody else’s aesthetic.'
     ],
-    prompt: 'Who seems like the better parent?',
-    choices: ['The reel family', 'Impossible to know from the clip'],
+    prompt: 'Copy the polished family system, or keep your own messy operating system?',
+    choices: ['COPY THE ROUTINES — good examples can teach', 'KEEP IT YOURS — reels hide the cost of the system'],
     twist: [
-      'The perfect clip took 28 attempts. One child was bribed with candy. An argument happened immediately before filming. The glue incident has been sealed by court order.'
+      'Behind-the-scenes footage shows the famous 20-second clip took 28 attempts, one child was bribed, and the craft ended in a glue incident sealed by court order. But one boring routine—packing lunches the night before—really does reduce morning chaos when you try it.'
     ],
-    conclusion: 'Do not compare your full reality to somebody else’s selected seconds. Family quality is measured by what happens when nobody is filming: patience, safety, presence, consistency, and repair after mistakes.',
-    afterPrompt: 'What does a good family look like when there is no audience?',
-    hostPrompts: ['Which family moment would never make a reel but matters more than one?', 'Does performing family life make it harder to live family life?']
+    conclusion: 'Do not compare your full family reality to somebody else’s selected seconds. Learn useful practices where they genuinely help, but measure family quality by patience, safety, presence, consistency, and repair when nobody is filming.',
+    afterPrompt: 'What should you copy from another family, and what should never be copied without knowing the hidden cost?',
+    hostPrompts: ['Which family habits produce real peace rather than good footage?', 'What would a good family look like with every camera removed?']
   },
   {
     id: 53,
     title: 'BREAKUP UNIVERSITY',
     vibe: 'internet',
     scenario: [
-      'After one terrible breakup, your friend watches three angry relationship videos. The app notices and immediately enrols him in Breakup University.',
-      'Within a week, his feed is an endless parade of strangers explaining why half the human population is selfish, manipulative, lazy, impossible, and probably in a secret group chat about him.'
+      'Your friend has had three bad relationships with eerily similar problems. After the latest breakup, the algorithm begins serving hundreds of videos saying, “This is what people like that are all like now.”',
+      'The pattern in your friend’s life is real. The feed also appears to have discovered unlimited scholarships for the University of Resentment.'
     ],
-    prompt: 'Is the feed teaching him what people are really like?',
-    choices: ['Yes, the pattern is everywhere', 'No, the feed is selecting for resentment'],
+    prompt: 'Treat the pattern as a warning about the wider dating pool, or assume the feed is turning one wound into a census?',
+    choices: ['TRUST THE PATTERN — repeated experience deserves weight', 'DISTRUST THE FEED — three people are not half humanity'],
     twist: [
-      'A second account is trained on healthy relationship content and produces the opposite picture of the same world. Both feeds announce, “This is what everyone is like now.”'
+      'A fresh account trained on healthy relationship content produces the opposite picture of the same world. Meanwhile, reviewing the three breakups reveals your friend also kept choosing partners with the same early warning sign. The algorithm was exaggerating a pattern that began with a real selection habit.'
     ],
-    conclusion: 'Pain can train an algorithm, and an algorithm can train a worldview. A real bad experience does not justify converting millions of strangers into copies of the person who hurt you.',
-    afterPrompt: 'When does a personal wound become an unfair theory about an entire group?',
-    hostPrompts: ['What evidence would show whether the feed is representative?', 'Does outrage content make you wiser about relationships or merely more suspicious?']
+    conclusion: 'A real personal pattern can teach you something without becoming a theory about millions of strangers. Pain can train an algorithm, and an algorithm can turn a useful lesson into group resentment unless you test what the evidence actually represents.',
+    afterPrompt: 'How do you learn from repeated personal experience without promoting it into a universal law?',
+    hostPrompts: ['What part of the pattern belongs to the partners and what part belongs to selection?', 'What evidence would tell you whether the feed reflects normal relationships or only engaging failures?']
   },
   {
     id: 54,
     title: 'THE MARRIAGE TRAILER',
     vibe: 'relationships',
     scenario: [
-      'You meet someone funny, attractive, charming, and easy to talk to. The chemistry is so good the imaginary movie trailer already has music.',
-      'You have discussed favourite shows, travel, food, and absolutely none of the topics that cause actual married adults to stare silently at a ceiling fan.'
+      'Person A gives you instant chemistry: same humour, effortless conversation, attraction, and the kind of first month that already has an imaginary soundtrack. There are still major unknowns about money, children, family boundaries, and conflict.',
+      'Person B has less fireworks but strong alignment on the boring adult topics. Nobody has yet written a song about compatible budgeting.'
     ],
-    prompt: 'Is strong chemistry enough to move forward confidently?',
-    choices: ['Chemistry tells you a lot', 'Compatibility needs harder questions'],
+    prompt: 'Which signal gets more weight before serious commitment: fireworks or floor plan?',
+    choices: ['CHEMISTRY — connection is hard to manufacture', 'COMPATIBILITY — hard agreements are harder to repair later'],
     twist: [
-      'Later you discover completely different expectations about money, children, family boundaries, work, privacy, conflict, and where to live. The trailer was excellent. The full movie has changed genres.'
+      'The high-chemistry couple successfully works through one practical disagreement, proving attraction was not automatically reckless. Then a deeper values conflict appears on something neither person is willing to compromise. The trailer was real. It just did not contain the whole plot.'
     ],
-    conclusion: 'Attraction matters, but it cannot carry a marriage by itself. Ask the questions that become painful if ignored before attachment makes honest judgement harder.',
-    afterPrompt: 'Which practical disagreement can chemistry hide most effectively?',
-    hostPrompts: ['What would be a real deal-breaker rather than a preference?', 'Which hard conversation belongs before commitment rather than after it?']
+    conclusion: 'Attraction matters, but it cannot carry a marriage by itself. The questions that become painful when ignored should be examined before attachment makes honest judgement harder.',
+    afterPrompt: 'Which differences are workable preferences, and which ones become structural problems after commitment?',
+    hostPrompts: ['What can chemistry help a couple overcome?', 'Which hard question is easiest to postpone because asking it might ruin the mood?']
   },
   {
     id: 55,
     title: 'SPOUSE MIND READER PRO',
     vibe: 'relationships',
     scenario: [
-      'Your partner forgets something important. You say, “If you really cared, you would have known.”',
-      'A startup immediately offers Spouse Mind Reader Pro for $14.99 a month. Reviews are terrible because apparently human beings still require words.'
+      'Your partner forgets something that feels extremely obvious to you. They have remembered similar things before, so part of you thinks, “If I have to explain this, that itself proves the problem.”',
+      'The other part remembers that humans remain annoyingly incompatible with telepathy despite decades of romantic cinema.'
     ],
-    prompt: 'Should a caring partner be expected to just know?',
-    choices: ['Yes, some things should be obvious', 'No, communicate clearly'],
+    prompt: 'Should care be expected to notice certain things unprompted, or should important expectations always be said out loud?',
+    choices: ['NOTICE IT — some awareness is part of caring', 'SAY IT — unspoken tests are still tests'],
     twist: [
-      'You later learn your partner was solving a different problem you had mentioned and genuinely thought that was the priority. Both people were caring and both were running different invisible checklists.'
+      'You learn your partner forgot because they were quietly handling a different problem you had mentioned earlier and thought that was the urgent priority. They cared, missed the signal, and were operating from a completely different invisible checklist.'
     ],
-    conclusion: 'Love does not create telepathy. Clear expectations prevent resentment from growing around tests the other person never knew they were taking.',
-    afterPrompt: 'Which expectation have you treated as obvious instead of actually saying out loud?',
-    hostPrompts: ['What should a partner reasonably notice without being told?', 'When does “you should know” become a substitute for communication?']
+    conclusion: 'Care should produce attention, but love does not create telepathy. Important expectations become safer when they are communicated clearly instead of turned into hidden examinations the other person never knew they were taking.',
+    afterPrompt: 'Which things should a caring partner reasonably notice, and which things are unfair to leave unspoken?',
+    hostPrompts: ['When does repeated failure to notice become meaningful evidence?', 'What expectation are you currently treating as obvious instead of communicating?']
   },
   {
     id: 56,
     title: 'THE HUMAN DIRECT DEPOSIT',
     vibe: 'marriage',
     scenario: [
-      'A husband says, “I pay every bill. What more could my wife possibly want?” He says this from an airport lounge 2,000 kilometres away during his third extended work trip.',
-      'His bank transfer is extremely present. He is less so.'
+      'One partner is offered an 18-month work assignment away from home that would triple income, clear family debt, and create a strong financial cushion. The trade-off is long absences, missed routines, and parenting through video calls with unstable hotel Wi-Fi.',
+      'The bank account is about to become extremely present. The person earning it is about to become more of a recurring guest star.'
     ],
-    prompt: 'Is financial provision enough to fulfil a relationship?',
-    choices: ['Providing is the main duty', 'Presence and relationship matter too'],
+    prompt: 'Take the 18-month money sprint, or protect presence even if the finances improve much more slowly?',
+    choices: ['TAKE THE ASSIGNMENT — temporary absence can buy real stability', 'STAY CLOSER — money cannot substitute for relationship'],
     twist: [
-      'His wife says the money keeps the home running, but she did not marry a recurring e-transfer. Meanwhile, his work really is helping the family financially, so simply quitting is not a magic solution either.'
+      'The assignment really does erase the debt and reduce financial stress. Halfway through, one child stops bringing problems to the travelling parent because “you are never here anyway,” while the partner at home becomes exhausted carrying decisions alone. The money solved exactly what money can solve.'
     ],
-    conclusion: 'Money can fulfil a duty without replacing companionship, communication, parenting, affection, and presence. Necessity should be planned, limited, and reviewed before sacrifice quietly becomes neglect.',
-    afterPrompt: 'When does working for the family start becoming absence from the family?',
-    hostPrompts: ['What would a clear return plan change?', 'Which needs cannot be transferred electronically?']
+    conclusion: 'Financial provision is a real duty and benefit, but it cannot replace companionship, communication, parenting, affection, and presence. Necessary sacrifice should have limits, review points, and a plan before “temporary” quietly becomes neglect.',
+    afterPrompt: 'What financial gain would justify prolonged absence, and what relationship cost would make the trade no longer worth it?',
+    hostPrompts: ['What would a clear return date change?', 'Which needs can money solve well and which ones cannot be outsourced?']
   },
   {
     id: 57,
     title: 'THE “SOON” CALENDAR',
     vibe: 'relationships',
     scenario: [
-      'A couple agrees that one partner will work away “for a while.” The return date is “soon.” Visits will happen “when possible.” The long-term plan is “we will figure it out.”',
-      'Their calendar app has filed a missing-person report for the concept of a date.'
+      'A couple knows one partner must work away for a while. Option A sets a hard return date, even if it means walking away from a good opportunity that is still helping the family. Option B uses rolling three-month reviews and stays flexible while the arrangement continues to work.',
+      'The calendar would like someone, anyone, to write something more specific than “soon-ish.”'
     ],
-    prompt: 'Is goodwill enough for a long separation?',
-    choices: ['Yes, trust the intention', 'No, put the plan on a calendar'],
+    prompt: 'Hard deadline or flexible rolling plan?',
+    choices: ['SET THE DATE — temporary needs an edge', 'REVIEW AS YOU GO — reality does not respect arbitrary deadlines'],
     twist: [
-      'Six months becomes nine, then twelve, because every extension sounds reasonable by itself. Nobody ever chose “indefinite”; it simply arrived one temporary week at a time.'
+      'The flexible plan handles one unexpected opportunity well, then quietly drifts from six months to fifteen because each extension sounds reasonable by itself. The hard-date couple would have left money on the table—but they never had to renegotiate the meaning of “temporary” every Sunday night.'
     ],
-    conclusion: 'Vague sacrifice expands easily. Serious commitments need dates, communication, financial plans, visits, responsibilities, review points, and a clear answer to what happens if the arrangement becomes harmful.',
-    afterPrompt: 'Where does “temporary” need a deadline in your life?',
-    hostPrompts: ['What should trigger an early change of plan?', 'Which responsibility gets dumped on the person who stays behind?']
+    conclusion: 'Flexibility is useful, but vague sacrifice expands easily. Serious commitments need dates or review points, clear responsibilities, communication, and agreed triggers for changing course before temporary arrangements become indefinite by inertia.',
+    afterPrompt: 'What kind of flexibility protects a family, and what kind merely postpones the hard decision?',
+    hostPrompts: ['Which trigger should end the arrangement early?', 'What does a real review point need to decide rather than merely discuss?']
   },
   {
     id: 58,
     title: 'THE IN-LAW HOTEL PACKAGE',
     vibe: 'family',
     scenario: [
-      'A newly married couple is told they will be living with extended family “for just a bit.” The house has one bathroom, six opinions, and an aunt who can hear a whisper through two concrete walls.',
-      'Everyone is lovely. Privacy has died peacefully in its sleep.'
+      'A newly married couple can live with loving extended family for two years and save enough for a home deposit while receiving free childcare and actual edible leftovers. The cost: one bathroom, six opinions, and an aunt who can hear disagreement through concrete.',
+      'Renting alone would delay the deposit by years but buy privacy immediately. Privacy, unfortunately, does not come with lentil soup.'
     ],
-    prompt: 'Should family closeness automatically outrank the couple’s privacy?',
-    choices: ['Family togetherness comes first', 'The couple needs real boundaries'],
+    prompt: 'Take the family support package or pay the privacy tax?',
+    choices: ['STAY WITH FAMILY — support and savings matter', 'MOVE OUT — the marriage needs its own walls'],
     twist: [
-      'Small issues begin turning into family conferences because nobody can argue privately, cool down privately, or make a decision without a committee forming in the kitchen.'
+      'The shared-home plan saves exactly as much money as promised and the childcare is genuinely helpful. It also turns small disagreements into family meetings because nobody can cool down, decide privately, or say no without three relatives noticing the atmosphere at breakfast.'
     ],
-    conclusion: 'Respect for extended family does not erase a couple’s need for privacy, independent decision-making, and boundaries. Closeness is healthiest when it does not swallow the marriage.',
-    afterPrompt: 'Which family boundary protects relationships rather than damages them?',
-    hostPrompts: ['What does healthy involvement look like?', 'When does help become control?']
+    conclusion: 'Extended-family support can be valuable without erasing a couple’s need for privacy, independent decision-making, and boundaries. Closeness is healthiest when it helps the marriage rather than absorbing it.',
+    afterPrompt: 'What boundary would make the shared-home option workable rather than quietly corrosive?',
+    hostPrompts: ['Which forms of family involvement are genuinely helpful?', 'What decision should remain with the couple even when relatives are sacrificing for them?']
   },
   {
     id: 59,
     title: 'APOLOGY: DELUXE EDITION',
     vibe: 'relationships',
     scenario: [
-      'You say, “I am sorry you felt hurt, but if you had not done X, I would not have said Y, and also you did something similar in 2022.”',
-      'Your apology now has a director’s commentary, a prequel, and three villains.'
+      'You said something cruel during an argument after the other person genuinely provoked you. You can give a clean apology for your line first, or explain the full context immediately so the apology does not sound like you are accepting responsibility for the entire fight.',
+      'Both options contain truth. One risks sounding evasive. The other risks accidentally signing a confession to crimes committed by both sides.'
     ],
-    prompt: 'Did you actually apologise?',
-    choices: ['Technically yes', 'No, that was a defence speech'],
+    prompt: 'Clean apology first, or full context in the same breath?',
+    choices: ['OWN MY PART FIRST — no defensive footnotes', 'EXPLAIN BOTH SIDES — context matters too'],
     twist: [
-      'The other person responds with an equally advanced apology and the two of you accidentally create a podcast instead of repairing anything.'
+      'The clean apology is initially interpreted as admitting the whole fight was your fault. The context-heavy apology is heard as “sorry, but actually you made me do it.” Both people finally make progress only when each wrong is discussed separately instead of used to cancel the other.'
     ],
-    conclusion: 'A real apology names your wrong clearly without using the other person’s wrong as a shield. Their responsibility can be discussed separately after you own yours.',
-    afterPrompt: 'What makes a clean apology feel so much harder than an explanation?',
-    hostPrompts: ['Can both people be wrong without cancelling each other out?', 'What sentence would you remove from your usual apology style?']
+    conclusion: 'A real apology names your wrong clearly without using the other person’s wrong as a shield. Their responsibility can matter just as much, but it should be discussed separately rather than smuggled into your apology as a defence.',
+    afterPrompt: 'How do you own your part completely without pretending the other person had no part?',
+    hostPrompts: ['What sentence turns an apology into a defence speech?', 'Can both people be fully responsible for different wrongs in the same argument?']
   },
   {
     id: 60,
     title: 'PARENTING CUSTOMER SERVICE',
     vibe: 'family',
     scenario: [
-      'A child demands dessert before dinner. One parent says no. The child begins a formal complaint process involving tears, dramatic floor contact, and an accusation that this is “the worst family.”',
-      'The parent is one tantrum away from issuing a refund.'
+      'You are in a restaurant with an exhausted five-year-old who wants dessert before dinner. Saying yes will end the public meltdown instantly and one unusual dessert-first meal will not destroy civilization. Saying no means twenty more minutes of being judged by strangers who definitely raised perfect children in silence.',
+      'The child has now escalated to full floor diplomacy.'
     ],
-    prompt: 'What should guide the parent?',
-    choices: ['End the upset quickly', 'Hold the reasonable boundary calmly'],
+    prompt: 'Buy peace for tonight, or hold the boundary in front of the entire dining room?',
+    choices: ['MAKE THE EXCEPTION — one bad night is not a parenting theory', 'HOLD THE LINE — tantrums should not negotiate rules'],
     twist: [
-      'Giving in ends the noise immediately. It also teaches the child that enough emotional volume can renegotiate a boundary. Holding the line is harder now and easier later.'
+      'The exception ends the scene immediately. Over the next few outings, the child starts escalating faster whenever a boundary appears because the restaurant incident taught one very clear lesson: maximum volume once changed the answer.'
     ],
     conclusion: 'Warmth is not the absence of limits. Good discipline combines affection, calmness, consistency, explanation, and boundaries instead of choosing between cruelty and surrender.',
-    afterPrompt: 'Which parenting decision feels worse in the moment but better over time?',
-    hostPrompts: ['How can a parent say no without humiliating the child?', 'What behaviour gets accidentally rewarded when adults only chase immediate peace?']
+    afterPrompt: 'When is an exception compassionate, and when does the way the exception is granted reward the behaviour you do not want repeated?',
+    hostPrompts: ['Could the parent make an exception without making the tantrum the reason?', 'How can a firm no avoid humiliating the child?']
   },
   {
     id: 61,
     title: 'THE $1,400 DIGITAL BABYSITTER',
     vibe: 'family',
     scenario: [
-      'A parent buys a premium tablet for a young child because it keeps the house peaceful. The device can silence whining, boredom, car rides, waiting rooms, restaurants, and apparently the concept of eye contact.',
-      'Battery life is excellent. Attention span is entering negotiations.'
+      'You have a young child on a six-hour flight after a terrible night of sleep. A tablet could turn the journey from airborne hostage negotiation into six peaceful hours for the entire row. The alternative is books, snacks, games, conversation, boredom, and your remaining fragments of patience.',
+      'Nobody aboard Flight 418 has volunteered to help build self-regulation.'
     ],
-    prompt: 'Is the convenience worth it?',
-    choices: ['Peace is priceless', 'Some boredom needs to survive'],
+    prompt: 'Deploy the tablet heavily, or make the flight an advanced course in being bored?',
+    choices: ['USE THE SCREEN — survival situations deserve tools', 'LIMIT IT — discomfort is also practice'],
     twist: [
-      'A year later, ordinary meals and car rides feel unbearable without a screen because the child never had to practise tolerating them.'
+      'The screen saves the flight beautifully. After it becomes the default solution for restaurants, car rides, waiting rooms, and every quiet moment, ordinary situations begin triggering demands for stimulation because the child rarely gets to practise tolerating them.'
     ],
-    conclusion: 'A tool that removes every small discomfort can also remove the practice required to build patience, imagination, conversation, and self-regulation.',
-    afterPrompt: 'Which discomfort should children be allowed to learn how to handle?',
-    hostPrompts: ['What does the screen solve for the child, and what does it solve for the parent?', 'When does convenience train dependence?']
+    conclusion: 'A tool that removes a difficult moment can be genuinely useful. The problem begins when convenience removes nearly every chance to practise patience, imagination, conversation, and self-regulation.',
+    afterPrompt: 'Which situations deserve the screen as a tool, and which situations should remain practice for ordinary boredom?',
+    hostPrompts: ['What is the screen solving for the child and what is it solving for the parent?', 'How could a family use screens heavily sometimes without making them the automatic answer?']
   },
   {
     id: 62,
     title: 'THE FUN PARENT ELECTION',
     vibe: 'family',
     scenario: [
-      'Two parents disagree about bedtime. Parent A enforces the schedule. Parent B whispers, “I would let you stay up, but apparently we live under a regime.”',
-      'Parent B wins the child’s approval rating by 97% and is considering campaign merch.'
+      'Your child’s favourite team is in a championship that ends two hours past bedtime on a school night. One parent wants a special exception because rare memories matter. The other wants the normal bedtime because tomorrow’s child still has to attend school with a functioning nervous system.',
+      'The child has already designed campaign posters for Parent Fun.'
     ],
-    prompt: 'Who is helping the child more?',
-    choices: ['The parent keeping the peace', 'The parent protecting the boundary'],
+    prompt: 'Championship exception or bedtime constitution?',
+    choices: ['LET THEM STAY UP — rare memories are worth a rough morning', 'KEEP BEDTIME — rules matter most when exceptions are tempting'],
     twist: [
-      'The next morning, the exhausted child is furious at everyone, including the parent who won the election. Popularity has failed to produce sleep.'
+      'The child remembers the game for years and genuinely treasures the night. The next morning is also a complete disaster. The bigger problem comes later when one parent uses the exception to undermine the other: “See? I would let you, but apparently we live under a regime.”'
     ],
-    conclusion: 'Parenting is not a popularity contest. Undermining reasonable boundaries for short-term approval teaches children to play adults against each other and weakens the security of consistent leadership.',
-    afterPrompt: 'Where can parental guilt turn into weak boundaries?',
-    hostPrompts: ['How should parents disagree without recruiting the child?', 'What does consistency communicate to children?']
+    conclusion: 'Good parenting can include intentional exceptions. The deeper problem is turning the child into a voter in adult disagreements or using short-term approval to weaken reasonable boundaries and parental unity.',
+    afterPrompt: 'What makes an exception healthy rather than a campaign promise against the other parent?',
+    hostPrompts: ['Which rules should have room for special occasions?', 'How should parents disagree without recruiting the child?']
   },
   {
     id: 63,
     title: 'THE FAMILY GROUP CHAT SUPREME COURT',
     vibe: 'family',
     scenario: [
-      'One cousin makes a rude comment at dinner. Within 14 minutes, three family group chats have formed, screenshots are circulating, and an aunt in another country has issued a ruling.',
-      'The original cousin has not been asked what happened.'
+      'A cousin makes a comment that sounds insulting and could affect how other relatives treat someone. You can warn the family immediately so nobody is blindsided, or call the cousin privately first and risk giving a genuinely malicious person time to rewrite the story.',
+      'Three family group chats are idling nearby with the engines running.'
     ],
-    prompt: 'What should happen first?',
-    choices: ['Warn the whole family', 'Talk directly to the person involved'],
+    prompt: 'Alert the village or call the suspect?',
+    choices: ['WARN PEOPLE FIRST — protect others from a possible pattern', 'ASK DIRECTLY FIRST — collect facts before allies'],
     twist: [
-      'The comment turns out to have been clumsy but not malicious. The family now has a six-month feud over a sentence that could have been clarified in 90 seconds.'
+      'The comment turns out to have been clumsy rather than malicious and is clarified in two minutes. Had it been a real safety issue, private clarification alone would have been too weak. This time, broadcasting first would have created a six-month feud out of a sentence with terrible delivery.'
     ],
-    conclusion: 'Conflict grows when people collect allies before collecting facts. Direct clarification should usually come before public prosecution.',
-    afterPrompt: 'When do we use a group audience because direct conversation feels uncomfortable?',
-    hostPrompts: ['What deserves privacy before escalation?', 'When is involving others actually necessary?']
+    conclusion: 'Conflict grows when people collect allies before collecting facts. Direct clarification should usually come first when it is safe and appropriate; escalation belongs to situations where real risk, repeated harm, or failed direct resolution justifies involving others.',
+    afterPrompt: 'What should make you escalate before speaking directly, and what should make direct clarification the default?',
+    hostPrompts: ['Which kinds of harm are too serious to handle privately first?', 'How do you warn someone without turning an uncertain story into a verdict?']
   },
   {
     id: 64,
     title: 'POTENTIAL SPOUSE 2.0',
     vibe: 'relationships',
     scenario: [
-      'Someone you are considering marrying says, “I am terrible with money now, hate children now, never help at home now, and avoid conflict now, but marriage will totally unlock my final form.”',
-      'A dramatic transformation sequence has not been scheduled.'
+      'Someone you are considering seriously has real weaknesses with money and conflict, but they have also spent six months budgeting consistently, apologizing better, and doing difficult work without being chased. The direction is good. The track record is still short.',
+      'Future Potential has finally produced receipts, but only a small stack.'
     ],
-    prompt: 'How much should future potential count?',
-    choices: ['People can change', 'Marry the current evidence'],
+    prompt: 'Bet on the trajectory, or wait until the new version survives a longer update cycle?',
+    choices: ['TRUST THE DIRECTION — real growth deserves weight', 'WAIT FOR PATTERN — six months is not a personality warranty'],
     twist: [
-      'Five years later, the person has changed in several ways. Unfortunately, none were the specific ways promised during the sales presentation.'
+      'The growth continues in several areas. A deeper incompatibility on children and family boundaries does not change at all because it was never merely a “bad habit.” The person genuinely improved without becoming a different person.'
     ],
-    conclusion: 'People can grow, but commitment should be based mainly on established character, habits, values, and direction rather than promises that require a personality update after the wedding.',
-    afterPrompt: 'Which trait would be reckless to treat as a future software patch?',
-    hostPrompts: ['What can reasonably improve with time?', 'What red flag are people most tempted to romanticise as “potential”?']
+    conclusion: 'People can grow, and evidence of growth should matter. Serious commitment should still be based mainly on established character, values, habits, compatibility, and direction rather than a fantasy that marriage itself will rewrite core differences.',
+    afterPrompt: 'What kind of change is a believable trajectory, and what kind requires imagining a different person?',
+    hostPrompts: ['How long should a new pattern exist before it earns trust?', 'Which incompatibilities are not “growth projects” at all?']
   },
   {
     id: 65,
     title: 'THE $80,000 WEDDING TRAILER',
     vibe: 'money',
     scenario: [
-      'A couple has $80,000 saved. Option A spends almost all of it on a one-day wedding with smoke machines, imported flowers, and a cake that requires structural engineering.',
-      'Option B keeps the event simple and uses most of the money to start married life without debt. The aunties have opinions and several are armed with Pinterest.'
+      'Your families offer to pay for a spectacular $80,000 wedding—but only for the wedding. If you choose a small event, the extra money does not become a house deposit; it simply stays with the relatives.',
+      'Option A gives you the giant celebration at no debt. Option B keeps the event simple and preserves independence from a planning committee currently armed with twelve Pinterest boards and opinions about napkin masculinity.'
     ],
-    prompt: 'What should the money serve?',
-    choices: ['Make the day unforgettable', 'Build the life after the day'],
+    prompt: 'Take the free blockbuster wedding, or pay for the smaller director’s cut yourself?',
+    choices: ['TAKE THE BIG DAY — free celebration is still free', 'KEEP IT SMALL — autonomy is worth real money'],
     twist: [
-      'The expensive wedding is beautiful. Six months later, the couple is arguing about rent beside a framed photo of a floral ceiling that existed for four hours.'
+      'The large wedding causes no debt and is genuinely beautiful. It also comes with escalating conditions over guest list, clothing, schedule, and decisions because the people paying begin treating “gift” as a subscription to executive control.'
     ],
-    conclusion: 'Celebration is good; performance is expensive. Do not sacrifice long-term stability to impress people who will be discussing somebody else’s wedding by next weekend.',
-    afterPrompt: 'What part of a wedding is for the couple, and what part is for the audience?',
-    hostPrompts: ['Which expense creates a memory and which creates pressure?', 'How much debt is reasonable for one day of celebration?']
+    conclusion: 'Celebration is good, but money can carry expectations. The real cost of an event includes debt, pressure, lost autonomy, and what the couple is sacrificing to perform for an audience.',
+    afterPrompt: 'When does accepting help give the helper a reasonable voice, and when does help become control?',
+    hostPrompts: ['What wedding expense creates a memory rather than a performance?', 'How much autonomy would you trade for a genuinely generous gift?']
   },
   {
     id: 66,
     title: 'THE DEBT OLYMPICS',
     vibe: 'money',
     scenario: [
-      'Your friend proudly announces he “can afford” a luxury SUV because the monthly payment fits his budget.',
-      'The loan is seven years long. By the final payment, the vehicle will have experienced two recessions, three iPhone redesigns, and possibly adolescence.'
+      'You need a reliable vehicle. Option A finances a newer one for seven years at a low rate, preserving your cash emergency fund. Option B buys an older car mostly in cash, leaving far less monthly obligation but a higher chance of repairs.',
+      'The dealership would like to remind you that “only $499 a month” is technically a sentence and spiritually a magic trick.'
     ],
-    prompt: 'What does “afford” mean?',
-    choices: ['I can make the payment', 'The total cost fits my life'],
+    prompt: 'Keep the cash and take the long payment, or buy cheaper and accept repair roulette?',
+    choices: ['FINANCE NEWER — reliability plus cash reserves', 'BUY CHEAPER — fewer future paycheques already spoken for'],
     twist: [
-      'When interest, insurance, fuel, and depreciation are added, the “affordable” payment has quietly eaten the money he said he never had for savings.'
+      'The financed car is genuinely more reliable, but insurance, interest, and depreciation make the total cost far larger than the monthly number suggested. The older car needs one ugly repair but still costs less overall. Neither option was “cheap”; they simply hid cost in different places.'
     ],
-    conclusion: 'A monthly payment can hide the real cost of a decision. Affordability should be judged by total obligation, opportunity cost, risk, and what the debt prevents you from building.',
-    afterPrompt: 'Which purchase looks cheap only because the cost was chopped into tiny pieces?',
-    hostPrompts: ['What does the payment crowd out?', 'Would you still buy it if the full price were due today?']
+    conclusion: 'Affordability should be judged by total obligation, risk, opportunity cost, and what the payment prevents you from building—not merely whether one monthly number fits.',
+    afterPrompt: 'Which costs belong in “can I afford this” besides the monthly payment?',
+    hostPrompts: ['When is paying more for reliability rational?', 'How much emergency cash would change your answer?']
   },
   {
     id: 67,
     title: 'MINIMUM PAYMENT: IMMORTALITY MODE',
     vibe: 'dark-humour',
     scenario: [
-      'A credit card statement offers a wonderfully tiny minimum payment. It is so small it feels polite.',
-      'At this rate, your future grandchildren may receive the final statement as a family heirloom.'
+      'You have credit-card debt and a shaky job situation. Option A makes only the minimum payments for six months so you can preserve a proper emergency fund. Option B attacks the debt aggressively and leaves almost no cash cushion.',
+      'Interest is circling overhead. So is the possibility that your furnace has seen the forecast and chosen violence.'
     ],
-    prompt: 'What is the minimum payment really buying?',
-    choices: ['Flexibility now', 'A longer relationship with the debt'],
+    prompt: 'Protect cash now or murder the interest first?',
+    choices: ['PAY MINIMUMS — liquidity matters in unstable times', 'ATTACK THE DEBT — high interest is an emergency too'],
     twist: [
-      'You calculate the total interest and discover the tiny payment was not mercy. It was a subscription model.'
+      'Your job does get interrupted. The emergency fund prevents new borrowing. But the minimum-payment strategy lasts longer than planned, and the balance begins behaving like a family pet that eats money and refuses to die.'
     ],
-    conclusion: 'Easy credit can turn temporary desire into long-term obligation. The longer the repayment, the more your future labour belongs to a past purchase.',
-    afterPrompt: 'Which debt buys something today by selling part of tomorrow?',
-    hostPrompts: ['What would you refuse to finance if you saw the total cost first?', 'When does convenience become dependency?']
+    conclusion: 'Easy credit can turn temporary desire into long-term obligation, but liquidity also matters. The dangerous move is letting a short-term minimum-payment strategy quietly become permanent while interest keeps purchasing your future labour.',
+    afterPrompt: 'What should trigger the moment when “protect cash” must turn into “kill the debt”?',
+    hostPrompts: ['How much emergency fund changes the answer?', 'Which debt costs are high enough to compete with other priorities?']
   },
   {
     id: 68,
     title: 'THE LUXURY LEASE FLEX',
     vibe: 'status',
     scenario: [
-      'A man drives a car that makes strangers assume he is rich. He lives with three roommates, has no savings, and checks his bank balance before ordering guacamole.',
-      'The steering wheel appears in 64% of his social photos for reasons nobody can explain.'
+      'You run a client-facing business. A luxury car lease would strain the budget, but your industry is image-heavy and several colleagues swear clients take them more seriously when the parking lot says “successful adult.”',
+      'A plain reliable car protects savings but may genuinely cost some first impressions. The steering wheel is already preparing for Instagram either way.'
     ],
-    prompt: 'Is the image worth the financial strain?',
-    choices: ['Status opens doors', 'Stability matters more than appearance'],
+    prompt: 'Buy the signal or build the balance sheet?',
+    choices: ['LEASE THE IMAGE — perception can create opportunity', 'KEEP IT PLAIN — stability is the stronger flex'],
     twist: [
-      'When the car is in the shop, nobody recognises him at the café. His personal brand has suffered a mechanical failure.'
+      'The luxury car does help land two clients who admit image mattered. It also locks you into fixed costs that make it harder to leave a bad contract later. The symbol of freedom has become a monthly supervisor.'
     ],
-    conclusion: 'Looking successful can become expensive enough to prevent becoming successful. Build stability before buying evidence for strangers that you already have it.',
-    afterPrompt: 'What do people buy mainly to borrow an identity?',
-    hostPrompts: ['Which status symbol carries the highest hidden cost?', 'What would financial strength look like if nobody could see it?']
+    conclusion: 'Status can have real social and business effects, but looking successful can become expensive enough to prevent becoming financially strong. Build the signal only when the signal earns more than it costs.',
+    afterPrompt: 'When is status a legitimate business tool, and when is it expensive evidence for strangers?',
+    hostPrompts: ['How would you measure whether the image actually produces revenue?', 'What would financial strength look like if nobody could see it?']
   },
   {
     id: 69,
     title: 'THE RAISE THAT DISAPPEARED',
     vibe: 'money',
     scenario: [
-      'You get a 20% raise. Excellent news. Within three months, your apartment is nicer, your subscriptions multiply, takeout becomes a food group, and your old perfectly good shoes look “emotionally limiting.”',
-      'Your savings rate remains exactly where it was.'
+      'You get a 20% raise. Option A upgrades life a little: nicer home, more takeout, a cleaner commute, maybe one holiday that does not involve comparing hostel reviews at 1 a.m. Option B sends nearly all of the raise to savings and keeps the old lifestyle.',
+      'One choice may improve today. The other may improve future freedom. Your bank account has refused to provide relationship counselling.'
     ],
-    prompt: 'Did the raise make you richer?',
-    choices: ['Income went up, so yes', 'Not if lifestyle swallowed it'],
+    prompt: 'Let the raise improve your life now, or hide most of it from your lifestyle?',
+    choices: ['SPEND SOME — money should improve today too', 'SAVE MOST — do not let lifestyle eat the whole raise'],
     twist: [
-      'Another raise comes. Your lifestyle adjusts again with the reflexes of a professional athlete.'
+      'The lifestyle upgrades genuinely reduce stress and create good memories. Within months, though, every new expense feels “normal” and becomes hard to reverse. The part saved automatically is the only part that still feels like a raise a year later.'
     ],
-    conclusion: 'Income creates opportunity; it does not automatically create wealth. If every raise becomes a permanent expense, higher earnings simply purchase a more expensive version of the same financial fragility.',
-    afterPrompt: 'What percentage of your next raise should your lifestyle never be allowed to see?',
-    hostPrompts: ['Which expenses quietly became “normal” after income rose?', 'What does becoming richer mean besides earning more?']
+    conclusion: 'Income creates opportunity; it does not automatically create wealth. Spending can be worthwhile, but if every raise becomes permanent lifestyle, higher earnings simply buy a more expensive version of the same financial fragility.',
+    afterPrompt: 'How much of a raise should be allowed to become permanent lifestyle?',
+    hostPrompts: ['Which upgrade would genuinely improve daily life?', 'What percentage should future freedom get before lifestyle sees the rest?']
   },
   {
     id: 70,
     title: 'THE VACATION VS THE WATER HEATER',
     vibe: 'money',
     scenario: [
-      'You have exactly $4,000. Option A: a beautiful vacation you badly need. Option B: keep the money because your car, furnace, teeth, and water heater have formed a coalition.',
-      'Instagram strongly supports Option A. Your water heater has no account.'
+      'You have $4,000. Option A is a badly needed family holiday after a brutal year. Option B keeps the money because your car, furnace, teeth, and water heater have formed a coalition and at least one of them is probably planning a coup.',
+      'The holiday would produce real rest and memories. The emergency fund would produce absolutely terrible photos and excellent sleep.'
     ],
-    prompt: 'What should win?',
-    choices: ['Make the memory', 'Protect against predictable emergencies'],
+    prompt: 'Buy the memory or buy the ability to survive Tuesday?',
+    choices: ['TAKE THE TRIP — restoration matters too', 'KEEP THE CASH — predictable emergencies deserve priority'],
     twist: [
-      'The vacation would genuinely restore you. Two weeks after you return, the water heater dies with impeccable comedic timing.'
+      'The holiday really is restorative. Two weeks after returning, the water heater dies with impeccable comedic timing. The family does not regret the trip; they do regret discovering that “unexpected” sometimes means “a normal thing finally happened.”'
     ],
-    conclusion: 'Enjoyment has a place, but predictable risk deserves preparation before optional spending. An emergency fund is not pessimism; it is refusing to turn normal life problems into debt emergencies.',
-    afterPrompt: 'What expense are you calling “unexpected” even though something like it happens every year?',
-    hostPrompts: ['How much fun should be delayed for stability?', 'What kind of emergency deserves cash before lifestyle upgrades?']
+    conclusion: 'Enjoyment has a place, but predictable risk deserves preparation before optional spending. An emergency fund is not pessimism; it prevents ordinary life problems from turning into debt emergencies.',
+    afterPrompt: 'What expense are you calling unexpected even though something like it happens every year?',
+    hostPrompts: ['How much emergency cash should exist before a major optional purchase?', 'When can rest itself be important enough to justify using some savings?']
   },
   {
     id: 71,
     title: 'BUY NOW, FUTURE ME CRIES LATER',
     vibe: 'consumer',
     scenario: [
-      'A shopping app offers four interest-free payments for everything: shoes, gadgets, takeout, a chair shaped like a hand, apparently human dignity.',
-      'Each purchase feels tiny because the app has sliced the pain into adorable pieces.'
+      'Your washing machine dies. A zero-interest instalment plan lets you replace it today without touching savings. Waiting until you have cash means weeks of laundromat trips and becoming emotionally familiar with a machine named SPEED QUEEN.',
+      'The instalment itself is affordable. You already have five other tiny instalments currently pretending not to know each other.'
     ],
-    prompt: 'Does splitting the payment change the real affordability?',
-    choices: ['Yes, cash flow matters', 'No, the total obligation still exists'],
+    prompt: 'Use the 0% plan or protect Future Friday from another automatic bite?',
+    choices: ['FINANCE IT — necessary purchase, no interest', 'PAY OR WAIT — total obligations matter even at 0%'],
     twist: [
-      'A month later, six tiny payments arrive on the same Friday and form Voltron.'
+      'The washer payment is perfectly manageable by itself. The problem arrives when six “manageable” payments hit the same week and form Voltron. None were individually reckless; together they have become a second utility bill.'
     ],
-    conclusion: 'Breaking a cost into smaller pieces can hide the size of the commitment. A purchase is not cheaper because the pain was scheduled.',
-    afterPrompt: 'Which spending habit depends on not looking at the total?',
-    hostPrompts: ['When is instalment payment useful rather than deceptive?', 'Would you buy the same item if all current instalments appeared as one number?']
+    conclusion: 'Breaking a cost into smaller pieces can hide the size of total commitments. Instalments can be useful, especially for real needs, but a purchase is not cheaper simply because the pain was scheduled.',
+    afterPrompt: 'How many individually reasonable payments can become collectively unreasonable?',
+    hostPrompts: ['Which kinds of purchases justify instalments?', 'Would you make the same decision if all current payments appeared as one monthly number?']
   },
   {
     id: 72,
     title: 'THE VILLAGE MONEY MACHINE',
     vibe: 'money',
     scenario: [
-      'A village has 100 people and $100,000. A lender gives nearly everyone loans, but the total amount owed back becomes $120,000 even though only $100,000 exists in the village at that moment.',
-      'The lender says not to worry because growth, refinancing, and a 46-slide presentation will explain everything.'
+      'A farmer can borrow money to install irrigation that should increase harvests for years. Waiting to save enough cash may take five seasons and loses several profitable opportunities. The loan includes interest and the bad-year risk stays mostly with the farmer.',
+      'Option A turns future harvest into today’s capital. Option B keeps independence but grows painfully slowly. The corn has declined to give financial advice.'
     ],
-    prompt: 'What should you examine before calling the system fair?',
-    choices: ['The contract was voluntary', 'The long-term incentive and extraction matter'],
+    prompt: 'Borrow to build productive capacity, or grow only at the speed of saved cash?',
+    choices: ['BORROW — productive debt can accelerate real value', 'WAIT — future income should not belong to a lender'],
     twist: [
-      'Some borrowers use loans productively and become wealthier. Others spend decades transferring income simply for access to money they needed earlier.'
+      'The irrigation works and raises normal-year income substantially. Then one terrible season arrives and the fixed repayment becomes brutal exactly when revenue falls. The loan created real productive value and real fragility at the same time.'
     ],
-    conclusion: 'A financial system should be judged by the risks, incentives, obligations, and distribution it creates over time, not merely by whether each individual contract was signed.',
-    afterPrompt: 'When does access to credit increase freedom, and when does it sell future labour?',
-    hostPrompts: ['Who carries the risk if the borrower fails?', 'What is the difference between productive investment and permanent dependency?']
+    conclusion: 'A financial arrangement should be judged by what it funds, who carries risk, what obligations persist during bad outcomes, and how much future labour becomes committed—not merely by whether the contract was voluntary.',
+    afterPrompt: 'What makes productive borrowing meaningfully different from borrowing for consumption?',
+    hostPrompts: ['Who carries downside risk if the investment fails?', 'How much expected return should justify giving up future flexibility?']
   },
   {
     id: 73,
     title: 'THE GOLDEN HANDCUFFS STARTER KIT',
     vibe: 'work',
     scenario: [
-      'You get a high-paying job. You immediately upgrade the house, car, vacations, and subscriptions until quitting the job would now destroy your lifestyle.',
-      'Your salary has become both the hero and the hostage negotiator.'
+      'You are offered a job paying dramatically more than your current role. Accepting it lets you upgrade housing, travel, schooling, and savings. It also comes with longer hours and a culture you already suspect you may hate.',
+      'Option B keeps the lower income and far more ability to walk away from bad conditions. Freedom has apparently become a line item in Excel.'
     ],
-    prompt: 'Did the higher income make you freer?',
-    choices: ['Yes, I can buy more', 'Not if expenses removed my ability to say no'],
+    prompt: 'Take the bigger life or protect your ability to say “I quit”?',
+    choices: ['TAKE THE MONEY — options cost money too', 'KEEP FLEXIBILITY — low fixed costs buy a different freedom'],
     twist: [
-      'The job becomes miserable. You want to leave but discover every upgrade quietly voted against you.'
+      'You take the job and the extra income genuinely improves several parts of life. Then the workplace becomes toxic and you discover every upgrade quietly voted against leaving. The golden handcuffs are, annoyingly, made of actual gold.'
     ],
-    conclusion: 'Freedom includes the ability to refuse. A lifestyle that requires constant obedience to income can turn luxury into dependence with better furniture.',
-    afterPrompt: 'Which expense would be hardest to give up if it bought back your freedom?',
-    hostPrompts: ['What level of fixed cost makes career change dangerous?', 'Is earning more useful if your required spending rises just as fast?']
+    conclusion: 'Freedom includes the ability to refuse. Higher income can expand options, but a lifestyle that requires constant obedience to that income can turn luxury into dependence with better furniture.',
+    afterPrompt: 'Which expenses would you refuse to add if they made leaving a bad situation materially harder?',
+    hostPrompts: ['How much savings would restore the freedom to quit?', 'When does a higher salary genuinely increase rather than reduce freedom?']
   },
   {
     id: 74,
     title: 'THE SALAD DOES NOT MAKE YOU NICE',
     vibe: 'food',
     scenario: [
-      'Two people argue about food ethics. One eats only plants and is cruel to every waiter he meets. The other eats meat, volunteers at an animal shelter, and treats animals carefully.',
-      'A carrot has declined to endorse either candidate.'
+      'Two restaurants make competing ethical claims. Restaurant A avoids animal products completely but has repeated complaints about abusive treatment of staff. Restaurant B serves meat sourced under strict welfare standards, pays workers well, and wastes almost nothing.',
+      'A carrot has declined to endorse either candidate because apparently one menu item is now being asked to carry an entire moral résumé.'
     ],
-    prompt: 'Can diet by itself prove moral character?',
-    choices: ['Diet reveals a lot', 'Character needs more evidence than the menu'],
+    prompt: 'Which place gets your “more ethical” vote?',
+    choices: ['RESTAURANT A — avoiding animal use is the bigger issue', 'RESTAURANT B — total treatment and responsibility matter more'],
     twist: [
-      'You later discover both have thoughtful reasons for their diets and blind spots elsewhere. Neither plate has managed to produce a complete moral résumé.'
+      'Further inspection finds Restaurant A has recently fixed its labour practices, while Restaurant B’s supplier has one serious welfare violation it failed to catch. The badge on the door did not eliminate the need to examine the specific conduct underneath it.'
     ],
-    conclusion: 'Do not confuse one practice with total character. The moral question is what is permitted, what causes unnecessary harm, how living things are treated, and whether the standard is applied consistently.',
-    afterPrompt: 'Which lifestyle choices get treated like automatic proof of being a good person?',
-    hostPrompts: ['Can someone care about animal welfare and still eat meat?', 'What evidence would show cruelty rather than merely trigger discomfort?']
+    conclusion: 'One visible practice cannot prove total moral character. Judge the specific issue by what is permitted, what causes unnecessary harm, how living beings and people are treated, and whether the standard is applied consistently.',
+    afterPrompt: 'Which lifestyle labels get treated as complete moral certificates when they only answer one part of the question?',
+    hostPrompts: ['Can someone be ethically serious in one area and negligent in another?', 'What evidence should matter more than the label?']
   },
   {
     id: 75,
     title: 'THE ORCHESTRA EQUALITY CRISIS',
     vibe: 'absurd',
     scenario: [
-      'An orchestra decides equality means every musician must perform the exact same role. The violinist wants a drum kit. The drummer demands first-chair violin. The conductor is assigned a tuba because leadership looks suspicious.',
-      'The first rehearsal sounds like a kitchen falling down stairs.'
+      'An orchestra is accused of unfairness because the same people keep getting the same roles. Option A rotates everyone through instruments so opportunity is equal. Option B keeps specialization because the violinist has trained twenty years and the drummer’s relationship with the violin is currently under investigation.',
+      'Rotation may reveal hidden talent. Specialization may preserve excellence. The audience has purchased tickets and would like this fairness dispute resolved before the overture.'
     ],
-    prompt: 'Does equal worth require identical roles?',
-    choices: ['Yes, same role proves equality', 'No, different roles can carry equal dignity'],
+    prompt: 'Rotate roles for equal opportunity, or keep different jobs when ability and responsibility differ?',
+    choices: ['ROTATE — equal opportunity should be visible', 'SPECIALIZE — equal worth does not require identical function'],
     twist: [
-      'When everyone returns to the role they are actually responsible for, the music works again. Nobody becomes less human because the instruments differ.'
+      'Rotation reveals one overlooked musician who is genuinely better in a new role. It also produces several catastrophic pairings, including a tuba solo that causes a small diplomatic incident. The problem was unfair access in some places, not difference itself.'
     ],
-    conclusion: 'Equality of human worth does not require sameness in every function, responsibility, strength, or role. Fairness means each person is honoured and judged justly, not pretending meaningful differences do not exist.',
-    afterPrompt: 'Where do we confuse equal dignity with identical function?',
-    hostPrompts: ['When are different roles unfair, and when are they simply different?', 'What should determine whether a role difference is just?']
+    conclusion: 'Equality of human worth does not require sameness in every function, responsibility, strength, or role. Fairness means differences need relevant reasons and genuine opportunities—not pretending every role must be identical.',
+    afterPrompt: 'When does a role difference reflect real function, and when is “different roles” being used to hide unfair exclusion?',
+    hostPrompts: ['What evidence should justify assigning different roles?', 'How can equal dignity coexist with unequal responsibilities or abilities?']
   }
 );
