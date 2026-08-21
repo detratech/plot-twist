@@ -6,10 +6,12 @@ Offline-first Android-friendly social scenario game.
 
 - Vanilla HTML/CSS/JavaScript, no framework and no build step
 - 24 local scenario cards
-- One intentionally ordered 24-card main game that progresses from silly to deeper reasoning
-- Random Card mode for off-sequence play
+- Start Game shuffles the full deck every time
+- Mixed scenario styles: absurd hypotheticals, everyday dilemmas, internet/nostalgia, a few major pop-culture references, moral questions, and deeper thought experiments
+- Every card is designed to pressure-test at least one useful thinking habit without making the deck feel like a lesson plan
+- Random Card mode
 - Hidden Plot Twist stage with reveal animation
-- 10 universal MCU-themed Chaos pressure tests
+- 12 universal Chaos pressure tests
 - Optional Host prompts
 - Saved cards
 - Local game-state persistence
@@ -51,8 +53,6 @@ A PWA should be served over HTTPS on Android. The simplest approach if you alrea
 
 ## Airplane-mode test before the trip
 
-Do this before relying on the app:
-
 1. Open the installed Plot Twist app once while online.
 2. Start a game, reveal a Plot Twist, and leave the app on that card.
 3. Fully close the app.
@@ -83,13 +83,6 @@ Keep `plot-twist-fallback.html` in your phone's local storage as a second copy o
 
 It is not an installable PWA when opened as a raw file, but it is useful as an emergency backup if the installed app is ever removed or its browser storage is cleared.
 
-For maximum reliability, keep both:
-
-- the installed PWA, and
-- the single-file fallback in a local folder on the phone.
-
-A packaged APK would add another layer of offline reliability, but it also introduces Android packaging/signing and update overhead. For a small one-trip game, the PWA + single-file backup is the lower-risk setup.
-
 ## Editing or adding cards
 
 All card content is in `cards.js`.
@@ -106,6 +99,7 @@ Each card looks like this:
     'Second paragraph.'
   ],
   prompt: 'What do you choose?',
+  choices: ['Option A', 'Option B'],
   twist: [
     'New information revealed after the tap.'
   ],
@@ -118,9 +112,9 @@ To add a card:
 
 1. Copy an existing card object in `cards.js`.
 2. Give it a new unique numeric `id`.
-3. Change the title/text.
-4. Keep the card order intentional: the early cards are lighter and the later cards become more reflective.
-5. Change `CACHE_NAME` in `sw.js` to a new version, such as `plot-twist-v3.0.1`, so installed devices replace the old cached files.
+3. Change the title and content.
+4. Keep the overall deck varied rather than grouping similar lessons or themes together.
+5. Change `CACHE_NAME` in `sw.js` to a new version so installed devices replace the old cached files.
 
 The internal `vibe` field is not shown to players.
 
