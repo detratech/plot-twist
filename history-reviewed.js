@@ -28,6 +28,10 @@ Object.assign(HISTORICAL_EXAMPLES, {
     title: 'General Motors and the annual model change · 1920s',
     text: 'General Motors helped normalize releasing visibly different car models every year, using styling and design obsolescence to make an older but functional car feel dated. Some new models genuinely improved. The marketing breakthrough was teaching consumers that “still works” and “still feels current” were different problems.'
   },
+  55: {
+    title: 'Mars Climate Orbiter · 1999',
+    text: 'NASA lost the spacecraft after one team supplied navigation data in English units while another system expected metric units. Both groups were doing serious technical work; a basic assumption at the interface was never made safely explicit. Important expectations become dangerous when everybody thinks the other side already knows them.'
+  },
   57: {
     title: 'Canada’s wartime income tax · 1917',
     text: 'Canada introduced the Income War Tax during the First World War as a temporary measure to be reviewed after the war. It was reviewed in 1919 but remained, and by 1948 federal income tax was no longer treated as temporary. A reasonable emergency arrangement can become normal when every extension is easier than a fresh decision.'
@@ -52,9 +56,17 @@ Object.assign(HISTORICAL_EXAMPLES, {
     title: 'Elizabeth Taylor and Richard Burton · 1964–1976',
     text: 'Taylor and Burton became one of Hollywood’s most famous intensely passionate couples. They married, divorced after a decade, remarried the next year, and divorced again less than a year later. Powerful chemistry was plainly real; it was not enough by itself to make a volatile relationship durable.'
   },
+  129: {
+    title: 'Steve Jobs and Tim Cook at Apple · 1998–2011',
+    text: 'Jobs recruited Cook to Apple while Jobs remained the company’s defining product visionary. Cook became responsible for worldwide operations, including supply chain, sales, service, and support. The partnership made visible two different kinds of leadership: choosing direction and making an enormous daily system reliably deliver it.'
+  },
   131: {
     title: 'Camp David Accords · 1978',
     text: 'After thirteen days of difficult negotiations, Egypt and Israel signed two detailed framework documents rather than leaving peace at the level of goodwill and hopeful conversation. The later treaty still required more work. As stakes and investment grow, clarity about terms and direction becomes more important, not less.'
+  },
+  139: {
+    title: 'César Chávez and the grape boycott · 1965–1970',
+    text: 'Farmworkers used strikes, marches, fasting, organizing, and a nationwide consumer boycott to pressure growers while Chávez repeatedly emphasized nonviolent discipline. The campaign eventually helped win contracts and broader support. Effective escalation did not require confusing firmness with uncontrolled aggression.'
   },
   143: {
     title: 'FDR’s first inaugural address · 1933',
@@ -72,9 +84,13 @@ Object.assign(HISTORICAL_EXAMPLES, {
     title: 'Bill Gates’ “Think Week” · 1990s onward',
     text: 'While leading Microsoft, Gates began setting aside isolated stretches to read technical papers, think, and write because daily executive demands left him falling behind on new ideas. More useful input was not enough by itself; he deliberately created uninterrupted space in which the input could be processed.'
   },
+  175: {
+    title: 'Chuck Feeney and “Giving While Living” · 1984–2020',
+    text: 'Duty Free Shoppers co-founder Chuck Feeney transferred virtually his entire personal fortune to philanthropy and deliberately spent the foundation down during his lifetime. He could have kept accumulating indefinitely. Instead, he treated wealth as stored capacity that eventually had to become action while he was alive to see it matter.'
+  },
   179: {
-    title: 'Sherron Watkins warns Enron leadership · 2001',
-    text: 'Enron vice president Sherron Watkins privately warned chairman Kenneth Lay that the company could implode in an accounting scandal. Her warning challenged the organization she worked for because protecting the institution’s reputation was becoming incompatible with confronting what its own records showed.'
+    title: 'Cynthia Cooper uncovers WorldCom fraud · 2002',
+    text: 'WorldCom internal-audit chief Cynthia Cooper advanced an investigation into suspicious accounting entries even after the company’s finance leadership asked for delay. Her team’s work helped expose a massive accounting fraud. Loyalty to an institution can require confronting the facts that threaten its reputation rather than protecting the reputation from the facts.'
   },
   187: {
     title: 'Moritz v. Commissioner · 1972',
