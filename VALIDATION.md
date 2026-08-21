@@ -1,23 +1,39 @@
 # Plot Twist Validation
 
-Validation performed on the revised source:
+Validation notes for the current source:
 
-- JavaScript syntax checks passed for `cards.js`.
-- Deck contains exactly 24 unique cards.
-- Start Game shuffles the full deck rather than following a fixed curriculum order.
-- Ten universal Chaos pressure tests are included and can apply to any card.
-- The revised deck mixes absurd hypotheticals, everyday life, internet culture, social norms, privacy, sports, consumer choices, a small amount of mainstream pop culture, and deeper thought experiments.
-- User-facing cards do not name the underlying worldview or theological themes.
-- The service-worker cache version was bumped to `plot-twist-v4.2.0` so installed devices can replace the previous deck.
-- Runtime design remains local/offline-first with no external CDN, remote font, analytics, authentication, or API dependency.
-- The PWA manifest, app shell, saved-card system, local state persistence, Wake Lock option, and install flow were not structurally changed in this content revision.
+- The deck contains 24 unique local scenario cards.
+- `Start Game` shuffles the full deck, so there is no fixed lesson sequence.
+- The deck mixes modern-life dilemmas, absurd thought experiments, moral tensions, technology, money, relationships, pleasure, truth, identity, and a small amount of mainstream pop culture.
+- Every card uses a scenario → commitment → Plot Twist → follow-up structure.
+- The current content is designed to pressure-test assumptions without naming a political, religious, or philosophical target in the user-facing game.
+- Twelve reusable Chaos prompts can be applied to any card.
+- Game state, reveal state, saved cards, and settings are stored locally.
+- Runtime remains vanilla HTML/CSS/JavaScript with no external APIs, analytics, authentication, CDN assets, or remote fonts.
+- The service worker caches the essential application shell for offline use.
+- The current cache version is `plot-twist-v4.3.0`.
+- The manifest remains configured for standalone PWA installation.
 
 ## Content design check
 
-Every card now pressure-tests at least one useful thinking habit while varying the surface subject enough that the deck does not feel like a repeated lesson. Themes include consequences, context-dependent social norms, popularity versus evidence, pluralistic ignorance, consistent evidence standards, privacy versus convenience, default effects, curated authenticity, repeated-source illusions, reinforcement of outrage, novelty bias, illusion of explanatory depth, in-group double standards, attitude-behaviour gaps, algorithmic curation, private versus public morality, stated priorities versus actual attention, source verification, self-exemption, truth versus comfort, intended purpose, falsifiability, and cause-and-effect over time.
+The deck now focuses on deeper tensions such as:
 
-The scenarios are analogies and discussion prompts, not proofs. Several cards deliberately avoid a single obviously “correct” moral answer so discussion does not become a hunt for the answer the game wants.
+- pleasure versus fulfilment
+- truth versus comfort
+- freedom versus conditioning and manipulation
+- inherited assumptions versus examined beliefs
+- consent versus wisdom or fairness
+- legality versus morality
+- majority approval versus individual rights
+- self-definition versus meaningful standards
+- stated values versus revealed behaviour
+- present desire versus consequences for the future self
+- mechanism versus intended purpose
+- confidence versus evidence
+- whether a belief is genuinely open to correction
+
+The scenarios are analogies and discussion prompts, not proofs. A twist should reveal a tension, missing assumption, hidden cost, double standard, or new fact without making the desired answer obvious in advance.
 
 ## Device-specific final check
 
-A real Android/Chrome installation cannot be physically certified from this environment. Before relying on the app offline, perform the README airplane-mode test on the actual phone. That verifies the browser version, Android launcher, service-worker storage, and installed-app behaviour on the real device.
+A real Android/Chrome installation cannot be physically certified from the build environment. Before relying on the app offline, open the hosted PWA online, wait for the updated service worker to activate, then perform the airplane-mode test described in the README.
