@@ -1,14 +1,15 @@
 'use strict';
 
-const CACHE_NAME = 'plot-twist-v4.9.0';
+const CACHE_NAME = 'plot-twist-v5.0.0';
 const APP_SHELL = [
   './',
   './index.html',
   './styles.css',
   './cards.js',
-  './cards-extra.js',
-  './cards-balance.js',
-  './cards-party.js',
+  './deck-a.js',
+  './deck-b.js',
+  './deck-c.js',
+  './deck-d.js',
   './app.js',
   './manifest.webmanifest',
   './icons/icon-192.png',
