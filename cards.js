@@ -13,10 +13,10 @@ const PLOT_TWIST_CARDS = [
     choices: ['Take it', 'No chance'],
     twist: [
       'Your clothes come with you. Your phone, wallet, keys, food, and anything in your hands stay behind.',
-      'If you sneeze again, the next 50 km starts from wherever you just landed.'
+      'A second sneeze starts another 50 km jump from wherever you landed.'
     ],
-    afterPrompt: 'Still taking the money?',
-    hostPrompts: ['What is your allergy-season plan?', 'How much money would make this worth it?']
+    afterPrompt: 'Still taking it, or did the hidden consequences change the value of the deal?',
+    hostPrompts: ['What problem did you ignore at first?', 'How often do we judge a deal before thinking through the consequences?']
   },
   {
     id: 2,
@@ -26,14 +26,14 @@ const PLOT_TWIST_CARDS = [
       'A screenshot from your main group chat gets posted online.',
       'It contains one terrible joke you made five years ago. Everything before and after it is cropped out.'
     ],
-    prompt: 'Do you explain yourself or ignore it?',
+    prompt: 'Explain yourself or ignore it?',
     choices: ['Explain it', 'Ignore it'],
     twist: [
       'The full conversation makes the joke look completely different.',
-      'But posting the full chat would expose private messages from everyone else too.'
+      'But posting the full chat would also expose private messages from everyone else.'
     ],
-    afterPrompt: 'Do you clear your name if it means exposing your friends?',
-    hostPrompts: ['What matters more here: context or privacy?', 'What would you want a friend to do?']
+    afterPrompt: 'How much should context matter when proving your side creates a new problem?',
+    hostPrompts: ['Would you sacrifice someone else’s privacy to clear your name?', 'Can a true screenshot still create a false conclusion?']
   },
   {
     id: 3,
@@ -46,11 +46,11 @@ const PLOT_TWIST_CARDS = [
     prompt: 'Pick your opponent.',
     choices: ['Giant duck', 'Tiny horses'],
     twist: [
-      'The tiny horses coordinate like a team.',
+      'The tiny horses coordinate and attack as a team.',
       'The giant duck is terrified of hamburger buns. You have one bun in your pocket.'
     ],
-    afterPrompt: 'Switching sides?',
-    hostPrompts: ['What is your first move?', 'Who has the better survival plan?']
+    afterPrompt: 'Switching sides? What new fact mattered most?',
+    hostPrompts: ['Which assumption did you make before the twist?', 'What single fact changed the whole problem?']
   },
   {
     id: 4,
@@ -66,365 +66,374 @@ const PLOT_TWIST_CARDS = [
       'The inspection finds a hidden problem that will cost $3,000 next month.',
       'Your cousin genuinely did not know about it.'
     ],
-    afterPrompt: 'Was checking the car a sign of distrust?',
-    hostPrompts: ['When should trust change your evidence standard?', 'Would you want your cousin to inspect a car you sold him?']
+    afterPrompt: 'Was checking the car distrust, or was it just using the same standard you would use on anyone else?',
+    hostPrompts: ['When should trust lower your evidence standard?', 'Would you want your cousin to inspect a car you sold him?']
   },
   {
     id: 5,
+    title: 'THE LUCKY HOODIE',
+    vibe: 'nostalgia',
+    scenario: [
+      'Your friend wears the same hoodie for five straight playoff games. His team wins all five.',
+      'He now refuses to watch a game without it because, according to him, “Why mess with what works?”'
+    ],
+    prompt: 'Does the hoodie deserve any credit?',
+    choices: ['Maybe a little', 'Absolutely none'],
+    twist: [
+      'He forgets it for game six and they win 8–0.',
+      'He wears it for game seven and they get destroyed. He says those two games prove nothing.'
+    ],
+    afterPrompt: 'If wins count as evidence but losses never count, can the belief ever lose?',
+    hostPrompts: ['What result would actually prove him wrong?', 'Are we as generous with evidence against our own beliefs?']
+  },
+  {
+    id: 6,
     title: 'THE $500,000 QUESTION',
     vibe: 'pop',
     scenario: [
       'You are on Who Wants to Be a Millionaire and have no clue.',
-      'The audience votes 88% for B. Your phone-a-friend is your annoyingly smart cousin, and he says D because he remembers the exact answer.'
+      'The audience votes 88% for B. Your phone-a-friend is your annoyingly smart cousin, and he says D because he remembers the exact fact.'
     ],
     prompt: 'Who gets your trust?',
-    choices: ['88% audience', 'Smart cousin'],
+    choices: ['88% crowd', 'Smart cousin'],
     twist: [
-      'The answer is D.',
-      'The audience was not lying. Most of them simply guessed the same wrong answer.'
+      'The correct answer is D.',
+      'The audience was not lying. Most of them were simply guessing with confidence.'
     ],
-    afterPrompt: 'What mattered more: the number of people, or why they believed it?',
-    hostPrompts: ['When is popularity useful evidence?', 'When is it just a lot of guesses?']
-  },
-  {
-    id: 6,
-    title: 'THE CABIN WITH YOUR NAME',
-    vibe: 'mystery',
-    scenario: [
-      'You hike deep into an area with no roads or trails and find a perfect cabin.',
-      'The fire is burning, dinner is hot, and every bed has one of your names written above it.'
-    ],
-    prompt: 'Prepared for you or random coincidence?',
-    choices: ['Prepared', 'Coincidence'],
-    twist: [
-      'Your friend says, “Forests are huge. Given enough time, weird stuff happens.”',
-      'He still cannot explain the hot food or your names.'
-    ],
-    afterPrompt: 'How much can “weird stuff happens” actually explain?',
-    hostPrompts: ['Which detail matters most?', 'What would a good explanation need to account for?']
+    afterPrompt: 'What mattered more: how many believed it, or why they believed it?',
+    hostPrompts: ['When is a crowd useful evidence?', 'When is popularity just a lot of guesses?']
   },
   {
     id: 7,
-    title: 'FREE FOOD FOREVER',
-    vibe: 'chaos',
+    title: 'THE FREE VACATION',
+    vibe: 'choices',
     scenario: [
-      'Every meal you eat for the rest of your life becomes completely free.',
-      'Restaurants, groceries, steak, sushi, whatever you want. You never pay for food again.'
+      'A company offers you a completely free seven-day trip to a private resort in Hawaii.',
+      'Flights, food, hotel, activities, everything is covered. You only have to sign one page before reading the full agreement later.'
     ],
-    prompt: 'Taking the deal?',
-    choices: ['Absolutely', 'No'],
+    prompt: 'Sign now or read first?',
+    choices: ['Sign now', 'Read first'],
     twist: [
-      'You do not choose the meals. A mystery chef chooses every meal for you.',
-      'You can reject one meal per year. Reject a second and the deal ends forever.'
+      'The agreement says the company can use every photo and video of you from the trip in advertising forever.',
+      'It was technically disclosed. You just had to scroll.'
     ],
-    afterPrompt: 'Still worth it?',
-    hostPrompts: ['What meal would break you?', 'How much is choice worth?']
+    afterPrompt: 'Does a great offer make the hidden terms less important?',
+    hostPrompts: ['What did the word “free” make you assume?', 'How often do we accept a conclusion before checking the conditions?']
   },
   {
     id: 8,
-    title: 'THE VIRAL CLIP',
-    vibe: 'internet',
+    title: 'THE PARKING LOT WALLET',
+    vibe: 'moral',
     scenario: [
-      'A 12-second video blows up online.',
-      'A guy looks arrogant, cruel, and obviously guilty. Millions of people are roasting him and your group chat agrees.'
+      'You find a wallet in an empty parking lot with $900 cash and a driver’s licence inside.',
+      'Nobody saw you pick it up. You could return it exactly as you found it, or keep the cash and mail back the wallet.'
     ],
-    prompt: 'Enough to judge him?',
-    choices: ['Yes', 'Need more context'],
+    prompt: 'What are you doing?',
+    choices: ['Return everything', 'Keep the cash'],
     twist: [
-      'The full four-minute video appears the next day.',
-      'The 12 seconds were real, but the minute before them completely changes why he said what he said.'
+      'You recognize the owner. Earlier that day he was rude to a cashier and treated her terribly.'
     ],
-    afterPrompt: 'Can a real clip still create a false picture?',
-    hostPrompts: ['How often do you watch the full source?', 'Does a true piece guarantee a true conclusion?']
+    afterPrompt: 'Did his bad behaviour change what you were allowed to do with his money?',
+    hostPrompts: ['Do two wrongs fix each other?', 'Would your answer change if he had been kind? Why?']
   },
   {
     id: 9,
-    title: 'THE PAUSE BUTTON',
-    vibe: 'chaos',
+    title: 'THE SAME STORY 40 TIMES',
+    vibe: 'internet',
     scenario: [
-      'You get a button that freezes the entire world except you.',
-      'You can sleep, travel, finish work, play games, or just enjoy complete silence while everyone else is paused.'
+      'A crazy story starts spreading online. Forty accounts post it within an hour.',
+      'Some are big pages, some are local pages, and several say “multiple sources are reporting this.”'
     ],
-    prompt: 'How much would you use it?',
-    choices: ['All the time', 'Sometimes', 'Almost never'],
+    prompt: 'Forty reports: convincing or not yet?',
+    choices: ['Convincing', 'Not yet'],
     twist: [
-      'You keep ageing while the world is frozen.',
-      'Every paused hour comes directly out of your lifespan.'
+      'Every post traces back to one anonymous tweet.',
+      'Nobody independently checked what the tweet claimed.'
     ],
-    afterPrompt: 'How valuable is an extra hour now?',
-    hostPrompts: ['What would still be worth pausing for?', 'Would you spend a year of life for a year of private time?']
+    afterPrompt: 'Did you have forty sources, or one source repeated forty times?',
+    hostPrompts: ['What makes sources independent?', 'How can repetition feel like evidence?']
   },
   {
     id: 10,
-    title: 'DWIGHT’S EMERGENCY PLAN',
-    vibe: 'pop',
+    title: 'THE PERFECT RESTAURANT',
+    vibe: 'real-life',
     scenario: [
-      'Dwight from The Office gives everyone a detailed emergency plan for a building fire.',
-      'It sounds ridiculous, he is extremely confident, and nobody wants to listen to a fifteen-minute lecture from Dwight.'
+      'You are choosing dinner in a city you have never visited.',
+      'Restaurant A has 4.9 stars from 2,000 reviews. Restaurant B has 4.2 stars from 300 reviews, but two people you trust say B is much better.'
     ],
-    prompt: 'Read his plan or ignore Dwight?',
-    choices: ['Read it', 'Ignore it'],
+    prompt: 'Which place are you picking?',
+    choices: ['4.9-star place', 'Friend recommendation'],
     twist: [
-      'Most of the plan is over-the-top nonsense.',
-      'But one page correctly identifies a blocked emergency exit that nobody else noticed.'
+      'You learn Restaurant A offered free desserts for five-star reviews.',
+      'Restaurant B never asked customers to review anything.'
     ],
-    afterPrompt: 'Does a bad source make every claim from that source false?',
-    hostPrompts: ['Can an annoying person still be right?', 'How do you separate the claim from the person?']
+    afterPrompt: 'Should all evidence get equal weight just because it looks numerical?',
+    hostPrompts: ['What makes a source reliable?', 'Does a bigger number always mean stronger evidence?']
   },
   {
     id: 11,
-    title: 'ONE DELETED SEARCH',
-    vibe: 'nostalgia',
+    title: 'THE HOUSE RULE',
+    vibe: 'funny',
     scenario: [
-      'Someone offers you $250,000.',
-      'In return, your complete internet history from age 15 to 22 gets sent to your closest friends, spouse or future spouse, and parents.'
+      'Four friends are playing a game for $20 each.',
+      'One guy explains a house rule that helps him win a round. Everyone accepts it.'
     ],
-    prompt: 'Taking the money?',
-    choices: ['Take it', 'Keep my dignity'],
+    prompt: 'Rule is locked in now?',
+    choices: ['Yes', 'No'],
     twist: [
-      'You may permanently delete exactly one search before the file is sent.',
-      'Everyone will see a giant line saying: ONE ITEM DELETED.'
+      'Two rounds later, the exact same rule makes him lose.',
+      'He immediately says, “Obviously that rule does not apply in this situation.”'
     ],
-    afterPrompt: 'Delete one or leave everything?',
-    hostPrompts: ['Is the mystery worse than the history?', 'How much should teenage-you count against adult-you?']
+    afterPrompt: 'What would justify an exception besides the fact that he is losing?',
+    hostPrompts: ['Would you accept his explanation if the rule hurt you instead?', 'Where do people change standards halfway through?']
   },
   {
     id: 12,
-    title: 'THREE GPS APPS',
-    vibe: 'real-life',
+    title: 'THE FOUR HOMES',
+    vibe: 'deeper',
     scenario: [
-      'You are driving back from a cabin at night with barely enough gas for one wrong detour.',
-      'Three offline maps agree on your location and the nearby roads. One says turn north, one says south, and one says the road ahead does not exist.'
+      'Four children grow up in four very different homes.',
+      'Each family teaches different ideas about money, relationships, success, right and wrong, and what a “normal life” looks like.'
     ],
-    prompt: 'Can all three be right about the turn?',
-    choices: ['Yes', 'No'],
+    prompt: 'At age 18, how much did each kid actually choose?',
+    choices: ['Most of it', 'Very little'],
     twist: [
-      'All three are accurate about almost everything else in the area.',
-      'They still directly disagree on the turn that decides whether you get home.'
+      'At age 30, all four still describe their own upbringing as “basically common sense.”',
+      'None can remember when they first decided those ideas were true.'
     ],
-    afterPrompt: 'Does being right about many things erase one direct contradiction?',
-    hostPrompts: ['What would you verify next?', 'Can opposite directions both be right in the same sense?']
+    afterPrompt: 'How do you test a belief that feels obvious mainly because it has always been there?',
+    hostPrompts: ['Does inherited automatically mean wrong?', 'Which beliefs are hardest to recognize as inherited?']
   },
   {
     id: 13,
-    title: 'JURASSIC PARK DELIVERY',
-    vibe: 'pop',
+    title: 'THE INVISIBLE CAMERA',
+    vibe: 'moral',
     scenario: [
-      'John Hammond offers to deliver one baby dinosaur to your house for free.',
-      'You choose the species. It is legal, healthy, and yours forever.'
+      'Your boss accidentally leaves a $200 gift card on the break-room table.',
+      'You know exactly who it belongs to. Nobody else is around, and the security camera has been broken for weeks.'
     ],
-    prompt: 'Taking one?',
-    choices: ['Obviously', 'Absolutely not'],
+    prompt: 'Does the broken camera matter to your decision?',
+    choices: ['Yes', 'No'],
     twist: [
-      'It grows to full size.',
-      'You are responsible for food, fencing, neighbours, insurance, cleanup, and whatever happens if it escapes.'
+      'The next morning your boss says the card was a birthday gift from his daughter.',
+      'He has no idea where he lost it.'
     ],
-    afterPrompt: 'Which dinosaur are you still crazy enough to choose?',
-    hostPrompts: ['What sounded fun before the consequences arrived?', 'What is your containment plan?']
+    afterPrompt: 'If an action only changes when nobody can see you, what was actually controlling the action?',
+    hostPrompts: ['Would your answer change if the camera worked?', 'What is the difference between reputation and character?']
   },
   {
     id: 14,
-    title: 'THE PERFECT LIAR',
-    vibe: 'mystery',
+    title: 'THE RED ENVELOPE',
+    vibe: 'deeper',
     scenario: [
-      'Two people tell you opposite stories about the same event.',
-      'Person A is calm, confident, detailed, and looks you straight in the eye. Person B is nervous, awkward, and keeps forgetting small details.'
+      'A sealed red envelope contains one guaranteed true statement about your life.',
+      'It could confirm something important, or prove one belief you have held for years is badly wrong.'
     ],
-    prompt: 'Who sounds more believable?',
-    choices: ['Person A', 'Person B', 'Need evidence'],
+    prompt: 'Open it or burn it?',
+    choices: ['Open it', 'Burn it'],
     twist: [
-      'A security camera shows Person B was telling the truth.',
-      'Person A was simply much better at telling a story.'
+      'Nobody will ever know which choice you made.',
+      'If you open it, you cannot forget what you learn.'
     ],
-    afterPrompt: 'How much should confidence count as evidence?',
-    hostPrompts: ['What makes someone seem trustworthy?', 'How often do presentation skills fool us?']
+    afterPrompt: 'Do you want the truth equally when nobody is watching and the answer may cost you something?',
+    hostPrompts: ['What kind of answer would make you hesitate?', 'Can comfort become a reason not to know?']
   },
   {
     id: 15,
-    title: 'THE MYSTERY MACHINE',
-    vibe: 'weird',
+    title: 'THE MYSTERY TOOL',
+    vibe: 'mystery',
     scenario: [
-      'You buy a strange machine at an estate sale with no label or instructions.',
-      'It charges a phone, warms coffee, opens jars, and makes a great doorstop. Everyone has a different idea about what it was built for.'
+      'You find a strange metal tool in a box with no label.',
+      'It works as a bottle opener, a doorstop, a scraper, and a phone stand. Everyone starts arguing about what it was made for.'
     ],
-    prompt: 'Can the users figure out its real purpose just from using it?',
-    choices: ['Probably', 'Not for sure'],
+    prompt: 'Can the users decide its real purpose?',
+    choices: ['Yes', 'Not necessarily'],
     twist: [
-      'You find the original designer.',
-      'He says those are side effects. He built it to detect a dangerous gas leak before humans can smell it.'
+      'The manufacturer’s diagram turns up.',
+      'It was designed for one specific repair job nobody guessed. All the other uses still work.'
     ],
-    afterPrompt: 'Who knows the intended purpose best: users or maker?',
-    hostPrompts: ['Is usefulness the same as intended purpose?', 'Can something have many uses but one original purpose?']
+    afterPrompt: 'Can something have many useful functions and still have an intended purpose the users did not invent?',
+    hostPrompts: ['Is usefulness the same as intended purpose?', 'Who is in the best position to explain why something was made?']
   },
   {
     id: 16,
-    title: 'THE $2 MILLION SECRET',
-    vibe: 'choices',
+    title: 'GTA ADMIN MODE',
+    vibe: 'pop',
     scenario: [
-      'You get $2 million cash today.',
-      'The only condition is that your best friend can never know you received it.'
+      'You are playing GTA with every cheat enabled: unlimited health, weapons, money, vehicles, and no police problem you cannot escape.',
+      'Inside the game, you can do almost anything a normal character cannot.'
     ],
-    prompt: 'Taking the money?',
-    choices: ['Take it', 'No'],
+    prompt: 'Inside GTA, are you basically the highest power?',
+    choices: ['Pretty much', 'No'],
     twist: [
-      'Your friend later loses his job and asks to borrow $8,000.',
-      'You can help him, but if he ever discovers where your money came from, you lose everything you have left.'
+      'Your little brother walks into the room and pulls the console plug.',
+      'Your entire “world” disappears instantly, cheats included.'
     ],
-    afterPrompt: 'Helping him or protecting the deal?',
-    hostPrompts: ['What would make you suspicious if the roles were reversed?', 'How much does secrecy change a friendship?']
+    afterPrompt: 'Can something be ultimate inside a system if its power and existence still depend on something outside it?',
+    hostPrompts: ['What mattered more: huge power or independence?', 'What was your character depending on the whole time?']
   },
   {
     id: 17,
-    title: 'GTA GOD MODE',
-    vibe: 'pop',
+    title: 'YOUR INTERNET VS HIS INTERNET',
+    vibe: 'internet',
     scenario: [
-      'You are playing GTA with every cheat turned on.',
-      'Infinite health, unlimited weapons, unlimited money, any car you want. Inside the game, almost nothing can stop you.'
+      'You and a friend strongly disagree about an issue.',
+      'You open your feeds and see experts, clips, comments, and videos supporting your side. He opens his phone and sees the same thing supporting his.'
     ],
-    prompt: 'Are you basically all-powerful inside that world?',
-    choices: ['Pretty much', 'Not really'],
+    prompt: 'Whose feed proves the point?',
+    choices: ['Mine', 'His', 'Neither by itself'],
     twist: [
-      'Your little brother walks past the console and pulls the power cable.',
-      'Your entire world disappears instantly.'
+      'You both open brand-new accounts and the recommendations change within an hour based on what each of you clicks.',
+      'Your old feeds had spent years learning what kept you watching.'
     ],
-    afterPrompt: 'Can something be ultimate if its existence depends on something outside itself?',
-    hostPrompts: ['What were all your powers depending on?', 'Is power the same as independence?']
+    afterPrompt: 'How much of “everyone I see agrees” might really mean “my feed knows me”?',
+    hostPrompts: ['What should outrank an algorithm?', 'When was the last time you checked the original source?']
   },
   {
     id: 18,
-    title: 'THE ALGORITHM RESET',
-    vibe: 'internet',
+    title: 'BET YOUR CAR',
+    vibe: 'deeper',
     scenario: [
-      'You and a friend argue about something important. Both of you say, “The evidence is everywhere.”',
-      'You open your feeds and nearly every video supports you. He opens his and nearly every video supports him.'
+      'Think of an opinion you are very confident about.',
+      'Now imagine a fair machine can reveal whether you are correct. If you are wrong, your car disappears. If you are right, you get a second identical car.'
     ],
-    prompt: 'Whose feed is showing reality?',
-    choices: ['Mine', 'His', 'Neither proves it'],
+    prompt: 'Making the bet?',
+    choices: ['Bet the car', 'Not that confident'],
     twist: [
-      'You both make fresh accounts with no history.',
-      'The recommendations look completely different because your old feeds had spent years learning what kept each of you watching.'
+      'You are allowed to research as long as you want before deciding.',
+      'The machine does not care how strongly you feel. It only checks whether the claim is actually true.'
     ],
-    afterPrompt: 'How much can “everyone I see agrees” actually prove?',
-    hostPrompts: ['What would you check outside your feed?', 'When did your internet become personalized?']
+    afterPrompt: 'What would you investigate differently once confidence has a real cost?',
+    hostPrompts: ['Which beliefs feel certain until something is at stake?', 'Does confidence measure truth?']
   },
   {
     id: 19,
-    title: 'THE CLONE AT THE DOOR',
-    vibe: 'weird',
+    title: 'THE ONE RING FOR A WEEK',
+    vibe: 'pop',
     scenario: [
-      'Someone knocks on your door who looks exactly like you.',
-      'Same voice, same memories, same scars, same passwords, same childhood stories. He calmly says you are the clone and he is the original.'
+      'You get the One Ring for seven days. You know what it did to other people, but you also know you only have to resist it for one week.',
+      'You could use it for money, revenge, curiosity, or just one harmless prank.'
     ],
-    prompt: 'What is the first thing you test?',
+    prompt: 'Use it once or refuse it completely?',
+    choices: ['Use it once', 'Refuse it'],
     twist: [
-      'DNA matches. Fingerprints match. Your family cannot tell. Even your private memories match.',
-      'Only one of you can keep your current life.'
+      'Everyone who was corrupted by it also had a reason they thought was different.',
+      'Most of them believed they could control it better than the people before them.'
     ],
-    afterPrompt: 'What makes you “you” if every measurable detail can be copied?',
-    hostPrompts: ['Would memory settle it?', 'What would you refuse to give up?']
+    afterPrompt: 'How strong is “I know myself” when the evidence says people are bad at seeing their own weakness?',
+    hostPrompts: ['Why are other people’s blind spots easier to see?', 'What evidence about yourself should count?']
   },
   {
     id: 20,
-    title: 'THE TRUMAN SHOW EXIT',
-    vibe: 'pop',
+    title: 'TEN YEARS LATER',
+    vibe: 'real-life',
     scenario: [
-      'You discover your life has been a Truman Show-style set.',
-      'Inside, life is comfortable: no mortgage, little stress, your friends stay nearby, and somehow the Leafs win the Cup every few years. There is one exit to the real world.'
+      'A future version of you appears for two minutes.',
+      'He has the same basic habits you have now, just repeated for ten more years: the same sleep habits, spending habits, screen habits, exercise habits, and way of handling people.'
+    ],
+    prompt: 'Are you happy to become him?',
+    choices: ['Yes', 'No'],
+    twist: [
+      'He tells you there was no single disaster and no huge turning point.',
+      'Small choices simply kept becoming normal.'
+    ],
+    afterPrompt: 'If you dislike the outcome but keep the causes, what exactly are you expecting to change?',
+    hostPrompts: ['Which habit compounds the most?', 'What result do people want without accepting the causes that produce it?']
+  },
+  {
+    id: 21,
+    title: 'THE 9–1 VOTE',
+    vibe: 'moral',
+    scenario: [
+      'Ten friends rent a cabin for the weekend.',
+      'Nine vote that the tenth guy has to sleep on the floor so they can turn his bedroom into a gaming room.'
+    ],
+    prompt: 'Does a 9–1 vote make it fair?',
+    choices: ['Yes', 'No'],
+    twist: [
+      'The next weekend you are the tenth person.',
+      'Everyone uses your exact argument from last time.'
+    ],
+    afterPrompt: 'Should a rule still feel fair when you are the minority?',
+    hostPrompts: ['Does majority agreement settle what is right?', 'What protects someone when the crowd benefits from ignoring them?']
+  },
+  {
+    id: 22,
+    title: 'BEST PHONE EVER',
+    vibe: 'funny',
+    scenario: [
+      'Two friends argue for twenty minutes about the “best phone ever made.”',
+      'One keeps talking about camera quality. The other keeps talking about battery life, durability, and price.'
+    ],
+    prompt: 'Who is winning the argument?',
+    choices: ['Camera guy', 'Battery guy', 'Nobody yet'],
+    twist: [
+      'They finally realize they have been using the word “best” to mean two different things.',
+      'Once they agree on the criteria, half the argument disappears.'
+    ],
+    afterPrompt: 'How many arguments are really disagreements about definitions?',
+    hostPrompts: ['What word needs defining before this debate starts?', 'Can two people both be right under different meanings?']
+  },
+  {
+    id: 23,
+    title: 'THE PERFECT FAKE TOWN',
+    vibe: 'deeper',
+    scenario: [
+      'You discover your town is an artificial set built around you.',
+      'Inside, life is easy: cheap housing, no traffic, perfect weather, your favourite food everywhere, and everyone treats you well. There is one exit to the real world.'
     ],
     prompt: 'Stay or leave?',
     choices: ['Stay', 'Leave'],
     twist: [
-      'Outside is ordinary life: bills, traffic, bad weather, uncertainty, and normal Leafs hockey.',
-      'But outside is real.'
+      'Outside is ordinary life: bills, bad weather, difficult people, uncertainty, and no guarantee you will be happier.',
+      'But it is real.'
     ],
-    afterPrompt: 'How much comfort would it take to make you choose something you knew was fake?',
-    hostPrompts: ['Does comfort change what is true?', 'Would your answer change if your family wanted to stay?']
-  },
-  {
-    id: 21,
-    title: 'THE OLD FRIEND’S BUSINESS',
-    vibe: 'real-life',
-    scenario: [
-      'Your friend has spent three years and $60,000 building a side business.',
-      'It has never made a profit. He hates working on it now, but keeps saying, “I have put too much into this to stop.”'
-    ],
-    prompt: 'Keep going or walk away?',
-    choices: ['Keep going', 'Walk away'],
-    twist: [
-      'A new opportunity appears that he actually enjoys and has better numbers.',
-      'He refuses because quitting the old business would make the last three years feel wasted.'
-    ],
-    afterPrompt: 'Should past cost decide the next three years?',
-    hostPrompts: ['When does persistence become stubbornness?', 'What matters more: money already spent or future opportunity?']
-  },
-  {
-    id: 22,
-    title: 'THE ONE WRONG BELIEF',
-    vibe: 'deeper',
-    scenario: [
-      'A machine scans your brain and prints one sentence:',
-      '“One major thing you currently believe is completely wrong.” It refuses to say which belief.'
-    ],
-    prompt: 'What part of your life do you investigate first?',
-    choices: ['Money', 'Family', 'Health', 'Politics', 'Right & wrong', 'Life direction'],
-    twist: [
-      'The false belief entered your head before age 18.',
-      'You cannot remember ever choosing it. You simply heard it enough times that it became normal.'
-    ],
-    afterPrompt: 'How do you test something that has always felt obvious?',
-    hostPrompts: ['Which beliefs have you never had to defend?', 'Does inherited automatically mean false?']
-  },
-  {
-    id: 23,
-    title: 'THE LAST 24 HOURS',
-    vibe: 'deeper',
-    scenario: [
-      'You know with absolute certainty that you have 24 healthy hours left.',
-      'Nothing can extend the time. You are not allowed to spend it trying to stop the clock.'
-    ],
-    prompt: 'What gets your first six hours?',
-    twist: [
-      'Your unread emails, job title, bank balance, unfinished shows, online arguments, and shopping cart will all still exist tomorrow.',
-      'You will not.'
-    ],
-    afterPrompt: 'What suddenly became important, and what suddenly looked ridiculous?',
-    hostPrompts: ['What would you regret leaving unfixed?', 'Why do some priorities change only when time becomes visible?']
+    afterPrompt: 'If comfort and truth point in different directions, which one should win?',
+    hostPrompts: ['How much comfort could make you accept something you knew was false?', 'Does an unpleasant truth become less true?']
   },
   {
     id: 24,
-    title: 'THE PHONE RECEIPT',
-    vibe: 'real-life',
+    title: 'THE ONE FACT',
+    vibe: 'deeper',
     scenario: [
-      'You list the five things you say matter most in your life.',
-      'Then your phone generates a brutally accurate report showing where your free time actually went for the last twelve months.'
+      'Pick one belief or opinion you hold strongly.',
+      'A stranger offers you $10,000 if you can name one realistic fact that, if proven, would make you change your mind.'
     ],
-    prompt: 'Would your list and your time match?',
-    choices: ['Mostly', 'Not even close'],
+    prompt: 'Can you name one?',
+    choices: ['Yes', 'Nothing would change it'],
     twist: [
-      'The report also predicts the next ten years by simply continuing your current habits.',
-      'No dramatic disaster. Just more of the same.'
+      'If your answer is “nothing,” you do not get the money.',
+      'The stranger asks: “Then are you protecting a conclusion, or investigating whether it is true?”'
     ],
-    afterPrompt: 'Which tells the truth about your priorities: what you say, or what you repeatedly do?',
-    hostPrompts: ['What habit would you least want multiplied by ten years?', 'What would have to change this week?']
+    afterPrompt: 'Should a strong belief still be allowed to lose?',
+    hostPrompts: ['What evidence would genuinely move you?', 'Would you demand the same openness from someone who disagrees with you?']
   }
 ];
 
 const CHAOS_MODIFIERS = [
   {
     name: 'SWITCH SIDES',
-    text: 'For 30 seconds, defend the opposite answer as strongly as you can.'
+    text: 'For 30 seconds, argue the opposite answer as strongly as you can.'
   },
   {
     name: 'SHOW RECEIPTS',
-    text: 'Give one actual reason or piece of evidence for your answer. No vibes.'
+    text: 'Give the single strongest piece of evidence for your answer. No vibes.'
   },
   {
     name: 'NO AUDIENCE',
-    text: 'Nobody you know will ever hear your answer. Do you still choose the same thing?'
+    text: 'Nobody you know will ever hear your answer. Does your choice change?'
+  },
+  {
+    name: 'SOURCE CHECK',
+    text: 'What source are you trusting most, and why should anyone trust it?'
   },
   {
     name: 'BET $100',
-    text: 'You lose $100 if your answer turns out badly. Same choice?'
+    text: 'Put a confidence number on your answer. Would you bet $100 at those odds?'
+  },
+  {
+    name: 'FULL CLIP',
+    text: 'What missing context could completely change your answer?'
   },
   {
     name: 'SAME RULE',
