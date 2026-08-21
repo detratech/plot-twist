@@ -1,0 +1,41 @@
+name: Validate Plot Twist
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Check JavaScript syntax
+        run: |
+          node --check cards.js
+          node --check deck-a.js
+          node --check deck-b.js
+          node --check deck-c.js
+          node --check deck-d.js
+          node --check deck-e.js
+          node --check deck-f.js
+          node --check deck-g.js
+          node --check deck-h.js
+          node --check categories.js
+          node --check app.js
+          node --check sw.js
+          node --check validate-content.cjs
+
+      - name: Audit complete 200-card deck
+        run: node validate-content.cjs
