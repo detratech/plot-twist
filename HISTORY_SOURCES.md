@@ -1,0 +1,49 @@
+# Plot Twist Historical Example Source Ledger
+
+This file is an editorial/research record. It is **not loaded by the game** and is not part of the player-facing PWA.
+
+The goal is one research entry for every internal card ID. Internal IDs are included here only because they are the stable key connecting the source ledger to `HISTORICAL_EXAMPLES`; the game itself does not display them.
+
+Selection standard:
+
+- Prefer a primary, official, academic, museum, archival, or otherwise high-quality source.
+- Prefer a recognizable example when it genuinely clarifies the card.
+- Accuracy and fit outrank fame. Popular historical anecdotes are removed or narrowed when the neat version is disputed.
+- The game text should state only what the cited source can reasonably support.
+- A historical example illustrates the principle; it is not presented as proof that every modern situation works the same way.
+
+## IDs 1–25
+
+| ID | Example used in game | Research source | What the source supports |
+|---:|---|---|---|
+| 1 | Congenital insensitivity to pain | [NCBI GeneReviews](https://www.ncbi.nlm.nih.gov/books/NBK481553/) | Congenital inability to perceive pain can lead to repeated injuries because a normally protective warning signal is absent. |
+| 2 | Space Shuttle Challenger · 1986 | [Rogers Commission, Chapter V (NASA)](https://www.nasa.gov/history/rogersrep/v1ch5.htm) | The launch decision was flawed; contractor engineers had raised cold-temperature/O-ring concerns before launch. |
+| 3 | Hubble Space Telescope mirror flaw · 1990 | [NASA: Hubble's Mirror Flaw](https://science.nasa.gov/mission/hubble/observatory/design/optics/hubbles-mirror-flaw/) | Hubble's primary mirror was precisely fabricated to the wrong shape because the null-corrector test equipment was incorrectly configured. |
+| 4 | Apple Maps / Mildura · 2012 | [ABC News: Apple Maps strands motorists](https://www.abc.net.au/news/2012-12-10/apple-maps-strands-motorists-looking-for-mildura/4418400) | Victoria Police reported rescuing drivers after Apple Maps directed them into a remote national park rather than Mildura. |
+| 5 | Franklin commission on mesmerism · 1784 | [National Library of Medicine / PMC: 1784 commission report](https://pmc.ncbi.nlm.nih.gov/articles/PMC5550075/) | Franklin and fellow commissioners formally investigated claims of animal magnetism using comparative/controlled observations rather than relying on reported sensations alone. |
+| 6 | Apollo 13 · 1970 | [NASA: Apollo 13, the Successful Failure](https://www.nasa.gov/missions/apollo/apollo-13-the-successful-failure/) | Engineers improvised a method to make square command-module lithium-hydroxide canisters work with the lunar module's round openings while responding to an unfolding emergency. |
+| 7 | Tenerife and crew resource management · 1977 | [FAA: Crew Resource Management threat category](https://www.faa.gov/lessons_learned/transport_airplane/accidents/threat_categories) | FAA materials identify Tenerife under Crew Resource Management and explain that inadequate cockpit communication and unquestioned captain authority drove the development of CRM practices. |
+| 8 | Ramanujan writes to G. H. Hardy · 1913 | [University of Cambridge: Ramanujan and Hardy](https://www.cam.ac.uk/research/news/opinion-the-man-who-taught-infinity-how-gh-hardy-tamed-srinivasa-ramanujans-genius) | Other mathematicians had dismissed Ramanujan before Hardy examined the mathematics in his 1913 letter and recognized its significance. |
+| 9 | Boeing Model 299 crash / checklist · 1935 | [Smithsonian National Air and Space Museum](https://airandspace.si.edu/air-and-space-quarterly/winter-2023/set-checked) | The sophisticated Model 299 crashed after the gust lock was not released; checklist practice emerged as a response to the growing complexity of aircraft operation. |
+| 10 | Zapruder film · 1963 | [U.S. National Archives: JFK records FAQ](https://www.archives.gov/research/jfk/faqs) | The original Zapruder film is an independently preserved visual record within the JFK assassination collection. The game uses it only as an example of a different evidence type that can be compared with testimony. |
+| 11 | Deepwater Horizon / Macondo · 2010 | [National Commission report via GovInfo](https://www.govinfo.gov/content/pkg/GPO-OILCOMMISSION/pdf/GPO-OILCOMMISSION.pdf) | The disaster involved specific engineering/operating choices as well as failures of regulatory oversight and risk-management systems; mechanism and organizational causation can coexist. |
+| 12 | James Lind and scurvy · 1747 | [Royal Navy medical history review / PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC6399651/) | Lind compared multiple scurvy treatments under similar conditions; the sailors receiving citrus showed the clearest recovery, while later adoption required more than inherited medical custom. |
+| 13 | Annette Kellerman and changing swimwear norms · early 1900s | [Smithsonian: Kellerman and changing swimwear](https://www.smithsonianmag.com/arts-culture/the-return-of-mermaidcore-180982255/) | Kellerman publicly advocated practical fitted one-piece swimwear for women and helped normalize styles that had previously violated strong social expectations. The game does **not** rely on the disputed arrest anecdote. |
+| 14 | Pullman company town and strike · 1894 | [National Park Service historic resource study](https://www.nps.gov/pull/learn/management/upload/Pullman_HRS_Access3-2-1-131_compressed_508-compressed.pdf) | Pullman workers' wages fell sharply while company-town housing and employer power remained major parts of the dispute that led to the strike. |
+| 15 | Rosa Parks / Montgomery bus boycott · 1955 | [National Park Service: Rosa Parks](https://www.nps.gov/people/rosa-parks.htm) | Parks was arrested under segregation rules; her action helped launch the Montgomery bus boycott and the legal/political challenge to those rules. |
+| 16 | Cold fusion announcement · 1989 | [American Physical Society history](https://www.aps.org/apsnews/2009/04/focus-on-aps-topical-groups) and [Physical Review Letters replication test](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.63.1926) | Fleischmann and Pons' highly publicized claim was rapidly challenged; independent tests failed to reproduce fusion at the reported rate. |
+| 17 | Einstein and Newtonian physics · 1905–1915 | [Einstein Online: Step by step from Newton to Einstein](https://www.einstein-online.info/en/spotlight/postnewton/) | Newtonian gravity remains an excellent approximation under weak-gravity/low-velocity conditions while relativity supplies corrections outside that range. |
+| 18 | Japanese American incarceration · 1942 | [U.S. National Archives: Executive Order 9066](https://www.archives.gov/milestone-documents/executive-order-9066) | Executive Order 9066 led to forced removal and incarceration of Japanese Americans on the basis of broad ancestry/security classifications rather than individualized criminal findings. |
+| 19 | McCarthy-era guilt by association · 1950s | [Library of Congress: A Climate of Fear](https://www.loc.gov/exhibits/hope-for-america/a-climate-of-fear.html) | Blacklists, investigations, accusations, and associative suspicion cost people work and reputation in an atmosphere where alleged connections often substituted for demonstrated misconduct. |
+| 20 | Paul Revere's Boston Massacre engraving · 1770 | [Library of Congress: Revere engraving](https://www.loc.gov/item/2008661777/) and [LOC discussion of its propaganda role](https://blogs.loc.gov/bibliomania/2026/03/11/the-engravings-of-paul-revere/) | Revere's widely circulated image showed a simplified orderly volley into civilians; later historical treatment recognizes the actual confrontation as more chaotic. A genuine event can be framed misleadingly by a powerful image. |
+| 21 | Associated Press Twitter hack · 2013 | [Twitter SEC filing](https://www.sec.gov/Archives/edgar/data/1418091/000119312513390321/d564001ds1.htm) | Attackers compromised the AP account and falsely reported White House explosions; the false report triggered a stock-market decline before correction. The audited game copy deliberately avoids an unnecessary disputed dollar estimate. |
+| 22 | Frigaliment “What is chicken?” case · 1960 | [Frigaliment Importing Co. v. B.N.S. International Sales Corp.](https://law.justia.com/cases/federal/district-courts/FSupp/190/116/1622834/) | Judge Friendly had to resolve competing meanings of “chicken” using contract language, negotiations, trade usage, regulations, and pricing rather than treating the word as context-free. |
+| 23 | H. pylori and peptic ulcers · 1980s | [Nobel Prize 2005 press release](https://www.nobelprize.org/prizes/medicine/2005/press-release/) | Marshall and Warren established the role of H. pylori in gastritis and peptic ulcer disease, overturning dominant stress/acid-centered explanations while explaining why earlier symptom treatments could still help. |
+| 24 | World War II alliance · 1941–1945 | [U.S. Office of the Historian: Wartime Conferences](https://history.state.gov/milestones/1937-1945/war-time-conferences) | The wartime Allies coordinated against the Axis despite major differences in political systems and postwar interests. Immediate cooperation did not erase deeper incompatible aims. |
+| 25 | Play-Doh reinvention · 1950s | [The Strong National Museum of Play](https://www.museumofplay.org/blog/the-history-of-play-doh-good-clean-fun/) | The compound began as wallpaper cleaner, lost its original market as heating changed, and was deliberately repurposed into a children's modeling toy after classroom use showed a better function. |
+
+## Audit status
+
+- IDs 1–25: source pass complete.
+- IDs 26–200: source ledger still in progress.
+- `history-reviewed.js` may replace a draft example when research shows a stronger fit or a popular anecdote is too simplified.
