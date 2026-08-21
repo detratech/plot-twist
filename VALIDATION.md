@@ -2,27 +2,22 @@
 
 Validation performed on the revised source:
 
-- JavaScript syntax checks passed for `cards.js`, `app.js`, and `sw.js`.
-- `manifest.webmanifest` parses as valid JSON.
+- JavaScript syntax checks passed for `cards.js`.
 - Deck contains exactly 24 unique cards.
-- The main game uses a fixed intentional order so the experience can progress from funny/easy scenarios into more demanding reasoning.
-- `Random Card` remains available as an optional off-sequence utility.
-- Ten universal MCU-themed Chaos pressure tests are included and each can apply to any card.
-- Essential PWA assets all exist locally.
-- PWA icons are valid 192×192 and 512×512 PNGs, including a 512×512 maskable icon.
-- Runtime files contain no external CDN, remote-font, analytics, authentication, or API dependencies.
-- The service worker precaches the complete essential app shell and uses cached `index.html` for navigation when offline.
-- `manifest.webmanifest` requests `standalone` display mode and a dark theme/background.
-- Game state persists deck order, current position, reveal state, saved cards, and settings in `localStorage`.
-- The fallback HTML contains its CSS, scenario data, and application JavaScript inline and has no runtime network dependency.
+- Start Game shuffles the full deck rather than following a fixed curriculum order.
+- Ten universal Chaos pressure tests are included and can apply to any card.
+- The revised deck mixes absurd hypotheticals, everyday life, internet culture, social norms, privacy, sports, consumer choices, a small amount of mainstream pop culture, and deeper thought experiments.
 - User-facing cards do not name the underlying worldview or theological themes.
+- The service-worker cache version was bumped to `plot-twist-v4.2.0` so installed devices can replace the previous deck.
+- Runtime design remains local/offline-first with no external CDN, remote font, analytics, authentication, or API dependency.
+- The PWA manifest, app shell, saved-card system, local state persistence, Wake Lock option, and install flow were not structurally changed in this content revision.
 
 ## Content design check
 
-The 24-card sequence deliberately starts with mainstream MCU humour and easy reasoning mistakes (showmanship, correlation, repeated sources, context, definitions), then moves into consistent standards, inherited assumptions, majority pressure, truth versus comfort, intended purpose, dependence, mechanism versus purpose, habits, priorities, and willingness to change one’s mind. Major non-MCU references are limited to widely recognizable films and franchises such as *Inception*, *Harry Potter*, *Pirates of the Caribbean*, *The Dark Knight*, *The Matrix*, *Jurassic Park*, *GTA*, *The Truman Show*, *The Lord of the Rings*, *Back to the Future*, and *Click*.
+Every card now pressure-tests at least one useful thinking habit while varying the surface subject enough that the deck does not feel like a repeated lesson. Themes include consequences, context-dependent social norms, popularity versus evidence, pluralistic ignorance, consistent evidence standards, privacy versus convenience, default effects, curated authenticity, repeated-source illusions, reinforcement of outrage, novelty bias, illusion of explanatory depth, in-group double standards, attitude-behaviour gaps, algorithmic curation, private versus public morality, stated priorities versus actual attention, source verification, self-exemption, truth versus comfort, intended purpose, falsifiability, and cause-and-effect over time.
 
-The scenarios are written as analogies and discussion prompts, not as proofs. The intended learning pattern is to make players use the same standards of evidence and reasoning in playful contexts before the later cards ask harder questions.
+The scenarios are analogies and discussion prompts, not proofs. Several cards deliberately avoid a single obviously “correct” moral answer so discussion does not become a hunt for the answer the game wants.
 
 ## Device-specific final check
 
-A real Android/Chrome installation cannot be physically certified from the build environment. Before relying on the app offline, perform the README airplane-mode test on the actual phone. That verifies the browser version, Android launcher, service-worker storage, and installed-app behaviour on the real device.
+A real Android/Chrome installation cannot be physically certified from this environment. Before relying on the app offline, perform the README airplane-mode test on the actual phone. That verifies the browser version, Android launcher, service-worker storage, and installed-app behaviour on the real device.
