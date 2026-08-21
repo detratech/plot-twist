@@ -11,6 +11,7 @@
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="categories.css">
+  <link rel="stylesheet" href="game-v6.2.css">
   <title>Plot Twist</title>
 </head>
 <body>
@@ -131,11 +132,11 @@
           <li>Pick one or more topics on the home screen, or leave <b>Mix Everything</b> selected.</li>
           <li>Start Game shuffles only the topics you picked.</li>
           <li>Read the scenario aloud.</li>
-          <li>Choose one of the two answer bubbles. Both are meant to be defensible before the reveal.</li>
+          <li>Choose one of the two big sides. Both are meant to be defensible before the reveal.</li>
           <li>No “it depends” escape tunnel until after you commit.</li>
           <li>Defend your answer. Roasting the argument is allowed. Roasting the person is lazy.</li>
           <li>Reveal the Plot Twist. It adds information you did not have when you chose, so switching sides is completely allowed.</li>
-          <li>Read <b>The Point</b>. That is the principle the whole dilemma was built to expose.</li>
+          <li>Read <b>The Point</b>, answer the follow-up question, then use the <b>Real-World Example</b> to see how the same tension has appeared outside the game.</li>
           <li>Use <b>Where This Can Go</b> if the group wants to keep digging.</li>
           <li>Use <b>Chaos</b> when somebody is getting suspiciously comfortable with their own reasoning.</li>
         </ol>
@@ -149,7 +150,7 @@
         <h2 id="settingsTitle">Game Setup</h2>
         <label class="setting-row"><span><b>Keep Screen Awake</b><small id="wakeSupportText">Uses the browser wake lock when supported</small></span><input id="wakeToggle" type="checkbox"></label>
         <label class="setting-row"><span><b>Host Prompts</b><small>Show optional discussion nudges</small></span><input id="hostToggle" type="checkbox"></label>
-        <div class="setting-row"><span><b>App Version</b><small>Use this to confirm which build is loaded</small></span><strong>v6.1.1</strong></div>
+        <div class="setting-row"><span><b>App Version</b><small>Use this to confirm which build is loaded</small></span><strong>v6.2.0</strong></div>
         <button id="resetButton" class="btn btn-danger">RESET GAME DATA</button>
       </div>
     </section>
@@ -192,7 +193,12 @@
   <script src="deck-f.js"></script>
   <script src="deck-g.js"></script>
   <script src="deck-h.js"></script>
+  <script src="history-a.js"></script>
+  <script src="history-b.js"></script>
+  <script src="history-c.js"></script>
+  <script src="history-d.js"></script>
   <script src="categories.js"></script>
   <script src="app.js"></script>
+  <script src="history-ui.js"></script>
 </body>
 </html>
