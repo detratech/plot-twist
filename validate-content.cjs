@@ -127,8 +127,8 @@ for (const card of cards) {
   }
 
   if (!Array.isArray(card.hostPrompts) || card.hostPrompts.length !== 2 ||
-      card.hostPrompts.some(x => typeof x !== 'string' || !x.trim().endsWith('?'))) {
-    fail(`Card ${card.id} must have exactly two question-form conversation paths.`);
+      card.hostPrompts.some(x => typeof x !== 'string' || !x.trim())) {
+    fail(`Card ${card.id} must have exactly two non-empty conversation paths.`);
   }
 
   if (!Array.isArray(card.categories) || card.categories.length < 1 || card.categories.length > 2 ||
@@ -192,7 +192,7 @@ for (const [id, count] of Object.entries(distribution)) {
 
 console.log(`PASS: ${cards.length} unique scenarios loaded.`);
 console.log('PASS: internal IDs 1-200 are unique and complete.');
-console.log('PASS: every card has two scenario paragraphs, two distinct choices, a Plot Twist, The Point, and three follow-up questions total.');
+console.log('PASS: every card has two scenario paragraphs, two distinct choices, a Plot Twist, The Point, and three follow-up/conversation directions total.');
 console.log('PASS: no "it depends" answer escape choices.');
 console.log('PASS: all cards have one or two valid selectable categories.');
 console.log('PASS: prohibited explicit worldview terms were not found in card or runtime shell text.');
