@@ -415,7 +415,7 @@ PLOT_TWIST_CARDS.push(
     vibe: 'absurd',
     scenario: [
       'An orchestra is accused of unfairness because the same people keep getting the same roles. Option A rotates everyone through instruments so opportunity is equal. Option B keeps specialization because the violinist has trained twenty years and the drummer’s relationship with the violin is currently under investigation.',
-      'Rotation may reveal hidden talent. Specialization may preserve excellence. The audience has purchased tickets and would like this philosophical dispute resolved before the overture.'
+      'Rotation may reveal hidden talent. Specialization may preserve excellence. The audience has purchased tickets and would like this fairness dispute resolved before the overture.'
     ],
     prompt: 'Rotate roles for equal opportunity, or keep different jobs when ability and responsibility differ?',
     choices: ['ROTATE — equal opportunity should be visible', 'SPECIALIZE — equal worth does not require identical function'],
