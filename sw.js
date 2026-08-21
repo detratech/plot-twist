@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_NAME = 'plot-twist-v4.4.0';
+const CACHE_NAME = 'plot-twist-v4.5.0';
 const APP_SHELL = [
   './',
   './index.html',
