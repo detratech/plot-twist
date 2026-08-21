@@ -249,15 +249,17 @@ const index = read('index.html');
 const sw = read('sw.js');
 const app = read('app.js');
 const manifest = read('manifest.webmanifest');
+const choiceUi = read('choice-ui.js');
 const historyUi = read('history-ui.js');
 const gameCss = read('game-v6.2.css');
-const runtimeStatic = [index, app, manifest, historyUi].join('\n');
-const runtimeFiles = [...DECK_FILES, ...HISTORY_FILES, 'game-v6.2.css', 'history-ui.js'];
+const runtimeStatic = [index, app, manifest, choiceUi, historyUi].join('\n');
+const runtimeFiles = [...DECK_FILES, ...HISTORY_FILES, 'game-v6.2.css', 'choice-ui.js', 'history-ui.js'];
 
 for (const file of [...DECK_FILES, ...HISTORY_FILES]) {
   if (!index.includes(`<script src="${file}"></script>`)) fail(`index.html does not load ${file}.`);
 }
 if (!index.includes('<link rel="stylesheet" href="game-v6.2.css">')) fail('index.html does not load game-v6.2.css.');
+if (!index.includes('<script src="choice-ui.js"></script>')) fail('index.html does not load choice-ui.js.');
 if (!index.includes('<script src="history-ui.js"></script>')) fail('index.html does not load history-ui.js.');
 for (const file of runtimeFiles) {
   if (!sw.includes(`'./${file}'`)) fail(`sw.js does not precache ${file}.`);
@@ -272,6 +274,10 @@ if (!index.includes('switching sides is completely allowed.')) fail('How to Play
 if (!index.includes('<b>Real-World Example</b>')) fail('How to Play does not explain the Real-World Example step.');
 if (!historyUi.includes("label.textContent = 'REAL-WORLD EXAMPLE'")) fail('Historical example UI label is missing.');
 if (!historyUi.includes("afterPrompt.insertAdjacentElement('afterend', box)")) fail('Historical example is not inserted immediately after the post-Point question.');
+if (!choiceUi.includes("raw.indexOf(' — ')")) fail('Choice UI does not split the decision label from its reason.');
+if (!choiceUi.includes("document.createElement('strong')") || !choiceUi.includes("document.createElement('small')")) {
+  fail('Choice UI does not render a prominent decision label plus secondary reason.');
+}
 if (!gameCss.includes('grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)')) fail('Choice UI is not locked to two side-by-side columns.');
 if (!gameCss.includes('.choice-wrap::before')) fail('Choice UI is missing the center divider.');
 if (!gameCss.includes("content: 'VS'")) fail('Choice UI is missing the VS marker.');
@@ -295,9 +301,9 @@ console.log('PASS: no "it depends" answer escape choices or obviously insulting 
 console.log('PASS: all cards have one or two valid selectable categories.');
 console.log('PASS: exactly 200 substantive real-world examples map one-to-one to the 200 cards.');
 console.log('PASS: prohibited explicit worldview terms and authoring/meta-instruction leaks were not found in cards, historical examples, or runtime shell text.');
-console.log('PASS: all eight deck files and all history layers are loaded and precached.');
+console.log('PASS: all eight deck files, all history layers, and both v6.2 presentation scripts are loaded and precached.');
 console.log('PASS: the post-Point question is followed by the Real-World Example layer.');
-console.log('PASS: the two answer choices are locked to a prominent left-vs-right layout with a divider.');
+console.log('PASS: the two answer choices are locked to a prominent left-vs-right layout with a divider, large decision label, and secondary reason.');
 console.log('PASS: the user-facing rules require two defensible choices and allow switching after the Plot Twist.');
 console.log('PASS: settings visibly reports app version v6.2.0.');
 console.log('PASS: deck version masterpiece-200-v1 and cache plot-twist-v6.2.0 are wired.');
