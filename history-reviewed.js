@@ -8,6 +8,10 @@ Object.assign(HISTORICAL_EXAMPLES, {
     title: 'Deepwater Horizon · 2010',
     text: 'The Macondo blowout involved concrete technical failures, but the presidential commission also found repeated failures in risk management and safe drilling practices across the companies involved. Explaining the physical mechanism did not erase the organizational decisions that allowed the danger to become a catastrophe.'
   },
+  21: {
+    title: 'Associated Press Twitter hack · 2013',
+    text: 'Attackers stole credentials for the Associated Press account and posted a false report of explosions at the White House. The bogus alert triggered a sharp stock-market decline before the claim was corrected. A trusted-looking source can move people and systems faster than verification can catch up.'
+  },
   22: {
     title: 'The “What is chicken?” contract case · 1960',
     text: 'A U.S. court literally had to decide what the word “chicken” meant in a sales contract: young broilers only, or older stewing birds too. Judge Henry Friendly examined negotiations, trade usage, pricing, and context because a dictionary definition alone could not settle what the parties had agreed to.'
