@@ -9,6 +9,8 @@ Offline-first Android-friendly social scenario game.
 - Start Game shuffles the full deck every time
 - Mixed scenario styles: absurd hypotheticals, everyday dilemmas, relationships, family chaos, internet culture, social norms, money, privacy, technology, group behaviour, a small amount of mainstream pop culture, and deeper thought experiments
 - Game-night-first tone: each card should be funny, awkward, ridiculous, competitive, relatable, or immediately intriguing before the deeper question lands
+- Two-sided card design: every main question should offer two genuinely defensible positions rather than a smart answer and a foolish answer
+- Two-sided Plot Twists: the reveal adds information that creates a new problem for both original choices instead of revealing which side was correct
 - Every card pressure-tests at least one useful thinking habit without making the deck feel like a lesson plan
 - Random Card mode
 - Hidden Plot Twist stage with reveal animation
@@ -25,13 +27,21 @@ Offline-first Android-friendly social scenario game.
 
 The deck is shuffled so players should not know whether the next card will be absurd, personal, social, technological, moral, political, or uncomfortable.
 
-The design rule is **fun setup, serious aftertaste**. A card should not begin like a lecture, worksheet, or abstract debate prompt. The group should want to answer before they realise what deeper assumption the card is testing.
+The first rule is **fun setup, serious aftertaste**. A card should not begin like a lecture, worksheet, or abstract debate prompt. The group should want to answer before they realise what deeper assumption the card is testing.
+
+The second rule is **both sides must make sense before the reveal**. Avoid escape-hatch options such as “it depends,” “show me the evidence,” or a joke answer when they let a player dodge the actual trade-off. The player should commit to one of two positions that a reasonable person could defend.
+
+The third rule is **the Plot Twist attacks both sides**. It should not reveal that one original answer was secretly correct. The new information should expose a cost, weakness, exception, or uncomfortable consequence for Side A and Side B. A player who chose either side should have a real reason to reconsider or refine the answer.
+
+The intended rhythm is:
+
+`fun scenario → two defensible choices → commit → defend → reveal new information → both sides now have a problem → decide whether to switch → Where This Can Go`
 
 Cards may test whether players follow consequences, check evidence, separate repetition from independent confirmation, use the same standard on both sides, notice social pressure and defaults, examine inherited norms, distinguish stated values from behaviour, define what would change their mind, or ask where an assumption came from.
 
 The deck also uses familiar contradictions of modern life: privacy versus convenience, authenticity versus performance, individual choice versus defaults and recommendation systems, endless options versus meaningful control, stated priorities versus actual attention, status versus competence, personal freedom versus dependence, and the way social context can make the same situation feel completely different.
 
-The cards are discussion prompts and analogies, not proofs. A good card makes the group commit to an answer before the twist adds a fact, changes the context, or exposes an assumption they did not notice.
+The cards are discussion prompts and analogies, not proofs.
 
 ## Fast local desktop test
 
@@ -84,9 +94,9 @@ Before relying on the app offline:
 
 ## Editing cards
 
-Cards 1–24 are in `cards.js`. Cards 25–50 are in `cards-extra.js`. Both files load before `app.js` and form one 50-card deck.
+Cards 1–24 are defined in `cards.js`. Cards 25–50 are defined in `cards-extra.js`. `cards-balance.js` applies the current two-sided prompts, answer choices, Plot Twists, and follow-up questions across all 50 cards. All three load before `app.js` and form one 50-card deck.
 
-Each card has a unique numeric `id`, title, scenario, prompt, optional choices, twist, follow-up prompt, and optional host prompts. Host prompts are also used to populate the visible `Where This Can Go` section after the reveal.
+Each card has a unique numeric `id`, title, scenario, prompt, choices, twist, follow-up prompt, and optional host prompts. Host prompts are also used to populate the visible `Where This Can Go` section after the reveal.
 
 When changing card content, bump `CACHE_NAME` in `sw.js` so installed devices replace the old cached deck.
 
