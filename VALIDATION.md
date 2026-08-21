@@ -1,19 +1,18 @@
 # Plot Twist Validation
 
-Validation notes for the current source.
+Validation notes for the 200-card source.
 
 ## Current deck structure
 
-- The intended deck contains 100 local scenarios, split into four 25-card source files: `deck-a.js`, `deck-b.js`, `deck-c.js`, and `deck-d.js`.
+- The intended deck contains **200 local scenarios** split across eight 25-card source files: `deck-a.js` through `deck-h.js`.
 - `cards.js` initializes the shared deck array and defines 16 reusable Chaos pressure tests.
-- `categories.js` assigns broad topic categories after the full deck loads.
-- `index.html` loads `cards.js`, all four deck files, `categories.js`, and then `app.js`.
-- Every authored scenario includes a title, scenario, main prompt, two answer choices, Plot Twist, declarative conclusion, deeper follow-up, and conversation paths.
-- Numeric IDs still exist internally for saved-card and state handling, but card IDs and run-position numbers are not displayed in the game UI or Saved list.
+- `index.html` loads `cards.js`, all eight deck files, `categories.js`, and then `app.js`.
+- Every authored scenario includes a title, two-paragraph scenario, main prompt, exactly two answer choices, Plot Twist, declarative conclusion, deeper follow-up, and two conversation paths.
+- Numeric IDs exist internally for saved-card and state handling, but card IDs and run-position numbers are not displayed in the game UI or Saved list.
 
 ## Selectable categories
 
-The home screen now exposes six broad topic selectors plus `Mix Everything`:
+The home screen exposes six broad topic selectors plus `Mix Everything`:
 
 - Mind & Truth
 - Relationships & Family
@@ -22,79 +21,95 @@ The home screen now exposes six broad topic selectors plus `Mix Everything`:
 - Society & Culture
 - Life & Purpose
 
-The selector is multi-select. Players can combine categories into one shuffled run. `Mix Everything` restores the full-deck behaviour.
+The selector is multi-select. Players can combine categories into one shuffled run. `Mix Everything` restores full-deck behaviour.
 
-Category tags are inferred from each card's existing `vibe` plus topic words in its title, scenario, choices, twist, conclusion, and follow-up material. A card may therefore belong to more than one broad category. Filtering uses overlap logic and does not duplicate a card inside a single shuffled run.
+Newer cards carry deliberate authored category tags. `categories.js` preserves valid authored tags and infers one or two broad tags for older cards that do not already have them. Filtering uses overlap logic and does not duplicate a card inside a single shuffled run.
 
 Saved-card playback is independent of the current topic filter.
 
 ## Current reveal structure
 
-The current card rhythm is:
+The card rhythm is:
 
 `pick topics → funny/quirky scenario → two answer bubbles → commitment → discussion → Plot Twist → The Point → deeper question → Where This Can Go`
 
-`The Point` is intentionally declarative. The deck is not designed around a neutral middle-ground conclusion. Each scenario is built to land a source-grounded principle while still giving players something worth discussing before and after the reveal.
+`The Point` is intentionally declarative. The deck is not designed around a forced middle-ground conclusion. Each scenario is built to land a principle while still giving players something worth discussing before and after the reveal.
 
-## Content design check
+## Content design rules
 
-The current deck repeatedly tests themes such as:
+The deck is audited against these standing rules:
 
-- evidence versus confidence, popularity, status, slogans, or personal feeling
-- truth versus comfort and ego-protection
-- reliable testimony and records versus impossible eyewitness-only standards
-- contradiction versus merely different details
-- context versus cropped or incomplete evidence
-- influence versus coordination or total control
-- individual evidence versus collective guilt
-- legality and popularity versus moral rightness
-- cause and effect versus wishful thinking
-- purpose versus mechanism
-- inherited assumptions versus examined beliefs
-- substance versus image, performance, and unrealized potential
-- responsibility versus blame
-- self-command versus appetite and dependence
-- long-term consequences versus immediate convenience
-- pleasure versus fulfilment and hedonic escalation
-- attention, algorithms, and commercial incentives
-- time, health, money, debt, and lifestyle creep
-- marriage compatibility, communication, presence, privacy, and boundaries
-- parenting warmth, discipline, consistency, and screen dependence
-- equal human dignity versus identical functions or roles
-- meaningful freedom versus endless trivial choices
-- finite life, character, service, responsibility, and purpose
+- adult game-night energy rather than classroom or self-help-workbook energy
+- humour can be dry, dark, absurd, awkward, petty, corporate, relational, internet-based, or occasionally pop-culture-flavoured
+- jokes should make the dilemma easier to picture or remember, not replace the reasoning
+- no visible question/card numbering
+- exactly two answer bubbles so the player commits before the reveal
+- no `it depends` answer escape
+- the Plot Twist should materially change how the setup is viewed rather than merely restating the intended answer
+- `The Point` states the conclusion instead of retreating into artificial neutrality
+- `Where This Can Go` keeps the deeper discussion optional
+- cards should use analogies and ordinary situations rather than exposing the source material or instructions that informed them
+- sensitive social/political cards should target claims, incentives, evidence, framing, institutions, or conduct rather than assigning collective guilt to an identity group
 
-Humour is used to make the dilemma memorable rather than to replace the reasoning. The deck uses absurd corporate logic, adult relationship situations, internet behaviour, money mistakes, family chaos, dry sarcasm, awkward hypotheticals, occasional dark humour, and limited pop-culture flavour.
+The recurring reasoning themes include evidence versus confidence, reliable testimony, contradiction versus difference, complete context versus cropped evidence, influence versus control, individual evidence versus collective guilt, legality/popularity versus moral rightness, cause and effect, purpose versus mechanism, inherited assumptions, responsibility versus blame, self-command versus appetite/dependence, long-term consequences, financial risk and obligation, marriage/family responsibilities, attention and algorithms, institutional incentives, speech discipline, and consistent standards.
+
+## Automated source audit
+
+`validate-content.cjs` is the executable source audit. The GitHub Actions workflow `.github/workflows/validate.yml` first runs `node --check` on the runtime JavaScript and then runs the validator.
+
+The validator requires:
+
+1. exactly 200 cards load through the same eight deck files used by the app
+2. internal IDs 1–200 are complete and unique
+3. normalized titles are unique
+4. exact normalized scenario bodies are unique
+5. each card has every required field
+6. each scenario has exactly two non-empty paragraphs
+7. each card has exactly two non-empty, distinct answer choices
+8. no answer choice contains an `it depends` escape
+9. main prompts are question-form
+10. Plot Twists are present
+11. conclusions are present
+12. deeper prompts are question-form
+13. each card has exactly two question-form conversation paths
+14. each card resolves to one or two valid category IDs
+15. all six selectable categories exist and have meaningful deck coverage
+16. all eight deck files are loaded by `index.html`
+17. all eight deck files are precached by `sw.js`
+18. `app.js` uses `masterpiece-200-v1`
+19. `sw.js` uses `plot-twist-v6.0.0`
+20. explicit source-worldview terminology intentionally excluded from the runtime is absent from card text and the user-facing runtime shell
+
+Automated structural validation does not prove that a joke is funny or that a scenario is editorially excellent. Those remain editorial checks and were reviewed separately during the expansion.
 
 ## State behaviour
 
-`app.js` keeps the existing `plotTwistStateV4` local-storage key and the current 100-card deck version marker.
+`app.js` retains the `plotTwistStateV4` local-storage key so compatible settings and Saved IDs can be migrated rather than blindly discarded.
 
-State now also stores `selectedCategories`.
+The deck version is now `masterpiece-200-v1`. A user moving from the 100-card version gets a fresh game order so new scenarios can enter the shuffle, while valid Saved IDs, selected categories, and settings are preserved.
 
-If no valid category selection exists, the app falls back to `Mix Everything`. Selecting a specific category removes `Mix Everything`; selecting the final active category again returns the app to `Mix Everything` rather than leaving an empty selection.
-
-Compatible settings and saved IDs remain preserved.
+If no valid category selection exists, the app falls back to `Mix Everything`. Selecting a specific category removes `Mix Everything`; selecting the final active category again returns to `Mix Everything` rather than leaving an empty selection.
 
 ## Offline/PWA source check
 
 - Runtime remains vanilla HTML/CSS/JavaScript with no external runtime API, CDN, remote font, analytics, authentication, or server-side feature.
-- `sw.js` uses cache name `plot-twist-v5.1.0`.
-- The service-worker app shell includes `categories.js` and `categories.css` in addition to the four deck files and the existing app assets.
+- `sw.js` uses cache name `plot-twist-v6.0.0`.
+- The service-worker app shell includes all eight deck files plus category logic/styles and existing app assets.
 - The manifest remains configured for standalone PWA installation.
 
 ## Validation limits
 
-The current checks are source/static checks. A real Android/Chrome installation has not been physically certified from this environment.
+The automated audit and repository checks are source/static validation. A real Android/Chrome installation is not physically certified by these checks.
 
-Before treating an installed phone copy as final, load the hosted build and verify:
+Before treating an installed phone copy as final, verify:
 
-1. `Mix Everything` starts a full mixed game.
-2. A single category only draws cards matching that category.
+1. `Mix Everything` can draw from the expanded deck.
+2. A single category draws only cards tagged to that category.
 3. Several selected categories combine into one shuffled run without duplicate cards.
 4. `Random From Selected` respects the filter.
-5. Saved-card playback still works independently of the filter.
+5. Saved-card playback works independently of the filter.
 6. Category selection survives closing and reopening the app.
-7. Reveal, The Point, Where This Can Go, Chaos, Next Card, and Settings still work.
-8. The category UI remains usable on a narrow phone screen.
-9. The airplane-mode test in the README succeeds after the new service worker activates.
+7. A pre-v6 install migrates without losing compatible Saved cards or settings.
+8. Reveal, The Point, Where This Can Go, Chaos, Next Card, and Settings work.
+9. The category UI remains usable on a narrow phone screen.
+10. The airplane-mode test in the README succeeds after service worker `plot-twist-v6.0.0` activates.
