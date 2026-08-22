@@ -128,6 +128,10 @@ Object.assign(HISTORICAL_EXAMPLES, {
     title: 'Cynthia Cooper uncovers WorldCom fraud · 2002',
     text: 'WorldCom internal-audit chief Cynthia Cooper advanced an investigation into suspicious accounting entries even after the company’s finance leadership asked for delay. Her team’s work helped expose a massive accounting fraud. Loyalty to an institution can require confronting the facts that threaten its reputation rather than protecting the reputation from the facts.'
   },
+  184: {
+    title: 'UC Berkeley admissions and Simpson’s paradox · 1973',
+    text: 'University-wide graduate-admissions data appeared to show women being admitted at a lower rate. When researchers separated the data by department, the pattern largely changed because women had applied more often to departments with lower acceptance rates. The aggregate association was real; the first causal story was not.'
+  },
   187: {
     title: 'Moritz v. Commissioner · 1972',
     text: 'Charles Moritz, an unmarried man caring for his dependent mother, was denied a tax deduction that the law made available to women and certain previously married men. The appeals court rejected the sex-based distinction. Applying the rule to an unexpected male caregiver made the unequal standard much harder to hide behind habit.'
