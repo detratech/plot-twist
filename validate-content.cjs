@@ -251,27 +251,40 @@ const app = read('app.js');
 const manifest = read('manifest.webmanifest');
 const choiceUi = read('choice-ui.js');
 const historyUi = read('history-ui.js');
+const consistencyUi = read('consistency-ui.js');
 const gameCss = read('game-v6.2.css');
-const runtimeStatic = [index, app, manifest, choiceUi, historyUi].join('\n');
-const runtimeFiles = [...DECK_FILES, ...HISTORY_FILES, 'game-v6.2.css', 'choice-ui.js', 'history-ui.js'];
+const consistencyCss = read('game-v6.3.css');
+const runtimeStatic = [index, app, manifest, choiceUi, historyUi, consistencyUi].join('\n');
+const runtimeFiles = [
+  ...DECK_FILES,
+  ...HISTORY_FILES,
+  'game-v6.2.css',
+  'game-v6.3.css',
+  'choice-ui.js',
+  'history-ui.js',
+  'consistency-ui.js'
+];
 
 for (const file of [...DECK_FILES, ...HISTORY_FILES]) {
   if (!index.includes(`<script src="${file}"></script>`)) fail(`index.html does not load ${file}.`);
 }
 if (!index.includes('<link rel="stylesheet" href="game-v6.2.css">')) fail('index.html does not load game-v6.2.css.');
+if (!index.includes('<link rel="stylesheet" href="game-v6.3.css">')) fail('index.html does not load game-v6.3.css.');
 if (!index.includes('<script src="choice-ui.js"></script>')) fail('index.html does not load choice-ui.js.');
 if (!index.includes('<script src="history-ui.js"></script>')) fail('index.html does not load history-ui.js.');
+if (!index.includes('<script src="consistency-ui.js"></script>')) fail('index.html does not load consistency-ui.js.');
 for (const file of runtimeFiles) {
   if (!sw.includes(`'./${file}'`)) fail(`sw.js does not precache ${file}.`);
 }
 
-if (!sw.includes("plot-twist-v6.2.0")) fail('Service-worker cache is not plot-twist-v6.2.0.');
-if (!index.includes('<b>App Version</b>') || !index.includes('<strong>v6.2.0</strong>')) fail('Settings does not display app version v6.2.0.');
+if (!sw.includes("plot-twist-v6.3.0")) fail('Service-worker cache is not plot-twist-v6.3.0.');
+if (!index.includes('<b>App Version</b>') || !index.includes('<strong>v6.3.0</strong>')) fail('Settings does not display app version v6.3.0.');
 if (!app.includes("masterpiece-200-v1")) fail('App deck version is not masterpiece-200-v1.');
 if (/\b(?:card|scenario)\s*#?\d+\b/i.test(index)) fail('Visible card/scenario numbering pattern found in index.html.');
 if (!index.includes('Both are meant to be defensible before the reveal.')) fail('How to Play does not state the two-sided dilemma rule.');
 if (!index.includes('switching sides is completely allowed.')) fail('How to Play does not state that the Plot Twist may justify switching sides.');
 if (!index.includes('<b>Real-World Example</b>')) fail('How to Play does not explain the Real-World Example step.');
+if (!index.includes('<b>One Last Thing</b>')) fail('How to Play does not explain the v6.3 consistency step.');
 if (!historyUi.includes("label.textContent = 'REAL-WORLD EXAMPLE'")) fail('Historical example UI label is missing.');
 if (!historyUi.includes("afterPrompt.insertAdjacentElement('afterend', box)")) fail('Historical example is not inserted immediately after the post-Point question.');
 if (!choiceUi.includes("raw.indexOf(' — ')")) fail('Choice UI does not split the decision label from its reason.');
@@ -281,6 +294,17 @@ if (!choiceUi.includes("document.createElement('strong')") || !choiceUi.includes
 if (!gameCss.includes('grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)')) fail('Choice UI is not locked to two side-by-side columns.');
 if (!gameCss.includes('.choice-wrap::before')) fail('Choice UI is missing the center divider.');
 if (!gameCss.includes("content: 'VS'")) fail('Choice UI is missing the VS marker.');
+
+const consistencyTitles = [...consistencyUi.matchAll(/title:\s*'([^']+)'/g)].map(match => match[1]);
+if (consistencyTitles.length !== 8) fail(`Expected 8 consistency pressure tests, found ${consistencyTitles.length}.`);
+if (new Set(consistencyTitles).size !== 8) fail('Consistency pressure-test titles are not unique.');
+for (const required of ['SAME RULE?', 'WHAT WOULD CHANGE YOUR MIND?', 'OUTCOME TEST', 'STRANGER TEST', 'EVERYONE GETS IT', 'YOUR TURN', 'POWER FLIP', 'CROSSOVER']) {
+  if (!consistencyTitles.includes(required)) fail(`Missing v6.3 consistency pressure test: ${required}`);
+}
+if (!consistencyUi.includes("label.textContent = 'ONE LAST THING'")) fail('Consistency UI label is missing.');
+if (!consistencyUi.includes("historyBox.insertAdjacentElement('afterend', box)")) fail('Consistency prompt is not placed after the Real-World Example.');
+if (!consistencyUi.includes('(current.id - 1) % TESTS.length')) fail('Consistency prompt selection is not deterministic by stable card ID.');
+if (!consistencyCss.includes('.consistency-check')) fail('v6.3 consistency styling is missing.');
 
 assertNoForbiddenRuntimeTerms(runtimeStatic, 'runtime shell');
 assertNoMetaLeaks(runtimeStatic, 'runtime shell');
@@ -301,10 +325,11 @@ console.log('PASS: no "it depends" answer escape choices or obviously insulting 
 console.log('PASS: all cards have one or two valid selectable categories.');
 console.log('PASS: exactly 200 substantive real-world examples map one-to-one to the 200 cards.');
 console.log('PASS: prohibited explicit worldview terms and authoring/meta-instruction leaks were not found in cards, historical examples, or runtime shell text.');
-console.log('PASS: all eight deck files, all history layers, and both v6.2 presentation scripts are loaded and precached.');
-console.log('PASS: the post-Point question is followed by the Real-World Example layer.');
-console.log('PASS: the two answer choices are locked to a prominent left-vs-right layout with a divider, large decision label, and secondary reason.');
+console.log('PASS: all deck, history, v6.2 presentation, and v6.3 consistency assets are loaded and precached.');
+console.log('PASS: the post-Point question is followed by the Real-World Example and One Last Thing consistency layer.');
+console.log('PASS: eight deterministic consistency pressure tests cover role reversal, falsifiability, outcome, impartiality, universalization, self-application, power reversal, and cross-domain transfer.');
+console.log('PASS: the two answer choices remain locked to the prominent left-vs-right layout with a divider, large decision label, and secondary reason.');
 console.log('PASS: the user-facing rules require two defensible choices and allow switching after the Plot Twist.');
-console.log('PASS: settings visibly reports app version v6.2.0.');
-console.log('PASS: deck version masterpiece-200-v1 and cache plot-twist-v6.2.0 are wired.');
+console.log('PASS: settings visibly reports app version v6.3.0.');
+console.log('PASS: deck version masterpiece-200-v1 and cache plot-twist-v6.3.0 are wired.');
 console.log('Category memberships:', distribution);

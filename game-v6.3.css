@@ -1,0 +1,28 @@
+/* Plot Twist v6.3 consistency layer */
+
+.consistency-check {
+  margin-top: 14px;
+  padding: 16px 17px 15px;
+  border: 1px dashed #65412f;
+  border-radius: 15px;
+  background: rgba(255, 122, 47, .035);
+}
+
+.consistency-check .eyebrow {
+  margin-bottom: 7px;
+}
+
+.consistency-check h3 {
+  margin: 0 0 7px;
+  color: #ffd6b8;
+  font-size: clamp(17px, 4.2vw, 21px);
+  line-height: 1.15;
+  letter-spacing: -.01em;
+}
+
+.consistency-check p:last-child {
+  margin: 0;
+  color: #d8c9bc;
+  font-size: 14px;
+  line-height: 1.5;
+}
