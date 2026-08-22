@@ -60,6 +60,10 @@ Object.assign(HISTORICAL_EXAMPLES, {
     title: 'Andrew Wakefield’s MMR paper · 1998–2011',
     text: 'Wakefield had undisclosed financial and legal conflicts around research that claimed a vaccine link to autism, and later investigations found serious scientific misconduct. The conflicts were reasons for deeper scrutiny; the claim itself was ultimately defeated by examination of the evidence, not by motive alone.'
   },
+  107: {
+    title: 'Friars Club roast tradition · 20th century',
+    text: 'Celebrity roasts became a ritual in which the guest of honour knowingly entered a room built for savage jokes. Longtime participants described the cruelty as part of the honour while also remembering moments of visibly strained laughter. Agreeing to be roasted changes what is permissible; it does not prove that every possible wound was individually welcomed.'
+  },
   112: {
     title: 'Pluto gets reclassified · 2006',
     text: 'As new Solar System discoveries made the old informal category harder to apply consistently, the International Astronomical Union adopted a general definition of “planet” and created the “dwarf planet” category. Pluto lost familiar status because the rule was applied across the category instead of inventing a Pluto-only exception. Definitions can legitimately improve; the warning sign is changing one only to rescue an awkward case.'
@@ -67,6 +71,10 @@ Object.assign(HISTORICAL_EXAMPLES, {
   117: {
     title: 'Eisenhower’s D-Day decision · 1944',
     text: 'Eisenhower had to decide whether to launch the Normandy invasion amid unstable weather forecasts, strategic disagreement, and enormous possible losses. Before knowing the outcome, he wrote a note accepting responsibility if the landing failed. A decision can be judged by the information and risks available beforehand rather than by pretending success was guaranteed after it happens.'
+  },
+  118: {
+    title: 'Concorde and the sunk-cost problem · 1960s–1970s',
+    text: 'Concorde became so closely associated with continuing an expensive project that “Concorde fallacy” became shorthand for sunk-cost thinking. The real history is messier: Britain also faced treaty and exit costs when it considered withdrawing. Money already spent should not justify the next pound by itself, but genuine future costs of quitting still belong in the decision.'
   },
   126: {
     title: 'Elizabeth Taylor and Richard Burton · 1964–1976',
@@ -96,9 +104,21 @@ Object.assign(HISTORICAL_EXAMPLES, {
     title: 'Long-Term Capital Management · 1998',
     text: 'LTCM was run by celebrated market experts, including two Nobel laureates, and produced impressive profits using sophisticated models. After Russia’s default shocked markets, the fund lost heavily and required a private-sector rescue. A brilliant winning record proved the method could win; it did not reveal every way it could fail.'
   },
+  160: {
+    title: 'Induced road demand · U.S. cities, 1983–2003',
+    text: 'Economists Gilles Duranton and Matthew Turner found that increases in interstate highway lane capacity were followed by roughly proportional increases in vehicle travel. The extra road was real capacity, but people changed behaviour and used more of it. Free capacity can attract new demand until the old feeling of scarcity returns.'
+  },
+  169: {
+    title: 'Facebook cross-cutting news study · 2015',
+    text: 'Researchers studying millions of Facebook users found that both News Feed ranking and users’ own clicking choices reduced exposure to ideologically cross-cutting material, with individual choice doing more of the narrowing in that study. Personalization can serve preference while preference and algorithm together reduce what gets a chance to surprise you.'
+  },
   171: {
     title: 'Bill Gates’ “Think Week” · 1990s onward',
     text: 'While leading Microsoft, Gates began setting aside isolated stretches to read technical papers, think, and write because daily executive demands left him falling behind on new ideas. More useful input was not enough by itself; he deliberately created uninterrupted space in which the input could be processed.'
+  },
+  172: {
+    title: 'Adding friction to TikTok · 2026 experiment',
+    text: 'Researchers experimentally interrupted features such as autoplay and infinite scrolling on TikTok. Added friction reduced some compulsive engagement patterns, but it also made the experience less enjoyable and did not magically create perfect self-control. Effortless entertainment can be genuinely pleasant; removing every stopping point can also make “one more” unusually easy.'
   },
   175: {
     title: 'Chuck Feeney and “Giving While Living” · 1984–2020',
