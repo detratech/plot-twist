@@ -44,6 +44,10 @@ Object.assign(HISTORICAL_EXAMPLES, {
     title: 'Canada’s wartime income tax · 1917',
     text: 'Canada introduced the Income War Tax during the First World War as a temporary measure to be reviewed after the war. It was reviewed in 1919 but remained, and by 1948 federal income tax was no longer treated as temporary. A reasonable emergency arrangement can become normal when every extension is easier than a fresh decision.'
   },
+  82: {
+    title: 'Stuxnet and industrial-control systems · 2010',
+    text: 'CISA documented Stuxnet infecting systems running Siemens WinCC and STEP 7, while NIST described it as malware designed to infiltrate specific industrial-control systems and subtly alter their operation. The machinery can look like the problem while a hidden software layer is shaping what the machinery does.'
+  },
   91: {
     title: 'FDR’s first banking Fireside Chat · 1933',
     text: 'Roosevelt did more than sign emergency banking measures: he explained the crisis and the reopening plan directly to the public in plain language over radio. When banks reopened, depositors returned money rather than continuing the run. Persuasion was not a substitute for policy competence; it was one of the capacities that helped the policy work.'
@@ -55,6 +59,10 @@ Object.assign(HISTORICAL_EXAMPLES, {
   104: {
     title: 'Andrew Wakefield’s MMR paper · 1998–2011',
     text: 'Wakefield had undisclosed financial and legal conflicts around research that claimed a vaccine link to autism, and later investigations found serious scientific misconduct. The conflicts were reasons for deeper scrutiny; the claim itself was ultimately defeated by examination of the evidence, not by motive alone.'
+  },
+  112: {
+    title: 'Pluto gets reclassified · 2006',
+    text: 'As new Solar System discoveries made the old informal category harder to apply consistently, the International Astronomical Union adopted a general definition of “planet” and created the “dwarf planet” category. Pluto lost familiar status because the rule was applied across the category instead of inventing a Pluto-only exception. Definitions can legitimately improve; the warning sign is changing one only to rescue an awkward case.'
   },
   117: {
     title: 'Eisenhower’s D-Day decision · 1944',
