@@ -10,14 +10,14 @@
 
 ## Handoff maintenance triggers
 
-Update this file whenever material work changes architecture, product/business rules, strategy, storage, schema/state compatibility, integrations, runtime behaviour, important UI/workflows, deployment, development procedures, testing, current PR status, unresolved issues, or the exact next step.
+Update this file whenever material work changes architecture, product rules, storage/state compatibility, runtime behaviour, important UI/workflows, deployment, development procedures, testing, current PR status, unresolved issues, or the exact next step.
 
 At minimum:
 
 1. Update it before every material PR is merged.
 2. If development stops mid-PR and the current chat/session is approaching its limit, update it before handing the project to another chat.
-3. After a material merge, update it again if the released baseline or continuation point changed.
-4. Remove or rewrite resolved TODOs instead of letting them accumulate.
+3. After a material merge, update it again if the released baseline or next step changed.
+4. Remove resolved TODOs instead of letting stale items accumulate.
 
 ---
 
@@ -45,17 +45,13 @@ Core loop:
 
 The product must feel like an adult party/campfire game, not a survey, classroom exercise, religious app, philosophy app, or debate-training tool.
 
-The deck explores evidence, assumptions, responsibility, relationships, money, technology, society, purpose, consistency, incentives, and related ideas. The player-facing runtime deliberately does **not** expose the source-worldview/authoring framework behind those ideas.
-
 ## Current development / production status
 
-### Released baseline on `main`
+**v6.2.0 is merged to `main`.**
 
-**v6.2.0 is now merged to `main`.**
+PR #4 — **Plot Twist v6.2: prominent choices and real-world examples** — was explicitly authorized by the user and merged on 2026-08-21 (America/Vancouver).
 
-PR #4 — **`Plot Twist v6.2: prominent choices and real-world examples`** — was explicitly authorized by the user and merged on 2026-08-21 (America/Vancouver).
-
-Exact merged PR head:
+Merged PR head:
 
 `34a5fd3dec48e0651a67ced093a15917887f999a`
 
@@ -63,56 +59,28 @@ Merge commit:
 
 `c1c41ba64d08a0c7b7239bda10fad7a56ce645a2`
 
-The merge commit has parents:
+The handoff was then updated on `main` after merge. Current verified `main` at the time of this correction is:
 
-- previous `main`: `d5ee158222181ee422699811b2e0baae79703e1e`
-- PR #4 head: `34a5fd3dec48e0651a67ced093a15917887f999a`
+`0803203bc1215cfbc83fb03d121c2993827de900`
 
-Immediately before merge, GitHub was re-fetched and verified:
+There is no known active material development PR immediately after the v6.2 merge.
 
-- exact PR head matched the authorized SHA
-- mergeable: yes
-- `Validate Plot Twist` run #37, run ID `32542683784`, passed on that exact head
-- submitted reviews: none
-- inline review threads: none
-- PR comments: none
-- handoff file present/current
-
-PR #4 was taken out of draft without changing its head SHA, then merged with `expected_head_sha` pinned to the verified head.
-
-### Current active development
-
-There is no known material development PR immediately after the v6.2 merge.
-
-The current continuation task is **post-merge Android acceptance testing of the deployed/installed v6.2.0 PWA**. The user had been seeing v6.1.1 before the merge; the purpose of merging was to make the production `main` build available for the real phone/service-worker test.
-
-## v6.2.0 contents
-
-- prominent side-by-side A-vs-B choice presentation
-- center divider and `VS` marker
-- large decision label plus smaller reason text
-- one local Real-World Example for every one of the 200 cards
-- researched/audited historical-example override layer
-- complete source ledger for IDs 1–200
-- validator coverage for history and presentation layers
-- visible app version `v6.2.0`
-- service-worker cache `plot-twist-v6.2.0`
-- permanent repository development handoff system
+The current continuation task is **post-merge Android acceptance testing of the hosted v6.2.0 PWA**, including service-worker update behaviour from the previously installed v6.1.1 build.
 
 ## Primary technologies / frameworks
 
 - Vanilla HTML
 - Vanilla CSS
 - Vanilla JavaScript
-- Node.js 22 for CI/static validation only
+- Node.js 22 for GitHub Actions/static validation only
 - Progressive Web App manifest
 - Service Worker / Cache API
 - browser `localStorage`
 - optional Screen Wake Lock API
 - GitHub Actions
-- GitHub Pages as the documented distribution path from `main`
+- GitHub Pages / GitHub-hosted static deployment
 
-There is deliberately **no framework, bundler, package-manager dependency install, backend, database, authentication service, analytics service, runtime external API, CDN, or remote font/image dependency**.
+There is deliberately **no framework, bundler, package-manager install step, backend, database, authentication service, analytics service, runtime external API, CDN, or remote font/image dependency**.
 
 ## Operating environment
 
@@ -123,27 +91,33 @@ There is deliberately **no framework, bundler, package-manager dependency instal
 
 ### Development environment
 
-- Give the user Windows PowerShell commands unless a specific task requires another shell.
-- CI runs on `ubuntu-latest` with Node.js 22.
-- The exact local repository checkout path has **not** been verified. Do not invent one.
+**Important correction: the user does not maintain a local repository for Plot Twist. This project is developed and hosted through GitHub.**
+
+Do not instruct the user to run `git pull`, `git switch`, `node`, `python -m http.server`, or any other local-repository command as part of the normal Plot Twist workflow unless the user explicitly chooses to create a local clone later.
+
+The normal development path is:
+
+`GitHub repository → feature branch/PR → GitHub Actions validation → user authorization → merge to main → GitHub-hosted deployment → Android/PWA acceptance test`
+
+The user's machine/local filesystem is not part of the normal Plot Twist deployment path.
 
 ## Important repository paths
 
 ### Runtime shell and UI
 
-- `index.html` — screens, rules, Settings markup, script/style loading
-- `styles.css` — base visual system
-- `categories.css` — topic selector styling
-- `game-v6.2.css` — v6.2 A-vs-B/history presentation
-- `app.js` — main app/game state and interaction logic
-- `choice-ui.js` — v6.2 choice label/reason rendering
-- `history-ui.js` — inserts the card-specific Real-World Example after the post-Point question
+- `index.html`
+- `styles.css`
+- `categories.css`
+- `game-v6.2.css`
+- `app.js`
+- `choice-ui.js`
+- `history-ui.js`
 
-### Card and category data
+### Card/category data
 
-- `cards.js` — shared `PLOT_TWIST_CARDS` initialization and 16 universal Chaos prompts
+- `cards.js`
 - `deck-a.js` through `deck-h.js` — eight 25-card files, exactly 200 cards
-- `categories.js` — category definitions and authored/inferred tag handling
+- `categories.js`
 
 ### Runtime Real-World Example data
 
@@ -185,24 +159,24 @@ Editorial/research only; not runtime dependencies:
 
 Plot Twist is a single-page, framework-free web application.
 
-`index.html` provides the main semantic screens. `app.js` manages navigation, shuffled deck order, card rendering, reveal state, Saved cards, settings, selected categories, Random/Next behaviour, Chaos prompts, install handling, wake lock, persistence, and service-worker status.
+`index.html` provides the screens. `app.js` manages navigation, shuffled deck order, card rendering, reveal state, Saved cards, settings, category selection, Random/Next behaviour, Chaos prompts, install handling, wake lock, persistence, and service-worker status.
 
 v6.2 keeps presentation additions modular:
 
-- `choice-ui.js` transforms authored choice strings into a prominent decision label and a secondary reason.
-- `game-v6.2.css` renders the two choices as side-by-side panels with a center divider and `VS` marker.
-- `history-ui.js` maps the current card ID to `HISTORICAL_EXAMPLES` and inserts the Real-World Example immediately after the post-Point question.
+- `choice-ui.js` turns authored choice strings into a prominent decision label plus smaller reason.
+- `game-v6.2.css` renders the two choices side by side with a center divider and `VS` marker.
+- `history-ui.js` inserts the card-specific Real-World Example after the post-Point question.
 
 ## Runtime data flow
 
 1. `cards.js` initializes the shared card array and Chaos prompts.
 2. `deck-a.js` through `deck-h.js` append all 200 cards.
 3. `history-a.js` through `history-d.js` populate draft `HISTORICAL_EXAMPLES` entries.
-4. `history-reviewed.js` overwrites selected IDs with research-audited replacements.
-5. `categories.js` preserves valid authored category tags and infers tags where needed.
-6. `app.js` filters/shuffles/renders cards according to selected categories and persisted state.
-7. `choice-ui.js` applies the two-level choice visual hierarchy.
-8. `history-ui.js` injects the final Real-World Example into the rendered card flow.
+4. `history-reviewed.js` overwrites selected IDs with audited replacements.
+5. `categories.js` preserves/infers category tags.
+6. `app.js` filters, shuffles, persists, and renders cards.
+7. `choice-ui.js` applies choice presentation.
+8. `history-ui.js` injects the Real-World Example.
 
 ## Backend / database / authentication
 
@@ -210,16 +184,17 @@ None.
 
 There is no server persistence, SQL schema, ORM, API server, account system, or authentication layer.
 
-## Persistence / storage
+## Persistence
 
-Browser `localStorage` stores compatible game state including shuffled order/current position, reveal state, Saved card IDs, category selection, and settings.
+Browser `localStorage` stores compatible game state including current order/position, reveal state, Saved card IDs, category selection, and settings.
 
 Compatibility anchors:
 
 - local-storage key: `plotTwistStateV4`
 - deck/state identifier: `masterpiece-200-v1`
+- stable card IDs 1–200
 
-The exact current state object structure in `app.js` is authoritative if prose documentation ever conflicts.
+The exact state object structure in `app.js` is authoritative.
 
 ## Browser APIs
 
@@ -235,32 +210,25 @@ Runtime: none.
 
 Development/editorial only:
 
-- GitHub / GitHub Actions
-- external research URLs stored in the source-ledger Markdown files
+- GitHub
+- GitHub Actions
+- external research URLs stored in source-ledger Markdown files
 
 Research sources must never become required network dependencies for gameplay.
 
 ## Deployment / hosting
 
-The repository documents GitHub Pages from `main` as the production distribution path, with Android Chrome installation as a PWA.
+The project is hosted from GitHub and distributed as a static PWA.
 
-A merge to `main` makes the new source eligible for deployment, but an already-installed PWA may continue showing an older cached build until GitHub Pages has published the new `main` state and the browser/service-worker update lifecycle activates the new cache.
+The user does not maintain a separate local deployment.
 
-The exact live GitHub Pages URL/configuration was not independently verified during this handoff maintenance pass. Do not invent it.
+A merge to `main` makes the new source eligible for the hosted deployment, but an already-installed PWA may continue showing an older cached build until the hosting deployment is current and the browser/service-worker lifecycle activates the new cache.
+
+Do not assume a newly merged version is already active on the user's phone merely because `main` changed. Verify the visible Settings version on-device.
 
 ## Offline architecture
 
-`sw.js` precaches the app shell needed for gameplay, including:
-
-- HTML/CSS
-- all eight deck files
-- all five runtime history files
-- category logic/styles
-- `choice-ui.js`
-- `history-ui.js`
-- app logic
-- manifest
-- local icons
+`sw.js` precaches the app shell required for gameplay, including the HTML/CSS, eight deck files, five runtime history files, category assets, choice/history UI, app logic, manifest, and local icons.
 
 v6.2 cache name:
 
@@ -268,36 +236,7 @@ v6.2 cache name:
 
 Offline navigation falls back to cached `index.html`.
 
-The research-ledger Markdown files are not service-worker runtime dependencies.
-
-## Important data models
-
-### Card
-
-Each card contains:
-
-- `id`
-- `title`
-- `vibe`
-- `scenario` — exactly two non-empty paragraphs
-- `prompt`
-- `choices` — exactly two pre-reveal positions
-- `twist`
-- `conclusion` — displayed as `The Point`
-- `afterPrompt`
-- `hostPrompts` — exactly two follow-up directions
-- `categories` — one or two valid category IDs after category processing
-
-Internal IDs are stable compatibility keys. They are used for Saved cards, persisted state, and the one-to-one Real-World Example mapping, but are not shown to players.
-
-### Historical example
-
-`HISTORICAL_EXAMPLES[id]` contains:
-
-- `title`
-- `text`
-
-There must be exactly one substantive runtime example for every card ID 1–200.
+The historical research Markdown files are not runtime cache dependencies.
 
 ---
 
@@ -305,7 +244,7 @@ There must be exactly one substantive runtime example for every card ID 1–200.
 
 Use this precedence:
 
-1. Current repository code on the exact verified branch/head.
+1. Current repository code on the exact verified GitHub branch/head.
 2. `validate-content.cjs` and `.github/workflows/validate.yml` for executable validation contracts.
 3. `docs/DEVELOPMENT_HANDOFF.md`, `VALIDATION.md`, and `README.md` for maintained explanatory context.
 4. Chat history only as non-authoritative background.
@@ -335,7 +274,7 @@ Authoritative:
 - authored card `categories`
 - `categories.js`
 
-Six categories:
+Categories:
 
 - `mind`
 - `relationships`
@@ -349,20 +288,20 @@ Six categories:
 Runtime precedence:
 
 1. `history-a.js` through `history-d.js`
-2. `history-reviewed.js`, loaded afterward and therefore authoritative for overridden IDs
+2. `history-reviewed.js`, loaded afterward and authoritative for overridden IDs
 
-Do not remove `history-reviewed.js` as “duplication” without understanding its audit purpose.
+Do not remove `history-reviewed.js` as apparent duplication without understanding its audit purpose.
 
 ## Historical research support
 
-Editorial ledgers:
+Authoritative editorial ledgers:
 
 - `HISTORY_SOURCES.md`
 - `HISTORY_SOURCES_51_100.md`
 - `HISTORY_SOURCES_101_150.md`
 - `HISTORY_SOURCES_151_200.md`
 
-## Persistence and compatibility
+## Persistence / compatibility
 
 Authoritative: `app.js`
 
@@ -370,7 +309,7 @@ Compatibility anchors:
 
 - `plotTwistStateV4`
 - `masterpiece-200-v1`
-- stable internal card IDs 1–200
+- card IDs 1–200
 
 ## Offline configuration
 
@@ -390,9 +329,7 @@ Environment:
 - `ubuntu-latest`
 - Node.js 22
 
-## Financial calculations / migrations
-
-There are no application financial calculations or database migrations. Compatibility is handled through stable browser-state identifiers and card IDs.
+There are no application financial calculations or database migrations.
 
 ---
 
@@ -400,14 +337,14 @@ There are no application financial calculations or database migrations. Compatib
 
 ## Product identity
 
-The game is an adult party/campfire experience first. Deep discussion is the outcome, not the visible branding.
+The game is an adult party/campfire experience first. Deep discussion is the outcome, not visible branding.
 
 Rejected/restricted approaches:
 
 - classroom/quiz framing
 - overt debate-training framing
 - exposing source-worldview/authoring framework
-- turning the app into a religious/philosophy-branded product
+- turning the runtime into a religious/philosophy-branded product
 
 ## Offline-first is non-negotiable
 
@@ -416,6 +353,14 @@ Do not introduce runtime APIs, CDNs, remote fonts/images, authentication depende
 ## Framework-free architecture
 
 The app intentionally remains vanilla HTML/CSS/JS with no build system. Do not introduce a framework merely because it is conventional.
+
+## GitHub-only user workflow
+
+The user's normal Plot Twist workflow is hosted/GitHub-based. There is **no local Plot Twist repo to update after merges**.
+
+Future chats must not invent a local path or give local Git/build/start commands as if they are required.
+
+After merges, the useful user-facing action is to verify the hosted deployment and then test the installed Android PWA/version/update path.
 
 ## Two-sided dilemma rule
 
@@ -426,8 +371,8 @@ Do not write:
 - sensible answer vs caricature
 - virtue-labelled answer vs obviously bad answer
 - `it depends` escape choice
-- Plot Twist that only repeats setup information
-- reveal that simply congratulates one side
+- Plot Twist that repeats setup information
+- reveal that only congratulates one side
 
 Target:
 
@@ -437,7 +382,7 @@ Changing sides after the reveal is allowed and intentional.
 
 ## Declarative `The Point`
 
-The reveal may create nuance, but `The Point` should land a clear principle. Forced “both sides are equally valid” conclusions were rejected.
+The reveal may create nuance, but `The Point` should land a clear principle.
 
 ## Hidden source layer
 
@@ -457,17 +402,15 @@ Current design contract:
 
 ## Real-World Example placement
 
-Each card has one local Real-World Example displayed **after** the post-Point question so players reason through the fictional dilemma/principle before the historical analogy anchors the discussion.
+Each card has one local Real-World Example displayed **after** the post-Point question.
 
 ## Historical audit policy
 
-Accuracy and analogy fit outrank fame.
-
-Prefer primary, official, academic, archival, court, museum, or strong first-party sources where practical. Do not overclaim what a source proves. Examples illustrate principles; they are not universal proof.
+Accuracy and analogy fit outrank fame. Prefer primary, official, academic, archival, court, museum, or strong first-party sources where practical. Do not overclaim what a source proves.
 
 ## Card 184 decision
 
-The weaker polio/ice-cream anecdote was rejected and replaced with the documented **1973 UC Berkeley graduate-admissions / Simpson’s paradox** example.
+The weaker polio/ice-cream anecdote was replaced with the documented **1973 UC Berkeley graduate-admissions / Simpson's paradox** example.
 
 ## Stable state/deck version
 
@@ -477,7 +420,7 @@ Do not bump it merely to refresh assets. Use the service-worker cache version fo
 
 ## Visible app version
 
-Settings displays the app version specifically so the installed phone build can be checked. v6.2 expects `v6.2.0`.
+Settings displays the app version so the installed phone build can be verified. v6.2 expects `v6.2.0`.
 
 ## No visible card numbering
 
@@ -489,20 +432,17 @@ Internal IDs must remain invisible in normal player-facing game/Saved presentati
 
 ## Topic selection
 
-The home screen supports six broad topic selectors plus `Mix Everything`.
+The home screen supports six topic selectors plus `Mix Everything` and supports multi-select category mixing.
 
-Players may select multiple categories.
+Expected behaviour:
 
-Expected rules:
-
-- choosing a specific category removes `Mix Everything`
-- selecting the last active category again falls back to `Mix Everything`
-- combining categories forms a union without duplicating a card within the run
+- selecting a specific category removes `Mix Everything`
+- removing the last specific category falls back to `Mix Everything`
+- combined categories form a union without duplicate cards in the run
 
 ## Start / Random
 
-- Start Game shuffles only matching cards.
-- Random From Selected respects the same filter.
+Start Game and Random From Selected respect the active topic selection.
 
 ## Card flow
 
@@ -510,9 +450,7 @@ Expected rules:
 
 ## Saved cards
 
-Cards can be saved/revisited. Saved playback is independent of the current category filter.
-
-Saved state relies on stable internal IDs.
+Cards can be saved and revisited. Saved playback is independent of current category filtering.
 
 ## Chaos
 
@@ -520,94 +458,69 @@ Saved state relies on stable internal IDs.
 
 ## Host prompts / Where This Can Go
 
-Every card provides two follow-up directions/prompts.
+Every card provides two follow-up directions.
 
 ## Persistence
 
-Local state survives refresh/close/reopen through `localStorage`, subject to browser/site-data behaviour.
+Game state survives normal refresh/close/reopen through `localStorage`, subject to browser/site-data behaviour.
 
-## Wake lock
-
-Optional and browser-dependent.
+Do not casually recommend clearing site data because that removes Saved cards/settings/state.
 
 ## PWA/offline
 
-After the service worker has cached the app shell, the installed app is intended to launch/play with airplane mode enabled and Wi-Fi disabled.
+After the service worker has cached the app shell, the installed app must launch and play with airplane mode enabled and Wi-Fi off.
 
 ## Version visibility
 
-Settings should show `v6.2.0` after the new build/service worker is active.
-
-## Destructive local action
-
-Clearing browser site data destroys Saved cards/settings/current local state. Do not recommend it casually; prefer normal service-worker update/reload procedures.
+v6.2 Settings should display `v6.2.0`.
 
 ---
 
 # 6. Compatibility and Migration Constraints
 
-There is no database schema version.
+There is no database schema or migration system.
 
-Browser-state compatibility anchors:
+Compatibility anchors:
 
 - `plotTwistStateV4`
 - `masterpiece-200-v1`
+- card IDs 1–200
+- `HISTORICAL_EXAMPLES[id]` aligned to the same card IDs
 
-## Card-ID compatibility
+Renumbering IDs is not cosmetic because IDs connect Saved cards, persisted state, runtime card data, historical examples, and research-ledger entries.
 
-IDs 1–200 connect:
+`history-reviewed.js` is intentional editorial/audit structure and must not be removed merely because it looks duplicative.
 
-- Saved cards
-- persisted order/state
-- runtime card data
-- historical examples
-- research-ledger entries
-
-Renumbering is therefore a migration, not a cosmetic edit.
-
-## Historical mapping compatibility
-
-`HISTORICAL_EXAMPLES[id]` uses the same stable IDs.
-
-`history-reviewed.js` is intentional audit/editorial structure and should not be removed without understanding why it exists.
-
-## v6.1 → v6.2 compatibility
-
-v6.2 changes presentation and adds history/example assets without intentionally invalidating the existing 200-card state IDs.
-
-Asset update mechanism: service-worker cache bump to `plot-twist-v6.2.0`, **not** a deck/state reset.
-
-## Service-worker compatibility
+v6.2 changes presentation/history assets without intentionally invalidating existing compatible player state.
 
 When runtime assets change:
 
-1. determine whether `sw.js` must add/update them in `APP_SHELL`
+1. determine whether `sw.js` must precache them
 2. bump the cache name when installed copies must receive changed assets
 3. update validator expectations deliberately
-4. test updating from an older installed copy
+4. test the update path from the prior installed version
 
-## Clearing data
-
-Avoid clearing site data unless genuinely necessary because it destroys the compatibility state being tested.
+Avoid clearing site data during compatibility testing unless genuinely necessary.
 
 ---
 
 # 7. Development and Safety Rules
 
 1. Do not weaken validation merely to make tests pass.
-2. Do not remove `plotTwistStateV4`, `masterpiece-200-v1`, stable card IDs, history mappings, or cache/update logic without determining migration impact.
+2. Do not change `plotTwistStateV4`, `masterpiece-200-v1`, stable card IDs, history-ID mappings, or service-worker update logic without checking compatibility impact.
 3. Do not introduce runtime network dependencies casually.
-4. Do not expose forbidden source-worldview or authoring/meta terminology in runtime text.
+4. Do not expose forbidden source-worldview or authoring/meta terminology in runtime content.
 5. Do not regenerate or renumber the 200-card deck without an explicit migration decision.
 6. Do not replace researched examples with famous anecdotes without checking sources.
-7. Do not treat green static CI as proof of Android PWA/service-worker quality.
+7. Do not treat green static CI as proof of Android PWA/service-worker behaviour.
 8. Do not clear real browser site data as a routine test step.
-9. Do not commit secrets, API keys, tokens, credentials, exported browser data, backups, machine-specific files, incidental logs, or placeholder junk.
-10. Add/strengthen regression validation for bugs when practical.
-11. Preserve invisible player-facing card numbering.
-12. When adding/renaming runtime assets, inspect `index.html`, `sw.js`, and `validate-content.cjs` together.
+9. Do not commit secrets, API keys, tokens, credentials, backups, machine-specific files, or incidental logs.
+10. Add/strengthen regression validation for fixed bugs where practical.
+11. Preserve player-facing card-number invisibility.
+12. If a runtime asset is added/renamed, inspect `index.html`, `sw.js`, and `validate-content.cjs` together.
 13. Prefer non-destructive acceptance testing.
-14. Update this handoff before material merge or handoff to another development chat.
+14. Update this handoff before material merge or handoff to a fresh chat.
+15. **Do not invent a local repository workflow. Plot Twist is GitHub-hosted and the user does not maintain a local clone.**
 
 ---
 
@@ -616,37 +529,19 @@ Avoid clearing site data unless genuinely necessary because it destroys the comp
 ## Branch strategy
 
 - `main` is the released baseline.
-- Material development should occur on feature branches.
-- Reuse an existing matching PR rather than opening duplicates.
+- Material development occurs on a feature branch.
+- Reuse an existing matching PR rather than creating duplicates.
 
-## PR strategy
+## PR / CI strategy
 
-- Keep material work in a PR so CI/review state is inspectable.
-- Every material PR must update `docs/DEVELOPMENT_HANDOFF.md` before merge.
-
-## CI requirement
-
-Required validation: `.github/workflows/validate.yml` (`Validate Plot Twist`).
-
-Merge decisions must use CI attached to the **exact current PR head SHA**, not an older run.
-
-## Review requirement
-
-Immediately before merge, fetch:
-
-- PR metadata / exact head
-- submitted reviews
-- inline review threads
-- PR comments/blockers
-- exact-head CI
-
-## Merge method
-
-Material PRs to date have used merge commits. No permanent requirement has been established to prefer merge vs squash/rebase beyond preserving useful history.
+- Material work should be represented by a PR.
+- `.github/workflows/validate.yml` is the required validation workflow.
+- A merge decision must use CI attached to the **exact current PR head SHA**.
+- Every material PR must update this handoff before merge.
 
 ## Mandatory user authorization rule
 
-**Never merge a material PR without the user’s explicit authorization for that specific PR.**
+**Never merge a material PR without the user's explicit authorization for that specific PR.**
 
 Immediately before an authorized merge:
 
@@ -656,209 +551,155 @@ Immediately before an authorized merge:
 4. Verify mergeability.
 5. Check submitted reviews.
 6. Check inline review threads.
-7. Ensure no unresolved blockers remain.
+7. Check PR comments/blockers.
 8. Ensure this handoff is current.
-9. Merge only the exact verified/authorized head.
+9. Merge only the exact verified head after explicit approval.
 
-If the branch changes after authorization, the previous authorization does not automatically apply to the new head.
+If the branch changes after authorization, revalidate and reconfirm authorization for the new head.
 
-## PR #4 merge audit trail
-
-PR #4 followed the above process:
-
-- authorized by user
-- verified head `34a5fd3dec48e0651a67ced093a15917887f999a`
-- CI run #37 success on exact head
-- mergeable
-- no reviews/threads/comments
-- draft flag removed without changing head
-- merge performed with exact expected head pinned
-- merge commit `c1c41ba64d08a0c7b7239bda10fad7a56ce645a2`
-- `main` subsequently verified to point to that merge commit before this post-merge handoff maintenance commit
-
-## After merge
+## After a merge
 
 1. Re-fetch `main`.
-2. Verify resulting SHA.
-3. Confirm intended PR is part of `main`.
-4. Update this handoff if baseline/next step changed.
-5. Give the user safe Windows PowerShell local update/validate/start commands.
-
-## Branch protection note
-
-At the last verification before PR #4, `main` was not branch-protected. Process rules therefore matter even more; do not bypass them simply because GitHub permits direct writes.
+2. Verify the resulting `main` SHA.
+3. Confirm the intended PR is part of `main`.
+4. Update this handoff if the released baseline or continuation point changed.
+5. **Do not provide local-repository update commands to the user. There is no normal local Plot Twist repo.**
+6. Instead, verify/allow time for the GitHub-hosted deployment, then have the user confirm the visible app version and perform the hosted Android/PWA acceptance test.
 
 ---
 
-# 9. Local Development Workflow
+# 9. Development Workflow
+
+## Normal workflow
+
+Plot Twist is developed and hosted through GitHub. The user does not maintain a local repository.
+
+Normal flow:
+
+1. Inspect/edit repository files on a GitHub feature branch.
+2. Open/update the relevant PR.
+3. Let GitHub Actions run syntax/content validation.
+4. Resolve code/content/review issues on that branch.
+5. Keep `docs/DEVELOPMENT_HANDOFF.md` current.
+6. Obtain explicit user authorization before material merge.
+7. Perform exact-head merge checks.
+8. Merge to `main`.
+9. Verify `main` from GitHub.
+10. Verify the hosted version on Android/PWA.
 
 ## Local repository path
 
-**Not verified.** Do not invent one.
+**Not applicable in the user's current workflow. No local Plot Twist repository is maintained.**
 
-## OS / shell
+## Dependency installation
 
-Windows PowerShell.
+None for the hosted application.
 
-## Dependencies
+## Build command
 
-No package install/build step is required.
+None. There is no build step.
 
-Use Node.js 22 where possible because CI uses Node 22.
+## Local development/start command
 
-## Validation commands
+Not part of the user's normal workflow.
 
-From the actual repository root:
-
-```powershell
-node --check .\cards.js
-node --check .\deck-a.js
-node --check .\deck-b.js
-node --check .\deck-c.js
-node --check .\deck-d.js
-node --check .\deck-e.js
-node --check .\deck-f.js
-node --check .\deck-g.js
-node --check .\deck-h.js
-node --check .\history-a.js
-node --check .\history-b.js
-node --check .\history-c.js
-node --check .\history-d.js
-node --check .\history-reviewed.js
-node --check .\categories.js
-node --check .\app.js
-node --check .\choice-ui.js
-node --check .\history-ui.js
-node --check .\sw.js
-node --check .\validate-content.cjs
-node .\validate-content.cjs
-```
-
-## Development server
-
-```powershell
-py -m http.server 8080
-```
-
-Fallback:
-
-```powershell
-python -m http.server 8080
-```
-
-Open:
-
-`http://localhost:8080`
-
-Do not test the PWA from `file://`.
-
-## Safe local update block after the v6.2 merge
-
-From the actual local repository root:
-
-```powershell
-git status
-git fetch origin --prune
-git switch main
-git pull --ff-only origin main
-node .\validate-content.cjs
-py -m http.server 8080
-```
-
-If `git status` shows local changes, do not discard them automatically.
+A future developer may optionally clone/run the static site for debugging if explicitly useful, but must not present that optional environment as something the user already has or must maintain.
 
 ---
 
 # 10. Testing and Validation
 
-## CI workflow
+## GitHub Actions
 
-`.github/workflows/validate.yml`
+Workflow: `.github/workflows/validate.yml`
 
 Name: `Validate Plot Twist`
-
-Triggers:
-
-- pushes to `main`
-- pull requests targeting `main`
 
 Environment:
 
 - `ubuntu-latest`
 - Node.js 22
 
-CI runs JavaScript syntax checks and `node validate-content.cjs`.
+It runs JavaScript syntax checks plus `node validate-content.cjs`.
 
-## Important automated coverage
+## Validator coverage
+
+The validator checks, among other things:
 
 - exactly 200 cards
-- complete/unique IDs
-- required fields/structure
-- exactly two substantive/distinct choices
+- IDs 1–200 complete/unique
+- required fields
+- two scenario paragraphs
+- exactly two distinct/substantive choices
 - no `it depends` escape
-- loaded-choice wording lint
+- conservative loaded-choice wording lint
 - substantive Plot Twists
-- valid categories
+- valid category assignments
 - exactly 200 substantive Real-World Examples
-- required history/runtime files loaded
-- required app-shell assets precached
-- v6.2 choice UI hooks
+- required deck/history files loaded
+- required runtime assets precached
+- two-choice How to Play contract
 - Real-World Example placement
+- v6.2 choice UI structural hooks
 - visible `v6.2.0`
 - `masterpiece-200-v1`
 - cache `plot-twist-v6.2.0`
-- forbidden source-worldview/meta leaks rejected
+- protected forbidden/meta wording checks
 
-## Manual Android acceptance — current release task
+## Manual Android acceptance
 
-The v6.2 code is now merged, so perform this test against the deployed/installed production build once the phone updates from v6.1.1 to v6.2.0:
+For v6.2, verify on the hosted/installed Android Chrome PWA:
 
-1. Confirm Settings shows **v6.2.0**.
-2. Confirm existing Saved cards/settings/current state survived the update.
-3. Confirm A/B choices appear as large side-by-side panels.
-4. Confirm the center divider and `VS` marker look correct.
-5. Confirm long choice labels/reasons are readable and do not overlap.
-6. Confirm reveal → The Point → post-Point question → Real-World Example ordering.
-7. Confirm long historical titles/body text are comfortable to read.
-8. Confirm `Mix Everything` can draw across the full deck.
-9. Confirm single/multiple category filtering works without duplicates.
-10. Confirm Random respects selected categories.
-11. Confirm Saved playback works independently of category filters.
-12. Confirm close/reopen restores expected state.
-13. Confirm Chaos, Next Card, Saved, Settings, and wake-lock-related behaviour still work.
-14. After the new service worker is active, fully close the app, enable airplane mode, turn Wi-Fi off, relaunch from the installed icon, and play several cards.
-15. Do **not** clear site data as the normal way to force the upgrade; preserving prior state is part of the acceptance test.
+1. Settings shows `v6.2.0`.
+2. Existing Saved cards/settings survive the v6.1.1 → v6.2 update.
+3. Side-by-side A-vs-B panels are readable/tappable.
+4. Long choice labels/reasons do not overlap the divider/`VS` marker.
+5. Reveal → The Point → post-Point question → Real-World Example ordering is correct.
+6. Historical titles/body text are comfortable to read.
+7. Category filtering and multi-select mixing work.
+8. Random respects selected categories.
+9. Saved playback works independently of the filter.
+10. State survives close/reopen.
+11. Chaos, Next, Saved, Settings, and wake-lock-related behaviour still work.
+12. After the new service worker activates, fully close the app, enable airplane mode, turn Wi-Fi off, relaunch from the installed icon, and verify full gameplay.
 
-If Settings still shows v6.1.1 shortly after merge, treat that first as a deployment/service-worker propagation/update issue, not proof that the v6.2 source is absent from `main`.
+Do not clear site data as the normal update test.
 
 ---
 
 # 11. Current GitHub State
 
-**Verification date:** 2026-08-21 (America/Vancouver), immediately after authorized PR #4 merge. Re-verify live before future actions.
+**Last verified after the v6.2 merge and handoff update:**
 
-## Verified v6.2 merge state
+## `main`
+
+`0803203bc1215cfbc83fb03d121c2993827de900`
+
+Commit message:
+
+`Update handoff after v6.2 merge`
+
+Parent:
+
+`c1c41ba64d08a0c7b7239bda10fad7a56ce645a2`
+
+## Latest material merged PR
 
 PR #4 — **Plot Twist v6.2: prominent choices and real-world examples**
 
 - merged: yes
-- source branch: `historical-examples-ui`
-- exact PR head: `34a5fd3dec48e0651a67ced093a15917887f999a`
-- exact pre-merge base: `d5ee158222181ee422699811b2e0baae79703e1e`
-- CI: `Validate Plot Twist` run #37 / run ID `32542683784`
-- exact-head CI conclusion: success
-- submitted reviews at merge time: none
-- inline review threads at merge time: none
-- PR comments at merge time: none
+- exact merged head: `34a5fd3dec48e0651a67ced093a15917887f999a`
 - merge commit: `c1c41ba64d08a0c7b7239bda10fad7a56ce645a2`
+- pre-merge CI: `Validate Plot Twist` run #37, run ID `32542683784`, success on exact head
+- pre-merge submitted reviews: none
+- pre-merge inline review threads: none
+- pre-merge PR comments: none
 
-`main` was fetched immediately after merge and verified to point to `c1c41ba64d08a0c7b7239bda10fad7a56ce645a2` before this post-merge documentation maintenance commit.
+## Active PR
 
-**Dynamic-state warning:** this handoff maintenance commit itself advances `main` beyond the merge commit. A future chat must fetch the live `main` SHA instead of assuming the merge commit remains the branch tip.
+No known active material development PR immediately after the v6.2 merge.
 
-## Current development PR
-
-None known immediately after the merge.
+Always re-fetch GitHub before relying on these values in a later session.
 
 ---
 
@@ -869,13 +710,13 @@ None known immediately after the merge.
 Completed:
 
 - installable PWA
-- local icons/manifest
+- local manifest/icons
 - service-worker/offline cache
 - local state restore
 - Saved cards
 - Chaos prompts
 - Host prompts
-- wake-lock support where available
+- wake-lock support
 - dark campfire-oriented UI
 
 ## 200-card expansion
@@ -883,15 +724,11 @@ Completed:
 Completed:
 
 - exactly 200 cards
-- eight 25-card files
+- eight 25-card deck files
 - six selectable/mixable categories
 - category-aware Start/Random
 - stable internal IDs
 - automated validation
-
-## PR #1 — Finalize Plot Twist 200-card audit
-
-Established stronger validation/documentation around the complete deck.
 
 ## PR #2 — Rewrite all 200 cards as real two-sided dilemmas
 
@@ -899,15 +736,7 @@ Merged commit:
 
 `2c9056a4a0c0bbd6c547804379e5fa16eee4a1e9`
 
-Outcome:
-
-- full 200-card editorial rewrite
-- two defensible pre-reveal choices
-- decision-relevant twists
-- clearer `The Point`
-- stronger terminology/meta validation
-- updated How to Play
-- cache v6.1.0
+Established the stricter two-defensible-choice mechanic and stronger validator rules.
 
 ## PR #3 — Show app version in Settings
 
@@ -915,7 +744,7 @@ Merged as:
 
 `f90afb2d3096763af555cf2110a5a2d539a5e5a1`
 
-Added visible version reporting and v6.1.1 cache/validation alignment.
+Added visible build/version reporting and v6.1.1 cache/version validation.
 
 ## PR #4 — v6.2 prominent choices and Real-World Examples
 
@@ -925,48 +754,42 @@ Merged as:
 
 Completed:
 
-- `game-v6.2.css`
+- prominent A/B UI
 - `choice-ui.js`
+- `game-v6.2.css`
 - `history-ui.js`
-- 200 runtime Real-World Example mappings
-- audited `history-reviewed.js` overrides
-- complete source ledger IDs 1–200
-- v6.2 validation coverage
-- Settings `v6.2.0`
-- cache `plot-twist-v6.2.0`
+- 200 runtime Real-World Examples
+- `history-reviewed.js` audited overrides
+- full historical source ledger IDs 1–200
+- v6.2.0 cache/version
+- expanded validation
 - README/VALIDATION updates
-- permanent development continuity system
+- permanent development handoff system
 
-Important late-deck audited overrides include:
+Important late-deck audited examples include:
 
 - 179 — Cynthia Cooper / WorldCom
-- 184 — UC Berkeley admissions / Simpson’s paradox
+- 184 — UC Berkeley graduate admissions / Simpson's paradox
 - 187 — *Moritz v. Commissioner*
 - 189 — Salt March
 - 196 — First World War / July Crisis multi-causation
-- 200 — Charles Darwin’s routine at Down House
+- 200 — Charles Darwin's routine at Down House
 
 ---
 
 # 13. Current Unresolved Issues
 
-## 1. Post-merge Android acceptance test
+## 1. Verify hosted v6.2 reaches the user's phone
 
-This is now the main active task.
+Before merge the installed app showed `v6.1.1`. PR #4 is now merged, so the immediate task is to verify that the hosted deployment/service-worker update moves the installed app to `v6.2.0` without clearing local state.
 
-The user must verify the production/installed app updates from v6.1.1 to v6.2.0 and test visual layout, persistence, service-worker update, and airplane-mode gameplay.
+## 2. Complete Android v6.2 acceptance
 
-## 2. Deployment/service-worker propagation may delay visible version change
+Once Settings shows `v6.2.0`, complete the checklist in section 10, including airplane-mode relaunch.
 
-If Settings remains on v6.1.1 immediately after merge, verify GitHub Pages deployment/current served assets and normal service-worker update lifecycle before proposing destructive cache/site-data clearing.
+## 3. Hosted deployment details
 
-## 3. Exact local checkout path remains unverified
-
-Future local command instructions must not invent a path.
-
-## 4. Exact live GitHub Pages URL/settings remain independently unverified
-
-Investigate only if the production update does not appear or deployment behaviour needs diagnosis.
+The project is known to be GitHub-hosted, but the exact public Pages URL/settings are not recorded in this handoff yet. A future session should verify and record the exact hosted URL if needed for debugging deployment/update behaviour.
 
 ---
 
@@ -974,18 +797,11 @@ Investigate only if the production update does not appear or deployment behaviou
 
 ## Exact Next Step
 
-A fresh development session must proceed in this order:
-
-1. Connect to `detratech/plot-twist` and read this handoff in full.
-2. Fetch current `main` and record its exact SHA. Verify that it contains PR #4 merge commit `c1c41ba64d08a0c7b7239bda10fad7a56ce645a2` in its ancestry.
-3. Check for any new open material PRs/branches created after this handoff.
-4. The immediate product task is the user’s **v6.2 Android production test**.
-5. First ask/check what version Settings now shows. Expected: `v6.2.0` once the deployment/service-worker update has activated.
-6. If the user still sees `v6.1.1`, diagnose the non-destructive update path: verify deployed `main` assets/GitHub Pages state and service-worker lifecycle before suggesting any data-clearing action.
-7. Once v6.2.0 appears, walk through the Android acceptance checklist in section 10: A/B layout, long choices, Real-World Example placement/readability, categories, Random, Saved cards, persistence, close/reopen, and airplane-mode play.
-8. If a defect is found, create/use an appropriate feature/fix branch and PR. Add regression validation where practical. Update this handoff with the defect, fix, test state, and new exact next step.
-9. Do not reopen the completed 200-card rewrite or historical source audit unless a concrete defect is identified.
-10. Do not merge any new material PR without explicit user authorization and the exact-head pre-merge checks in section 8.
-11. After any future material merge, re-fetch `main`, verify the exact resulting SHA, update this handoff, and give the safe Windows PowerShell local update/validate/start commands.
-
-Do not end future handoffs with vague instructions such as “continue development.” Replace this section with the next concrete ordered procedure whenever project state changes.
+1. Re-fetch `main` and confirm the current SHA; the last verified value in this handoff is `0803203bc1215cfbc83fb03d121c2993827de900`.
+2. Confirm PR #4 remains merged and no newer material PR has superseded v6.2.
+3. Treat the user workflow as **GitHub-hosted only**. Do not ask for or invent a local Plot Twist repository.
+4. Have the user open the hosted/installed Plot Twist app while online and check **Settings → App Version**.
+5. If it shows `v6.2.0`, proceed directly through the Android acceptance checklist in section 10, ending with the airplane-mode relaunch test.
+6. If it still shows `v6.1.1`, do **not** tell the user to clear site data. Investigate the GitHub-hosted deployment and service-worker update path first, determine whether the hosted site itself is serving v6.2 assets, and then use the least-destructive update procedure.
+7. If testing reveals a defect, create/use a feature branch and PR, add regression validation where practical, keep this handoff current, and do not merge without explicit user authorization.
+8. If v6.2 passes Android acceptance, update this handoff to record acceptance as complete and replace this Exact Next Step with the next concrete product/development task.
