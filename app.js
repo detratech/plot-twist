@@ -10,6 +10,7 @@ const defaultState = {
   revealed: false,
   saved: [],
   selectedCategories: ['all'],
+  runCategories: ['all'],
   settings: {
     keepAwake: false,
     hostPrompts: false
@@ -97,6 +98,7 @@ function loadState() {
 
     const preservedSettings = normalizeSettings(parsed.settings);
     const preservedCategories = normalizeSelectedCategories(parsed.selectedCategories);
+    const preservedRunCategories = normalizeSelectedCategories(parsed.runCategories || parsed.selectedCategories);
     const validSaved = normalizeCardIds(parsed.saved);
 
     if (parsed.deckVersion !== DECK_VERSION) {
@@ -104,6 +106,7 @@ function loadState() {
         ...structuredCloneCompat(defaultState),
         settings: preservedSettings,
         selectedCategories: preservedCategories,
+        runCategories: preservedCategories,
         saved: validSaved
       };
     }
@@ -121,6 +124,7 @@ function loadState() {
       revealed: mode && position < order.length && parsed.revealed === true,
       saved: validSaved,
       selectedCategories: preservedCategories,
+      runCategories: mode ? preservedRunCategories : preservedCategories,
       settings: preservedSettings
     };
   } catch {
@@ -135,6 +139,7 @@ function structuredCloneCompat(value) {
 function persist() {
   state.deckVersion = DECK_VERSION;
   state.selectedCategories = normalizeSelectedCategories(state.selectedCategories);
+  state.runCategories = normalizeSelectedCategories(state.runCategories);
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   } catch {
@@ -160,14 +165,18 @@ function currentCard() {
   return cardById(state.order[state.position]);
 }
 
-function selectedCategoryObjects() {
-  const selected = normalizeSelectedCategories(state.selectedCategories);
+function categoryObjectsFor(value) {
+  const selected = normalizeSelectedCategories(value);
   if (selected.includes('all')) return [];
   return GAME_CATEGORIES.filter(category => selected.includes(category.id));
 }
 
-function eligibleCards() {
-  const selected = normalizeSelectedCategories(state.selectedCategories);
+function selectedCategoryObjects() {
+  return categoryObjectsFor(state.selectedCategories);
+}
+
+function eligibleCards(selectedValue = state.selectedCategories) {
+  const selected = normalizeSelectedCategories(selectedValue);
   if (selected.includes('all')) return [...PLOT_TWIST_CARDS];
 
   const filtered = PLOT_TWIST_CARDS.filter(card =>
@@ -178,7 +187,7 @@ function eligibleCards() {
 }
 
 function selectionModeLabel() {
-  const categories = selectedCategoryObjects();
+  const categories = categoryObjectsFor(state.runCategories);
   if (!categories.length) return 'MIXED';
   if (categories.length === 1) return categories[0].label.toUpperCase();
   return 'CUSTOM MIX';
@@ -249,7 +258,8 @@ function beginGame(mode) {
   if (mode === 'saved') {
     state.order = [...state.saved];
   } else {
-    state.order = shuffled(eligibleCards().map(card => card.id));
+    state.runCategories = normalizeSelectedCategories(state.selectedCategories);
+    state.order = shuffled(eligibleCards(state.runCategories).map(card => card.id));
   }
 
   if (!state.order.length) {
@@ -261,6 +271,16 @@ function beginGame(mode) {
   persist();
   renderCard();
   showScreen('game');
+}
+
+function restartRun() {
+  if (state.mode === 'saved') {
+    beginGame('saved');
+    return;
+  }
+
+  state.selectedCategories = normalizeSelectedCategories(state.runCategories);
+  beginGame(state.mode === 'random' ? 'random' : 'main');
 }
 
 function renderParagraphs(container, paragraphs) {
@@ -532,6 +552,7 @@ document.addEventListener('click', event => {
   if (action === 'resume') resumeGame();
   if (action === 'start') beginGame('main');
   if (action === 'random') beginGame('random');
+  if (action === 'restart') restartRun();
 });
 
 el.revealButton.addEventListener('click', () => {
@@ -578,8 +599,12 @@ if ('serviceWorker' in navigator && location.protocol !== 'file:') {
   window.addEventListener('load', async () => {
     try {
       const registration = await navigator.serviceWorker.register('./sw.js');
-      await registration.update();
-      await waitForWorkerActivation(registration);
+      try {
+        await registration.update();
+        await waitForWorkerActivation(registration);
+      } catch (error) {
+        if (navigator.onLine || !registration.active) throw error;
+      }
       await navigator.serviceWorker.ready;
       el.offlineStatus.textContent = 'Offline cache ready';
     } catch {
