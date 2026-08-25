@@ -8,11 +8,9 @@ The basic loop is simple:
 
 ## Current development version
 
-**v6.4.0** is the active development version on PR #9.
+**v6.4.1** is the active patch release candidate.
 
-v6.4 does not change the 200-card deck IDs or saved-data compatibility. It changes how the game **speaks**.
-
-The main goal is that a regular person should understand a card on the first read without needing academic, legal, philosophical, or debate-club vocabulary.
+v6.4.1 keeps the v6.4 plain-language work and fixes the meaning of **One Last Thing**. Instead of asking an unrelated rotating consistency question, that section now gives a short answer to the follow-up question that appeared immediately before the Real-World Example.
 
 Compatibility remains:
 
@@ -20,9 +18,9 @@ Compatibility remains:
 - deck/state ID: `masterpiece-200-v1`
 - stable internal card IDs: 1–200
 
-The v6.4 service-worker cache is:
+The v6.4.1 service-worker cache is:
 
-`plot-twist-v6.4.0`
+`plot-twist-v6.4.1`
 
 ## What is included
 
@@ -34,7 +32,7 @@ The v6.4 service-worker cache is:
 - **The Point**
 - a follow-up question
 - one researched **Real-World Example** per card
-- one **One Last Thing** consistency question per card
+- **One Last Thing**, which gives a short answer to that follow-up after the example
 - **Keep Talking** extra questions
 - 16 optional **Chaos** prompts
 - Saved cards
@@ -106,18 +104,25 @@ Examples:
 
 How to Play was rewritten around ordinary instructions rather than game-design language.
 
-The eight **One Last Thing** questions were also made more conversational, including:
-
-- `SAME RULE?`
-- `WHAT WOULD CHANGE YOUR MIND?`
-- `WHAT IF YOU HATED THE RESULT?`
-- `WHAT IF THEY WERE STRANGERS?`
-- `WOULD YOU LET EVERYONE USE IT?`
-- `WHAT IF IT WAS YOU?`
-- `WHAT IF THE POWER FLIPPED?`
-- `SAME RULE SOMEWHERE ELSE?`
-
 Chaos prompts were rewritten in the same style.
+
+## One Last Thing in v6.4.1
+
+The original v6.3/v6.4 implementation rotated through eight generic consistency questions based on card ID. That meant the section could ask something unrelated to the question the player had just discussed.
+
+v6.4.1 changes that contract:
+
+1. The card asks its follow-up question.
+2. The player discusses it.
+3. The Real-World Example gives a concrete case.
+4. **One Last Thing** appears afterward as **THE SHORT ANSWER**.
+5. That answer is derived from the current card's own Point, with the final meaningful sentence used as the concise takeaway when possible.
+
+The old rotating `TESTS` bank and card-ID modulo assignment are removed.
+
+This keeps the flow coherent:
+
+`question → real example → short answer`
 
 ## Card design rules
 
@@ -131,11 +136,11 @@ Every card still needs:
 4. **A reason to reconsider.** The reveal should not simply congratulate one side.
 5. **A clear Point.** The lesson can be direct without pretending both sides are equally right after the reveal.
 6. **A fitting Real-World Example.** The example should match the exact principle and stay within what the source supports.
-7. **A consistency check.** One Last Thing asks whether the same rule survives a change in people, power, outcome, or setting.
+7. **A coherent close.** One Last Thing should answer the follow-up that came before the example rather than start another unrelated test.
 
 The intended player flow is:
 
-`pick topics → scenario → choose → explain → Plot Twist → reconsider → The Point → question → Real-World Example → One Last Thing → Keep Talking`
+`pick topics → scenario → choose → explain → Plot Twist → reconsider → The Point → question → Real-World Example → One Last Thing: short answer → Keep Talking`
 
 ## Main runtime files
 
@@ -147,7 +152,7 @@ The intended player flow is:
 - `language-polish.js` — v6.4 player-facing plain-language layer
 - `choice-ui.js` — choice label/reason presentation
 - `history-ui.js` — Real-World Example presentation
-- `consistency-ui.js` — One Last Thing presentation
+- `consistency-ui.js` — One Last Thing short-answer presentation
 - `history-a.js` through `history-d.js` plus `history-reviewed.js` — 200 Real-World Examples
 - `sw.js` — offline cache
 - `manifest.webmanifest` — PWA installation metadata
@@ -170,7 +175,8 @@ Checks the 200-card/content/product contract, including:
 - 200 Real-World Examples
 - hidden terminology/meta-authoring protections
 - UI/load/precache contracts
-- v6.4 version/cache wiring
+- v6.4.1 version/cache wiring
+- One Last Thing is an answer after the example, not an unrelated generic question bank
 
 ### `validate-runtime.cjs`
 
@@ -185,6 +191,8 @@ Checks runtime/PWA/state/workflow regressions, including:
 - wake lock and Chaos modal handling
 - hardened GitHub Actions configuration
 - loading and offline caching of `language-polish.js`
+- removal of the old rotating One Last Thing question bank
+- card-specific short-answer rendering after the Real-World Example
 
 ### `validate-language.cjs`
 
@@ -201,31 +209,29 @@ It rejects selected formal/jargon terms and sets readability limits on:
 - extra questions
 - Real-World Examples
 
-The first v6.4 run found nine remaining overlong passages. Those nine were rewritten rather than exempted, and the next CI run passed the language gate.
-
 See `VALIDATION.md` for the full validation contract.
 
 ## Offline design
 
 Offline-first remains non-negotiable.
 
-The service worker precaches all essential game files, including `language-polish.js`. Once the installed PWA has received the new service worker, full gameplay should work with airplane mode enabled and Wi-Fi off.
+The service worker precaches all essential game files, including `language-polish.js` and the updated `consistency-ui.js`. Once the installed PWA has received the new service worker, full gameplay should work with airplane mode enabled and Wi-Fi off.
 
 Do not clear site data as the normal update method because that removes Saved cards, settings, category choices, and active state.
 
-## Android acceptance for v6.4
+## Android acceptance for v6.4.1
 
-After v6.4 is eventually merged and deployed:
+After v6.4.1 is merged and deployed:
 
 1. Open Plot Twist online.
-2. Confirm Settings shows **v6.4.0**.
+2. Confirm Settings shows **v6.4.1**.
 3. Confirm existing Saved cards/settings survive the update.
-4. Read several cards aloud from different topics.
-5. Confirm scenarios, choices, twists, The Point, examples, One Last Thing, Chaos, and extra questions sound natural and are understandable on the first read.
-6. Confirm the simplified home screen and How to Play are obvious without explanation.
-7. Confirm the existing category, resume, replay, Saved, wake-lock, and Chaos behaviours still work.
-8. Fully close the app.
-9. Enable airplane mode and turn Wi-Fi off.
-10. Relaunch from the installed icon and verify full gameplay.
+4. Play several cards from different topics.
+5. Confirm the follow-up question appears before the Real-World Example.
+6. Confirm **One Last Thing → THE SHORT ANSWER** appears after the example.
+7. Check that the short answer actually feels like a response to the question you just discussed rather than a new question.
+8. Confirm scenarios, choices, twists, The Point, examples, Chaos, and extra questions still sound natural on the first read.
+9. Confirm category, resume, replay, Saved, wake-lock, and Chaos behaviours still work.
+10. Fully close the app, enable airplane mode, turn Wi-Fi off, relaunch from the installed icon, and verify full gameplay.
 
-Static validation is required, but the final language-quality check is still a human one: **does it sound natural when spoken?**
+Static validation is required, but the final coherence check is human: **does the example lead naturally into the answer?**
