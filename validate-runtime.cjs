@@ -25,11 +25,12 @@ const manifestText = read('manifest.webmanifest');
 const historyUi = read('history-ui.js');
 const choiceUi = read('choice-ui.js');
 const consistencyUi = read('consistency-ui.js');
+const languagePolish = read('language-polish.js');
 const workflow = read('.github/workflows/validate.yml');
 const dependabot = read('.github/dependabot.yml');
 
-const APP_VERSION = 'v6.3.1';
-const CACHE_NAME = 'plot-twist-v6.3.1';
+const APP_VERSION = 'v6.4.0';
+const CACHE_NAME = 'plot-twist-v6.4.0';
 const CATEGORY_IDS = ['all', 'mind', 'relationships', 'money', 'tech', 'society', 'life'];
 
 // Version / state compatibility contracts.
@@ -70,6 +71,11 @@ for (const ref of runtimeRefs) {
   assert(shellAssets.includes(`./${ref}`), `Local runtime asset is not precached: ${ref}`);
 }
 assert(!/(?:src|href)="https?:\/\//i.test(index), 'index.html contains an external runtime dependency.');
+assert(index.includes('<script src="language-polish.js"></script>'), 'Plain-language layer is not loaded by index.html.');
+assert(index.indexOf('<script src="categories.js"></script>') < index.indexOf('<script src="language-polish.js"></script>'), 'Plain-language layer must load after category inference.');
+assert(index.indexOf('<script src="language-polish.js"></script>') < index.indexOf('<script src="app.js"></script>'), 'Plain-language layer must run before app rendering starts.');
+assert(sw.includes("'./language-polish.js'"), 'Plain-language layer is not available offline.');
+assert(languagePolish.includes('PLOT_TWIST_CARDS.forEach(polishCard)'), 'Plain-language layer is not applied to all cards.');
 
 // Manifest installation contract.
 let manifest;
@@ -149,7 +155,7 @@ assert(!historyUi.includes('enhanceChoices'), 'history-ui.js still duplicates ch
 assert(!historyUi.includes('scenarioChoices'), 'history-ui.js still depends on the choice container.');
 assert(choiceUi.includes("raw.indexOf(' — ')"), 'choice-ui.js no longer owns choice label/reason enhancement.');
 
-// GitHub Actions workflow hardening.
+// GitHub Actions workflow hardening and language gate.
 assert(/actions\/checkout@[0-9a-f]{40}/.test(workflow), 'actions/checkout is not pinned to an immutable commit SHA.');
 assert(/actions\/setup-node@[0-9a-f]{40}/.test(workflow), 'actions/setup-node is not pinned to an immutable commit SHA.');
 assert(workflow.includes('persist-credentials: false'), 'Checkout still persists GitHub credentials unnecessarily.');
@@ -158,6 +164,8 @@ assert(workflow.includes('cancel-in-progress: true'), 'Validation workflow does 
 assert(/timeout-minutes:\s*10/.test(workflow), 'Validation job is missing its execution timeout.');
 assert(workflow.includes('node --check validate-runtime.cjs'), 'Runtime validator is not syntax-checked in CI.');
 assert(workflow.includes('node validate-runtime.cjs'), 'Runtime validator is not executed in CI.');
+assert(workflow.includes('node --check validate-language.cjs'), 'Language validator is not syntax-checked in CI.');
+assert(workflow.includes('node validate-language.cjs'), 'Language validator is not executed in CI.');
 
 // Keep pinned Actions maintainable.
 assert(/package-ecosystem:\s*["']?github-actions["']?/.test(dependabot), 'Dependabot is not configured for GitHub Actions updates.');
@@ -165,8 +173,8 @@ assert(/directory:\s*["']\/["']/.test(dependabot), 'Dependabot GitHub Actions di
 
 console.log(`PASS: runtime reports ${APP_VERSION} and cache ${CACHE_NAME}.`);
 console.log('PASS: service-worker cleanup is cache-prefix scoped and runtime cache writes are awaited.');
-console.log('PASS: all local HTML/manifest runtime assets exist and are precached.');
+console.log('PASS: all local HTML/manifest runtime assets, including the plain-language layer, exist and are precached.');
 console.log('PASS: manifest, DOM IDs, ARIA references, screen/action/category targets, and offline wiring are internally consistent.');
 console.log('PASS: persisted-state recovery, run completion/context/replay, wake lock, and Chaos modal regressions are guarded.');
 console.log('PASS: choice/history UI responsibilities are separated.');
-console.log('PASS: GitHub Actions uses pinned actions, least-privilege checkout, concurrency cancellation, timeout, and the runtime audit.');
+console.log('PASS: GitHub Actions keeps the hardened workflow and now enforces the plain-language gate too.');
