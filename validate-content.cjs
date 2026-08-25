@@ -277,8 +277,8 @@ for (const file of runtimeFiles) {
   if (!sw.includes(`'./${file}'`)) fail(`sw.js does not precache ${file}.`);
 }
 
-if (!sw.includes("plot-twist-v6.3.0")) fail('Service-worker cache is not plot-twist-v6.3.0.');
-if (!index.includes('<b>App Version</b>') || !index.includes('<strong>v6.3.0</strong>')) fail('Settings does not display app version v6.3.0.');
+if (!sw.includes("plot-twist-v6.3.1")) fail('Service-worker cache is not plot-twist-v6.3.1.');
+if (!index.includes('<b>App Version</b>') || !index.includes('<strong>v6.3.1</strong>')) fail('Settings does not display app version v6.3.1.');
 if (!app.includes("masterpiece-200-v1")) fail('App deck version is not masterpiece-200-v1.');
 if (/\b(?:card|scenario)\s*#?\d+\b/i.test(index)) fail('Visible card/scenario numbering pattern found in index.html.');
 if (!index.includes('Both are meant to be defensible before the reveal.')) fail('How to Play does not state the two-sided dilemma rule.');
@@ -330,6 +330,6 @@ console.log('PASS: the post-Point question is followed by the Real-World Example
 console.log('PASS: eight deterministic consistency pressure tests cover role reversal, falsifiability, outcome, impartiality, universalization, self-application, power reversal, and cross-domain transfer.');
 console.log('PASS: the two answer choices remain locked to the prominent left-vs-right layout with a divider, large decision label, and secondary reason.');
 console.log('PASS: the user-facing rules require two defensible choices and allow switching after the Plot Twist.');
-console.log('PASS: settings visibly reports app version v6.3.0.');
-console.log('PASS: deck version masterpiece-200-v1 and cache plot-twist-v6.3.0 are wired.');
+console.log('PASS: settings visibly reports app version v6.3.1.');
+console.log('PASS: deck version masterpiece-200-v1 and cache plot-twist-v6.3.1 are wired.');
 console.log('Category memberships:', distribution);
