@@ -1,255 +1,272 @@
 # Plot Twist Validation
 
-Validation notes for the 200-card source, the v6.2/v6.3 presentation/history/consistency layers, and the v6.3.1 runtime/PWA audit.
+Validation contract for the 200-card deck, runtime/PWA, and v6.4 plain-language player experience.
 
-## Current deck structure
+## Current development version
 
-- **200 local scenarios** split across `deck-a.js` through `deck-h.js`.
-- `cards.js` initializes the shared array and 16 Chaos pressure tests.
-- Five runtime history files provide exactly 200 Real-World Example mappings: `history-a.js` through `history-d.js`, then `history-reviewed.js` as the audited override layer.
-- `choice-ui.js` owns choice label/reason enhancement.
-- `history-ui.js` owns Real-World Example rendering only.
-- `consistency-ui.js` owns the deterministic `One Last Thing` layer.
-- `game-v6.2.css` owns the prominent A-vs-B presentation.
-- `game-v6.3.css` owns the consistency callout.
-- Internal IDs are compatibility/mapping keys and remain hidden from normal player-facing UI.
+PR #9 targets **v6.4.0**.
 
-## Current flow
+Compatibility anchors remain unchanged:
 
-`pick topics → dilemma → two prominent A-vs-B choices → commitment → discussion → Plot Twist → reconsider/switch → The Point → deeper question → Real-World Example → One Last Thing → Where This Can Go`
+- localStorage key: `plotTwistStateV4`
+- deck/state ID: `masterpiece-200-v1`
+- stable internal card IDs: 1–200
 
-The Real-World Example remains after the post-Point question. `One Last Thing` remains after that example.
+Service-worker cache:
 
-The eight consistency prompts are:
+`plot-twist-v6.4.0`
 
-1. `SAME RULE?`
-2. `WHAT WOULD CHANGE YOUR MIND?`
-3. `OUTCOME TEST`
-4. `STRANGER TEST`
-5. `EVERYONE GETS IT`
-6. `YOUR TURN`
-7. `POWER FLIP`
-8. `CROSSOVER`
+## Product flow
 
-Assignment remains deterministic from stable card ID with `(current.id - 1) % TESTS.length`.
+`pick topics → scenario → choose one of two reasonable sides → explain → Plot Twist → reconsider/switch → The Point → follow-up → Real-World Example → One Last Thing → Keep Talking`
 
-## Editorial validation standard
+The content still needs depth, but the player-facing wording must now be understandable on the first read by a normal adult without specialist vocabulary.
 
-Every card should still pass these human checks in addition to automation:
+## Human editorial standard
+
+Every card should pass all of these checks:
 
 1. Two thoughtful adults can reasonably disagree before the reveal.
-2. Each button states a real action, rule, priority, or judgement.
-3. Neither choice pre-labels itself as the obviously virtuous/correct side.
-4. The Plot Twist adds decision-relevant information.
-5. The reveal creates a credible reason to reconsider, narrow, or switch.
-6. `The Point` lands a clear principle rather than forced neutrality.
-7. The Real-World Example matches that exact principle and stays within what its source supports.
-8. Humour supports the dilemma rather than rigging the vote.
-9. `One Last Thing` pressure-tests the player's stated reasoning regardless of which side they chose.
-10. Runtime text stays inside the protected terminology/meta-authoring rules enforced by the validator.
+2. The choices are clear enough to understand immediately.
+3. Neither choice is written as the obviously good or stupid side.
+4. The Plot Twist adds information that matters.
+5. The new information gives a real reason to reconsider, narrow, or switch.
+6. The Point says something clear rather than hiding behind vague neutrality.
+7. The Real-World Example fits the exact principle and stays within the supporting source.
+8. Humour makes the scenario easier or more fun to picture instead of making the wording harder.
+9. One Last Thing tests consistency regardless of which side the player chose.
+10. A regular person can read the card aloud once and understand what it is asking.
 
-## v6.3.1 defects found by the deep code/workflow audit
+The final test for wording is:
 
-The patch is not merely a documentation or lint change. The audit found concrete runtime/workflow flaws and added regression protection for them.
+> **Would a regular person naturally say or understand this out loud on the first read?**
 
-### Service worker
+If not, rewrite it.
 
-**Old-cache deletion was too broad.** The previous activation logic deleted every cache on the current origin except the newest Plot Twist cache. On a shared GitHub Pages origin, this could remove caches belonging to unrelated repository apps.
+## v6.4 plain-language layer
 
-v6.3.1 now:
+`language-polish.js` runs after `categories.js` and before `app.js`.
 
-- defines `CACHE_PREFIX = 'plot-twist-'`
-- deletes only old caches that start with that prefix
-- uses the current named cache for runtime reads/writes rather than a global cache match
-- restricts runtime caching to same-origin requests inside the service-worker registration scope
-- awaits `cache.put()` so the fetch lifecycle does not abandon a pending write
-- returns an explicit error response for uncached offline non-navigation requests
+It applies the approved player-facing language to the already-loaded card/history data. The layer contains:
 
-### Persisted state and run semantics
+- replacements for formal or academic wording
+- everyday alternatives for common dense phrases
+- targeted per-card rewrites when a general replacement is not enough
+- the same light cleanup for Real-World Example text
 
-v6.3.1 now:
+The stable card schema and IDs do not change.
 
-- validates/deduplicates persisted card-ID arrays
-- normalizes settings to booleans
-- validates persisted mode and clamps position
-- tolerates localStorage write/remove failures rather than crashing gameplay
-- advances completed runs to `position === order.length`, so the last card does not reappear as resumable
-- adds `runCategories` as a compatible additive field, falling back from old state to `selectedCategories`
-- uses `runCategories` for the active run label, preventing home-filter changes from relabelling an already-built run
-- replaces the generic completed-run restart with mode-aware `PLAY AGAIN`
-- keeps Saved-card replay in Saved mode and normal/random replay tied to the original run-category snapshot
+Required script order:
 
-### Browser interaction/lifecycle
+`categories.js → language-polish.js → app.js`
 
-v6.3.1:
+The file must also be in the service-worker APP_SHELL.
 
-- prevents duplicate wake-lock acquisition
-- gives the Chaos modal Escape-key dismissal, close-control focus on open, and focus restoration on close
-- attempts a service-worker update/activation while online before reporting the cache ready, while allowing an already-active worker to keep offline launch usable when update checks cannot reach the network
+## Three validation gates
 
-### Module ownership
-
-The prior `history-ui.js` duplicated the full choice-enhancement logic already present in `choice-ui.js`.
-
-v6.3.1 removes that duplicate path. `choice-ui.js` is now the single owner of choice formatting; `history-ui.js` only renders the historical example.
-
-## Automated validation architecture
-
-GitHub Actions now runs two complementary executable audits.
+GitHub Actions runs JavaScript syntax checks followed by three executable validators.
 
 ### 1. `validate-content.cjs`
 
-This preserves the existing product/content contract. It requires, among other things:
+This remains the product/content structure gate.
+
+It checks, among other things:
 
 - exactly 200 cards
-- IDs 1–200 complete and unique
-- unique normalized titles/scenarios
-- required card fields
+- complete unique IDs 1–200
+- required fields
 - exactly two scenario paragraphs
-- exactly two distinct substantive pre-reveal choices
-- no `it depends` escape
-- conservative loaded-choice wording lint
-- substantive Plot Twist text that is not an exact scenario repeat
-- question-form main/deeper prompts
-- exactly two conversation paths
-- one or two valid categories per card and meaningful coverage across all six categories
-- exactly 200 substantive Real-World Examples after the override layer
-- all expected deck/history/UI assets loaded and precached
-- two-sided dilemma and switch-after-reveal rules present in How to Play
-- Real-World Example and One Last Thing placement contracts
-- exactly eight intended consistency tests and deterministic assignment
-- protected source-worldview/meta-authoring terminology absent from runtime/card/history/consistency text
-- visible app version `v6.3.1`
-- stable deck ID `masterpiece-200-v1`
-- cache `plot-twist-v6.3.1`
+- exactly two non-empty, distinct choices
+- no pre-reveal `it depends` escape
+- conservative loaded-choice wording checks
+- substantive Plot Twist text
+- question-form main/follow-up prompts
+- two extra conversation prompts
+- one or two valid categories per card
+- meaningful category coverage
+- exactly 200 Real-World Examples
+- required runtime files loaded by `index.html`
+- required runtime files precached by `sw.js`
+- `language-polish.js` loaded after categories and before app rendering
+- choice/history/consistency presentation contracts
+- plain How to Play statements that both sides are reasonable and changing your mind after the twist is fair
+- eight expected conversational One Last Thing prompts
+- protected source-worldview terminology absent from player-facing content
+- meta-authoring language absent from player-facing content
+- visible Settings version `v6.4.0`
+- stable `masterpiece-200-v1`
+- cache `plot-twist-v6.4.0`
 
-The content validator was not weakened by the audit.
+The content gate must not be weakened merely to make a new edit pass.
 
 ### 2. `validate-runtime.cjs`
 
-This is the v6.3.1 runtime/PWA/workflow regression audit. It checks:
+This retains the v6.3.1 deep runtime/PWA regression audit and extends it for v6.4.
 
-#### Version and compatibility
-
-- Settings reports `v6.3.1`
-- SW cache is `plot-twist-v6.3.1`
-- localStorage key remains `plotTwistStateV4`
-- deck/state ID remains `masterpiece-200-v1`
+It checks:
 
 #### Service worker
 
 - cache cleanup is restricted to `plot-twist-*`
-- the old unsafe delete-all-other-caches pattern is absent
-- runtime requests are origin/scope restricted
-- current named cache is used for reads/writes
+- unrelated origin caches cannot be deleted
+- runtime reads/writes use the current Plot Twist cache
+- requests are restricted to same origin and service-worker scope
 - runtime cache writes are awaited
-- offline error/fallback behavior is explicitly wired
-- `APP_SHELL` has no duplicates
-- every `APP_SHELL` file exists
+- offline navigation/error fallbacks are present
+- APP_SHELL has no duplicate/missing files
 
-#### Runtime assets / manifest
+#### Runtime assets and installation
 
-- every local HTML script/link exists and is precached
-- no external HTTP runtime dependency appears in `index.html`
-- manifest JSON parses
-- `start_url` and `scope` remain repository-relative
-- display remains standalone
-- required regular/maskable icons exist and are precached
-- manifest shortcut URLs stay inside app scope
-- the Random shortcut is handled by `app.js`
+- local scripts/styles referenced by HTML exist
+- local runtime assets are precached
+- no external HTTP runtime dependency is introduced
+- `language-polish.js` is loaded and precached
+- language layer runs after category inference and before rendering
+- manifest JSON, start URL, scope, icons, and shortcuts remain valid
 
-#### DOM and routing
+#### DOM/routing/state
 
-- IDs in `index.html` are unique
-- every runtime `getElementById()` target exists
-- every `aria-labelledby` target exists
-- every `data-screen` target is registered
-- every `data-action` value is handled by `app.js`
-- the full category picker contains exactly the expected `all` + six category IDs
-
-#### State / interaction regressions
-
-- persisted card/settings normalizers exist
-- localStorage writes are guarded
-- completion uses the end-of-run sentinel
-- `runCategories` is stored and used for active-run labels
-- mode-aware restart/PLAY AGAIN exists
-- Saved-mode replay remains Saved-mode replay
-- duplicate wake-lock requests are guarded
-- Chaos Escape/focus handling remains present
-- service-worker update/activation and offline-active-worker fallback remain wired
+- IDs are unique
+- JavaScript DOM targets exist
+- ARIA references exist
+- screen/action/category routes are valid
+- persisted IDs/settings are normalized
+- localStorage failures are guarded
+- completed runs do not reappear as resumable
+- active-run category context remains stable
+- PLAY AGAIN remains mode-aware
+- Saved runs replay Saved mode
+- wake-lock duplicate requests remain guarded
+- Chaos keyboard/focus handling remains present
+- service-worker update/offline-active-worker lifecycle stays intact
 
 #### Module ownership
 
-- `history-ui.js` does not contain choice enhancement logic
-- `choice-ui.js` remains the sole owner of decision-label/reason splitting
+- `choice-ui.js` remains the sole choice formatting owner
+- `history-ui.js` remains focused on the Real-World Example
 
-#### GitHub Actions hardening
+#### Workflow hardening
 
-- `actions/checkout` and `actions/setup-node` are pinned to immutable 40-character SHAs
+- GitHub Actions are pinned to immutable SHAs
 - checkout credentials are not persisted
-- manual `workflow_dispatch` exists
-- superseded validation runs are cancelled
-- job timeout is present
-- `validate-runtime.cjs` is syntax checked and executed
-- Dependabot is configured for GitHub Actions updates
+- manual workflow dispatch exists
+- superseded runs cancel
+- timeout exists
+- runtime and language validators are syntax-checked and executed
+- Dependabot watches GitHub Actions
 
-## GitHub Actions workflow
+### 3. `validate-language.cjs`
 
-`.github/workflows/validate.yml` currently:
+This is the v6.4 readability gate.
 
-- runs on pushes to `main`
-- runs on PRs targeting `main`
-- supports manual `workflow_dispatch`
-- grants only `contents: read`
-- uses per-branch/PR concurrency with `cancel-in-progress: true`
-- has `timeout-minutes: 10`
-- pins `actions/checkout` and `actions/setup-node` to verified immutable SHAs
-- sets `persist-credentials: false`
-- uses Node.js 22
-- syntax-checks all runtime/validator JavaScript
-- runs both validators
+Unlike the source-structure validator, it loads the deck/history and then runs `language-polish.js`, so it checks the **actual wording players receive**.
 
-`.github/dependabot.yml` checks the GitHub Actions ecosystem weekly so pinned dependency SHAs remain maintainable through reviewed PRs.
+It rejects selected formal/jargon terms such as:
 
-## State compatibility
+- epistemic / epistemically
+- provenance
+- corroboration
+- falsifiability
+- universalization
+- normative
+- methodology
+- commensurate
+- notwithstanding
+- proposition
+- premise
+- causal inference
+- empirical
+- substantive
+- utilize variants
 
-v6.3.1 is intentionally compatible with prior v6.3 state.
+It also enforces practical length limits so player-facing sentences do not sprawl:
 
-Stable anchors remain:
+- scenario/twist sentence: max 34 words
+- conclusion sentence: max 30 words
+- prompt/choice/extra-question sentence: max 26 words
+- Real-World Example sentence: max 38 words
+- main prompt: max 24 words total
+- follow-up question: max 28 words total
+- choice: max 18 words total
+
+These are guardrails, not a substitute for human judgement. Passing the numbers does not automatically make a sentence natural.
+
+## v6.4 first-pass findings
+
+The first integrated v6.4 run passed the content and runtime gates but failed the new language gate with only nine remaining sentence-length problems:
+
+- card 26 scenario
+- card 34 scenario
+- card 51 scenario
+- card 72 conclusion
+- card 107 twist
+- card 131 twist
+- card 152 conclusion
+- card 153 conclusion
+- card 200 twist
+
+All nine were rewritten by hand in `language-polish.js` rather than excluded from the rule.
+
+The next exact-head run passed all three validators.
+
+## Conversational UI copy
+
+v6.4 also simplifies the shell itself. Validation requires the new How to Play wording to preserve the product rules while using plain language.
+
+Examples of visible changes:
+
+- **START GAME**
+- **SURPRISE ME**
+- **KEEP PLAYING**
+- **SHOW THE TWIST**
+- **KEEP TALKING**
+- **Extra Questions**
+
+The eight One Last Thing titles now use ordinary questions rather than abstract labels:
+
+1. `SAME RULE?`
+2. `WHAT WOULD CHANGE YOUR MIND?`
+3. `WHAT IF YOU HATED THE RESULT?`
+4. `WHAT IF THEY WERE STRANGERS?`
+5. `WOULD YOU LET EVERYONE USE IT?`
+6. `WHAT IF IT WAS YOU?`
+7. `WHAT IF THE POWER FLIPPED?`
+8. `SAME RULE SOMEWHERE ELSE?`
+
+## Compatibility
+
+v6.4 is a language/UI release, not a state migration.
+
+Do not change these simply because wording changes:
 
 - `plotTwistStateV4`
 - `masterpiece-200-v1`
 - card IDs 1–200
 
-`runCategories` is additive. An older state object without it falls back to its existing `selectedCategories`. There is no reason to clear Saved cards or reset site data merely to receive this patch.
+The service-worker cache is what changes to fetch the new runtime wording.
 
-## Offline/PWA source check
+Do not clear site data as the normal upgrade path because doing so destroys Saved cards, settings, category choices, and active state.
 
-- no framework/build/backend/runtime API/CDN/remote font/remote image/auth/analytics dependency
-- cache name: `plot-twist-v6.3.1`
-- all essential runtime assets are precached
-- cache cleanup is Plot-Twist-prefix scoped
-- manifest remains standalone and repository-relative
-- research-ledger Markdown files remain editorial-only, not runtime dependencies
+## Android acceptance for v6.4
 
-## v6.3.1 Android acceptance
+Automated checks cannot prove that conversation sounds natural in a real group.
 
-Static validation cannot physically certify Android Chrome, wake lock, PWA installation, service-worker activation, or narrow-screen interaction.
+After v6.4 is merged/deployed, test on the hosted/installed Android PWA:
 
-After v6.3.1 is merged/deployed, verify:
+1. Settings shows `v6.4.0`.
+2. Existing Saved cards/settings survive the update.
+3. Home screen controls and How to Play make sense without explanation.
+4. Read a sample of cards aloud across all six categories.
+5. Scenarios are understandable on the first read.
+6. The two choices are immediately clear.
+7. Plot Twists do not require rereading.
+8. The Point sounds like normal speech rather than an essay.
+9. Follow-up and extra questions sound natural in a group conversation.
+10. Real-World Examples remain accurate but understandable.
+11. One Last Thing prompts feel conversational rather than like a logic exercise.
+12. Chaos prompts are playful and obvious.
+13. Existing category/resume/replay/Saved/wake-lock behaviours still work.
+14. Fully close the app, enable airplane mode, turn Wi-Fi off, and relaunch from the installed icon.
+15. Confirm the v6.4 language and full gameplay remain available offline.
 
-1. Settings shows `v6.3.1`.
-2. Existing Saved cards/settings/compatible active state survive the v6.3.0 → v6.3.1 update without clearing site data.
-3. Start a specific category run, return home, change the home category filter, then Resume: the active run label and deck remain tied to the category selection that created the run.
-4. Reach the final card and complete the run; returning home must not offer Resume for that finished run.
-5. `PLAY AGAIN` after a normal/random run uses the original run-category snapshot.
-6. `PLAY AGAIN` after a Saved-card run remains a Saved-card run.
-7. Chaos still works; closing it restores interaction/focus correctly, and Escape closes it where a keyboard is available.
-8. Keep Screen Awake still behaves normally without duplicate requests.
-9. Main flow remains `Plot Twist → The Point → deeper question → Real-World Example → One Last Thing`.
-10. Category filtering, Random, Saved, Next, Settings, Host prompts, and long A-vs-B/history content remain comfortable on the target phone.
-11. Fully close the app, enable airplane mode and turn Wi-Fi off, relaunch from the installed icon, and verify cached gameplay.
-12. Close/reopen again while still offline and verify state restoration.
-
-A green GitHub Actions run is the required static integration gate, not a substitute for this on-device acceptance test.
+A green CI run is required. Final acceptance still includes one human question: **does this sound like a real person talking?**
