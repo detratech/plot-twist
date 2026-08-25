@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0b0908">
   <meta name="color-scheme" content="dark">
-  <meta name="description" content="Plot Twist — a social scenario game. Pick a side. Defend it. Then deal with the twist.">
+  <meta name="description" content="Plot Twist — pick a side, defend it, then see what changes.">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icons/icon-192.png" sizes="192x192">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
@@ -22,31 +22,31 @@
   <main id="app" class="app-shell">
     <section id="homeScreen" class="screen screen-home active" aria-labelledby="homeTitle">
       <div class="brand-mark" aria-hidden="true">↻</div>
-      <p class="eyebrow">ARGUE FIRST. THINK AGAIN.</p>
+      <p class="eyebrow">PICK A SIDE. THEN SEE WHAT CHANGES.</p>
       <h1 id="homeTitle">PLOT<br><span>TWIST</span></h1>
-      <p class="tagline">Pick a side. Defend it. Then deal with the twist.</p>
+      <p class="tagline">Choose a side. Say why. Then reveal the twist.</p>
 
       <section class="category-picker" aria-labelledby="categoryTitle">
         <p class="eyebrow" id="categoryTitle">PICK YOUR VIBE</p>
-        <p class="category-help">Choose one, stack a few, or throw everything into the blender.</p>
+        <p class="category-help">Pick one, mix a few, or keep everything in.</p>
 
         <button class="category-chip category-chip-all" type="button" data-category="all" aria-pressed="true">
           <span class="category-icon" aria-hidden="true">🎲</span>
-          <span><b>MIX EVERYTHING</b><small>Maximum unpredictability</small></span>
+          <span><b>MIX EVERYTHING</b><small>A little bit of everything</small></span>
         </button>
 
         <div class="category-grid">
           <button class="category-chip" type="button" data-category="mind" aria-pressed="false">
             <span class="category-icon" aria-hidden="true">🧠</span>
-            <span><b>Mind &amp; Truth</b><small>Evidence, beliefs, logic, assumptions</small></span>
+            <span><b>Mind &amp; Truth</b><small>What is true, and how do we know?</small></span>
           </button>
           <button class="category-chip" type="button" data-category="relationships" aria-pressed="false">
             <span class="category-icon" aria-hidden="true">❤️</span>
-            <span><b>Relationships &amp; Family</b><small>Marriage, dating, parenting, boundaries</small></span>
+            <span><b>Relationships &amp; Family</b><small>Partners, parents, kids, boundaries</small></span>
           </button>
           <button class="category-chip" type="button" data-category="money" aria-pressed="false">
             <span class="category-icon" aria-hidden="true">💸</span>
-            <span><b>Money &amp; Success</b><small>Work, ambition, debt, status, responsibility</small></span>
+            <span><b>Money &amp; Success</b><small>Work, money, ambition, status</small></span>
           </button>
           <button class="category-chip" type="button" data-category="tech" aria-pressed="false">
             <span class="category-icon" aria-hidden="true">📱</span>
@@ -54,11 +54,11 @@
           </button>
           <button class="category-chip" type="button" data-category="society" aria-pressed="false">
             <span class="category-icon" aria-hidden="true">🌎</span>
-            <span><b>Society &amp; Culture</b><small>Social rules, politics, groups, public life</small></span>
+            <span><b>Society &amp; Culture</b><small>Rules, groups, politics, public life</small></span>
           </button>
           <button class="category-chip" type="button" data-category="life" aria-pressed="false">
             <span class="category-icon" aria-hidden="true">🧭</span>
-            <span><b>Life &amp; Purpose</b><small>Character, pleasure, freedom, meaning, time</small></span>
+            <span><b>Life &amp; Purpose</b><small>Character, freedom, meaning, time</small></span>
           </button>
         </div>
 
@@ -66,9 +66,9 @@
       </section>
 
       <div class="home-actions">
-        <button id="resumeButton" class="btn btn-secondary" data-action="resume" hidden>RESUME GAME</button>
-        <button class="btn btn-primary" data-action="start">START SELECTED MIX</button>
-        <button class="btn btn-ghost" data-action="random">RANDOM FROM SELECTED</button>
+        <button id="resumeButton" class="btn btn-secondary" data-action="resume" hidden>KEEP PLAYING</button>
+        <button class="btn btn-primary" data-action="start">START GAME</button>
+        <button class="btn btn-ghost" data-action="random">SURPRISE ME</button>
       </div>
 
       <div class="home-links">
@@ -78,7 +78,7 @@
       </div>
 
       <button id="installButton" class="install-chip" hidden>INSTALL APP</button>
-      <p id="offlineStatus" class="offline-status" role="status">Preparing offline mode…</p>
+      <p id="offlineStatus" class="offline-status" role="status">Getting offline mode ready…</p>
     </section>
 
     <section id="gameScreen" class="screen screen-game" aria-live="polite">
@@ -101,7 +101,7 @@
 
         <div id="hostPromptStage1" class="host-nudge" hidden></div>
 
-        <button id="revealButton" class="btn btn-reveal">REVEAL PLOT TWIST</button>
+        <button id="revealButton" class="btn btn-reveal">SHOW THE TWIST</button>
 
         <div id="twistPanel" class="twist-panel" hidden>
           <div class="twist-rule"><span></span><b>PLOT TWIST</b><span></span></div>
@@ -113,7 +113,7 @@
           <p id="afterPrompt" class="after-prompt"></p>
           <div id="hostPromptStage2" class="host-nudge" hidden></div>
           <div id="conversationPaths" class="rule-highlight" hidden>
-            <p class="eyebrow">WHERE THIS CAN GO</p>
+            <p class="eyebrow">KEEP TALKING</p>
             <div id="conversationPathList"></div>
           </div>
         </div>
@@ -130,19 +130,17 @@
       <div class="utility-card">
         <h2 id="howTitle">How to Play</h2>
         <ol class="rules">
-          <li>Pick one or more topics on the home screen, or leave <b>Mix Everything</b> selected.</li>
-          <li>Start Game shuffles only the topics you picked.</li>
-          <li>Read the scenario aloud.</li>
-          <li>Choose one of the two big sides. Both are meant to be defensible before the reveal.</li>
-          <li>No “it depends” escape tunnel until after you commit.</li>
-          <li>Defend your answer. Roasting the argument is allowed. Roasting the person is lazy.</li>
-          <li>Reveal the Plot Twist. It adds information you did not have when you chose, so switching sides is completely allowed.</li>
-          <li>Read <b>The Point</b>, answer the follow-up question, then use the <b>Real-World Example</b> to see how the same tension has appeared outside the game.</li>
-          <li>Finish with <b>One Last Thing</b>. It pressure-tests whether you would keep the same rule when the roles, outcome, power, or setting changes.</li>
-          <li>Use <b>Where This Can Go</b> if the group wants to keep digging.</li>
-          <li>Use <b>Chaos</b> when somebody is getting suspiciously comfortable with their own reasoning.</li>
+          <li>Pick a topic, mix a few, or leave <b>Mix Everything</b> on.</li>
+          <li>Read the card out loud.</li>
+          <li>Pick one side before you see the twist. Both choices are meant to be reasonable.</li>
+          <li>Say why you picked it. No “it depends” until you choose a side.</li>
+          <li>Reveal the <b>Plot Twist</b>. You just learned something new, so changing your mind is completely fair.</li>
+          <li>Read <b>The Point</b>, answer the next question, and check out the <b>Real-World Example</b>.</li>
+          <li>Answer <b>One Last Thing</b>. It asks whether you would use the same rule if the situation changed.</li>
+          <li>Use <b>Keep Talking</b> if your group wants a couple more questions.</li>
+          <li>Tap <b>Chaos</b> when you want to make the discussion harder or funnier.</li>
         </ol>
-        <div class="rule-highlight">A good card should make two smart adults disagree before the reveal. Pick a side, defend it, then let the new information mess with your confidence.</div>
+        <div class="rule-highlight">There are no trick answers. Pick what you really think, explain it, then see whether the twist changes anything.</div>
       </div>
     </section>
 
@@ -150,9 +148,9 @@
       <header class="utility-header"><button class="icon-btn" data-screen="home" aria-label="Go home">←</button><span>SETTINGS</span><span></span></header>
       <div class="utility-card settings-card">
         <h2 id="settingsTitle">Game Setup</h2>
-        <label class="setting-row"><span><b>Keep Screen Awake</b><small id="wakeSupportText">Uses the browser wake lock when supported</small></span><input id="wakeToggle" type="checkbox"></label>
-        <label class="setting-row"><span><b>Host Prompts</b><small>Show optional discussion nudges</small></span><input id="hostToggle" type="checkbox"></label>
-        <div class="setting-row"><span><b>App Version</b><small>Use this to confirm which build is loaded</small></span><strong>v6.3.1</strong></div>
+        <label class="setting-row"><span><b>Keep Screen Awake</b><small id="wakeSupportText">Stops your screen from going dark while you play</small></span><input id="wakeToggle" type="checkbox"></label>
+        <label class="setting-row"><span><b>Extra Questions</b><small>Show a couple more questions on each card</small></span><input id="hostToggle" type="checkbox"></label>
+        <div class="setting-row"><span><b>App Version</b><small>Helps confirm the newest version loaded</small></span><strong>v6.4.0</strong></div>
         <button id="resetButton" class="btn btn-danger">RESET GAME DATA</button>
       </div>
     </section>
@@ -168,10 +166,10 @@
     <section id="completeScreen" class="screen utility-screen" aria-labelledby="completeTitle">
       <div class="complete-card">
         <div class="brand-mark small" aria-hidden="true">↻</div>
-        <p class="eyebrow">RUN COMPLETE</p>
+        <p class="eyebrow">YOU MADE IT</p>
         <h2 id="completeTitle">That got weird.</h2>
-        <p>You made it through this run. Pick a new combination or play it again.</p>
-        <button class="btn btn-primary" data-screen="home">CHOOSE NEW MIX</button>
+        <p>That run is done. Pick something new or play it again.</p>
+        <button class="btn btn-primary" data-screen="home">PICK NEW TOPICS</button>
         <button class="btn btn-ghost" data-action="restart">PLAY AGAIN</button>
       </div>
     </section>
@@ -179,7 +177,7 @@
 
   <div id="chaosModal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="chaosName">
     <div class="modal-card">
-      <p class="eyebrow">CHAOS · PRESSURE TEST</p>
+      <p class="eyebrow">CHAOS · TRY THIS</p>
       <h3 id="chaosName"></h3>
       <p id="chaosText"></p>
       <button id="closeChaos" class="btn btn-primary compact">BACK TO CARD</button>
@@ -201,6 +199,7 @@
   <script src="history-d.js"></script>
   <script src="history-reviewed.js"></script>
   <script src="categories.js"></script>
+  <script src="language-polish.js"></script>
   <script src="app.js"></script>
   <script src="choice-ui.js"></script>
   <script src="history-ui.js"></script>

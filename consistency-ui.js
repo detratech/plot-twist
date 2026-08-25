@@ -8,35 +8,35 @@
   const TESTS = [
     {
       title: 'SAME RULE?',
-      text: 'If the people on each side swapped places, would you still defend the rule you just used?'
+      text: 'If the people switched places, would you still use the same rule?'
     },
     {
       title: 'WHAT WOULD CHANGE YOUR MIND?',
-      text: 'Name one new fact that would genuinely make you switch. If nothing could, what is your answer resting on?'
+      text: 'What new fact would actually make you switch sides? If the answer is “nothing,” why?'
     },
     {
-      title: 'OUTCOME TEST',
-      text: 'Would you keep the same principle if it produced an outcome you personally disliked?'
+      title: 'WHAT IF YOU HATED THE RESULT?',
+      text: 'Would you still back this rule if it gave you an outcome you really did not like?'
     },
     {
-      title: 'STRANGER TEST',
-      text: 'If you knew nothing about the people involved except what they did, would your answer stay the same?'
+      title: 'WHAT IF THEY WERE STRANGERS?',
+      text: 'If you did not know who these people were, would you answer the same way?'
     },
     {
-      title: 'EVERYONE GETS IT',
-      text: 'Would you accept everyone using this rule, including people you strongly disagree with?'
+      title: 'WOULD YOU LET EVERYONE USE IT?',
+      text: 'Would you be okay with everyone using this rule, even people you strongly disagree with?'
     },
     {
-      title: 'YOUR TURN',
-      text: 'If somebody judged your own behaviour by this exact standard, would you call it fair?'
+      title: 'WHAT IF IT WAS YOU?',
+      text: 'If someone used this exact rule on you, would it still feel fair?'
     },
     {
-      title: 'POWER FLIP',
-      text: 'If the weaker side became the stronger side tomorrow, should the same rule still apply?'
+      title: 'WHAT IF THE POWER FLIPPED?',
+      text: 'If the weaker side became the stronger side tomorrow, should the rule stay the same?'
     },
     {
-      title: 'CROSSOVER',
-      text: 'Would you use this same rule in family, money, work, and public life, or does it change by domain?'
+      title: 'SAME RULE SOMEWHERE ELSE?',
+      text: 'Would you use this same rule with family, money, work, and strangers? If not, what is different?'
     }
   ];
 
