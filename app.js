@@ -19,6 +19,7 @@ const defaultState = {
 let state = loadState();
 let deferredInstallPrompt = null;
 let wakeLock = null;
+let chaosReturnFocus = null;
 
 const screens = {
   home: document.getElementById('homeScreen'),
@@ -76,16 +77,27 @@ function normalizeSelectedCategories(value) {
   return cleaned.length ? cleaned : ['all'];
 }
 
+function normalizeCardIds(value) {
+  if (!Array.isArray(value)) return [];
+  const valid = new Set(PLOT_TWIST_CARDS.map(card => card.id));
+  return [...new Set(value.filter(id => valid.has(id)))];
+}
+
+function normalizeSettings(value) {
+  return {
+    keepAwake: value?.keepAwake === true,
+    hostPrompts: value?.hostPrompts === true
+  };
+}
+
 function loadState() {
   try {
     const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY));
-    if (!parsed) return structuredCloneCompat(defaultState);
+    if (!parsed || typeof parsed !== 'object') return structuredCloneCompat(defaultState);
 
-    const preservedSettings = { ...defaultState.settings, ...(parsed.settings || {}) };
+    const preservedSettings = normalizeSettings(parsed.settings);
     const preservedCategories = normalizeSelectedCategories(parsed.selectedCategories);
-    const validSaved = Array.isArray(parsed.saved)
-      ? parsed.saved.filter(id => PLOT_TWIST_CARDS.some(card => card.id === id))
-      : [];
+    const validSaved = normalizeCardIds(parsed.saved);
 
     if (parsed.deckVersion !== DECK_VERSION) {
       return {
@@ -96,16 +108,20 @@ function loadState() {
       };
     }
 
+    const order = normalizeCardIds(parsed.order);
+    const mode = ['main', 'random', 'saved'].includes(parsed.mode) && order.length ? parsed.mode : null;
+    const rawPosition = Number.isInteger(parsed.position) ? parsed.position : 0;
+    const position = Math.min(Math.max(rawPosition, 0), order.length);
+
     return {
-      ...structuredCloneCompat(defaultState),
-      ...parsed,
       deckVersion: DECK_VERSION,
-      settings: preservedSettings,
-      selectedCategories: preservedCategories,
+      mode,
+      order: mode ? order : [],
+      position: mode ? position : 0,
+      revealed: mode && position < order.length && parsed.revealed === true,
       saved: validSaved,
-      order: Array.isArray(parsed.order)
-        ? parsed.order.filter(id => PLOT_TWIST_CARDS.some(card => card.id === id))
-        : []
+      selectedCategories: preservedCategories,
+      settings: preservedSettings
     };
   } catch {
     return structuredCloneCompat(defaultState);
@@ -119,7 +135,11 @@ function structuredCloneCompat(value) {
 function persist() {
   state.deckVersion = DECK_VERSION;
   state.selectedCategories = normalizeSelectedCategories(state.selectedCategories);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch {
+    // Keep the in-memory game usable if storage is blocked or unavailable.
+  }
   updateSavedCount();
 }
 
@@ -198,6 +218,7 @@ function toggleCategory(categoryId) {
 }
 
 function showScreen(name) {
+  if (!screens[name]) return;
   Object.values(screens).forEach(screen => screen.classList.remove('active'));
   screens[name].classList.add('active');
   if (name === 'settings') syncSettingsUI();
@@ -232,6 +253,7 @@ function beginGame(mode) {
   }
 
   if (!state.order.length) {
+    state.mode = null;
     showScreen('home');
     return;
   }
@@ -354,6 +376,7 @@ function renderHostPrompts(card) {
 
 function nextCard() {
   if (state.position >= state.order.length - 1) {
+    state.position = state.order.length;
     state.revealed = false;
     persist();
     showScreen('complete');
@@ -422,9 +445,18 @@ function renderSavedList() {
 
 function showChaos() {
   const item = CHAOS_MODIFIERS[Math.floor(Math.random() * CHAOS_MODIFIERS.length)];
+  if (!item) return;
+  chaosReturnFocus = document.activeElement;
   el.chaosName.textContent = item.name;
   el.chaosText.textContent = item.text;
   el.chaosModal.hidden = false;
+  requestAnimationFrame(() => document.getElementById('closeChaos').focus());
+}
+
+function closeChaos() {
+  el.chaosModal.hidden = true;
+  if (chaosReturnFocus && typeof chaosReturnFocus.focus === 'function') chaosReturnFocus.focus();
+  chaosReturnFocus = null;
 }
 
 function applySettings() {
@@ -444,7 +476,7 @@ function syncSettingsUI() {
 }
 
 async function requestWakeLock() {
-  if (!('wakeLock' in navigator) || document.visibilityState !== 'visible') return;
+  if (wakeLock || !('wakeLock' in navigator) || document.visibilityState !== 'visible') return;
   try {
     wakeLock = await navigator.wakeLock.request('screen');
     wakeLock.addEventListener('release', () => { wakeLock = null; });
@@ -461,12 +493,27 @@ async function releaseWakeLock() {
 
 function resetGameData() {
   if (!window.confirm('Reset the current game, saved cards, topic choices, and settings?')) return;
-  localStorage.removeItem(STORAGE_KEY);
+  try { localStorage.removeItem(STORAGE_KEY); } catch {}
   state = structuredCloneCompat(defaultState);
   applySettings();
   persist();
   renderCategoryPicker();
   showScreen('home');
+}
+
+async function waitForWorkerActivation(registration) {
+  const worker = registration.installing || registration.waiting;
+  if (!worker || worker.state === 'activated') return;
+  if (worker.state === 'redundant') throw new Error('Service worker update became redundant');
+
+  await new Promise((resolve, reject) => {
+    const handleState = () => {
+      if (worker.state === 'activated') resolve();
+      if (worker.state === 'redundant') reject(new Error('Service worker update failed'));
+    };
+    worker.addEventListener('statechange', handleState);
+    handleState();
+  });
 }
 
 document.addEventListener('click', event => {
@@ -494,8 +541,11 @@ el.revealButton.addEventListener('click', () => {
 el.nextButton.addEventListener('click', nextCard);
 el.saveButton.addEventListener('click', toggleSave);
 el.chaosButton.addEventListener('click', showChaos);
-document.getElementById('closeChaos').addEventListener('click', () => { el.chaosModal.hidden = true; });
-el.chaosModal.addEventListener('click', event => { if (event.target === el.chaosModal) el.chaosModal.hidden = true; });
+document.getElementById('closeChaos').addEventListener('click', closeChaos);
+el.chaosModal.addEventListener('click', event => { if (event.target === el.chaosModal) closeChaos(); });
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && !el.chaosModal.hidden) closeChaos();
+});
 document.getElementById('resetButton').addEventListener('click', resetGameData);
 
 el.wakeToggle.addEventListener('change', () => { state.settings.keepAwake = el.wakeToggle.checked; persist(); applySettings(); });
@@ -527,7 +577,9 @@ window.addEventListener('appinstalled', () => {
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {
   window.addEventListener('load', async () => {
     try {
-      await navigator.serviceWorker.register('./sw.js');
+      const registration = await navigator.serviceWorker.register('./sw.js');
+      await registration.update();
+      await waitForWorkerActivation(registration);
       await navigator.serviceWorker.ready;
       el.offlineStatus.textContent = 'Offline cache ready';
     } catch {
