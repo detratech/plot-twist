@@ -25,11 +25,11 @@
     [/\bpropositions\b/gi, 'claims'],
     [/\bpremise\b/gi, 'starting claim'],
     [/\bpremises\b/gi, 'starting claims'],
+    [/\bcausal mechanism\b/gi, 'what caused it'],
+    [/\bcausal inference\b/gi, 'figuring out what caused what'],
     [/\bunderlying mechanism\b/gi, 'what actually caused it'],
     [/\bmechanism\b/gi, 'cause'],
     [/\bmechanisms\b/gi, 'causes'],
-    [/\bcausal mechanism\b/gi, 'what caused it'],
-    [/\bcausal inference\b/gi, 'figuring out what caused what'],
     [/\bempirical\b/gi, 'real-world'],
     [/\bnormative\b/gi, 'about what should happen'],
     [/\bsubstantive\b/gi, 'real'],
@@ -165,6 +165,48 @@
       choices: ['KEEP IT FOR NOW — it may exist for a reason', 'DROP IT FOR NOW — old rules still need a reason'],
       conclusion: 'Old does not mean wrong, and familiar does not mean true. A tradition deserves a fair look instead of automatic obedience or automatic rejection.',
       afterPrompt: 'What belief or rule did you grow up with that you have never really stopped to question?'
+    },
+    26: {
+      scenario: [
+        'Your friend finally hits the income number he spent ten years calling “enough.” Bills are covered, savings are healthy, and the family is comfortable. He finally has room to breathe.',
+        'Then a new role appears: 60% more money, much more status, and enough evening work that his family may need to book him through Calendly.'
+      ]
+    },
+    34: {
+      scenario: [
+        'An app lets you delay one major decision for five years while keeping the option open. Maybe it is a career change, qualification, family move, or health plan you keep saying you will handle later.',
+        'The opportunity stays open. Unfortunately, the app cannot freeze your age, relationships, habits, energy, or the terrifying speed at which five years can become “recently.”'
+      ]
+    },
+    51: {
+      scenario: [
+        'Your friend says their partner is “falling behind.” Online, one person cooks amazing meals, another plans luxury trips, another writes poetry, and another has perfect abs. A fifth somehow wakes up cheerful every day.',
+        'To be fair, the real partner has also stopped planning dates and is coasting a little. So this is not just “internet bad.” There is a real unmet need hiding inside an extremely fake comparison.'
+      ]
+    },
+    72: {
+      conclusion: 'A loan is not just about whether it helps you grow. Ask what it pays for, who carries the risk, what still has to be paid in a bad year, and how much of your future income is already spoken for.'
+    },
+    107: {
+      twist: [
+        'Later the target says the roast tradition really does help the group bond, and they do not want it watered down. But that divorce joke hurt, and laughing felt less embarrassing than objecting in front of everyone. Agreeing to the game did not mean every joke was automatically okay.'
+      ]
+    },
+    131: {
+      twist: [
+        'The clarity talk reveals one person truly needs more time because of a family issue. It also reveals the other person assumed they both wanted the same long-term future, even though they had never actually said that. The relationship survives and becomes less confusing, not less romantic.'
+      ]
+    },
+    152: {
+      conclusion: 'Concentration can bring bigger wins and bigger losses. The real question is whether being wrong, early, or unlucky could seriously damage your whole plan. Diversifying gives up some upside, but it also stops one idea from owning your future.'
+    },
+    153: {
+      conclusion: 'Money needs a job. Cash and investments should match when you might need the money and how bad it would be to lose value at the wrong time. There is no single “safe” answer for every goal.'
+    },
+    200: {
+      twist: [
+        'The report shows you spent very little time on one value you still lived out well through a few steady actions. It also shows hundreds of hours going to a habit you keep saying “doesn’t really matter to me.” Both reports have an uncomfortable point.'
+      ]
     }
   };
 
