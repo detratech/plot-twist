@@ -8,29 +8,32 @@ Offline-first Android-friendly social scenario game.
 - **200 local scenario cards**
 - Six broad selectable topic categories plus `Mix Everything`
 - Multi-select topic mixing so players can combine several categories in one run
-- Start Game shuffles only the currently selected topics
-- Random Card also respects the current topic selection
+- Start Game and Random Card respect the selected topics
 - No visible card numbering in the game or Saved list
-- Adult game-night tone: dry sarcasm, ridiculous stakes, awkward social situations, petty human behaviour, strange corporate logic, dark humour, and occasional pop-culture flavour
-- Exactly two clearly stated answer choices under each main question so players commit before the reveal
-- v6.2 choice presentation: large side-by-side A-vs-B panels, center divider/`VS` marker, prominent decision label, and smaller supporting reason
-- Hidden Plot Twist stage with reveal animation
-- A declarative `The Point` section after every twist that states the principle the scenario was built to expose
-- A post-Point question followed by a local **Real-World Example** mapped specifically to that card
+- Exactly two defensible answer choices before each reveal
+- v6.2 large side-by-side A-vs-B choice presentation with center divider and `VS`
+- Hidden Plot Twist stage, declarative `The Point`, deeper question, and one researched local **Real-World Example** per card
 - v6.3 **One Last Thing** consistency prompt after every Real-World Example
 - Eight deterministic consistency tests covering role reversal, falsifiability, outcomes, impartiality, universal rules, self-application, power reversal, and cross-domain transfer
-- `Where This Can Go` follow-up paths for deeper discussion
-- 16 universal Chaos pressure tests
-- Optional Host prompts
-- Saved cards
-- Local game-state persistence
-- Optional Screen Wake Lock support
-- Installable PWA manifest and local icons
-- Service-worker offline cache
+- `Where This Can Go` follow-up paths and 16 optional Chaos pressure tests
+- Optional Host prompts and Screen Wake Lock support
+- Saved cards and compatible local game-state persistence
+- Installable PWA manifest, local icons, and service-worker offline cache
+- GitHub Actions content plus runtime/PWA regression validation
+
+## Current version
+
+The v6.3.1 audit branch is a patch release over v6.3.0. It does not change the 200-card deck, internal IDs, or the stable persistence identifiers.
+
+Compatibility anchors remain:
+
+- local-storage key: `plotTwistStateV4`
+- deck/state identifier: `masterpiece-200-v1`
+- stable internal card IDs: 1–200
+
+v6.3.1 changes the visible version to `v6.3.1` and the service-worker cache to `plot-twist-v6.3.1` so installed copies can receive the corrected runtime assets without discarding compatible Saved cards/settings/state.
 
 ## Topic categories
-
-The home screen lets players choose one category, combine several, or leave `Mix Everything` selected for the full deck.
 
 - **Mind & Truth** — evidence, beliefs, logic, assumptions
 - **Relationships & Family** — marriage, dating, parenting, boundaries
@@ -39,165 +42,168 @@ The home screen lets players choose one category, combine several, or leave `Mix
 - **Society & Culture** — social rules, politics, groups, public life
 - **Life & Purpose** — character, pleasure, freedom, meaning, time
 
-Cards may fit more than one category. The newer cards carry deliberate authored category tags. Older cards without authored tags are classified by `categories.js` from their content and vibe. Selecting several categories creates one combined shuffled deck without duplicating a card inside that run.
+Cards may fit more than one category. `categories.js` preserves valid authored tags and infers tags for older cards that do not already have them. Selecting several categories creates one combined shuffled deck without duplicating a card inside that run.
 
-Saved cards remain independent of the category filter so players can revisit anything they previously saved.
+Saved-card playback remains independent of the current category filter.
 
 ## Content design
 
-The deck is shuffled so players should not know whether the next card will be absurd, personal, social, technological, moral, financial, political, relational, or uncomfortable within the topics they selected.
+The core rule is **funny dilemma, real commitment, meaningful reversal, sharp conclusion**.
 
-The core rule is **funny dilemma, real commitment, meaningful reversal, sharp conclusion**. A card should feel like something adults would actually enjoy reading aloud. Humour can be dry, dark, awkward, ridiculous, or pop-culture-flavoured, but it should make the dilemma easier to picture rather than bury the idea.
+Every card is built around these editorial requirements:
 
-Every card is written around these editorial requirements:
+1. **Two intelligent choices.** Before the reveal, a reasonable adult should be able to defend either answer.
+2. **Clear buttons.** Each choice states a real course, rule, priority, or judgement. `It depends` is not a pre-reveal escape hatch.
+3. **No conclusion hidden in the choices.** One side cannot be pre-labelled as the obvious virtue while the other is a caricature.
+4. **New information in the Plot Twist.** The reveal must add a fact, consequence, trade-off, missing context, or changed condition.
+5. **The reveal must matter.** It should create a credible reason to reconsider rather than merely congratulate one side.
+6. **The Point still lands.** It states the principle rather than retreating into forced neutrality.
+7. **The Real-World Example must fit the exact principle.** It illustrates the idea but is not presented as universal proof.
+8. **Consistency gets pressure-tested.** `One Last Thing` asks whether the same rule survives a role swap, disliked outcome, power reversal, self-application, or different life domain.
 
-1. **Two intelligent choices.** Before the reveal, a reasonable adult should be able to defend either answer without sounding like the designated idiot at the table.
-2. **Clear buttons.** Each answer choice states a real course, rule, priority, or judgement. `It depends` is not a pre-reveal escape hatch.
-3. **No conclusion hidden in the choices.** One side should not be labelled with the obvious virtue while the other is written as a caricature.
-4. **New information in the Plot Twist.** The reveal must add a fact, consequence, trade-off, missing context, or changed condition the player did not already have.
-5. **The reveal must matter to the choice.** It should create a credible reason to reconsider the original answer rather than simply congratulate whoever picked the intended side.
-6. **The Point still lands.** After the dilemma has done its work, `The Point` states the source-grounded principle rather than retreating into forced neutrality.
-7. **The Real-World Example must fit the exact principle.** It illustrates the idea after the discussion; it is not a substitute for the dilemma and is not presented as proof that every modern case works the same way.
-8. **Consistency gets pressure-tested.** After the example, `One Last Thing` asks whether the same rule survives a role swap, disliked outcome, power reversal, self-application, or different life domain.
+The intended flow is:
 
-The game is therefore not designed as `sensible answer vs obviously bad answer → reveal that sensible answer was sensible`. The target rhythm is closer to `two defensible positions → commitment → new information changes the trade-off → reconsider → principle → concrete example → consistency check`.
+`pick topics → dilemma → two choices → commit → defend → Plot Twist → reconsider/switch → The Point → deeper question → Real-World Example → One Last Thing → Where This Can Go`
 
-Recurring ideas include evidence over slogans and vibes, truth over comfort, precise claims over exaggeration, individual responsibility over collective guilt, cause and effect, substance over image, responsibility over blame, restraint over dependency, long-term consequences over short-term convenience, healthy family duties and boundaries, meaningful freedom over endless trivial choice, moral standards deeper than popularity or legality, reality over performance, purpose over distraction, reliable testimony and context, and consistent standards applied even when the conclusion is uncomfortable.
+## Runtime files
 
-The intended game flow is:
+### Core game
 
-`pick topics → funny/quirky dilemma → two clear choices → commit → defend → Plot Twist adds new information → reconsider/switch if needed → The Point → deeper question → Real-World Example → One Last Thing → Where This Can Go`
+- `index.html` — screens and runtime asset loading
+- `app.js` — game state, navigation, persistence, install/wake-lock/service-worker handling
+- `styles.css` / `categories.css` — base/category presentation
+- `game-v6.2.css` — A-vs-B presentation
+- `game-v6.3.css` — `One Last Thing` presentation
+- `choice-ui.js` — sole owner of choice label/reason enhancement
+- `history-ui.js` — Real-World Example rendering only
+- `consistency-ui.js` — deterministic eight-test consistency layer
 
-## Card, history, and consistency files
+### Card and category data
 
-`cards.js` initializes the shared card array and defines the 16 reusable Chaos pressure tests.
+- `cards.js` — shared card array and 16 Chaos prompts
+- `deck-a.js` through `deck-h.js` — eight 25-card files, exactly 200 cards
+- `categories.js` — category definitions and tag processing
 
-The 200-card deck is split into eight 25-card files:
-
-- `deck-a.js`
-- `deck-b.js`
-- `deck-c.js`
-- `deck-d.js`
-- `deck-e.js`
-- `deck-f.js`
-- `deck-g.js`
-- `deck-h.js`
-
-The 200 player-facing historical/example mappings are split across:
+### Real-World Examples
 
 - `history-a.js`
 - `history-b.js`
 - `history-c.js`
 - `history-d.js`
-- `history-reviewed.js` — audited replacements for draft mappings that were repeated, disputed, too weak, or a poorer fit after research
+- `history-reviewed.js` — audited replacements loaded after draft mappings
 
-`history-ui.js` inserts the selected card's Real-World Example immediately after the post-Point question. `choice-ui.js` separates each authored choice into a large decision label and smaller reason. `game-v6.2.css` owns the two-column A-vs-B presentation.
+The `HISTORY_SOURCES*.md` files are editorial research records and are not runtime dependencies.
 
-`consistency-ui.js` inserts `One Last Thing` immediately after the Real-World Example. It contains eight concise universal tests and deterministically assigns one by stable card ID, so each card gets the same pressure test across sessions without changing saved-state structure. `game-v6.3.css` provides the small visual layer for that prompt.
+## v6.3.1 deep runtime/PWA audit
 
-`categories.js` runs after the deck and history data load. It preserves valid authored tags and infers tags for cards that do not already have them.
+The v6.3.1 audit found and corrected several concrete defects rather than only adding lint rules.
 
-Numeric `id` values exist only for local state, saved-card handling, the one-to-one history mapping, and deterministic consistency-prompt assignment. They are not shown to players.
+### Service-worker cache isolation
 
-Each card contains:
+Older code removed every cache on the current origin except Plot Twist's newest cache. On a shared GitHub Pages origin, that could remove caches belonging to other applications.
 
-- `id`
-- `title`
-- `vibe`
-- `scenario`
-- `prompt`
-- `choices`
-- `twist`
-- `conclusion`
-- `afterPrompt`
-- `hostPrompts`
-- optional authored `categories`
+v6.3.1 introduces:
 
-Each runtime historical example contains a `title` and `text`, keyed by the same internal card ID.
+- `CACHE_PREFIX = 'plot-twist-'`
+- cleanup restricted to old `plot-twist-*` caches
+- runtime cache reads/writes restricted to the current named Plot Twist cache
+- same-origin and service-worker-scope guards
+- awaited `cache.put()` writes
+- explicit offline failure responses for uncached non-navigation requests
 
-## Historical research ledger
+### State and run recovery
 
-The `HISTORY_SOURCES*.md` files are editorial/research records only and are **not loaded by the game**. Together they contain one source-ledger entry for every internal ID 1–200.
+`app.js` now:
 
-The research standard is:
+- validates and deduplicates persisted card IDs
+- normalizes settings to booleans
+- validates mode and clamps persisted position
+- tolerates unavailable/blocked localStorage writes without crashing the in-memory game
+- marks a completed run with an end-of-run position so it does not reappear as resumable on the final card
+- snapshots the category selection used to build an active run in `runCategories`, so changing the home filter does not relabel an already-created deck
+- uses mode-aware `PLAY AGAIN` logic, so Saved-card runs replay Saved cards and normal/random runs replay the same category snapshot
 
-- accuracy and exact analogy fit outrank fame
-- prefer primary, official, academic, archival, court, museum, or strong first-party sources
-- remove or narrow popular anecdotes when the neat version is disputed
-- state only what the cited source can reasonably support
-- treat each example as an illustration of the card's principle, not universal proof
+### Interaction/lifecycle fixes
 
-When research finds a stronger example than the original draft mapping, the runtime replacement belongs in `history-reviewed.js` so the draft files remain easy to compare with the audit decisions.
+- duplicate wake-lock acquisition is prevented
+- Chaos modal gains Escape dismissal, focus transfer to its close control, and focus restoration
+- `history-ui.js` no longer duplicates `choice-ui.js` choice-formatting logic
+- service-worker registration explicitly attempts update/activation while online, but an already-active worker can still support a clean offline launch
 
 ## Automated validation
 
-`validate-content.cjs` audits the full deck and the v6.2/v6.3 presentation, history, and consistency layers. GitHub Actions runs it together with `node --check` on the runtime JavaScript.
+GitHub Actions now runs **two complementary validators** after JavaScript syntax checks.
 
-The validator checks, among other things:
+### `validate-content.cjs`
 
-- exactly 200 cards load
-- internal IDs 1–200 are complete and unique
-- titles and scenarios are not exact duplicates
-- every scenario has the required card structure
-- every card has exactly two distinct and substantive answer choices
-- answer choices do not use an `it depends` escape or obviously insulting loaded labels
-- Plot Twists contain substantive reveal text rather than an empty one-liner or exact scenario repeat
-- prompts and follow-up paths are present in the required form
-- every card resolves to one or two valid categories
-- exactly 200 substantive Real-World Examples map one-to-one to card IDs 1–200
-- all eight deck files, all five runtime history layers, and all v6.2/v6.3 presentation assets load in `index.html` and are precached by the service worker
-- the Real-World Example is inserted immediately after the post-Point question
-- `One Last Thing` is inserted immediately after the Real-World Example
-- exactly eight unique consistency prompts exist and include the intended pressure-test types
-- consistency assignment is deterministic from stable card ID
-- the answer UI keeps two side-by-side columns with a divider, `VS` marker, large choice label, and secondary reason
-- the user-facing rules explicitly say both choices are intended to be defensible and that switching after the reveal is allowed
-- Settings visibly reports app version `v6.3.0`
-- the app keeps deck version `masterpiece-200-v1` so compatible Saved IDs/state remain stable
-- the service worker uses cache `plot-twist-v6.3.0`
-- explicit source-worldview terminology and authoring/meta-instruction leaks intentionally excluded from the runtime are not present in the cards, historical examples, consistency layer, or app shell
+The original content/product contract remains intact. It verifies, among other things:
 
-Structural validation cannot prove that a joke lands, that two arguments are genuinely balanced, that a historical analogy is editorially ideal, or that every pressure test feels equally natural on a physical phone. Those remain human review tasks in addition to the automated checks.
+- exactly 200 cards and complete unique IDs 1–200
+- required card structure, two choices, substantive Plot Twists, follow-up structure, and categories
+- exactly 200 substantive Real-World Examples
+- protected runtime/meta terminology rules
+- choice/history/consistency presentation contracts
+- visible `v6.3.1`, stable `masterpiece-200-v1`, and cache `plot-twist-v6.3.1`
+
+### `validate-runtime.cjs`
+
+The new runtime audit verifies, among other things:
+
+- service-worker cache cleanup cannot delete unrelated origin caches
+- runtime cache writes are awaited and scope/origin restricted
+- every local HTML/manifest runtime asset exists and is precached
+- manifest installation URLs/icons remain valid and scope-relative
+- DOM IDs, `aria-labelledby`, screen/action/category routing, and manifest shortcuts are internally wired
+- state normalization, run completion, run-category snapshot, Saved replay, wake lock, Chaos focus, and offline active-worker fallbacks remain present
+- `choice-ui.js` and `history-ui.js` do not regress into duplicate ownership
+- GitHub Actions remains hardened
+
+## GitHub Actions workflow
+
+`.github/workflows/validate.yml` uses Node.js 22 and:
+
+- runs on PRs to `main`, pushes to `main`, and manual `workflow_dispatch`
+- uses `contents: read`
+- cancels superseded runs for the same branch/PR
+- has a 10-minute job timeout
+- pins `actions/checkout` and `actions/setup-node` to immutable commit SHAs
+- disables checkout credential persistence
+- syntax-checks all runtime/validator JavaScript
+- runs both content and runtime audits
+
+`.github/dependabot.yml` checks GitHub Actions weekly so pinned Action SHAs can be updated through reviewed dependency PRs.
 
 ## Android installation: GitHub-hosted PWA
 
-1. Open the hosted Plot Twist HTTPS address in Chrome on the Android phone while online.
-2. Wait until the bottom of the Plot Twist home screen says **Offline cache ready**.
-3. In Chrome, tap **⋮ → Install app**. On some Chrome versions the menu group may be called **Install and create shortcut**.
+1. Open the hosted Plot Twist HTTPS address in Chrome while online.
+2. Wait for **Offline cache ready**.
+3. Install the app from Chrome.
 4. Confirm a Plot Twist icon appears on the home screen/app launcher.
 
 ## Updating an installed copy
 
-After a new version is published:
+After v6.3.1 is published:
 
-1. Open the hosted web version while online.
-2. Reload it.
-3. Wait a few seconds and reload once more.
-4. Fully close the installed Plot Twist app.
-5. Reopen it.
-6. Confirm Settings shows the expected version.
+1. Open the hosted version while online and reload it.
+2. Fully close the installed Plot Twist app.
+3. Reopen it.
+4. Confirm Settings shows **v6.3.1**.
 
-Avoid clearing site data unless necessary because that removes saved cards and local game state.
+Do not clear site data as the normal update path because that removes Saved cards/settings/state.
 
-The v6.3 consistency update intentionally keeps the existing `masterpiece-200-v1` deck/state identifier because internal IDs and compatible local state do not change. The service-worker cache is bumped to `plot-twist-v6.3.0` so the new runtime assets are downloaded without needlessly discarding Saved cards or the current order.
+## v6.3.1 Android acceptance checklist
 
-## Airplane-mode test
+After the audit PR is merged and deployed, verify:
 
-Before relying on the app offline:
+1. Settings reports `v6.3.1`.
+2. Existing Saved cards/settings/current compatible state survive the update.
+3. A started category run keeps its original mode label after returning home, changing the home category filter, and resuming.
+4. Finishing the last card does not produce a Resume button for that completed run.
+5. `PLAY AGAIN` after a normal/random run replays the same run category selection.
+6. `PLAY AGAIN` after a Saved-card run stays in Saved-card mode.
+7. Chaos opens/closes normally; Escape closes it when a hardware/software keyboard is available.
+8. Keep Screen Awake continues working without duplicate wake-lock behaviour.
+9. The normal v6.3 flow remains `Plot Twist → The Point → deeper question → Real-World Example → One Last Thing`.
+10. Fully close the app, enable airplane mode with Wi-Fi off, relaunch from the installed icon, and verify cached gameplay remains functional.
 
-1. Open the installed app once while online.
-2. Confirm Settings shows `v6.3.0`.
-3. Pick a topic mix and start a game.
-4. Reveal a Plot Twist and verify the flow reaches `The Point → deeper question → Real-World Example → One Last Thing`.
-5. Fully close the app.
-6. Enable Airplane mode and turn Wi-Fi off.
-7. Launch Plot Twist from its installed icon.
-8. Confirm the same card reopens with the twist still revealed.
-9. Test **Next Card**, **Random**, **Chaos**, **Saved**, topic selection, **Settings**, the A-vs-B choice layout, Real-World Examples, and several different `One Last Thing` prompts.
-10. Close and reopen it again while still offline.
-
-## Offline design notes
-
-The service worker precaches every essential local asset, including all eight deck files, all runtime history files, category logic/styles, the v6.2 choice/history presentation assets, and the v6.3 consistency assets. Navigation requests use cached `index.html` when the network is unavailable. Game state is stored in `localStorage`, including deck order, card position, reveal state, saved cards, selected categories, and settings.
-
-No external API, CDN, remote font, remote image, authentication service, analytics service, or server-side feature is used at runtime. The research ledger may contain web links for editors, but those Markdown files are not part of the player-facing runtime or offline dependency chain.
+Static CI does not replace this physical Android/service-worker acceptance test.
