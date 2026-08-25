@@ -46,6 +46,7 @@ jobs:
           node --check history-d.js
           node --check history-reviewed.js
           node --check categories.js
+          node --check language-polish.js
           node --check app.js
           node --check choice-ui.js
           node --check history-ui.js
@@ -53,9 +54,13 @@ jobs:
           node --check sw.js
           node --check validate-content.cjs
           node --check validate-runtime.cjs
+          node --check validate-language.cjs
 
-      - name: Audit complete 200-card deck and v6.3 content layers
+      - name: Audit complete 200-card deck and game structure
         run: node validate-content.cjs
 
       - name: Audit runtime, PWA, state, and workflow wiring
         run: node validate-runtime.cjs
+
+      - name: Audit plain, conversational player language
+        run: node validate-language.cjs
