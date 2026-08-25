@@ -8,7 +8,7 @@
 >
 > **Do not rely on ChatGPT conversation history as the durable source of project state. Important development context must be captured in this repository handoff.**
 
-Update this file whenever architecture, product rules, compatibility, runtime behaviour, deployment, validation, PR state, unresolved issues, or the exact continuation point materially changes. At minimum update it before every material merge and again after merge when the released baseline or next step changes.
+Update this file whenever architecture, product rules, wording standards, persistence compatibility, runtime behaviour, deployment, validation, PR state, unresolved issues, or the exact next step materially changes.
 
 ---
 
@@ -26,11 +26,11 @@ Repository: public, GitHub Pages enabled.
 
 Plot Twist is an offline-first Android-oriented social scenario/campfire game.
 
-Current game flow:
+Core player loop:
 
-`scenario → choose one of two defensible positions → defend → Plot Twist → reconsider/switch → The Point → deeper question → Real-World Example → One Last Thing → Where This Can Go`
+`scenario → choose one of two reasonable positions → say why → reveal Plot Twist → reconsider/switch → The Point → follow-up → Real-World Example → One Last Thing → Keep Talking`
 
-The runtime should feel like an adult party/campfire game, not a survey, classroom exercise, overt debate-training tool, religious app, or philosophy app.
+The game should feel like something normal adults can pick up at a campfire or game night. It must not feel like a classroom exercise, formal debate tool, philosophy app, religious app, survey, or academic test.
 
 ## User workflow
 
@@ -38,17 +38,29 @@ The runtime should feel like an adult party/campfire game, not a survey, classro
 
 Normal workflow:
 
-`GitHub repository → feature branch/PR → GitHub Actions validation → explicit user authorization → merge to main → GitHub-hosted deployment → Android/PWA acceptance test`
+`GitHub repository → feature branch/PR → GitHub Actions → explicit user authorization for that exact material PR/head → merge to main → GitHub-hosted deployment → Android/PWA acceptance`
 
-Do not invent a local path or tell the user to run `git pull`, Node, Python, or a local server unless they explicitly choose to create a local clone later.
+Do not invent a local checkout path. Do not tell the user to run local Git/Node/Python/server commands unless they explicitly choose to create a local clone later.
 
 ---
 
-# 2. Current Released Baseline
+# 2. Released Baseline
 
-**Released source baseline: v6.3.1 on `main`.**
+**Current released source baseline on `main`: v6.3.1.**
 
-PR #6 — **Plot Twist v6.3.1: deep code and workflow audit** — was explicitly authorized by the user and merged on 2026-08-24 America/Vancouver time.
+Last verified `main` before the active v6.4 branch:
+
+`1d3c0d00764549efd13c1b8468ade3a63ac2a576`
+
+Commit message:
+
+`Update handoff after v6.3.1 audit merge`
+
+Its parent is the v6.3.1 audit merge commit:
+
+`0d7a102e73aba9999cb26c436a4a80c5439df2c7`
+
+## PR #6 — v6.3.1 deep audit
 
 Exact merged PR head:
 
@@ -58,34 +70,227 @@ Merge commit:
 
 `0d7a102e73aba9999cb26c436a4a80c5439df2c7`
 
-Immediately before merge, GitHub was re-fetched and verified:
+Exact-head CI before merge:
 
-- PR #6 was open and mergeable
-- exact head matched the authorized SHA
-- `Validate Plot Twist` run #51, run ID `32807029125`, completed successfully on that exact SHA
-- JavaScript syntax checks passed
-- `validate-content.cjs` passed
-- `validate-runtime.cjs` passed
-- submitted reviews: none
+- workflow: `Validate Plot Twist`
+- run #51
+- run ID `32807029125`
+- conclusion: success
+- `validate-content.cjs`: success
+- `validate-runtime.cjs`: success
+- reviews: none
 - inline review threads: none
 - PR comments/blockers: none
-- base `main` remained `db65b3d3c15ad06201afbd5893a120724ca0977e`
-- the handoff was current on the PR head
 
-The PR was taken out of draft without changing the head SHA and merged with `expected_head_sha` pinned to the verified head.
+Major v6.3.1 fixes:
 
-After merge, `main` was verified at `0d7a102e73aba9999cb26c436a4a80c5439df2c7` before this handoff update. This handoff update creates a newer `main` commit, so future sessions must re-fetch live `main` rather than treating the pre-update SHA as current.
+- safe Plot-Twist-only service-worker cache cleanup
+- same-origin/scope runtime cache isolation
+- awaited runtime cache writes
+- persisted-state normalization
+- completed-run Resume bug fixed
+- active `runCategories` snapshot added
+- mode-aware PLAY AGAIN
+- duplicate wake-lock prevention
+- Chaos modal Escape/focus handling
+- duplicate choice formatting removed from `history-ui.js`
+- hardened GitHub Actions workflow
+- new `validate-runtime.cjs`
 
 Previous material releases:
 
-- PR #5 / v6.3 consistency pressure tests: merged head `94fac2411bdfdcbe89e563c4263588773bec3406`, merge commit `deb24319e7302a45ed2f2b9cf3bfe7006ba7da40`
-- PR #4 / v6.2 prominent choices and 200 Real-World Examples: merged head `34a5fd3dec48e0651a67ced093a15917887f999a`, merge commit `c1c41ba64d08a0c7b7239bda10fad7a56ce645a2`
+- PR #5 / v6.3 consistency layer: merged head `94fac2411bdfdcbe89e563c4263588773bec3406`, merge commit `deb24319e7302a45ed2f2b9cf3bfe7006ba7da40`
+- PR #4 / v6.2 prominent choices + 200 Real-World Examples: merged head `34a5fd3dec48e0651a67ced093a15917887f999a`, merge commit `c1c41ba64d08a0c7b7239bda10fad7a56ce645a2`
 - PR #3 / visible app version: merged as `f90afb2d3096763af555cf2110a5a2d539a5e5a1`
-- PR #2 / rewrite all 200 cards as true two-sided dilemmas: relevant merged history commit `2c9056a4a0c0bbd6c547804379e5fa16eee4a1e9`
+- PR #2 / 200-card true dilemma rewrite: relevant merged history commit `2c9056a4a0c0bbd6c547804379e5fa16eee4a1e9`
 
 ---
 
-# 3. Architecture
+# 3. Active Development: PR #9 / v6.4 Plain Language
+
+PR #9:
+
+**Plot Twist v6.4: plain, human game language**
+
+Branch:
+
+`plain-language-v6.4`
+
+Base:
+
+`main`
+
+Base SHA at PR creation:
+
+`1d3c0d00764549efd13c1b8468ade3a63ac2a576`
+
+State at this handoff edit:
+
+- open
+- draft
+- unmerged
+- most recently observed mergeable before the documentation edits
+
+The user asked for the game's wording to become:
+
+- more human
+- casual
+- understandable
+- conversational
+- real
+
+The requirement is **not** to make the ideas shallow. It is to remove unnecessary difficulty from the language.
+
+## Current v6.4 versioning
+
+Visible Settings version on the branch:
+
+`v6.4.0`
+
+Service-worker cache:
+
+`plot-twist-v6.4.0`
+
+Compatibility anchors intentionally remain:
+
+- `plotTwistStateV4`
+- `masterpiece-200-v1`
+- stable internal card IDs 1–200
+
+No state reset or migration is intended.
+
+## v6.4 implementation
+
+### `language-polish.js`
+
+New runtime language layer.
+
+Required loading order:
+
+`deck/history data → categories.js → language-polish.js → app.js → presentation helpers`
+
+It runs before rendering and applies approved player-facing wording across:
+
+- scenarios
+- prompts
+- choices
+- Plot Twists
+- The Point
+- follow-up questions
+- extra questions
+- Real-World Example text
+
+It contains:
+
+1. general formal-to-everyday phrase replacements
+2. targeted rewrites for cards where general replacements are not enough
+
+Examples of formal wording removed/simplified include:
+
+- epistemic / epistemically
+- provenance
+- corroboration
+- falsifiability
+- universalization
+- causal inference
+- empirical
+- normative
+- methodology
+- substantive
+- proposition / premise
+- unnecessarily formal transition words and phrases
+
+Representative targeted rewrites include cards 1, 2, 3, 4, 5, 6, 9, 10, 11, 12 and additional readability outliers 26, 34, 51, 72, 107, 131, 152, 153, and 200.
+
+`language-polish.js` is an essential runtime asset and is precached by `sw.js`.
+
+### UI shell simplification
+
+Examples:
+
+- `START SELECTED MIX` → `START GAME`
+- `RANDOM FROM SELECTED` → `SURPRISE ME`
+- `RESUME GAME` → `KEEP PLAYING`
+- `REVEAL PLOT TWIST` → `SHOW THE TWIST`
+- `Where This Can Go` → `Keep Talking`
+- visible `Host Prompts` → `Extra Questions`
+
+Home tagline now leads with the simple rule: choose a side, explain why, reveal the twist.
+
+How to Play has been rewritten into short ordinary instructions.
+
+### Chaos rewrite
+
+The 16 optional Chaos prompts remain the same kind of pressure-test mechanic but use simpler labels/questions.
+
+Examples:
+
+- `SWITCH SIDES`
+- `SHOW YOUR RECEIPTS`
+- `WHERE DID THAT COME FROM?`
+- `SAME RULE`
+- `NOBODY IS WATCHING`
+- `BET $10,000`
+- `WHAT DOES THAT WORD MEAN?`
+- `WHO BENEFITS?`
+- `FAULT VS FIXING IT`
+- `MAKE YOUR SIDE LOOK BAD`
+- `FIND ONE EXCEPTION`
+- `WHAT HAPPENS NEXT?`
+- `REMOVE THE LABELS`
+
+### One Last Thing rewrite
+
+Eight deterministic prompts remain assigned by stable card ID using:
+
+`(current.id - 1) % TESTS.length`
+
+Current player-facing titles:
+
+1. `SAME RULE?`
+2. `WHAT WOULD CHANGE YOUR MIND?`
+3. `WHAT IF YOU HATED THE RESULT?`
+4. `WHAT IF THEY WERE STRANGERS?`
+5. `WOULD YOU LET EVERYONE USE IT?`
+6. `WHAT IF IT WAS YOU?`
+7. `WHAT IF THE POWER FLIPPED?`
+8. `SAME RULE SOMEWHERE ELSE?`
+
+### Permanent writing standard
+
+New file:
+
+`PLAIN_LANGUAGE_NOTES.md`
+
+Core rule:
+
+> **Would a regular person naturally say or understand this out loud on the first read?**
+
+If not, rewrite it.
+
+Preferred voice:
+
+- short direct sentences
+- familiar everyday words
+- one idea at a time
+- conversational questions
+- concrete examples before abstract labels
+- humour that sounds natural when read aloud
+
+Avoid:
+
+- academic/debate-club wording
+- unnecessary legalistic phrasing
+- stacked metaphors
+- jargon
+- sentences that need rereading
+- clever writing that hides the actual choice
+
+This standard is now a permanent product rule, not a one-time cleanup preference.
+
+---
+
+# 4. Architecture
 
 ## Runtime stack
 
@@ -96,14 +301,15 @@ Previous material releases:
 - Service Worker / Cache API
 - browser `localStorage`
 - optional Screen Wake Lock API
-- GitHub Actions validation
 - GitHub-hosted static deployment / Pages
+- GitHub Actions validation
 
 Deliberately absent:
 
-- framework/bundler/build step
+- framework
+- bundler/build step
 - package-manager runtime dependencies
-- backend/database/auth
+- backend/database/authentication
 - runtime APIs/CDNs
 - remote fonts/images
 - analytics
@@ -113,31 +319,36 @@ Deliberately absent:
 - `index.html`
 - `styles.css`
 - `categories.css`
-- `game-v6.2.css` — A-vs-B presentation
-- `game-v6.3.css` — `One Last Thing` presentation
-- `app.js` — state/navigation/persistence/install/wake-lock/SW handling
-- `choice-ui.js` — sole choice label/reason enhancement owner
-- `history-ui.js` — Real-World Example rendering only
-- `consistency-ui.js` — deterministic consistency prompt layer
-- `cards.js`
-- `deck-a.js` through `deck-h.js`
+- `game-v6.2.css` — side-by-side A-vs-B presentation
+- `game-v6.3.css` — One Last Thing presentation
+- `cards.js` — shared card array + Chaos
+- `deck-a.js` through `deck-h.js` — 200 authored cards
 - `categories.js`
+- `language-polish.js` — v6.4 final player-facing wording layer
+- `app.js`
+- `choice-ui.js`
+- `history-ui.js`
+- `consistency-ui.js`
 - `history-a.js` through `history-d.js`
 - `history-reviewed.js`
 - `manifest.webmanifest`
 - `sw.js`
 
-## Validation/workflow files
+## Validation/docs files
 
-- `validate-content.cjs` — deck/editorial/runtime-content structural gate
-- `validate-runtime.cjs` — runtime/PWA/state/workflow regression gate added in v6.3.1
+- `validate-content.cjs`
+- `validate-runtime.cjs`
+- `validate-language.cjs`
+- `PLAIN_LANGUAGE_NOTES.md`
 - `.github/workflows/validate.yml`
 - `.github/dependabot.yml`
-- `VALIDATION.md`
 - `README.md`
+- `VALIDATION.md`
 - `docs/DEVELOPMENT_HANDOFF.md`
 
-## Card model
+---
+
+# 5. Card/Data Contracts
 
 Exactly 200 cards with stable internal IDs 1–200.
 
@@ -148,18 +359,18 @@ Each card contains:
 - `vibe`
 - `scenario` — exactly two non-empty paragraphs
 - `prompt`
-- `choices` — exactly two defensible pre-reveal choices
+- `choices` — exactly two
 - `twist`
-- `conclusion` — displayed as `The Point`
+- `conclusion` — shown as The Point
 - `afterPrompt`
 - `hostPrompts` — exactly two
-- `categories` — one or two valid category IDs
+- `categories` — one or two valid IDs
 
-Internal IDs are compatibility keys and must not be displayed to players.
+Internal IDs are compatibility/mapping keys and must not be shown to players.
 
 ## Categories
 
-Six category IDs:
+Six IDs:
 
 - `mind`
 - `relationships`
@@ -168,16 +379,25 @@ Six category IDs:
 - `society`
 - `life`
 
-`Mix Everything` represents the full deck. Multi-category selection forms a union without duplicate cards. Start and Random respect the active filter. Saved playback is independent of the current filter.
+`Mix Everything` represents the full deck.
 
-## Real-World Examples
+Rules:
 
-Exactly one substantive runtime example maps to every card ID 1–200.
+- selecting specific categories removes Mix Everything
+- removing the last specific category restores Mix Everything
+- multiple categories form a union without duplicate cards
+- Start and Random respect the current category selection
+- active runs keep their original `runCategories` context
+- Saved playback is independent of the current home filter
 
-Runtime precedence:
+## Historical examples
+
+Exactly one runtime example per card ID 1–200.
+
+Load precedence:
 
 1. `history-a.js` through `history-d.js`
-2. `history-reviewed.js`, loaded afterward and authoritative for overridden IDs
+2. `history-reviewed.js` overrides selected mappings
 
 Research ledgers:
 
@@ -186,313 +406,354 @@ Research ledgers:
 - `HISTORY_SOURCES_101_150.md`
 - `HISTORY_SOURCES_151_200.md`
 
-Accuracy and analogy fit outrank fame. Prefer primary, official, academic, archival, court, museum, or strong first-party sources where practical. Do not overclaim what a source proves.
+Accuracy and exact analogy fit outrank fame. Prefer primary/official/academic/archival/court/museum/strong first-party sources where practical.
 
-Card 184 intentionally uses the documented 1973 UC Berkeley graduate-admissions / Simpson's paradox example instead of the weaker polio/ice-cream anecdote.
+Do not remove `history-reviewed.js` as redundant. It intentionally overrides weaker draft mappings.
+
+Card 184 intentionally uses the UC Berkeley graduate-admissions / Simpson's paradox example.
 
 ---
 
-# 4. Product and Editorial Rules
+# 6. Product and Editorial Rules
 
-## Two-sided dilemma rule
+## Two-sided dilemma
 
-Every card must begin with two genuinely defensible choices. A thoughtful adult should be able to defend either side before the reveal.
+Every card must offer two genuinely reasonable choices before the reveal.
 
-Do not write:
+Do not create:
 
 - sensible answer vs caricature
 - virtue-labelled answer vs obviously bad answer
-- `it depends` escape choice
-- Plot Twist that only repeats setup information
-- reveal that merely congratulates one side
+- pre-reveal `it depends` escape
+- Plot Twist that just repeats the setup
+- reveal that merely congratulates the intended side
 
-Target structure:
+Target:
 
-`two defensible positions → commitment → decision-relevant new information → reconsider → principle`
+`two reasonable choices → commitment → new information that matters → reconsider → clear principle`
 
-Changing sides after the reveal is intentional and explicitly allowed.
+Switching sides after the reveal is explicitly allowed.
+
+## Plain language is now part of correctness
+
+A card can be logically correct and still fail the product if normal people cannot comfortably understand it aloud.
+
+Do not reintroduce abstract terminology merely because it is technically precise. Prefer ordinary words that preserve the idea.
+
+If a technical term is truly necessary, explain the idea in normal speech rather than assuming the player knows the label.
 
 ## The Point
 
-`The Point` should land a clear declarative principle. Do not retreat into forced neutrality merely to make both sides seem equally valid after the reveal.
+The Point should be direct and understandable. It does not need to pretend both sides remain equally good after the new information.
+
+Avoid essay-like summaries.
 
 ## Hidden source layer
 
-Player-facing runtime text must not expose the source-worldview or authoring framework behind the game. `validate-content.cjs` enforces protected terminology and meta-authoring leak checks.
+The player-facing game must not expose the hidden authoring/source-worldview layer.
 
-Do not weaken those checks merely to make new content pass.
+`validate-content.cjs` enforces protected terms and meta-authoring leak checks.
 
-## Choice presentation
+Do not weaken those checks merely to make content pass.
 
-Current design contract:
+## Choice layout
+
+Keep:
 
 - two side-by-side columns
 - center divider
-- `VS`
-- prominent decision label
+- VS marker
+- prominent choice label
 - smaller reason
 
-## Real-World Example placement
+## Example / consistency order
 
-The Real-World Example appears after the post-Point question so players reason through the fictional dilemma before the concrete analogy anchors the discussion.
+After reveal:
 
-## One Last Thing
+`Plot Twist → The Point → follow-up question → Real-World Example → One Last Thing → Keep Talking`
 
-Every card gets one concise consistency pressure test after its Real-World Example and before `Where This Can Go`.
+## No scoring/correct-answer UI
 
-Eight deterministic test types:
-
-1. `SAME RULE?`
-2. `WHAT WOULD CHANGE YOUR MIND?`
-3. `OUTCOME TEST`
-4. `STRANGER TEST`
-5. `EVERYONE GETS IT`
-6. `YOUR TURN`
-7. `POWER FLIP`
-8. `CROSSOVER`
-
-Assignment remains deterministic from stable card ID:
-
-`(current.id - 1) % TESTS.length`
-
-## Chaos remains separate
-
-`cards.js` defines 16 optional universal Chaos pressure tests. Chaos remains random, playful, and more aggressive. `One Last Thing` is the guaranteed concise consistency check in the normal flow.
-
-## No scoring / visible correct-answer system
-
-Do not add ideology scores, moral scores, visible `correct` answers, or other mechanics that make players feel graded.
+Do not add moral scores, ideology scores, visible right/wrong answers, or grading mechanics.
 
 ---
 
-# 5. Persistence and Compatibility
+# 7. Persistence and Compatibility
 
-Compatibility anchors:
+Stable anchors:
 
-- localStorage key: `plotTwistStateV4`
-- deck/state identifier: `masterpiece-200-v1`
+- localStorage key `plotTwistStateV4`
+- deck/state ID `masterpiece-200-v1`
 - card IDs 1–200
-- `HISTORICAL_EXAMPLES[id]` aligned to those IDs
 
-These remain unchanged in v6.3.1.
+State includes, among other things:
 
-v6.3.1 adds a compatible `runCategories` snapshot. This stores the category context of the active run so changing the home-screen filter does not change the label/replay semantics of a game already in progress.
+- active order
+- position
+- reveal state
+- Saved IDs
+- selected categories
+- active `runCategories`
+- settings
 
-Do not bump `masterpiece-200-v1` merely to refresh assets. Use the service-worker cache version for runtime asset refresh.
+v6.4 is a language/UI release and does not justify clearing or replacing compatible state.
 
-Visible Settings version:
+Do not bump `masterpiece-200-v1` merely for wording or asset refreshes.
 
-`v6.3.1`
-
-Service-worker cache:
-
-`plot-twist-v6.3.1`
-
-Do not casually recommend clearing browser/site data because it destroys Saved cards, settings, selected categories, and current state and undermines compatibility testing.
-
----
-
-# 6. v6.3.1 Deep Audit: Defects Found and Fixed
-
-## Service worker / offline
-
-Fixed:
-
-- old activation logic could delete every cache on the same origin except Plot Twist's current cache; cleanup is now restricted to `plot-twist-*`
-- runtime cache reads/writes are isolated to the current Plot Twist cache
-- runtime caching is restricted to same-origin requests inside the service-worker scope
-- runtime `cache.put()` writes are awaited
-- uncached offline failures return an explicit error response
-- online startup attempts service-worker update/activation before reporting `Offline cache ready`, while an already-active worker can still support offline launch when the network is unavailable
-
-This matters because GitHub Pages repository apps can share the same origin; Plot Twist must never destroy unrelated app caches.
-
-## State / run semantics
-
-Fixed:
-
-- persisted card IDs are validated and deduplicated
-- persisted settings, mode, and position are normalized
-- unavailable/blocked localStorage writes no longer crash in-memory gameplay
-- completed runs advance to an explicit end position and no longer reappear as resumable on the final card
-- active runs keep `runCategories` so labels and replay do not drift when home-screen filters change
-- `PLAY AGAIN` is mode-aware: Saved runs replay Saved cards; normal/random runs replay the original run-category snapshot
-
-## Interaction / ownership
-
-Fixed:
-
-- duplicate wake-lock acquisition is prevented
-- Chaos supports Escape dismissal, focus transfer on open, and focus restoration on close
-- duplicate choice-formatting logic was removed from `history-ui.js`; `choice-ui.js` is the sole owner
+Do not recommend clearing site data as the normal update path.
 
 ---
 
-# 7. Offline / PWA Rules
+# 8. PWA / Offline Rules
 
 Offline-first is non-negotiable.
 
-`sw.js` must precache all essential local runtime assets. Runtime network dependencies, external APIs, CDNs, remote fonts/images, authentication, and analytics must not be introduced casually.
+Current v6.4 cache:
 
-When runtime assets change, inspect together:
+`plot-twist-v6.4.0`
+
+`sw.js` must precache every essential local runtime dependency, now including `language-polish.js`.
+
+Cache safety introduced in v6.3.1 must remain:
+
+- `CACHE_PREFIX = 'plot-twist-'`
+- delete only old Plot Twist caches
+- never delete unrelated caches on the shared origin
+- same-origin/scope runtime caching only
+- named-current-cache reads/writes
+- awaited `cache.put()`
+- navigation fallback to cached `index.html`
+
+Whenever runtime files are added/renamed, inspect together:
 
 - `index.html`
 - `sw.js`
 - `validate-content.cjs`
 - `validate-runtime.cjs`
 
-After the new service worker has activated, the installed Android PWA must launch and play with airplane mode enabled and Wi-Fi off.
-
-A merge to `main` makes source eligible for hosted deployment, but an installed PWA can remain on an older cache until GitHub Pages publishes the source and Chrome completes the service-worker lifecycle. Always verify **Settings → App Version** on the physical device.
+Installed Android PWA must eventually pass a full airplane-mode relaunch test.
 
 ---
 
-# 8. Validation and GitHub Workflow
+# 9. Validation
 
 Workflow:
 
 `.github/workflows/validate.yml`
 
-Name:
-
-`Validate Plot Twist`
-
 Environment:
 
 - `ubuntu-latest`
-- Node.js 22
+- Node.js 22 for project checks
 
-v6.3.1 workflow hardening:
+Workflow hardening retained from v6.3.1:
 
-- `actions/checkout` pinned to an immutable verified commit SHA
-- `actions/setup-node` pinned to an immutable verified commit SHA
+- Actions pinned to immutable SHAs
+- `contents: read`
 - checkout `persist-credentials: false`
-- `workflow_dispatch` supported
-- concurrency cancellation enabled for superseded runs
-- 10-minute job timeout
-- weekly Dependabot maintenance for GitHub Actions
+- manual `workflow_dispatch`
+- concurrency cancellation
+- 10-minute timeout
+- weekly Dependabot for GitHub Actions
 
-CI runs both:
+CI now runs three gates:
 
 1. `validate-content.cjs`
 2. `validate-runtime.cjs`
+3. `validate-language.cjs`
 
-The original content validator was retained and not weakened.
+## `validate-content.cjs`
 
-### `validate-content.cjs`
-
-Checks include:
+Structural/product content contract, including:
 
 - exactly 200 cards
-- IDs 1–200 complete/unique
-- required schema
-- exactly two scenario paragraphs
-- exactly two distinct substantive choices
-- no `it depends` escape
-- loaded-choice wording lint
-- substantive Plot Twists
-- valid categories
-- exactly 200 substantive Real-World Examples
-- presentation/history/consistency assets loaded and precached
-- Real-World Example and One Last Thing placement
-- protected terminology/meta-authoring leak checks
-- visible app version/cache/deck compatibility contract
+- complete/unique IDs
+- schema
+- two scenario paragraphs
+- two distinct choices
+- no `it depends`
+- substantive twists
+- category validity
+- exactly 200 examples
+- required assets loaded/precached
+- presentation ordering
+- hidden terminology/meta-authoring checks
+- v6.4 version/cache wiring
+- required plain How to Play rules
 
-### `validate-runtime.cjs`
+## `validate-runtime.cjs`
 
-Checks include:
+Runtime/PWA/state/workflow contract, including:
 
-- version and stable state compatibility
-- Plot Twist-only cache cleanup
-- service-worker scope/origin isolation
-- awaited runtime cache writes
-- APP_SHELL duplicates/missing files
-- local HTML/manifest assets exist and are precached
-- manifest installation contract
-- DOM IDs and screen routing
-- persistence normalization
-- completion/resume regression
+- safe cache isolation
+- awaited writes
+- APP_SHELL validity
+- manifest validity
+- DOM and route targets
+- state normalization
+- end-of-run handling
 - runCategories/replay semantics
-- wake-lock duplicate protection
-- Chaos keyboard/focus behaviour
-- service-worker update lifecycle wiring
-- module ownership between choice/history UI
-- GitHub Actions hardening and Dependabot configuration
+- wake lock
+- Chaos modal keyboard/focus
+- service-worker lifecycle
+- module ownership
+- language layer load order/precache
+- CI hardening
 
-Static CI does not replace physical Android/PWA acceptance.
+## `validate-language.cjs`
+
+Checks the final data **after `language-polish.js` runs**.
+
+It rejects selected formal/jargon words and enforces readability guardrails.
+
+Current limits:
+
+- scenario/twist sentence: max 34 words
+- conclusion sentence: max 30 words
+- prompt/choice/extra-question sentence: max 26 words
+- Real-World Example sentence: max 38 words
+- main prompt: max 24 total words
+- follow-up: max 28 total words
+- choice: max 18 total words
+
+The limits are minimum safeguards, not proof that the writing sounds good.
+
+## v6.4 CI history
+
+### Run #56
+
+Initial integrated v6.4 head:
+
+`6054f5079641b033659420bdcce8835b12298f74`
+
+Run ID:
+
+`32809737764`
+
+Results:
+
+- syntax checks: pass
+- content validator: pass
+- runtime validator: pass
+- language validator: fail
+
+Language gate found nine remaining overlong passages:
+
+- 26 scenario
+- 34 scenario
+- 51 scenario
+- 72 conclusion
+- 107 twist
+- 131 twist
+- 152 conclusion
+- 153 conclusion
+- 200 twist
+
+Those nine were rewritten rather than exempted.
+
+### Run #57
+
+Exact head after the nine fixes:
+
+`3dd83e7c0ac31b1e9a5b52248375d24a681748f9`
+
+Run ID:
+
+`32809840625`
+
+Conclusion:
+
+**success**
+
+All three validators passed.
+
+README/VALIDATION/handoff documentation commits occurred after run #57, so **run #57 is not the final merge CI**. Final exact-head CI must run after this handoff edit.
 
 ---
 
-# 9. Git and Pull Request Rules
+# 10. Git / PR Safety Rule
 
-`main` is the released baseline. Material development occurs on feature branches and PRs.
-
-**Never merge a material PR without the user's explicit authorization for that specific PR.**
+**Never merge a material PR without explicit user authorization for that specific PR and the exact revalidated head.**
 
 Immediately before an authorized merge:
 
 1. re-fetch PR
-2. verify exact head SHA
-3. verify CI passed on that exact SHA
-4. verify mergeability
-5. check submitted reviews
+2. confirm exact current head SHA
+3. confirm CI success on that exact SHA
+4. confirm mergeability
+5. check reviews
 6. check inline review threads
 7. check PR comments/blockers
-8. ensure this handoff is current
-9. merge only the exact verified head using `expected_head_sha`
+8. verify this handoff is current
+9. merge only the exact verified head with `expected_head_sha`
 
-If the branch changes after authorization, previous approval does not automatically apply. Revalidate and reconfirm authorization for the new head.
+If the branch changes after approval, prior approval does not automatically cover the new head.
 
 After merge:
 
-1. verify resulting `main` SHA
-2. confirm intended PR is part of `main`
-3. update this handoff if the released baseline or next step changed
+1. verify resulting `main`
+2. confirm intended PR is in `main`
+3. update handoff if release baseline/next step changes
 4. do not give local-repository commands to the user
-5. verify hosted version and conduct Android/PWA acceptance
+5. verify hosted Settings version
+6. conduct Android/PWA acceptance
 
 ---
 
-# 10. Current Unresolved Issues
+# 11. Current Unresolved / Release Gates
 
-## 1. Hosted v6.3.1 deployment / installed-app update
+## PR #9 final static verification
 
-PR #6 is merged, but the physical Android PWA still needs to confirm it has received v6.3.1.
+The implementation and docs are complete enough for final CI, but the exact head created by this handoff edit must be freshly fetched and validated.
 
-Do not clear site data to force the update.
+Do not merge PR #9 based on run #57 alone because documentation commits changed the branch head afterward.
 
-## 2. Android v6.3.1 acceptance
+## Android v6.4 human-language acceptance
 
-Once Settings shows `v6.3.1`, verify:
+If PR #9 is eventually authorized, merged, and deployed:
 
-1. existing Saved cards/settings/category choices survive the v6.3.0 → v6.3.1 update
-2. active run resumes correctly
-3. changing home categories does not change the active run's displayed category context
-4. `PLAY AGAIN` after a normal/random run uses the original run-category snapshot
-5. `PLAY AGAIN` after a Saved run replays Saved cards rather than starting a normal category deck
-6. completing the last card does not create a false Resume Game state
-7. Chaos opens/closes normally and restores focus; Escape dismissal works where available
-8. wake lock behaves normally without duplicate requests
-9. A/B choice presentation, Real-World Example, One Last Thing, category filtering, Random, Saved, Host prompts, Settings, and Next remain correct
-10. Settings shows `v6.3.1`
-11. once `Offline cache ready` is shown with the new service worker active, fully close the app, enable airplane mode, turn Wi-Fi off, relaunch from the installed icon, and verify full gameplay
+1. Settings shows `v6.4.0`.
+2. Existing Saved cards/settings/state survive the update.
+3. Home buttons and How to Play make sense without explanation.
+4. Read cards aloud across all six categories.
+5. Scenarios are understandable on the first read.
+6. Choices are immediately clear.
+7. Plot Twists do not require rereading.
+8. The Point sounds like normal speech rather than an essay.
+9. Real-World Examples remain accurate and easy to follow.
+10. One Last Thing sounds conversational.
+11. Chaos sounds playful/obvious rather than technical.
+12. Extra Questions sound like things real people would ask.
+13. Existing category/filter/resume/replay/Saved/wake-lock behaviour remains correct.
+14. Fully close app, enable airplane mode, turn Wi-Fi off, relaunch installed PWA.
+15. Confirm v6.4 wording and full gameplay work offline.
 
-## 3. Hosted Pages details
+The final language test is qualitative:
 
-The repository has GitHub Pages enabled. If deployment debugging is required, verify the exact live Pages configuration/URL from GitHub rather than inventing it.
+**Does this sound like a real person talking?**
 
 ---
 
-# 11. Exact Continuation Point
+# 12. Exact Continuation Point
 
 ## Exact Next Step
 
-1. Re-fetch live `main` and verify the latest commit. The v6.3.1 merge commit is `0d7a102e73aba9999cb26c436a4a80c5439df2c7`; this handoff update creates a newer main commit.
-2. Confirm PR #6 remains merged and no newer material PR supersedes it.
-3. Treat **v6.3.1** as the released source baseline.
-4. Do not ask for or invent a local Plot Twist repository.
-5. Have the user open the hosted/installed Plot Twist app while online and check **Settings → App Version**.
-6. If it shows `v6.3.1`, run the Android acceptance checklist in section 10, ending with airplane-mode relaunch.
-7. If it still shows `v6.3.0`, do not clear site data. Investigate the GitHub Pages deployment/service-worker update path and use the least-destructive update method.
-8. If Android testing finds a defect, create a new feature branch/PR, add or strengthen a regression check where practical, update this handoff, and do not merge without explicit authorization for that new PR.
-9. If v6.3.1 passes acceptance, update this handoff to record acceptance complete and replace this Exact Next Step with the next concrete product/development task.
+A fresh development session must:
+
+1. Fetch live `main` and confirm it still matches/descends from the released v6.3.1 baseline.
+2. Fetch PR #9 live from GitHub.
+3. Get PR #9's exact current head SHA after this handoff commit.
+4. Fetch GitHub Actions runs for that exact head.
+5. Require all three gates to pass:
+   - syntax/content
+   - runtime/PWA/state
+   - plain-language
+6. If a language failure appears, fix the wording. **Do not loosen the language gate merely to pass.**
+7. Check submitted reviews, inline review threads, and PR comments/blockers.
+8. Keep PR #9 unmerged unless the user explicitly authorizes **PR #9** after this exact-head state exists.
+9. If the user authorizes merge, re-run the full exact-head merge checklist immediately before merging.
+10. After merge, verify `main`, update this handoff to make v6.4.0 the released baseline, then have the user verify the hosted Android PWA and its conversational tone without clearing site data.
+
+## Git self-reference note
+
+This document cannot contain the SHA of the commit that contains its own final edit because changing the document changes the commit SHA. Therefore the latest SHA written inside the file will always predate the commit containing that text. Always re-fetch GitHub for the live exact PR head.
