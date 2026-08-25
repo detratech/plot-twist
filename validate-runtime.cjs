@@ -30,6 +30,7 @@ const dependabot = read('.github/dependabot.yml');
 
 const APP_VERSION = 'v6.3.1';
 const CACHE_NAME = 'plot-twist-v6.3.1';
+const CATEGORY_IDS = ['all', 'mind', 'relationships', 'money', 'tech', 'society', 'life'];
 
 // Version / state compatibility contracts.
 assert(index.includes(`<strong>${APP_VERSION}</strong>`), `Settings does not report ${APP_VERSION}.`);
@@ -88,6 +89,10 @@ for (const icon of manifest.icons) {
 assert(manifest.icons.some(icon => icon.sizes === '192x192'), 'Manifest is missing the 192x192 icon.');
 assert(manifest.icons.some(icon => icon.sizes === '512x512' && icon.purpose === 'any'), 'Manifest is missing the regular 512x512 icon.');
 assert(manifest.icons.some(icon => icon.sizes === '512x512' && icon.purpose === 'maskable'), 'Manifest is missing the maskable 512x512 icon.');
+assert((manifest.shortcuts || []).every(shortcut => !shortcut.url || shortcut.url.startsWith('./')), 'Manifest shortcut escapes the app scope.');
+if ((manifest.shortcuts || []).some(shortcut => shortcut.url === './?mode=random')) {
+  assert(app.includes("requestedMode === 'random'"), 'Random manifest shortcut is not handled by app.js.');
+}
 
 // DOM wiring: every getElementById used by runtime scripts must exist exactly once.
 const runtimeJs = [app, choiceUi, historyUi, consistencyUi].join('\n');
@@ -96,6 +101,11 @@ const declaredIds = [...index.matchAll(/\sid="([^"]+)"/g)].map(match => match[1]
 assert(unique(declaredIds), 'index.html contains duplicate element IDs.');
 for (const id of new Set(referencedIds)) {
   assert(declaredIds.includes(id), `Runtime JavaScript references missing DOM id: ${id}`);
+}
+for (const match of index.matchAll(/aria-labelledby="([^"]+)"/g)) {
+  for (const id of match[1].split(/\s+/)) {
+    assert(declaredIds.includes(id), `aria-labelledby references missing DOM id: ${id}`);
+  }
 }
 
 const screenBlock = app.match(/const screens = \{([\s\S]*?)\n\};/);
@@ -106,15 +116,33 @@ for (const target of new Set(screenTargets)) {
   assert(screenKeys.includes(target), `index.html targets an unregistered screen: ${target}`);
 }
 
+const actionTargets = [...index.matchAll(/data-action="([^"]+)"/g)].map(match => match[1]);
+for (const target of new Set(actionTargets)) {
+  assert(app.includes(`action === '${target}'`), `index.html uses an unhandled data-action: ${target}`);
+}
+const categoryTargets = [...index.matchAll(/data-category="([^"]+)"/g)].map(match => match[1]);
+assert(unique(categoryTargets), 'Category picker contains duplicate data-category values.');
+for (const id of CATEGORY_IDS) {
+  assert(categoryTargets.includes(id), `Category picker is missing data-category="${id}".`);
+}
+assert(categoryTargets.every(id => CATEGORY_IDS.includes(id)), 'Category picker contains an unknown category id.');
+
 // State recovery and interaction regressions found by the v6.3.1 audit.
 assert(app.includes('function normalizeCardIds(value)'), 'Persisted card IDs are not normalized on load.');
 assert(app.includes('function normalizeSettings(value)'), 'Persisted settings are not normalized on load.');
 assert(/try\s*\{[\s\S]{0,160}localStorage\.setItem/.test(app), 'Persistence can still crash gameplay when localStorage writes fail.');
 assert(app.includes('state.position = state.order.length;'), 'Completed runs can still look resumable from their final card.');
+assert(app.includes("runCategories: ['all']"), 'State does not keep an active-run category snapshot.');
+assert(app.includes('state.runCategories = normalizeSelectedCategories(state.selectedCategories);'), 'New runs do not snapshot their selected categories.');
+assert(app.includes('categoryObjectsFor(state.runCategories)'), 'Mode labels can drift when the home filter changes during an active run.');
+assert(app.includes('function restartRun()'), 'Completed runs do not have mode-aware replay logic.');
+assert(index.includes('data-action="restart"') && index.includes('>PLAY AGAIN</button>'), 'Complete screen does not use the mode-aware replay action.');
+assert(app.includes("if (state.mode === 'saved')") && app.includes("beginGame('saved')"), 'Saved-card runs are not replayed as Saved-card runs.');
 assert(app.includes("if (wakeLock || !('wakeLock' in navigator)"), 'Wake-lock requests are not protected from duplicate acquisition.');
 assert(app.includes("event.key === 'Escape' && !el.chaosModal.hidden"), 'Chaos modal cannot be dismissed with Escape.');
 assert(app.includes("document.getElementById('closeChaos').focus()"), 'Chaos modal does not move focus to its close control when opened.');
-assert(app.includes('await registration.update()') && app.includes('waitForWorkerActivation(registration)'), 'Offline-ready status does not wait for a service-worker update/activation attempt.');
+assert(app.includes('await registration.update()') && app.includes('waitForWorkerActivation(registration)'), 'Offline-ready status does not attempt to validate a service-worker update/activation.');
+assert(app.includes('if (navigator.onLine || !registration.active) throw error;'), 'Offline launch cannot fall back cleanly to an already-active service worker.');
 
 // Module ownership: history UI must not duplicate choice UI behaviour.
 assert(!historyUi.includes('enhanceChoices'), 'history-ui.js still duplicates choice-ui.js enhancement logic.');
@@ -138,7 +166,7 @@ assert(/directory:\s*["']\/["']/.test(dependabot), 'Dependabot GitHub Actions di
 console.log(`PASS: runtime reports ${APP_VERSION} and cache ${CACHE_NAME}.`);
 console.log('PASS: service-worker cleanup is cache-prefix scoped and runtime cache writes are awaited.');
 console.log('PASS: all local HTML/manifest runtime assets exist and are precached.');
-console.log('PASS: manifest, DOM IDs, screen targets, and offline wiring are internally consistent.');
-console.log('PASS: persisted-state recovery, run completion, wake lock, and Chaos modal regressions are guarded.');
+console.log('PASS: manifest, DOM IDs, ARIA references, screen/action/category targets, and offline wiring are internally consistent.');
+console.log('PASS: persisted-state recovery, run completion/context/replay, wake lock, and Chaos modal regressions are guarded.');
 console.log('PASS: choice/history UI responsibilities are separated.');
 console.log('PASS: GitHub Actions uses pinned actions, least-privilege checkout, concurrency cancellation, timeout, and the runtime audit.');
