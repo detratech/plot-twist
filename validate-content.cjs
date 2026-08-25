@@ -98,14 +98,9 @@ function assertNoMetaLeaks(text, location) {
 
 const context = {};
 vm.createContext(context);
-
 vm.runInContext(read('cards.js'), context, { filename: 'cards.js' });
-for (const file of DECK_FILES) {
-  vm.runInContext(read(file), context, { filename: file });
-}
-for (const file of HISTORY_FILES) {
-  vm.runInContext(read(file), context, { filename: file });
-}
+for (const file of DECK_FILES) vm.runInContext(read(file), context, { filename: file });
+for (const file of HISTORY_FILES) vm.runInContext(read(file), context, { filename: file });
 vm.runInContext(
   read('categories.js') + '\nglobalThis.__cards = PLOT_TWIST_CARDS; globalThis.__categories = GAME_CATEGORIES; globalThis.__history = HISTORICAL_EXAMPLES;',
   context,
@@ -127,7 +122,6 @@ for (let expected = 1; expected <= 200; expected += 1) {
 
 const titles = new Set();
 const scenarioKeys = new Set();
-
 for (const card of cards) {
   for (const field of REQUIRED_FIELDS) {
     if (!(field in card)) fail(`Card ${card.id} is missing ${field}.`);
@@ -141,22 +135,12 @@ for (const card of cards) {
   if (!Array.isArray(card.scenario) || card.scenario.length !== 2 || card.scenario.some(x => typeof x !== 'string' || !x.trim())) {
     fail(`Card ${card.id} must have exactly two non-empty scenario paragraphs.`);
   }
-
   if (!Array.isArray(card.choices) || card.choices.length !== 2 || card.choices.some(x => typeof x !== 'string' || !x.trim())) {
     fail(`Card ${card.id} must have exactly two answer choices.`);
   }
-
-  if (normalize(card.choices[0]) === normalize(card.choices[1])) {
-    fail(`Card ${card.id} has duplicate answer choices.`);
-  }
-
-  if (card.choices.some(choice => /\bit depends\b/i.test(choice))) {
-    fail(`Card ${card.id} contains an "it depends" escape choice.`);
-  }
-
-  if (card.choices.some(choice => wordCount(choice) < 2)) {
-    fail(`Card ${card.id} has an answer choice too vague to state a clear side.`);
-  }
+  if (normalize(card.choices[0]) === normalize(card.choices[1])) fail(`Card ${card.id} has duplicate answer choices.`);
+  if (card.choices.some(choice => /\bit depends\b/i.test(choice))) fail(`Card ${card.id} contains an "it depends" escape choice.`);
+  if (card.choices.some(choice => wordCount(choice) < 2)) fail(`Card ${card.id} has an answer choice too vague to state a clear side.`);
 
   for (const choice of card.choices) {
     for (const pattern of LOADED_CHOICE_TERMS) {
@@ -165,37 +149,18 @@ for (const card of cards) {
     }
   }
 
-  if (typeof card.prompt !== 'string' || !card.prompt.trim().endsWith('?')) {
-    fail(`Card ${card.id} main prompt must be a question.`);
-  }
-
+  if (typeof card.prompt !== 'string' || !card.prompt.trim().endsWith('?')) fail(`Card ${card.id} main prompt must be a question.`);
   if (!Array.isArray(card.twist) || card.twist.length < 1 || card.twist.some(x => typeof x !== 'string' || !x.trim())) {
     fail(`Card ${card.id} must have a non-empty Plot Twist.`);
   }
-
-  if (wordCount(card.twist.join(' ')) < 12) {
-    fail(`Card ${card.id} Plot Twist is too thin to introduce meaningful new information.`);
-  }
-
-  if (normalize(card.twist.join(' ')) === normalize(card.scenario.join(' '))) {
-    fail(`Card ${card.id} Plot Twist merely repeats the scenario.`);
-  }
-
-  if (typeof card.conclusion !== 'string' || !card.conclusion.trim()) {
-    fail(`Card ${card.id} must have a declarative conclusion.`);
-  }
-
-  if (typeof card.afterPrompt !== 'string' || !card.afterPrompt.trim().endsWith('?')) {
-    fail(`Card ${card.id} afterPrompt must be a question.`);
-  }
-
-  if (!Array.isArray(card.hostPrompts) || card.hostPrompts.length !== 2 ||
-      card.hostPrompts.some(x => typeof x !== 'string' || !x.trim())) {
+  if (wordCount(card.twist.join(' ')) < 12) fail(`Card ${card.id} Plot Twist is too thin to introduce meaningful new information.`);
+  if (normalize(card.twist.join(' ')) === normalize(card.scenario.join(' '))) fail(`Card ${card.id} Plot Twist merely repeats the scenario.`);
+  if (typeof card.conclusion !== 'string' || !card.conclusion.trim()) fail(`Card ${card.id} must have a declarative conclusion.`);
+  if (typeof card.afterPrompt !== 'string' || !card.afterPrompt.trim().endsWith('?')) fail(`Card ${card.id} afterPrompt must be a question.`);
+  if (!Array.isArray(card.hostPrompts) || card.hostPrompts.length !== 2 || card.hostPrompts.some(x => typeof x !== 'string' || !x.trim())) {
     fail(`Card ${card.id} must have exactly two non-empty conversation paths.`);
   }
-
-  if (!Array.isArray(card.categories) || card.categories.length < 1 || card.categories.length > 2 ||
-      card.categories.some(id => !CATEGORY_IDS.has(id))) {
+  if (!Array.isArray(card.categories) || card.categories.length < 1 || card.categories.length > 2 || card.categories.some(id => !CATEGORY_IDS.has(id))) {
     fail(`Card ${card.id} has invalid category tags: ${JSON.stringify(card.categories)}.`);
   }
 
@@ -213,7 +178,6 @@ for (const card of cards) {
     card.afterPrompt,
     ...card.hostPrompts
   ].join('\n');
-
   assertNoForbiddenRuntimeTerms(runtimeText, `card ${card.id}`);
   assertNoMetaLeaks(runtimeText, `card ${card.id}`);
 }
@@ -221,21 +185,14 @@ for (const card of cards) {
 if (!historicalExamples || typeof historicalExamples !== 'object' || Array.isArray(historicalExamples)) {
   fail('HISTORICAL_EXAMPLES did not load as an object.');
 }
-
 const historyIds = Object.keys(historicalExamples).map(Number).sort((a, b) => a - b);
 if (historyIds.length !== 200) fail(`Expected 200 historical examples, found ${historyIds.length}.`);
 for (let expected = 1; expected <= 200; expected += 1) {
   if (!historyIds.includes(expected)) fail(`Missing historical example for card ${expected}.`);
-
   const example = historicalExamples[expected];
   if (!example || typeof example !== 'object') fail(`Historical example ${expected} is invalid.`);
-  if (typeof example.title !== 'string' || wordCount(example.title) < 2) {
-    fail(`Historical example ${expected} needs a substantive title.`);
-  }
-  if (typeof example.text !== 'string' || wordCount(example.text) < 20) {
-    fail(`Historical example ${expected} is too thin; expected at least 20 words.`);
-  }
-
+  if (typeof example.title !== 'string' || wordCount(example.title) < 2) fail(`Historical example ${expected} needs a substantive title.`);
+  if (typeof example.text !== 'string' || wordCount(example.text) < 20) fail(`Historical example ${expected} is too thin; expected at least 20 words.`);
   const exampleText = `${example.title}\n${example.text}`;
   assertNoForbiddenRuntimeTerms(exampleText, `historical example ${expected}`);
   assertNoMetaLeaks(exampleText, `historical example ${expected}`);
@@ -284,15 +241,17 @@ for (const file of runtimeFiles) {
   if (!sw.includes(`'./${file}'`)) fail(`sw.js does not precache ${file}.`);
 }
 
-if (!sw.includes("plot-twist-v6.4.0")) fail('Service-worker cache is not plot-twist-v6.4.0.');
-if (!index.includes('<b>App Version</b>') || !index.includes('<strong>v6.4.0</strong>')) fail('Settings does not display app version v6.4.0.');
+if (!sw.includes("plot-twist-v6.4.1")) fail('Service-worker cache is not plot-twist-v6.4.1.');
+if (!index.includes('<b>App Version</b>') || !index.includes('<strong>v6.4.1</strong>')) fail('Settings does not display app version v6.4.1.');
 if (!app.includes("masterpiece-200-v1")) fail('App deck version is not masterpiece-200-v1.');
 if (/\b(?:card|scenario)\s*#?\d+\b/i.test(index)) fail('Visible card/scenario numbering pattern found in index.html.');
 if (!index.includes('Both choices are meant to be reasonable.')) fail('How to Play does not state the two-sided dilemma rule in plain language.');
 if (!index.includes('changing your mind is completely fair.')) fail('How to Play does not say that changing sides after the twist is allowed.');
 if (!index.includes('<b>Real-World Example</b>')) fail('How to Play does not explain the Real-World Example step.');
-if (!index.includes('<b>One Last Thing</b>')) fail('How to Play does not explain the consistency step.');
+if (!index.includes('<b>One Last Thing</b>')) fail('How to Play does not explain One Last Thing.');
+if (!index.includes('gives the short answer to that question')) fail('How to Play does not explain that One Last Thing answers the preceding question.');
 if (!index.includes('<b>Keep Talking</b>')) fail('How to Play does not explain the extra-question step.');
+
 if (!historyUi.includes("label.textContent = 'REAL-WORLD EXAMPLE'")) fail('Historical example UI label is missing.');
 if (!historyUi.includes("afterPrompt.insertAdjacentElement('afterend', box)")) fail('Historical example is not inserted immediately after the post-Point question.');
 if (!choiceUi.includes("raw.indexOf(' — ')")) fail('Choice UI does not split the decision label from its reason.');
@@ -303,16 +262,15 @@ if (!gameCss.includes('grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)')) f
 if (!gameCss.includes('.choice-wrap::before')) fail('Choice UI is missing the center divider.');
 if (!gameCss.includes("content: 'VS'")) fail('Choice UI is missing the VS marker.');
 
-const consistencyTitles = [...consistencyUi.matchAll(/title:\s*'([^']+)'/g)].map(match => match[1]);
-if (consistencyTitles.length !== 8) fail(`Expected 8 consistency questions, found ${consistencyTitles.length}.`);
-if (new Set(consistencyTitles).size !== 8) fail('Consistency-question titles are not unique.');
-for (const required of ['SAME RULE?', 'WHAT WOULD CHANGE YOUR MIND?', 'WHAT IF YOU HATED THE RESULT?', 'WHAT IF THEY WERE STRANGERS?', 'WOULD YOU LET EVERYONE USE IT?', 'WHAT IF IT WAS YOU?', 'WHAT IF THE POWER FLIPPED?', 'SAME RULE SOMEWHERE ELSE?']) {
-  if (!consistencyTitles.includes(required)) fail(`Missing plain-language consistency question: ${required}`);
-}
-if (!consistencyUi.includes("label.textContent = 'ONE LAST THING'")) fail('Consistency UI label is missing.');
-if (!consistencyUi.includes("historyBox.insertAdjacentElement('afterend', box)")) fail('Consistency prompt is not placed after the Real-World Example.');
-if (!consistencyUi.includes('(current.id - 1) % TESTS.length')) fail('Consistency prompt selection is not deterministic by stable card ID.');
-if (!consistencyCss.includes('.consistency-check')) fail('v6.3 consistency styling is missing.');
+// One Last Thing now closes the preceding question instead of introducing a generic consistency test.
+if (!consistencyUi.includes("label.textContent = 'ONE LAST THING'")) fail('One Last Thing label is missing.');
+if (!consistencyUi.includes("heading.textContent = 'THE SHORT ANSWER'")) fail('One Last Thing does not present itself as the short answer.');
+if (!consistencyUi.includes('function shortAnswer(card)')) fail('One Last Thing is missing the card-specific answer builder.');
+if (!consistencyUi.includes('sentences(card.conclusion)')) fail('One Last Thing answer is not derived from the current card conclusion.');
+if (!consistencyUi.includes("historyBox.insertAdjacentElement('afterend', box)")) fail('One Last Thing is not placed after the Real-World Example.');
+if (consistencyUi.includes('const TESTS = [')) fail('Old generic One Last Thing question bank is still present.');
+if (consistencyUi.includes('(current.id - 1) % TESTS.length')) fail('One Last Thing still cycles unrelated prompts by card ID.');
+if (!consistencyCss.includes('.consistency-check')) fail('One Last Thing styling is missing.');
 if (!languagePolish.includes('const PHRASE_SWAPS') || !languagePolish.includes('const CARD_OVERRIDES')) {
   fail('Plain-language polish layer is missing its phrase and card overrides.');
 }
@@ -336,11 +294,11 @@ console.log('PASS: no "it depends" answer escape choices or obviously insulting 
 console.log('PASS: all cards have one or two valid selectable categories.');
 console.log('PASS: exactly 200 substantive real-world examples map one-to-one to the 200 cards.');
 console.log('PASS: prohibited explicit worldview terms and authoring/meta-instruction leaks were not found in cards, historical examples, or runtime shell text.');
-console.log('PASS: all deck, history, v6.2/v6.3 presentation, and v6.4 language assets are loaded and precached.');
-console.log('PASS: the post-Point question is followed by the Real-World Example and One Last Thing layer.');
-console.log('PASS: eight deterministic One Last Thing questions use plain conversational wording.');
+console.log('PASS: all deck, history, presentation, and plain-language assets are loaded and precached.');
+console.log('PASS: the post-Point question is followed by the Real-World Example and a One Last Thing short answer.');
+console.log('PASS: One Last Thing derives its answer from the current card rather than an unrelated generic question bank.');
 console.log('PASS: the two answer choices remain locked to the prominent left-vs-right layout with a divider, large decision label, and secondary reason.');
 console.log('PASS: the player-facing rules use plain language, keep both choices reasonable, and allow changing sides after the twist.');
-console.log('PASS: settings visibly reports app version v6.4.0.');
-console.log('PASS: deck version masterpiece-200-v1 and cache plot-twist-v6.4.0 are wired.');
+console.log('PASS: settings visibly reports app version v6.4.1.');
+console.log('PASS: deck version masterpiece-200-v1 and cache plot-twist-v6.4.1 are wired.');
 console.log('Category memberships:', distribution);

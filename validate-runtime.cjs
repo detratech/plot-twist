@@ -29,8 +29,8 @@ const languagePolish = read('language-polish.js');
 const workflow = read('.github/workflows/validate.yml');
 const dependabot = read('.github/dependabot.yml');
 
-const APP_VERSION = 'v6.4.0';
-const CACHE_NAME = 'plot-twist-v6.4.0';
+const APP_VERSION = 'v6.4.1';
+const CACHE_NAME = 'plot-twist-v6.4.1';
 const CATEGORY_IDS = ['all', 'mind', 'relationships', 'money', 'tech', 'society', 'life'];
 
 // Version / state compatibility contracts.
@@ -150,6 +150,16 @@ assert(app.includes("document.getElementById('closeChaos').focus()"), 'Chaos mod
 assert(app.includes('await registration.update()') && app.includes('waitForWorkerActivation(registration)'), 'Offline-ready status does not attempt to validate a service-worker update/activation.');
 assert(app.includes('if (navigator.onLine || !registration.active) throw error;'), 'Offline launch cannot fall back cleanly to an already-active service worker.');
 
+// One Last Thing must answer the card-specific follow-up instead of asking an unrelated generic question.
+assert(consistencyUi.includes("label.textContent = 'ONE LAST THING'"), 'One Last Thing label is missing.');
+assert(consistencyUi.includes("heading.textContent = 'THE SHORT ANSWER'"), 'One Last Thing is not presented as an answer.');
+assert(consistencyUi.includes('function shortAnswer(card)'), 'One Last Thing has no card-specific answer builder.');
+assert(consistencyUi.includes('sentences(card.conclusion)'), 'One Last Thing is not derived from the current card conclusion.');
+assert(consistencyUi.includes("historyBox.insertAdjacentElement('afterend', box)"), 'One Last Thing is not placed after the Real-World Example.');
+assert(!consistencyUi.includes('const TESTS = ['), 'Old generic One Last Thing question bank is still present.');
+assert(!consistencyUi.includes('(current.id - 1) % TESTS.length'), 'One Last Thing still varies by unrelated card-ID cycling.');
+assert(index.includes('gives the short answer to that question'), 'How to Play does not explain the One Last Thing answer step.');
+
 // Module ownership: history UI must not duplicate choice UI behaviour.
 assert(!historyUi.includes('enhanceChoices'), 'history-ui.js still duplicates choice-ui.js enhancement logic.');
 assert(!historyUi.includes('scenarioChoices'), 'history-ui.js still depends on the choice container.');
@@ -176,5 +186,6 @@ console.log('PASS: service-worker cleanup is cache-prefix scoped and runtime cac
 console.log('PASS: all local HTML/manifest runtime assets, including the plain-language layer, exist and are precached.');
 console.log('PASS: manifest, DOM IDs, ARIA references, screen/action/category targets, and offline wiring are internally consistent.');
 console.log('PASS: persisted-state recovery, run completion/context/replay, wake lock, and Chaos modal regressions are guarded.');
+console.log('PASS: One Last Thing is a card-specific short answer after the Real-World Example, not a generic question bank.');
 console.log('PASS: choice/history UI responsibilities are separated.');
-console.log('PASS: GitHub Actions keeps the hardened workflow and now enforces the plain-language gate too.');
+console.log('PASS: GitHub Actions keeps the hardened workflow and plain-language gate.');
