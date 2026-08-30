@@ -26,11 +26,12 @@ const historyUi = read('history-ui.js');
 const choiceUi = read('choice-ui.js');
 const consistencyUi = read('consistency-ui.js');
 const languagePolish = read('language-polish.js');
+const afterAnswers = read('after-answers.js');
 const workflow = read('.github/workflows/validate.yml');
 const dependabot = read('.github/dependabot.yml');
 
-const APP_VERSION = 'v6.4.1';
-const CACHE_NAME = 'plot-twist-v6.4.1';
+const APP_VERSION = 'v6.4.2';
+const CACHE_NAME = 'plot-twist-v6.4.2';
 const CATEGORY_IDS = ['all', 'mind', 'relationships', 'money', 'tech', 'society', 'life'];
 
 // Version / state compatibility contracts.
@@ -72,10 +73,14 @@ for (const ref of runtimeRefs) {
 }
 assert(!/(?:src|href)="https?:\/\//i.test(index), 'index.html contains an external runtime dependency.');
 assert(index.includes('<script src="language-polish.js"></script>'), 'Plain-language layer is not loaded by index.html.');
+assert(index.includes('<script src="after-answers.js"></script>'), 'Direct-answer map is not loaded by index.html.');
 assert(index.indexOf('<script src="categories.js"></script>') < index.indexOf('<script src="language-polish.js"></script>'), 'Plain-language layer must load after category inference.');
-assert(index.indexOf('<script src="language-polish.js"></script>') < index.indexOf('<script src="app.js"></script>'), 'Plain-language layer must run before app rendering starts.');
+assert(index.indexOf('<script src="language-polish.js"></script>') < index.indexOf('<script src="after-answers.js"></script>'), 'Direct-answer map must load after the language layer.');
+assert(index.indexOf('<script src="after-answers.js"></script>') < index.indexOf('<script src="app.js"></script>'), 'Direct-answer map must load before app rendering starts.');
 assert(sw.includes("'./language-polish.js'"), 'Plain-language layer is not available offline.');
+assert(sw.includes("'./after-answers.js'"), 'Direct-answer map is not available offline.');
 assert(languagePolish.includes('PLOT_TWIST_CARDS.forEach(polishCard)'), 'Plain-language layer is not applied to all cards.');
+assert(afterAnswers.includes('globalThis.AFTER_ANSWERS = Object.freeze({'), 'Direct-answer map is not defined as expected.');
 
 // Manifest installation contract.
 let manifest;
@@ -150,15 +155,17 @@ assert(app.includes("document.getElementById('closeChaos').focus()"), 'Chaos mod
 assert(app.includes('await registration.update()') && app.includes('waitForWorkerActivation(registration)'), 'Offline-ready status does not attempt to validate a service-worker update/activation.');
 assert(app.includes('if (navigator.onLine || !registration.active) throw error;'), 'Offline launch cannot fall back cleanly to an already-active service worker.');
 
-// One Last Thing must answer the card-specific follow-up instead of asking an unrelated generic question.
+// One Last Thing must answer the exact card-specific follow-up from an explicit answer map.
 assert(consistencyUi.includes("label.textContent = 'ONE LAST THING'"), 'One Last Thing label is missing.');
 assert(consistencyUi.includes("heading.textContent = 'THE SHORT ANSWER'"), 'One Last Thing is not presented as an answer.');
-assert(consistencyUi.includes('function shortAnswer(card)'), 'One Last Thing has no card-specific answer builder.');
-assert(consistencyUi.includes('sentences(card.conclusion)'), 'One Last Thing is not derived from the current card conclusion.');
+assert(consistencyUi.includes('const answers = globalThis.AFTER_ANSWERS;'), 'One Last Thing does not read the explicit direct-answer map.');
+assert(consistencyUi.includes('answers[current.id]'), 'One Last Thing does not select its answer by current card ID.');
 assert(consistencyUi.includes("historyBox.insertAdjacentElement('afterend', box)"), 'One Last Thing is not placed after the Real-World Example.');
+assert(!consistencyUi.includes('function shortAnswer(card)'), 'Obsolete conclusion-derived short-answer helper is still present.');
+assert(!consistencyUi.includes('card.conclusion'), 'One Last Thing still recycles The Point instead of the direct answer.');
 assert(!consistencyUi.includes('const TESTS = ['), 'Old generic One Last Thing question bank is still present.');
 assert(!consistencyUi.includes('(current.id - 1) % TESTS.length'), 'One Last Thing still varies by unrelated card-ID cycling.');
-assert(index.includes('gives the short answer to that question'), 'How to Play does not explain the One Last Thing answer step.');
+assert(index.includes('directly answers that question'), 'How to Play does not explain the direct-answer step.');
 
 // Module ownership: history UI must not duplicate choice UI behaviour.
 assert(!historyUi.includes('enhanceChoices'), 'history-ui.js still duplicates choice-ui.js enhancement logic.');
@@ -183,9 +190,9 @@ assert(/directory:\s*["']\/["']/.test(dependabot), 'Dependabot GitHub Actions di
 
 console.log(`PASS: runtime reports ${APP_VERSION} and cache ${CACHE_NAME}.`);
 console.log('PASS: service-worker cleanup is cache-prefix scoped and runtime cache writes are awaited.');
-console.log('PASS: all local HTML/manifest runtime assets, including the plain-language layer, exist and are precached.');
+console.log('PASS: all local HTML/manifest runtime assets, including the plain-language and direct-answer layers, exist and are precached.');
 console.log('PASS: manifest, DOM IDs, ARIA references, screen/action/category targets, and offline wiring are internally consistent.');
 console.log('PASS: persisted-state recovery, run completion/context/replay, wake lock, and Chaos modal regressions are guarded.');
-console.log('PASS: One Last Thing is a card-specific short answer after the Real-World Example, not a generic question bank.');
+console.log('PASS: One Last Thing reads an explicit card-specific answer after the Real-World Example and cannot fall back to The Point.');
 console.log('PASS: choice/history UI responsibilities are separated.');
 console.log('PASS: GitHub Actions keeps the hardened workflow and plain-language gate.');
