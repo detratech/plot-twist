@@ -106,10 +106,12 @@ vm.runInContext(
   context,
   { filename: 'categories.js' }
 );
+vm.runInContext(read('after-answers.js') + '\nglobalThis.__answers = AFTER_ANSWERS;', context, { filename: 'after-answers.js' });
 
 const cards = context.__cards;
 const categories = context.__categories;
 const historicalExamples = context.__history;
+const afterAnswers = context.__answers;
 
 if (!Array.isArray(cards)) fail('PLOT_TWIST_CARDS did not load as an array.');
 if (cards.length !== 200) fail(`Expected 200 cards, found ${cards.length}.`);
@@ -198,6 +200,27 @@ for (let expected = 1; expected <= 200; expected += 1) {
   assertNoMetaLeaks(exampleText, `historical example ${expected}`);
 }
 
+if (!afterAnswers || typeof afterAnswers !== 'object' || Array.isArray(afterAnswers)) {
+  fail('AFTER_ANSWERS did not load as an object.');
+}
+const answerIds = Object.keys(afterAnswers).map(Number).sort((a, b) => a - b);
+if (answerIds.length !== 200) fail(`Expected 200 direct follow-up answers, found ${answerIds.length}.`);
+const answerKeys = new Set();
+for (let expected = 1; expected <= 200; expected += 1) {
+  if (!answerIds.includes(expected)) fail(`Missing direct answer for card ${expected}.`);
+  const answer = afterAnswers[expected];
+  if (typeof answer !== 'string' || !answer.trim()) fail(`Direct answer ${expected} is empty or invalid.`);
+  const count = wordCount(answer);
+  if (count < 7) fail(`Direct answer ${expected} is too thin at ${count} words.`);
+  if (count > 45) fail(`Direct answer ${expected} is too long at ${count} words; keep One Last Thing concise.`);
+  if (answer.trim().endsWith('?')) fail(`Direct answer ${expected} asks another question instead of answering the follow-up.`);
+  const key = normalize(answer);
+  if (answerKeys.has(key)) fail(`Duplicate direct answer found at card ${expected}.`);
+  answerKeys.add(key);
+  assertNoForbiddenRuntimeTerms(answer, `direct answer ${expected}`);
+  assertNoMetaLeaks(answer, `direct answer ${expected}`);
+}
+
 if (!Array.isArray(categories) || categories.length !== 6) {
   fail(`Expected six selectable categories, found ${Array.isArray(categories) ? categories.length : 'invalid data'}.`);
 }
@@ -219,6 +242,7 @@ const runtimeFiles = [
   'game-v6.2.css',
   'game-v6.3.css',
   'language-polish.js',
+  'after-answers.js',
   'choice-ui.js',
   'history-ui.js',
   'consistency-ui.js'
@@ -230,26 +254,28 @@ for (const file of [...DECK_FILES, ...HISTORY_FILES]) {
 if (!index.includes('<link rel="stylesheet" href="game-v6.2.css">')) fail('index.html does not load game-v6.2.css.');
 if (!index.includes('<link rel="stylesheet" href="game-v6.3.css">')) fail('index.html does not load game-v6.3.css.');
 if (!index.includes('<script src="language-polish.js"></script>')) fail('index.html does not load language-polish.js.');
+if (!index.includes('<script src="after-answers.js"></script>')) fail('index.html does not load after-answers.js.');
 if (!index.includes('<script src="choice-ui.js"></script>')) fail('index.html does not load choice-ui.js.');
 if (!index.includes('<script src="history-ui.js"></script>')) fail('index.html does not load history-ui.js.');
 if (!index.includes('<script src="consistency-ui.js"></script>')) fail('index.html does not load consistency-ui.js.');
 if (!(index.indexOf('<script src="categories.js"></script>') < index.indexOf('<script src="language-polish.js"></script>') &&
-      index.indexOf('<script src="language-polish.js"></script>') < index.indexOf('<script src="app.js"></script>'))) {
-  fail('language-polish.js must load after categories.js and before app.js.');
+      index.indexOf('<script src="language-polish.js"></script>') < index.indexOf('<script src="after-answers.js"></script>') &&
+      index.indexOf('<script src="after-answers.js"></script>') < index.indexOf('<script src="app.js"></script>'))) {
+  fail('Runtime data order must be categories.js → language-polish.js → after-answers.js → app.js.');
 }
 for (const file of runtimeFiles) {
   if (!sw.includes(`'./${file}'`)) fail(`sw.js does not precache ${file}.`);
 }
 
-if (!sw.includes("plot-twist-v6.4.1")) fail('Service-worker cache is not plot-twist-v6.4.1.');
-if (!index.includes('<b>App Version</b>') || !index.includes('<strong>v6.4.1</strong>')) fail('Settings does not display app version v6.4.1.');
+if (!sw.includes("plot-twist-v6.4.2")) fail('Service-worker cache is not plot-twist-v6.4.2.');
+if (!index.includes('<b>App Version</b>') || !index.includes('<strong>v6.4.2</strong>')) fail('Settings does not display app version v6.4.2.');
 if (!app.includes("masterpiece-200-v1")) fail('App deck version is not masterpiece-200-v1.');
 if (/\b(?:card|scenario)\s*#?\d+\b/i.test(index)) fail('Visible card/scenario numbering pattern found in index.html.');
 if (!index.includes('Both choices are meant to be reasonable.')) fail('How to Play does not state the two-sided dilemma rule in plain language.');
 if (!index.includes('changing your mind is completely fair.')) fail('How to Play does not say that changing sides after the twist is allowed.');
 if (!index.includes('<b>Real-World Example</b>')) fail('How to Play does not explain the Real-World Example step.');
 if (!index.includes('<b>One Last Thing</b>')) fail('How to Play does not explain One Last Thing.');
-if (!index.includes('gives the short answer to that question')) fail('How to Play does not explain that One Last Thing answers the preceding question.');
+if (!index.includes('directly answers that question')) fail('How to Play does not explain that One Last Thing directly answers the preceding question.');
 if (!index.includes('<b>Keep Talking</b>')) fail('How to Play does not explain the extra-question step.');
 
 if (!historyUi.includes("label.textContent = 'REAL-WORLD EXAMPLE'")) fail('Historical example UI label is missing.');
@@ -262,12 +288,14 @@ if (!gameCss.includes('grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)')) f
 if (!gameCss.includes('.choice-wrap::before')) fail('Choice UI is missing the center divider.');
 if (!gameCss.includes("content: 'VS'")) fail('Choice UI is missing the VS marker.');
 
-// One Last Thing now closes the preceding question instead of introducing a generic consistency test.
+// One Last Thing must answer the preceding card-specific follow-up, not recycle The Point or ask another generic test.
 if (!consistencyUi.includes("label.textContent = 'ONE LAST THING'")) fail('One Last Thing label is missing.');
 if (!consistencyUi.includes("heading.textContent = 'THE SHORT ANSWER'")) fail('One Last Thing does not present itself as the short answer.');
-if (!consistencyUi.includes('function shortAnswer(card)')) fail('One Last Thing is missing the card-specific answer builder.');
-if (!consistencyUi.includes('sentences(card.conclusion)')) fail('One Last Thing answer is not derived from the current card conclusion.');
+if (!consistencyUi.includes('const answers = globalThis.AFTER_ANSWERS;')) fail('One Last Thing does not use the explicit direct-answer map.');
+if (!consistencyUi.includes('answers[current.id]')) fail('One Last Thing does not select the direct answer by the current card ID.');
 if (!consistencyUi.includes("historyBox.insertAdjacentElement('afterend', box)")) fail('One Last Thing is not placed after the Real-World Example.');
+if (consistencyUi.includes('function shortAnswer(card)')) fail('Obsolete conclusion-derived short-answer heuristic is still present.');
+if (consistencyUi.includes('card.conclusion')) fail('One Last Thing still derives the answer from The Point instead of the explicit answer map.');
 if (consistencyUi.includes('const TESTS = [')) fail('Old generic One Last Thing question bank is still present.');
 if (consistencyUi.includes('(current.id - 1) % TESTS.length')) fail('One Last Thing still cycles unrelated prompts by card ID.');
 if (!consistencyCss.includes('.consistency-check')) fail('One Last Thing styling is missing.');
@@ -293,12 +321,13 @@ console.log('PASS: every card has two scenario paragraphs, two distinct choices,
 console.log('PASS: no "it depends" answer escape choices or obviously insulting choice labels.');
 console.log('PASS: all cards have one or two valid selectable categories.');
 console.log('PASS: exactly 200 substantive real-world examples map one-to-one to the 200 cards.');
-console.log('PASS: prohibited explicit worldview terms and authoring/meta-instruction leaks were not found in cards, historical examples, or runtime shell text.');
-console.log('PASS: all deck, history, presentation, and plain-language assets are loaded and precached.');
-console.log('PASS: the post-Point question is followed by the Real-World Example and a One Last Thing short answer.');
-console.log('PASS: One Last Thing derives its answer from the current card rather than an unrelated generic question bank.');
+console.log('PASS: exactly 200 concise direct answers map one-to-one to the 200 follow-up questions.');
+console.log('PASS: prohibited explicit worldview terms and authoring/meta-instruction leaks were not found in cards, examples, direct answers, or runtime shell text.');
+console.log('PASS: all deck, history, presentation, plain-language, and direct-answer assets are loaded and precached.');
+console.log('PASS: the post-Point question is followed by the Real-World Example and its explicit card-specific answer.');
+console.log('PASS: One Last Thing no longer recycles The Point or uses a generic question bank.');
 console.log('PASS: the two answer choices remain locked to the prominent left-vs-right layout with a divider, large decision label, and secondary reason.');
 console.log('PASS: the player-facing rules use plain language, keep both choices reasonable, and allow changing sides after the twist.');
-console.log('PASS: settings visibly reports app version v6.4.1.');
-console.log('PASS: deck version masterpiece-200-v1 and cache plot-twist-v6.4.1 are wired.');
+console.log('PASS: settings visibly reports app version v6.4.2.');
+console.log('PASS: deck version masterpiece-200-v1 and cache plot-twist-v6.4.2 are wired.');
 console.log('Category memberships:', distribution);
