@@ -1,237 +1,220 @@
 # Plot Twist
 
-Plot Twist is an offline-first social scenario game designed for Android phones, camping trips, game nights, and other situations where a group wants something easy to pick up and talk about.
+Plot Twist is an offline-first social scenario game for Android phones, camping trips, game nights, travel, and casual group discussion.
 
-The basic loop is simple:
+The basic loop is:
 
-`pick a side → say why → reveal the Plot Twist → rethink it → talk it through`
+`pick a side → say why → reveal the Plot Twist → rethink it → discuss → see the real example → get the direct answer`
 
 ## Current development version
 
-**v6.4.1** is the active patch release candidate.
+**v6.4.2** is the active release candidate on PR #11.
 
-v6.4.1 keeps the v6.4 plain-language work and fixes the meaning of **One Last Thing**. Instead of asking an unrelated rotating consistency question, that section now gives a short answer to the follow-up question that appeared immediately before the Real-World Example.
+This patch fixes the final remaining problem with **One Last Thing**. v6.4.1 stopped asking an unrelated generic question, but it still generated the short answer by recycling the final sentence of **The Point**. That could leave the actual follow-up question unanswered.
 
-Compatibility remains:
+v6.4.2 gives every card its own explicitly written direct answer.
+
+Compatibility remains unchanged:
 
 - localStorage key: `plotTwistStateV4`
 - deck/state ID: `masterpiece-200-v1`
-- stable internal card IDs: 1–200
+- stable card IDs: 1–200
 
-The v6.4.1 service-worker cache is:
+Service-worker cache:
 
-`plot-twist-v6.4.1`
+`plot-twist-v6.4.2`
+
+## Intended player flow
+
+`scenario → choose one of two reasonable sides → explain → Plot Twist → reconsider → The Point → follow-up question → Real-World Example → One Last Thing / THE SHORT ANSWER → Keep Talking`
+
+The relationship at the end is important:
+
+1. The card asks a specific follow-up question.
+2. The group considers it.
+3. The Real-World Example gives a concrete case.
+4. **One Last Thing** directly answers that same question.
+
+It must not introduce another unrelated question and it must not simply repeat The Point.
+
+## Direct-answer architecture
+
+`after-answers.js` contains exactly 200 answers keyed by the stable card IDs 1–200.
+
+Example, card 37 asks:
+
+> What makes a hard truth more useful without making it less true?
+
+Its direct answer is:
+
+> Say the truth accurately, at the right time, for a real reason, and in a way that helps the person act on it instead of humiliating them.
+
+`consistency-ui.js` uses:
+
+`AFTER_ANSWERS[current.id]`
+
+There is intentionally **no fallback** to `card.conclusion`. If an answer is missing, the section is hidden and CI fails because the answer map must be complete.
+
+The old systems are retired:
+
+- no eight-question `TESTS` bank
+- no card-ID modulo selection
+- no `shortAnswer(card)` conclusion-sentence heuristic
 
 ## What is included
 
 - 200 local scenario cards
 - six selectable topics plus **Mix Everything**
-- two real, defensible choices before each reveal
-- side-by-side A-vs-B choice layout
+- two defensible pre-reveal choices
+- side-by-side A-vs-B layout
 - Plot Twist reveal
-- **The Point**
-- a follow-up question
-- one researched **Real-World Example** per card
-- **One Last Thing**, which gives a short answer to that follow-up after the example
-- **Keep Talking** extra questions
-- 16 optional **Chaos** prompts
+- The Point
+- one follow-up question per card
+- one researched Real-World Example per card
+- one explicit direct answer per card
+- Keep Talking extra questions
+- 16 optional Chaos prompts
 - Saved cards
-- persistent game state
+- persistent state
 - optional Screen Wake Lock
 - installable offline PWA
 - no framework, backend, runtime API, CDN, remote font, analytics, or build step
 
 ## Plain-language rule
 
-Player-facing writing should sound like something a normal person would actually say or understand around a table.
+Player-facing writing should sound like something a normal person would understand when read aloud once.
 
-Default style:
+Prefer:
 
 - short, direct sentences
 - familiar everyday words
 - one idea at a time
+- concrete wording
 - conversational questions
-- concrete examples before abstract labels
-- humour that sounds natural when read aloud
+- natural humour
 
 Avoid:
 
 - academic jargon
-- legalistic wording unless the joke truly needs it
+- unnecessary legalistic language
 - debate-club terminology
 - stacked metaphors
-- long sentences that need rereading
-- clever phrasing that hides the actual choice
+- sentences that require rereading
+- clever wording that hides the actual point
 
 The practical test is:
 
 > **Would a regular person naturally understand this out loud on the first read?**
 
-If not, rewrite it.
-
-See `PLAIN_LANGUAGE_NOTES.md` for the permanent writing standard.
-
-## v6.4 language architecture
-
-The original authored deck remains in `deck-a.js` through `deck-h.js`.
-
-`language-polish.js` loads after category processing and before `app.js`. It applies the approved plain-language wording before the card is shown to the player. It includes:
-
-- common formal-to-everyday phrase replacements
-- targeted rewrites for cards that still read too densely after the general pass
-- the same light cleanup for Real-World Example text
-
-This keeps stable IDs and state compatibility intact while allowing the player-facing language to improve without rewriting the data model.
-
-The loading order is intentionally:
-
-`deck/history → categories.js → language-polish.js → app.js → presentation helpers`
-
-`language-polish.js` is also precached by the service worker so the exact same wording is available offline.
-
-## Player-facing UI changes in v6.4
-
-The game shell was simplified too.
-
-Examples:
-
-- `START SELECTED MIX` → **START GAME**
-- `RANDOM FROM SELECTED` → **SURPRISE ME**
-- `RESUME GAME` → **KEEP PLAYING**
-- `REVEAL PLOT TWIST` → **SHOW THE TWIST**
-- `Where This Can Go` → **Keep Talking**
-- visible `Host Prompts` → **Extra Questions**
-
-How to Play was rewritten around ordinary instructions rather than game-design language.
-
-Chaos prompts were rewritten in the same style.
-
-## One Last Thing in v6.4.1
-
-The original v6.3/v6.4 implementation rotated through eight generic consistency questions based on card ID. That meant the section could ask something unrelated to the question the player had just discussed.
-
-v6.4.1 changes that contract:
-
-1. The card asks its follow-up question.
-2. The player discusses it.
-3. The Real-World Example gives a concrete case.
-4. **One Last Thing** appears afterward as **THE SHORT ANSWER**.
-5. That answer is derived from the current card's own Point, with the final meaningful sentence used as the concise takeaway when possible.
-
-The old rotating `TESTS` bank and card-ID modulo assignment are removed.
-
-This keeps the flow coherent:
-
-`question → real example → short answer`
-
-## Card design rules
-
-Making the language easier does **not** mean making the ideas shallow.
-
-Every card still needs:
-
-1. **Two reasonable choices.** A thoughtful adult should be able to defend either side before the reveal.
-2. **A real commitment.** No `it depends` escape before choosing.
-3. **A meaningful Plot Twist.** The reveal must add information that matters to the decision.
-4. **A reason to reconsider.** The reveal should not simply congratulate one side.
-5. **A clear Point.** The lesson can be direct without pretending both sides are equally right after the reveal.
-6. **A fitting Real-World Example.** The example should match the exact principle and stay within what the source supports.
-7. **A coherent close.** One Last Thing should answer the follow-up that came before the example rather than start another unrelated test.
-
-The intended player flow is:
-
-`pick topics → scenario → choose → explain → Plot Twist → reconsider → The Point → question → Real-World Example → One Last Thing: short answer → Keep Talking`
+See `PLAIN_LANGUAGE_NOTES.md`.
 
 ## Main runtime files
 
-- `index.html` — screens and plain player-facing UI copy
-- `app.js` — state, navigation, persistence, install, wake lock, service-worker handling
+- `index.html` — screens and player-facing shell
+- `app.js` — navigation, state, persistence, install, wake lock, service-worker handling
 - `cards.js` — shared card array and Chaos prompts
 - `deck-a.js` through `deck-h.js` — 200 authored cards
 - `categories.js` — category definitions/tag processing
-- `language-polish.js` — v6.4 player-facing plain-language layer
+- `language-polish.js` — final plain-language layer for cards/history
+- `after-answers.js` — 200 explicit direct answers to the 200 follow-up questions
 - `choice-ui.js` — choice label/reason presentation
 - `history-ui.js` — Real-World Example presentation
-- `consistency-ui.js` — One Last Thing short-answer presentation
+- `consistency-ui.js` — One Last Thing direct-answer presentation; filename retained for compatibility/history
 - `history-a.js` through `history-d.js` plus `history-reviewed.js` — 200 Real-World Examples
 - `sw.js` — offline cache
-- `manifest.webmanifest` — PWA installation metadata
+- `manifest.webmanifest` — PWA metadata
 
-Research ledgers in `HISTORY_SOURCES*.md` are editorial records only and are not runtime dependencies.
+Required data/loading order includes:
+
+`deck/history → categories.js → language-polish.js → after-answers.js → app.js → presentation helpers`
+
+`after-answers.js` is precached for offline use.
+
+## Card design rules
+
+Every card still needs:
+
+1. **Two reasonable choices.** A thoughtful adult can defend either side before the reveal.
+2. **A real commitment.** No `it depends` escape before choosing.
+3. **A meaningful Plot Twist.** The reveal adds information that matters.
+4. **A reason to reconsider.** The reveal does not merely congratulate one side.
+5. **A clear Point.** The lesson can be direct without forced false balance.
+6. **A fitting Real-World Example.** The example stays within what its source supports.
+7. **A direct close.** One Last Thing explicitly answers the follow-up that came before the example.
+
+Changing sides after the reveal is allowed.
 
 ## Validation
 
-GitHub Actions runs three complementary gates.
+GitHub Actions runs syntax checks and three complementary validators.
 
 ### `validate-content.cjs`
 
-Checks the 200-card/content/product contract, including:
+Checks the 200-card/content contract and now also requires:
 
-- exactly 200 cards and stable IDs 1–200
-- required card structure
-- two distinct choices
-- substantive Plot Twists
-- categories
-- 200 Real-World Examples
-- hidden terminology/meta-authoring protections
-- UI/load/precache contracts
-- v6.4.1 version/cache wiring
-- One Last Thing is an answer after the example, not an unrelated generic question bank
+- exactly 200 direct answers
+- IDs 1–200 complete
+- every answer is non-empty, declarative, unique, and concise
+- answers do not contain protected player-facing/meta terminology
+- `after-answers.js` is loaded and precached
+- One Last Thing reads the explicit answer map
+- no conclusion-derived fallback
+- no old generic question bank
+- v6.4.2 version/cache wiring
 
 ### `validate-runtime.cjs`
 
-Checks runtime/PWA/state/workflow regressions, including:
+Protects PWA/state/workflow behaviour, including:
 
-- safe service-worker cache cleanup
+- safe Plot-Twist-only cache cleanup
 - same-origin/scope cache isolation
 - awaited cache writes
-- asset and manifest wiring
-- DOM/routing integrity
-- state normalization and replay behaviour
+- runtime/manifest asset wiring
+- persisted-state normalization
+- completed-run/replay behaviour
 - wake lock and Chaos modal handling
+- direct-answer loading, offline precaching, and rendering
+- rejection of the retired conclusion fallback
 - hardened GitHub Actions configuration
-- loading and offline caching of `language-polish.js`
-- removal of the old rotating One Last Thing question bank
-- card-specific short-answer rendering after the Real-World Example
 
 ### `validate-language.cjs`
 
-Checks the **final rendered language after the v6.4 polish layer**.
+Checks the final conversational wording of cards, examples, and all 200 direct answers. It rejects selected jargon and enforces practical sentence-length limits.
 
-It rejects selected formal/jargon terms and sets readability limits on:
+The first v6.4.2 integrated CI run found one issue only: direct answer 111 used the word `premise`. The answer was rewritten in normal speech rather than weakening the rule.
 
-- scenarios
-- choices
-- prompts
-- Plot Twists
-- The Point
-- follow-up questions
-- extra questions
-- Real-World Examples
-
-See `VALIDATION.md` for the full validation contract.
+See `VALIDATION.md` for the full contract.
 
 ## Offline design
 
-Offline-first remains non-negotiable.
+Offline-first is non-negotiable.
 
-The service worker precaches all essential game files, including `language-polish.js` and the updated `consistency-ui.js`. Once the installed PWA has received the new service worker, full gameplay should work with airplane mode enabled and Wi-Fi off.
+`sw.js` precaches all essential runtime files, including:
 
-Do not clear site data as the normal update method because that removes Saved cards, settings, category choices, and active state.
+- `language-polish.js`
+- `after-answers.js`
+- `consistency-ui.js`
 
-## Android acceptance for v6.4.1
+Do not clear site data during a normal update because that destroys Saved cards, settings, category choices, and active state.
 
-After v6.4.1 is merged and deployed:
+## Android acceptance for v6.4.2
+
+After the PR is authorized, merged, and deployed:
 
 1. Open Plot Twist online.
-2. Confirm Settings shows **v6.4.1**.
+2. Confirm Settings shows **v6.4.2**.
 3. Confirm existing Saved cards/settings survive the update.
-4. Play several cards from different topics.
-5. Confirm the follow-up question appears before the Real-World Example.
-6. Confirm **One Last Thing → THE SHORT ANSWER** appears after the example.
-7. Check that the short answer actually feels like a response to the question you just discussed rather than a new question.
-8. Confirm scenarios, choices, twists, The Point, examples, Chaos, and extra questions still sound natural on the first read.
-9. Confirm category, resume, replay, Saved, wake-lock, and Chaos behaviours still work.
-10. Fully close the app, enable airplane mode, turn Wi-Fi off, relaunch from the installed icon, and verify full gameplay.
+4. Play cards across all six topics.
+5. For each sampled card, read the follow-up question.
+6. Read the Real-World Example.
+7. Confirm **One Last Thing → THE SHORT ANSWER** directly answers that exact question.
+8. Confirm it does not merely repeat The Point.
+9. Confirm scenarios, choices, twists, Point, examples, answers, Chaos, and extra questions remain easy to understand aloud.
+10. Confirm category, Random, Saved, Resume, PLAY AGAIN, Settings, wake-lock, and Chaos behaviour still works.
+11. Fully close the installed PWA.
+12. Enable airplane mode and turn Wi-Fi off.
+13. Relaunch from the installed icon and verify full gameplay and direct answers remain available offline.
 
-Static validation is required, but the final coherence check is human: **does the example lead naturally into the answer?**
+The final qualitative test is simple:
+
+**If someone reads the question, does One Last Thing actually answer it?**
