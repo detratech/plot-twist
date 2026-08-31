@@ -1,262 +1,177 @@
 # Plot Twist Validation
 
-Validation contract for the 200-card deck, runtime/PWA, and conversational player experience.
+This document defines the release gate for the current Plot Twist architecture.
 
-## Current development version
+## v6.5.0 release contract
 
-PR #11 targets **v6.4.2**.
+The repository contains a **200-card source/archive pool** and a **100-card playable Sugar Coated deck**.
 
-Compatibility anchors remain unchanged:
+Two content modes are defined:
 
-- localStorage key: `plotTwistStateV4`
-- deck/state ID: `masterpiece-200-v1`
-- stable card IDs: 1–200
+- **SUGAR COATED FOR SNOWFLAKES** — available; exactly 100 curated source IDs
+- **CUTTHROAT HONEST** — named/reserved; unavailable until the vault-backed deck is implemented
 
-Service-worker cache:
+The source/archive pool must not be physically reduced to 100 because stable IDs, Saved state, history mappings, direct answers, and old in-progress runs depend on the full source set remaining available.
 
-`plot-twist-v6.4.2`
+## Automated gate 1 — `validate-content.cjs`
 
-## Product flow
+This validator must prove all of the following.
 
-`scenario → choose one of two reasonable sides → explain → Plot Twist → reconsider → The Point → follow-up question → Real-World Example → One Last Thing / THE SHORT ANSWER → Keep Talking`
+### Complete source pool
 
-The final three steps are a strict relationship:
-
-`follow-up question → example → direct answer to that same question`
-
-One Last Thing must not:
-
-- ask another unrelated question
-- rotate generic prompts by card ID
-- recycle the final sentence of The Point as a fallback
-- silently continue if a card-specific answer is missing
-
-## Direct-answer contract
-
-`after-answers.js` defines `AFTER_ANSWERS` with one answer for every card ID 1–200.
-
-Each answer must:
-
-- map to exactly one existing card ID
-- directly address that card's `afterPrompt`
-- be a non-empty string
-- be declarative rather than another question
-- be concise enough for a phone screen and spoken game
-- use plain conversational language
-- be unique rather than copied across cards
-- avoid protected runtime/meta terminology
-
-`consistency-ui.js` must use:
-
-`AFTER_ANSWERS[current.id]`
-
-There is no runtime fallback to `card.conclusion`. Missing data must be caught by CI.
-
-## Human editorial standard
-
-Every card should pass all of these checks:
-
-1. Two thoughtful adults can reasonably disagree before the reveal.
-2. Both choices are immediately understandable.
-3. Neither choice is written as the obviously good or stupid side.
-4. The Plot Twist adds information that matters.
-5. The new information gives a real reason to reconsider, narrow, or switch.
-6. The Point states a clear principle.
-7. The follow-up question is natural and worth discussing.
-8. The Real-World Example fits the exact principle and stays within its supporting source.
-9. One Last Thing directly answers the follow-up instead of merely restating the Point.
-10. The whole card can be read aloud once and understood by a normal adult.
-
-Plain-language test:
-
-> **Would a regular person naturally say or understand this out loud on the first read?**
-
-If not, rewrite it.
-
-## Three validation gates
-
-GitHub Actions syntax-checks the runtime/validator JavaScript and then runs three executable gates.
-
-### 1. `validate-content.cjs`
-
-Checks the product/content contract, including:
-
-- exactly 200 cards
-- complete unique card IDs 1–200
-- required card schema
-- exactly two scenario paragraphs
-- exactly two distinct pre-reveal choices
+- exactly 200 source cards load
+- IDs 1–200 are complete and unique
+- titles and scenarios are unique
+- every card retains the required schema
+- exactly two defensible choices exist
 - no pre-reveal `it depends` escape
-- substantive Plot Twists
-- valid categories and category coverage
-- exactly 200 substantive Real-World Examples
-- exactly 200 direct answers
-- complete direct-answer IDs 1–200
-- each answer is non-empty and declarative
-- each answer is at least 7 words and no more than 45 words
-- no duplicate direct answers
-- protected runtime terms absent from cards, examples, and direct answers
-- authoring/meta leaks absent from player-facing content
-- required assets loaded by `index.html`
-- required assets precached by `sw.js`
-- required data order: `categories.js → language-polish.js → after-answers.js → app.js`
-- Real-World Example placement after the follow-up
-- One Last Thing placement after the example
-- explicit answer-map selection by current card ID
-- absence of `shortAnswer(card)` conclusion fallback
-- absence of the old generic `TESTS` bank/modulo selector
-- side-by-side choice presentation contract
-- plain How to Play statements
-- visible Settings version `v6.4.2`
-- stable `masterpiece-200-v1`
-- cache `plot-twist-v6.4.2`
+- Plot Twist is substantive and not merely setup repeated
+- The Point is declarative
+- follow-up is a question
+- exactly two Keep Talking prompts exist
+- one or two valid categories exist
 
-Do not weaken this validator just to make a change pass.
+### Real-World Examples and answers
 
-### 2. `validate-runtime.cjs`
+- exactly 200 Real-World Examples remain mapped to source IDs 1–200
+- exactly 200 `AFTER_ANSWERS` remain mapped to source IDs 1–200
+- direct answers are declarative, concise, non-empty, and unique
+- One Last Thing remains an answer step rather than another generic question
 
-Protects runtime/PWA/state/workflow behaviour.
+### Sugar Coated curation
 
-#### Service worker
+- `SUGAR_COATED_CARD_IDS` exists
+- exactly 100 IDs are selected
+- all 100 are unique
+- every selected ID exists in the source pool
+- every selected ID still has a Real-World Example
+- every selected ID still has a direct answer
+- each of the six categories has at least 10 selected cards
 
-- cleanup is restricted to `plot-twist-*`
-- unrelated origin caches cannot be deleted
-- runtime reads/writes use the current Plot Twist cache
-- requests are restricted to same origin and service-worker scope
-- runtime cache writes are awaited
-- offline navigation/error fallback remains present
-- APP_SHELL has no duplicate or missing files
+Current validated memberships:
 
-#### Runtime assets and installation
+| Category | Selected memberships |
+|---|---:|
+| Mind & Truth | 38 |
+| Relationships & Family | 32 |
+| Money & Success | 13 |
+| Tech & Modern Life | 19 |
+| Society & Culture | 26 |
+| Life & Purpose | 39 |
 
-- local HTML scripts/styles exist
-- local runtime assets are precached
-- no external HTTP runtime dependency is introduced
-- `language-polish.js` loads and is precached
-- `after-answers.js` loads and is precached
-- direct-answer map loads before `app.js`
-- manifest JSON/start URL/scope/icons remain valid
+Because a card may have two categories, totals exceed 100.
 
-#### State and interaction
+### Mode contract
 
-- DOM IDs and routes remain valid
-- persisted card IDs/settings are normalized
-- localStorage failures remain guarded
-- completed runs do not falsely resume from the final card
-- active `runCategories` stays stable
-- PLAY AGAIN remains mode-aware
-- Saved runs replay Saved mode
-- duplicate wake-lock acquisition remains guarded
-- Chaos Escape/focus handling remains present
-- service-worker update/offline lifecycle remains intact
+- exact label `SUGAR COATED FOR SNOWFLAKES`
+- Sugar mode is available and points to the 100 curated IDs
+- exact label `CUTTHROAT HONEST`
+- Cutthroat mode remains unavailable with no playable IDs until its vault-backed deck exists
+- both names are visible in the player interface
+- Cutthroat is visibly marked as coming next
 
-#### One Last Thing
+### Runtime asset/version contract
 
-- label is `ONE LAST THING`
-- heading is `THE SHORT ANSWER`
-- explicit `AFTER_ANSWERS` map is read
-- answer is selected by `current.id`
-- section remains after the Real-World Example
-- no conclusion-derived `shortAnswer(card)` helper exists
-- no `card.conclusion` fallback exists in `consistency-ui.js`
-- no old rotating `TESTS` bank exists
-- How to Play explains the direct-answer step
+- `game-modes.js` loads after current card/category/language/answer data and before `app.js`
+- `game-modes.js` is in the service-worker precache
+- Settings shows `v6.5.0`
+- service worker uses `plot-twist-v6.5.0`
+- stable deck/state ID remains `masterpiece-200-v1`
 
-#### Workflow hardening
+## Automated gate 2 — `validate-runtime.cjs`
 
-- GitHub Actions are pinned to immutable SHAs
+This validator covers runtime and PWA regressions.
+
+### Mode routing
+
+- old/missing content-mode state normalizes to Sugar Coated
+- new normal/random runs snapshot `runContentMode`
+- eligible-card selection occurs inside that snapshotted mode
+- category selection occurs inside the active mode pool
+- changing the home selection cannot silently change a running deck
+- Cutthroat cannot be selected while it is unavailable
+
+### Backward compatibility
+
+- localStorage key remains `plotTwistStateV4`
+- deck/state ID remains `masterpiece-200-v1`
+- Saved and legacy IDs continue to normalize against all source IDs 1–200
+- card lookup continues to resolve against all 200 source cards
+- an in-progress pre-v6.5 run may therefore finish even if it contains cards not included in the curated 100
+
+### Existing v6.3.1+ protections
+
+- service-worker cleanup deletes only old `plot-twist-*` caches
+- runtime caching is same-origin and scope-limited
+- cache writes are awaited
+- manifest/local assets exist and are precached
+- state writes cannot crash the game if localStorage is unavailable
+- completed runs do not falsely appear resumable
+- active category context is stable
+- Saved replay remains Saved replay
+- duplicate wake locks are prevented
+- Chaos modal supports Escape/focus handling
+- choice/history presentation responsibilities remain separated
+- One Last Thing reads explicit `AFTER_ANSWERS[id]` and never falls back to The Point
+
+### Workflow hardening
+
+- GitHub Actions dependencies remain pinned to immutable SHAs
 - checkout credentials are not persisted
-- manual workflow dispatch exists
-- superseded runs cancel
-- timeout exists
-- runtime and language validators run
-- `after-answers.js` is syntax-checked
-- Dependabot watches GitHub Actions
+- superseded runs are cancelled
+- validation has a timeout
+- workflow can be manually dispatched
+- `game-modes.js` and all validators are syntax checked
 
-### 3. `validate-language.cjs`
+## Automated gate 3 — `validate-language.cjs`
 
-Loads the deck/history, runs `language-polish.js`, loads `after-answers.js`, and checks the actual wording players receive.
+The existing plain-language gate remains mandatory for the current Sugar Coated source material.
 
-It rejects selected formal/jargon terms and enforces readability limits.
+It checks the final rendered language for selected formal/jargon terms and conversational sentence-length limits across:
 
-Existing limits include:
+- scenarios
+- choices
+- prompts
+- Plot Twists
+- The Point
+- follow-up questions
+- Keep Talking questions
+- Real-World Examples
+- all 200 direct answers
 
-- scenario/twist sentence: max 34 words
-- conclusion sentence: max 30 words
-- prompt/choice/extra-question sentence: max 26 words
-- Real-World Example sentence: max 38 words
-- main prompt: max 24 words total
-- follow-up question: max 28 words total
-- choice: max 18 words total
+The future Cutthroat deck will require its **own explicit content/source validation contract** instead of weakening or silently repurposing the current general-mode rules.
 
-Direct-answer limits:
+## Android/PWA acceptance for v6.5.0
 
-- max 34 words in any answer sentence
-- max 40 words total
+After merge/deployment:
 
-Passing the numbers does not prove the answer actually answers the question. Semantic fit still needs human testing.
+1. Open the hosted/installed app online.
+2. Confirm Settings shows **v6.5.0**.
+3. Confirm the home screen displays both exact mode names.
+4. Confirm **Sugar Coated for Snowflakes** is selected and usable.
+5. Confirm **Cutthroat Honest** is visible but disabled/marked coming next.
+6. With Mix Everything selected, confirm the home screen reports **100 cards**.
+7. Start a normal run and confirm only the curated deck is used.
+8. Try multiple categories and confirm the displayed eligible-card count changes sensibly.
+9. Confirm existing Saved cards from before v6.5 still open, including any card that may no longer be in the curated 100.
+10. If a pre-v6.5 run was already active before updating, confirm it can resume rather than being discarded.
+11. Confirm Plot Twist → The Point → question → Real-World Example → THE SHORT ANSWER still works.
+12. Confirm Random, Saved, replay, Chaos, Settings, wake lock, and persistence still work.
+13. Fully close the app, enable airplane mode, turn Wi-Fi off, reopen from the installed icon, and verify gameplay remains functional.
 
-## v6.4.2 CI history
+Do not clear site/app data during ordinary acceptance because that defeats the compatibility tests.
 
-### Initial integrated run #67
+## Future Cutthroat gate
 
-Head:
+Before `CUTTHROAT HONEST` can change to `available: true`, a later PR must add and validate at minimum:
 
-`430a38f991c0990a2a476f31a2fbbd162f1ebc04`
+- a separate stable card namespace/data layer
+- at least 100 playable cards
+- source/provenance metadata tied to the approved vault input
+- update/version tracking for the vault knowledge snapshot
+- explicit content validation suitable for that transparent mode
+- offline precaching
+- Saved/state behaviour across both content modes
+- Android acceptance for mode switching
 
-Run ID:
-
-`33343303973`
-
-Results:
-
-- JavaScript syntax: pass
-- content validator: pass
-- runtime validator: pass
-- language validator: fail
-
-The language validator found exactly one problem among the 200 new answers:
-
-- direct answer 111 used the jargon/formal word `premise`
-
-The answer was rewritten to use `bad assumption` instead. The validator was not weakened.
-
-A later documentation commit changes the head again, so run #67 must **not** be treated as final merge CI even after the answer is corrected. Final exact-head CI is required.
-
-## Compatibility
-
-v6.4.2 is a content/runtime-asset patch, not a state migration.
-
-Do not change these merely because the answers changed:
-
-- `plotTwistStateV4`
-- `masterpiece-200-v1`
-- card IDs 1–200
-
-Do not clear site data as the normal upgrade path.
-
-## Android acceptance for v6.4.2
-
-After authorization, merge, and hosted deployment:
-
-1. Settings shows `v6.4.2`.
-2. Existing Saved cards/settings survive the update.
-3. Sample cards from all six categories.
-4. Read each sampled follow-up question aloud.
-5. Read its Real-World Example.
-6. Read One Last Thing.
-7. Confirm the answer responds directly to the exact follow-up question.
-8. Confirm it is more useful than simply repeating The Point.
-9. Confirm the wording remains casual and understandable on first read.
-10. Confirm category filtering, Random, Saved, Resume, PLAY AGAIN, Settings, wake lock, and Chaos still work.
-11. Fully close the installed PWA.
-12. Enable airplane mode and turn Wi-Fi off.
-13. Relaunch from the installed icon.
-14. Verify v6.4.2 and all direct answers work offline.
-15. Close/reopen again offline and verify state restoration.
-
-Do not clear site data during ordinary acceptance testing.
-
-Final human question:
-
-**Does One Last Thing actually answer the question above the Real-World Example?**
+Until those requirements exist, CI should continue treating an available empty Cutthroat mode as a release failure.
