@@ -47,6 +47,7 @@ jobs:
           node --check history-reviewed.js
           node --check categories.js
           node --check language-polish.js
+          node --check after-answers.js
           node --check app.js
           node --check choice-ui.js
           node --check history-ui.js
