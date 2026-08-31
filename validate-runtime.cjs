@@ -27,18 +27,21 @@ const choiceUi = read('choice-ui.js');
 const consistencyUi = read('consistency-ui.js');
 const languagePolish = read('language-polish.js');
 const afterAnswers = read('after-answers.js');
+const gameModes = read('game-modes.js');
 const workflow = read('.github/workflows/validate.yml');
 const dependabot = read('.github/dependabot.yml');
 
-const APP_VERSION = 'v6.4.2';
-const CACHE_NAME = 'plot-twist-v6.4.2';
+const APP_VERSION = 'v6.5.0';
+const CACHE_NAME = 'plot-twist-v6.5.0';
 const CATEGORY_IDS = ['all', 'mind', 'relationships', 'money', 'tech', 'society', 'life'];
+const CONTENT_MODE_IDS = ['sugar', 'cutthroat'];
 
 // Version / state compatibility contracts.
 assert(index.includes(`<strong>${APP_VERSION}</strong>`), `Settings does not report ${APP_VERSION}.`);
 assert(sw.includes(`const CACHE_NAME = '${CACHE_NAME}'`), `Service worker cache is not ${CACHE_NAME}.`);
 assert(app.includes("const STORAGE_KEY = 'plotTwistStateV4'"), 'Stable localStorage key changed unexpectedly.');
 assert(app.includes("const DECK_VERSION = 'masterpiece-200-v1'"), 'Stable deck/state identifier changed unexpectedly.');
+assert(app.includes("const DEFAULT_CONTENT_MODE = 'sugar'"), 'Existing users do not default safely into the available Sugar Coated mode.');
 
 // Service-worker cache isolation and reliability.
 assert(sw.includes("const CACHE_PREFIX = 'plot-twist-'"), 'Service worker is missing a Plot Twist cache prefix.');
@@ -74,13 +77,20 @@ for (const ref of runtimeRefs) {
 assert(!/(?:src|href)="https?:\/\//i.test(index), 'index.html contains an external runtime dependency.');
 assert(index.includes('<script src="language-polish.js"></script>'), 'Plain-language layer is not loaded by index.html.');
 assert(index.includes('<script src="after-answers.js"></script>'), 'Direct-answer map is not loaded by index.html.');
+assert(index.includes('<script src="game-modes.js"></script>'), 'Content-mode manifest is not loaded by index.html.');
 assert(index.indexOf('<script src="categories.js"></script>') < index.indexOf('<script src="language-polish.js"></script>'), 'Plain-language layer must load after category inference.');
 assert(index.indexOf('<script src="language-polish.js"></script>') < index.indexOf('<script src="after-answers.js"></script>'), 'Direct-answer map must load after the language layer.');
-assert(index.indexOf('<script src="after-answers.js"></script>') < index.indexOf('<script src="app.js"></script>'), 'Direct-answer map must load before app rendering starts.');
+assert(index.indexOf('<script src="after-answers.js"></script>') < index.indexOf('<script src="game-modes.js"></script>'), 'Content-mode manifest must load after direct answers.');
+assert(index.indexOf('<script src="game-modes.js"></script>') < index.indexOf('<script src="app.js"></script>'), 'Content-mode manifest must load before app rendering starts.');
 assert(sw.includes("'./language-polish.js'"), 'Plain-language layer is not available offline.');
 assert(sw.includes("'./after-answers.js'"), 'Direct-answer map is not available offline.');
+assert(sw.includes("'./game-modes.js'"), 'Content-mode manifest is not available offline.');
 assert(languagePolish.includes('PLOT_TWIST_CARDS.forEach(polishCard)'), 'Plain-language layer is not applied to all cards.');
 assert(afterAnswers.includes('globalThis.AFTER_ANSWERS = Object.freeze({'), 'Direct-answer map is not defined as expected.');
+assert(gameModes.includes('const SUGAR_COATED_CARD_IDS = Object.freeze(['), 'Sugar Coated ID manifest is missing.');
+assert(gameModes.includes("label: 'SUGAR COATED FOR SNOWFLAKES'"), 'Required Sugar Coated mode label is missing.');
+assert(gameModes.includes("label: 'CUTTHROAT HONEST'"), 'Required Cutthroat Honest mode label is missing.');
+assert(gameModes.includes("available: false"), 'Future Cutthroat mode is not explicitly unavailable yet.');
 
 // Manifest installation contract.
 let manifest;
@@ -138,6 +148,22 @@ for (const id of CATEGORY_IDS) {
 }
 assert(categoryTargets.every(id => CATEGORY_IDS.includes(id)), 'Category picker contains an unknown category id.');
 
+const contentModeTargets = [...index.matchAll(/data-content-mode="([^"]+)"/g)].map(match => match[1]);
+assert(unique(contentModeTargets), 'Content-mode picker contains duplicate data-content-mode values.');
+for (const id of CONTENT_MODE_IDS) {
+  assert(contentModeTargets.includes(id), `Content-mode picker is missing data-content-mode="${id}".`);
+}
+assert(contentModeTargets.every(id => CONTENT_MODE_IDS.includes(id)), 'Content-mode picker contains an unknown mode id.');
+assert(/data-content-mode="cutthroat"[^>]*disabled/.test(index), 'Cutthroat Honest must remain disabled until its deck exists.');
+assert(app.includes("const modeButton = event.target.closest('[data-content-mode]')"), 'Content-mode picker clicks are not routed by app.js.');
+assert(app.includes('function normalizeContentMode(value)'), 'Persisted content mode is not normalized.');
+assert(app.includes("contentMode: DEFAULT_CONTENT_MODE"), 'State does not persist the selected content mode.');
+assert(app.includes("runContentMode: DEFAULT_CONTENT_MODE"), 'State does not keep an active-run content-mode snapshot.');
+assert(app.includes('state.runContentMode = normalizeContentMode(state.contentMode);'), 'New runs do not snapshot the selected content mode.');
+assert(app.includes('eligibleCards(state.runCategories, state.runContentMode)'), 'New runs are not constrained by the snapshotted content mode.');
+assert(app.includes('const valid = new Set(PLOT_TWIST_CARDS.map(card => card.id));'), 'Saved/legacy IDs are not normalized against the full 200-card source pool.');
+assert(app.includes('return PLOT_TWIST_CARDS.find(card => card.id === id);'), 'Saved/legacy cards cannot resolve from the full source pool.');
+
 // State recovery and interaction regressions found by the v6.3.1 audit.
 assert(app.includes('function normalizeCardIds(value)'), 'Persisted card IDs are not normalized on load.');
 assert(app.includes('function normalizeSettings(value)'), 'Persisted settings are not normalized on load.');
@@ -164,7 +190,6 @@ assert(consistencyUi.includes("historyBox.insertAdjacentElement('afterend', box)
 assert(!consistencyUi.includes('function shortAnswer(card)'), 'Obsolete conclusion-derived short-answer helper is still present.');
 assert(!consistencyUi.includes('card.conclusion'), 'One Last Thing still recycles The Point instead of the direct answer.');
 assert(!consistencyUi.includes('const TESTS = ['), 'Old generic One Last Thing question bank is still present.');
-assert(!consistencyUi.includes('(current.id - 1) % TESTS.length'), 'One Last Thing still varies by unrelated card-ID cycling.');
 assert(index.includes('directly answers that question'), 'How to Play does not explain the direct-answer step.');
 
 // Module ownership: history UI must not duplicate choice UI behaviour.
@@ -179,6 +204,7 @@ assert(workflow.includes('persist-credentials: false'), 'Checkout still persists
 assert(workflow.includes('workflow_dispatch:'), 'Validation workflow cannot be run manually.');
 assert(workflow.includes('cancel-in-progress: true'), 'Validation workflow does not cancel superseded runs.');
 assert(/timeout-minutes:\s*10/.test(workflow), 'Validation job is missing its execution timeout.');
+assert(workflow.includes('node --check game-modes.js'), 'Content-mode manifest is not syntax-checked in CI.');
 assert(workflow.includes('node --check validate-runtime.cjs'), 'Runtime validator is not syntax-checked in CI.');
 assert(workflow.includes('node validate-runtime.cjs'), 'Runtime validator is not executed in CI.');
 assert(workflow.includes('node --check validate-language.cjs'), 'Language validator is not syntax-checked in CI.');
@@ -190,9 +216,11 @@ assert(/directory:\s*["']\/["']/.test(dependabot), 'Dependabot GitHub Actions di
 
 console.log(`PASS: runtime reports ${APP_VERSION} and cache ${CACHE_NAME}.`);
 console.log('PASS: service-worker cleanup is cache-prefix scoped and runtime cache writes are awaited.');
-console.log('PASS: all local HTML/manifest runtime assets, including the plain-language and direct-answer layers, exist and are precached.');
-console.log('PASS: manifest, DOM IDs, ARIA references, screen/action/category targets, and offline wiring are internally consistent.');
+console.log('PASS: all local HTML/manifest runtime assets, including language, answers, and content modes, exist and are precached.');
+console.log('PASS: manifest, DOM IDs, ARIA references, screens, actions, categories, and content-mode targets are internally consistent.');
+console.log('PASS: Sugar Coated is the available default while Cutthroat Honest remains visibly staged and disabled.');
+console.log('PASS: new runs snapshot their content mode while legacy/Saved cards remain resolvable from the full 200-card source pool.');
 console.log('PASS: persisted-state recovery, run completion/context/replay, wake lock, and Chaos modal regressions are guarded.');
-console.log('PASS: One Last Thing reads an explicit card-specific answer after the Real-World Example and cannot fall back to The Point.');
+console.log('PASS: One Last Thing reads an explicit card-specific answer and cannot fall back to The Point.');
 console.log('PASS: choice/history UI responsibilities are separated.');
 console.log('PASS: GitHub Actions keeps the hardened workflow and plain-language gate.');
