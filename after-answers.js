@@ -111,7 +111,7 @@ globalThis.AFTER_ANSWERS = Object.freeze({
   108: "Poor delivery should lower confidence when it reveals carelessness, dishonesty, or unreliability about the claim; it should not outweigh stronger documents or direct evidence by itself.",
   109: "Repair your wording when a reasonable listener could honestly read it too broadly; blame the critic when they ignore a clear statement and attack a version you did not make.",
   110: "A deadline justifies choosing imperfect options when delay itself carries serious cost and the better alternative is not developed enough to be a real option.",
-  111: "Reject the unsupported accusation clearly, then answer the legitimate concern on its own facts instead of using the bad premise as a reason to avoid the issue.",
+  111: "Reject the unsupported accusation clearly, then answer the real concern on its own facts instead of using the bad assumption as a reason to avoid the issue.",
   112: "A clearer definition has reasons that existed before the awkward example, fits the category's purpose, and works the same way on cases you like and dislike.",
   113: "Testimonials can justify a low-cost trial when failure is cheap; before a large commitment, you need the success rate and the outcomes of people who did not succeed.",
   114: "A cheap precaution can be reasonable when the possible harm is serious, the precaution is harmless, and you are not treating the weak claim as proven.",
