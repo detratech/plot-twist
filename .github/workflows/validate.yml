@@ -48,6 +48,7 @@ jobs:
           node --check categories.js
           node --check language-polish.js
           node --check after-answers.js
+          node --check game-modes.js
           node --check app.js
           node --check choice-ui.js
           node --check history-ui.js
@@ -57,7 +58,7 @@ jobs:
           node --check validate-runtime.cjs
           node --check validate-language.cjs
 
-      - name: Audit complete 200-card deck and game structure
+      - name: Audit 200-card source pool and 100-card curated mode
         run: node validate-content.cjs
 
       - name: Audit runtime, PWA, state, and workflow wiring
