@@ -1,7 +1,7 @@
 'use strict';
 
 const CACHE_PREFIX = 'plot-twist-';
-const CACHE_NAME = 'plot-twist-v6.4.2';
+const CACHE_NAME = 'plot-twist-v6.5.0';
 const APP_SHELL = [
   './',
   './index.html',
@@ -26,6 +26,7 @@ const APP_SHELL = [
   './categories.js',
   './language-polish.js',
   './after-answers.js',
+  './game-modes.js',
   './app.js',
   './choice-ui.js',
   './history-ui.js',
