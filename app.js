@@ -2,9 +2,13 @@
 
 const STORAGE_KEY = 'plotTwistStateV4';
 const DECK_VERSION = 'masterpiece-200-v1';
+const DEFAULT_CONTENT_MODE = 'sugar';
+
 const defaultState = {
   deckVersion: DECK_VERSION,
   mode: null,
+  contentMode: DEFAULT_CONTENT_MODE,
+  runContentMode: DEFAULT_CONTENT_MODE,
   order: [],
   position: 0,
   revealed: false,
@@ -60,6 +64,7 @@ const el = {
   installButton: document.getElementById('installButton'),
   resumeButton: document.getElementById('resumeButton'),
   categorySummary: document.getElementById('categorySummary'),
+  modeSummary: document.getElementById('modeSummary'),
   chaosModal: document.getElementById('chaosModal'),
   chaosName: document.getElementById('chaosName'),
   chaosText: document.getElementById('chaosText')
@@ -84,6 +89,11 @@ function normalizeCardIds(value) {
   return [...new Set(value.filter(id => valid.has(id)))];
 }
 
+function normalizeContentMode(value) {
+  const candidate = GAME_CONTENT_MODES?.[value];
+  return candidate?.available ? value : DEFAULT_CONTENT_MODE;
+}
+
 function normalizeSettings(value) {
   return {
     keepAwake: value?.keepAwake === true,
@@ -99,6 +109,8 @@ function loadState() {
     const preservedSettings = normalizeSettings(parsed.settings);
     const preservedCategories = normalizeSelectedCategories(parsed.selectedCategories);
     const preservedRunCategories = normalizeSelectedCategories(parsed.runCategories || parsed.selectedCategories);
+    const preservedContentMode = normalizeContentMode(parsed.contentMode);
+    const preservedRunContentMode = normalizeContentMode(parsed.runContentMode || parsed.contentMode);
     const validSaved = normalizeCardIds(parsed.saved);
 
     if (parsed.deckVersion !== DECK_VERSION) {
@@ -107,6 +119,8 @@ function loadState() {
         settings: preservedSettings,
         selectedCategories: preservedCategories,
         runCategories: preservedCategories,
+        contentMode: preservedContentMode,
+        runContentMode: preservedContentMode,
         saved: validSaved
       };
     }
@@ -119,6 +133,8 @@ function loadState() {
     return {
       deckVersion: DECK_VERSION,
       mode,
+      contentMode: preservedContentMode,
+      runContentMode: mode ? preservedRunContentMode : preservedContentMode,
       order: mode ? order : [],
       position: mode ? position : 0,
       revealed: mode && position < order.length && parsed.revealed === true,
@@ -138,6 +154,8 @@ function structuredCloneCompat(value) {
 
 function persist() {
   state.deckVersion = DECK_VERSION;
+  state.contentMode = normalizeContentMode(state.contentMode);
+  state.runContentMode = normalizeContentMode(state.runContentMode);
   state.selectedCategories = normalizeSelectedCategories(state.selectedCategories);
   state.runCategories = normalizeSelectedCategories(state.runCategories);
   try {
@@ -165,6 +183,20 @@ function currentCard() {
   return cardById(state.order[state.position]);
 }
 
+function contentModeDefinition(modeId = state.contentMode) {
+  return GAME_CONTENT_MODES[normalizeContentMode(modeId)];
+}
+
+function contentModeCards(modeId = state.contentMode) {
+  const mode = contentModeDefinition(modeId);
+  const ids = new Set(mode.cardIds || []);
+  return PLOT_TWIST_CARDS.filter(card => ids.has(card.id));
+}
+
+function contentModeShortLabel(modeId) {
+  return normalizeContentMode(modeId) === 'sugar' ? 'SUGAR COATED' : 'CUTTHROAT HONEST';
+}
+
 function categoryObjectsFor(value) {
   const selected = normalizeSelectedCategories(value);
   if (selected.includes('all')) return [];
@@ -175,15 +207,16 @@ function selectedCategoryObjects() {
   return categoryObjectsFor(state.selectedCategories);
 }
 
-function eligibleCards(selectedValue = state.selectedCategories) {
+function eligibleCards(selectedValue = state.selectedCategories, modeId = state.contentMode) {
   const selected = normalizeSelectedCategories(selectedValue);
-  if (selected.includes('all')) return [...PLOT_TWIST_CARDS];
+  const modeCards = contentModeCards(modeId);
+  if (selected.includes('all')) return [...modeCards];
 
-  const filtered = PLOT_TWIST_CARDS.filter(card =>
+  const filtered = modeCards.filter(card =>
     (card.categories || []).some(categoryId => selected.includes(categoryId))
   );
 
-  return filtered.length ? filtered : [...PLOT_TWIST_CARDS];
+  return filtered.length ? filtered : [...modeCards];
 }
 
 function selectionModeLabel() {
@@ -191,6 +224,30 @@ function selectionModeLabel() {
   if (!categories.length) return 'MIXED';
   if (categories.length === 1) return categories[0].label.toUpperCase();
   return 'CUSTOM MIX';
+}
+
+function renderContentModePicker() {
+  const selected = normalizeContentMode(state.contentMode);
+  document.querySelectorAll('[data-content-mode]').forEach(button => {
+    const definition = GAME_CONTENT_MODES[button.dataset.contentMode];
+    const active = selected === button.dataset.contentMode;
+    button.classList.toggle('active', active);
+    button.setAttribute('aria-pressed', String(active));
+    button.disabled = !definition?.available;
+  });
+
+  if (!el.modeSummary) return;
+  const mode = contentModeDefinition(selected);
+  el.modeSummary.textContent = `${mode.cardIds.length} cards in this mode.`;
+}
+
+function setContentMode(modeId) {
+  const definition = GAME_CONTENT_MODES[modeId];
+  if (!definition?.available) return;
+  state.contentMode = modeId;
+  persist();
+  renderContentModePicker();
+  renderCategoryPicker();
 }
 
 function renderCategoryPicker() {
@@ -204,9 +261,10 @@ function renderCategoryPicker() {
   if (!el.categorySummary) return;
 
   const categories = selectedCategoryObjects();
+  const count = eligibleCards(selected, state.contentMode).length;
   el.categorySummary.textContent = categories.length
-    ? `Mixing: ${categories.map(category => category.label).join(' + ')}.`
-    : 'Everything is in the mix.';
+    ? `Mixing: ${categories.map(category => category.label).join(' + ')} · ${count} cards.`
+    : `${count} cards in the mix.`;
 }
 
 function toggleCategory(categoryId) {
@@ -234,6 +292,7 @@ function showScreen(name) {
   if (name === 'saved') renderSavedList();
   if (name === 'home') {
     updateResumeButton();
+    renderContentModePicker();
     renderCategoryPicker();
   }
   window.scrollTo({ top: 0, behavior: 'auto' });
@@ -258,8 +317,9 @@ function beginGame(mode) {
   if (mode === 'saved') {
     state.order = [...state.saved];
   } else {
+    state.runContentMode = normalizeContentMode(state.contentMode);
     state.runCategories = normalizeSelectedCategories(state.selectedCategories);
-    state.order = shuffled(eligibleCards(state.runCategories).map(card => card.id));
+    state.order = shuffled(eligibleCards(state.runCategories, state.runContentMode).map(card => card.id));
   }
 
   if (!state.order.length) {
@@ -279,6 +339,7 @@ function restartRun() {
     return;
   }
 
+  state.contentMode = normalizeContentMode(state.runContentMode);
   state.selectedCategories = normalizeSelectedCategories(state.runCategories);
   beginGame(state.mode === 'random' ? 'random' : 'main');
 }
@@ -365,8 +426,8 @@ function renderCard() {
   el.modeLabel.textContent = state.mode === 'saved'
     ? 'SAVED'
     : state.mode === 'random'
-      ? `RANDOM · ${selectionModeLabel()}`
-      : `GAME · ${selectionModeLabel()}`;
+      ? `${contentModeShortLabel(state.runContentMode)} · RANDOM · ${selectionModeLabel()}`
+      : `${contentModeShortLabel(state.runContentMode)} · ${selectionModeLabel()}`;
 
   setRevealState(state.revealed, false);
   updateSaveButton(card.id);
@@ -512,11 +573,12 @@ async function releaseWakeLock() {
 }
 
 function resetGameData() {
-  if (!window.confirm('Reset the current game, saved cards, topic choices, and settings?')) return;
+  if (!window.confirm('Reset the current game, saved cards, mode, topic choices, and settings?')) return;
   try { localStorage.removeItem(STORAGE_KEY); } catch {}
   state = structuredCloneCompat(defaultState);
   applySettings();
   persist();
+  renderContentModePicker();
   renderCategoryPicker();
   showScreen('home');
 }
@@ -537,6 +599,12 @@ async function waitForWorkerActivation(registration) {
 }
 
 document.addEventListener('click', event => {
+  const modeButton = event.target.closest('[data-content-mode]');
+  if (modeButton) {
+    setContentMode(modeButton.dataset.contentMode);
+    return;
+  }
+
   const categoryButton = event.target.closest('[data-category]');
   if (categoryButton) {
     toggleCategory(categoryButton.dataset.category);
@@ -621,6 +689,7 @@ const params = new URLSearchParams(location.search);
 const requestedMode = params.get('mode');
 applySettings();
 updateSavedCount();
+renderContentModePicker();
 renderCategoryPicker();
 
 if (requestedMode === 'random') {

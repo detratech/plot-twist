@@ -2,9 +2,9 @@
 
 > **Authoritative continuity rule**
 >
-> `docs/DEVELOPMENT_HANDOFF.md` is the durable continuity document for this project. Every material development PR must update it before merge. Current repository code and freshly verified GitHub state outrank this file if anything becomes stale.
+> `docs/DEVELOPMENT_HANDOFF.md` is the durable development continuity document for Plot Twist. Current repository code and freshly verified GitHub state outrank this document if anything becomes stale.
 >
-> Do not rely on ChatGPT conversation history as the durable source of project state.
+> Every material development PR must update this file before merge. Do not rely on ChatGPT conversation history as the durable source of project state.
 
 ---
 
@@ -17,7 +17,7 @@
 
 Plot Twist is an offline-first Android-oriented social scenario/campfire game for camping trips, game nights, travel, and casual group discussion.
 
-It should feel like a legitimate adult party/campfire game, not a classroom exercise, formal debate tool, survey, philosophy app, religious app, or ideological scoring system.
+The game should feel like something normal adults can read aloud and argue about naturally, not a survey, classroom worksheet, or formal debate exercise.
 
 ## User development workflow
 
@@ -31,231 +31,320 @@ Do not invent a local checkout path. Do not tell the user to run local Git, Node
 
 ## Mandatory merge rule
 
-Never merge a material PR without explicit user authorization for that specific PR and the exact revalidated head.
+Never merge a material PR without explicit user authorization for that specific PR after revalidating the exact current head.
 
-Immediately before merge:
+Immediately before an authorized merge:
 
-1. Re-fetch the PR and exact head SHA.
-2. Verify CI passed against that exact SHA.
-3. Verify mergeability.
-4. Check submitted reviews.
-5. Check inline review threads.
-6. Check PR comments/blockers.
-7. Verify `docs/DEVELOPMENT_HANDOFF.md` is current.
-8. Re-fetch `main`.
-9. Merge only the exact verified head after explicit approval.
+1. re-fetch the PR
+2. verify exact current head SHA
+3. verify CI succeeded against that exact SHA
+4. verify mergeability
+5. check submitted reviews
+6. check inline review threads
+7. check PR comments/blockers
+8. confirm this handoff is current
+9. merge only the exact verified head
 
-If the branch head changes after approval, revalidate and obtain fresh approval for the new head.
+If the branch changes after authorization, revalidate and obtain approval for the new head.
 
 ---
 
-# 2. Current Released Baseline
+# 2. Released Baseline
 
-**Current released source baseline: v6.4.2**
+Current released source baseline on `main` before the active v6.5 branch:
 
-## PR #11 — direct answers for every follow-up
+**v6.4.2**
+
+Last verified `main` at v6.5 branch creation:
+
+`66e8475075e61a6970b897a1274426fd111f60bb`
+
+Commit message:
+
+`Update handoff after v6.4.2 merge`
+
+Its parent is the v6.4.2 merge commit:
+
+`c96126e6a6c0ac74a33b698bf62c4a4bf88e4fc6`
+
+## PR #11 — v6.4.2 explicit direct answers
 
 Title:
 
 `Plot Twist v6.4.2: direct answers for every follow-up`
 
-PR number:
-
-`#11`
-
 Exact merged PR head:
 
 `2d8b6b27a923087f8f35c8ebf8f185e6159ceff8`
-
-Base `main` immediately before merge:
-
-`d2882189dd341f92fbca6f652d741da532169bfa`
 
 Merge commit:
 
 `c96126e6a6c0ac74a33b698bf62c4a4bf88e4fc6`
 
-Exact-head validation before merge:
+Final premerge CI:
 
 - workflow: `Validate Plot Twist`
 - run #71
-- run ID: `33343476494`
-- exact head: `2d8b6b27a923087f8f35c8ebf8f185e6159ceff8`
+- run ID `33343476494`
 - conclusion: success
-- JavaScript syntax: success
-- `validate-content.cjs`: success
-- `validate-runtime.cjs`: success
-- `validate-language.cjs`: success
-- submitted reviews: none
+- syntax/content/runtime/language gates all passed
+- reviews: none
 - inline review threads: none
 - PR comments/blockers: none
-- PR was mergeable
 
-The first integrated run for PR #11, run #67 / ID `33343303973`, failed only because direct answer 111 used the formal word `premise`. The answer was rewritten using `bad assumption`; the validator was not weakened. Final run #71 then passed all gates.
+Post-merge handoff commit:
 
-### Merge implementation note
+`66e8475075e61a6970b897a1274426fd111f60bb`
 
-GitHub's connector mutation for `markPullRequestReadyForReview` failed because the connector requested a GraphQL field GitHub no longer exposes. The normal REST merge endpoint then correctly rejected the still-draft PR.
+Post-merge push CI:
 
-Because the user had explicitly authorized merging PR #11, the repository state was revalidated again and the exact approved head was merged by creating a standard two-parent merge commit through GitHub's Git data API:
+- run #73
+- run ID `33349800673`
+- conclusion: success
 
-- first parent: `d2882189dd341f92fbca6f652d741da532169bfa`
-- second parent: `2d8b6b27a923087f8f35c8ebf8f185e6159ceff8`
-- merge tree: the exact verified PR-head tree
-- merge commit: `c96126e6a6c0ac74a33b698bf62c4a4bf88e4fc6`
-- `main` was advanced non-force to that merge commit
+### Important v6.4.2 architecture
 
-GitHub then recognized PR #11 as **merged=true** and **closed**. The PR may still display its historical `draft=true` field because the ready-for-review mutation itself never succeeded; this does not mean the code was not merged.
+`after-answers.js` contains exactly 200 explicit answers keyed to stable card IDs 1–200.
 
-This post-merge handoff edit creates a newer `main` commit. Future sessions must always re-fetch live `main` instead of treating the merge SHA above as the permanent branch head.
+Normal card ending:
 
-## Earlier material releases
+`The Point → afterPrompt → Real-World Example → One Last Thing / THE SHORT ANSWER → Keep Talking`
 
-- PR #10 / v6.4.1 One Last Thing fix: merged head `62a7dbf964fde4637b4441af514e7c1852220bb6`, merge commit `8dfecdacefd9d4a48bfce7b32e5dd211443c9c1f`, CI run #64 success
-- PR #9 / v6.4 plain-language release: merged head `a56bbb6ef17a24f0a83b1c4c16c5e393be283cff`, merge commit `5aae49969450fe0d8ecfd104fccd1c0bc9a7c43a`, CI run #60 success
-- PR #6 / v6.3.1 deep code/workflow audit: merged head `33838c46a3c48244c0eb75ed3467d780cd397ba3`, merge commit `0d7a102e73aba9999cb26c436a4a80c5439df2c7`
-- PR #5 / v6.3 consistency layer: merged head `94fac2411bdfdcbe89e563c4263588773bec3406`, merge commit `deb24319e7302a45ed2f2b9cf3bfe7006ba7da40`
-- PR #4 / v6.2 prominent choices + 200 Real-World Examples: merged head `34a5fd3dec48e0651a67ced093a15917887f999a`, merge commit `c1c41ba64d08a0c7b7239bda10fad7a56ce645a2`
-- PR #3 / visible app version: merge commit `f90afb2d3096763af555cf2110a5a2d539a5e5a1`
-- PR #2 / 200 true two-sided dilemma rewrite: relevant merged history commit `2c9056a4a0c0bbd6c547804379e5fa16eee4a1e9`
+`consistency-ui.js` is a legacy filename but now presents `AFTER_ANSWERS[current.id]`.
+
+There is intentionally no fallback to `card.conclusion` and no old rotating consistency-question bank.
 
 ---
 
-# 3. v6.4.2 Product Contract
+# 3. Active Development — PR #12 / v6.5.0
 
-The required normal ending is now:
+## User direction
 
-`The Point → follow-up question → Real-World Example → One Last Thing / THE SHORT ANSWER → Keep Talking`
+The product is being split into two explicitly named content modes:
 
-**One Last Thing must directly answer the question immediately above the Real-World Example.**
+1. **SUGAR COATED FOR SNOWFLAKES**
+2. **CUTTHROAT HONEST**
 
-It must not:
+The immediate v6.5 task is to reduce the current playable general deck from 200 cards to the **100 strongest cards**, while keeping all 200 source cards in the repository/runtime compatibility pool.
 
-- ask another generic question
-- recycle The Point automatically
-- derive an answer heuristically from `card.conclusion`
-- silently fall back to unrelated text when an answer is missing
+The future Cutthroat Honest mode will be developed from the user's Obsidian knowledge vault and is intended to contain at least 100 separate questions/cards with transparent source framing rather than the general-mode wording layer.
 
-## `after-answers.js`
+## PR #12
 
-Runtime data file containing exactly 200 explicit answers:
+Title:
 
-`globalThis.AFTER_ANSWERS = Object.freeze({ 1: ..., 2: ..., ... 200: ... })`
+`Plot Twist v6.5: curate Sugar Coated to the strongest 100 cards`
 
-Each stable card ID has exactly one answer to that card's `afterPrompt`.
+Branch:
 
-Representative card 37:
+`v6.5-sugar-coated-100`
 
-Follow-up:
+Base:
 
-`What makes a hard truth more useful without making it less true?`
+`main`
 
-Direct answer:
+Base SHA:
 
-`Say the truth accurately, at the right time, for a real reason, and in a way that helps the person act on it instead of humiliating them.`
+`66e8475075e61a6970b897a1274426fd111f60bb`
 
-The answers are intentionally written in ordinary language around broadly understandable principles such as honesty, fairness, responsibility, restraint, mercy, evidence, family duty, justice, boundaries, and character.
+PR number:
 
-### Content / persuasion boundary
+`#12`
 
-Do not turn this answer layer into a covert religious, political, or ideological conversion mechanism while hiding the source from players.
+State at this handoff edit:
 
-The game may present universal principles clearly and persuasively through scenarios, evidence, consistency, consequences, and direct answers. It may not secretly grade or engineer players toward a concealed ideology.
-
-If an explicitly faith-based mode or separate product is ever desired, it should be transparent about that framing.
-
-## `consistency-ui.js`
-
-Legacy filename retained. Its responsibility is now One Last Thing answer presentation.
-
-Current behaviour:
-
-1. find the current card
-2. read `AFTER_ANSWERS[current.id]`
-3. display it under `ONE LAST THING` / `THE SHORT ANSWER`
-4. place the block after `.history-example`
-
-There is intentionally no fallback to `card.conclusion`.
-
-Retired behaviours that must not return:
-
-- `const TESTS = [...]`
-- `(current.id - 1) % TESTS.length`
-- `function shortAnswer(card)` derived from `card.conclusion`
-- any automatic fallback that turns The Point into the answer
+- open
+- draft
+- unmerged
+- pre-documentation integrated head `95008cbcfc787e4faa7200a849ff1bfb64e00796` passed CI run #74
+- README and VALIDATION edits then changed the branch
+- this handoff update creates another newer head
+- therefore **run #74 is not final merge CI**; final exact-head CI must be re-fetched after this commit
 
 ---
 
-# 4. Architecture
+# 4. v6.5 Content-Mode Architecture
 
-## Runtime stack
+## `game-modes.js`
 
-- Vanilla HTML
-- Vanilla CSS
-- Vanilla JavaScript
-- PWA manifest
-- Service Worker / Cache API
-- browser `localStorage`
-- optional Screen Wake Lock API
-- GitHub-hosted static deployment
-- GitHub Actions validation using Node.js 22
+New runtime file defining the release selection layer.
 
-Deliberately absent:
+### Sugar Coated
 
-- framework
-- bundler/build step
-- runtime package-manager dependencies
-- backend/database/authentication
-- runtime API/CDN
-- remote fonts/images
-- analytics
+Exact mode ID:
 
-## Important runtime files
+`sugar`
 
-- `index.html`
-- `styles.css`
-- `categories.css`
-- `game-v6.2.css`
-- `game-v6.3.css`
-- `cards.js`
-- `deck-a.js` through `deck-h.js`
-- `categories.js`
-- `language-polish.js`
-- `after-answers.js`
-- `app.js`
-- `choice-ui.js`
-- `history-ui.js`
-- `consistency-ui.js`
-- `history-a.js` through `history-d.js`
-- `history-reviewed.js`
-- `manifest.webmanifest`
-- `sw.js`
+Exact visible label:
 
-## Validation / docs
+`SUGAR COATED FOR SNOWFLAKES`
 
-- `validate-content.cjs`
-- `validate-runtime.cjs`
-- `validate-language.cjs`
-- `PLAIN_LANGUAGE_NOTES.md`
-- `.github/workflows/validate.yml`
-- `.github/dependabot.yml`
-- `README.md`
-- `VALIDATION.md`
-- `docs/DEVELOPMENT_HANDOFF.md`
+Availability:
 
-## Required script/data order
+`true`
 
-`deck/history → categories.js → language-polish.js → after-answers.js → app.js → presentation helpers`
+Exactly 100 selected stable source IDs:
 
-`after-answers.js` is an essential offline asset and must remain precached by the service worker.
+```text
+1, 2, 5, 7, 10, 12, 14, 15, 16, 17,
+18, 19, 21, 24, 25, 26, 31, 33, 35, 37,
+38, 43, 44, 45, 46, 54, 55, 56, 58, 59,
+60, 63, 64, 73, 80, 85, 86, 92, 98, 99,
+101, 104, 105, 107, 108, 110, 111, 113, 114, 117,
+118, 119, 121, 125, 126, 127, 128, 129, 130, 131,
+137, 138, 139, 142, 143, 144, 145, 147, 148, 150,
+152, 156, 161, 162, 163, 164, 165, 167, 168, 169,
+170, 171, 173, 175, 176, 178, 179, 180, 182, 184,
+187, 188, 190, 191, 194, 196, 197, 198, 199, 200
+```
+
+Curation criteria:
+
+- genuine two-sided pre-reveal dilemma
+- natural group discussion value
+- Plot Twist materially changes/complicates the initial choice
+- strong transferable Point
+- fitting Real-World Example and direct answer
+- memorable read-aloud quality
+- remove redundant cards that substantially teach the same principle
+- maintain useful coverage across all six categories
+
+Validated selected-category memberships from CI run #74:
+
+- Mind & Truth: 38
+- Relationships & Family: 32
+- Money & Success: 13
+- Tech & Modern Life: 19
+- Society & Culture: 26
+- Life & Purpose: 39
+
+Cards can have two categories, so totals exceed 100.
+
+### Cutthroat Honest
+
+Exact mode ID:
+
+`cutthroat`
+
+Exact visible label:
+
+`CUTTHROAT HONEST`
+
+Current availability:
+
+`false`
+
+Current playable IDs:
+
+none
+
+The home screen intentionally shows the mode as:
+
+`Vault-backed mode · coming next`
+
+Do not make this mode playable with placeholder content. A later material PR must provide the actual vault-backed deck and its source/provenance validation before setting `available: true`.
 
 ---
 
-# 5. Card and Data Contracts
+# 5. Why the Source Pool Stays at 200
 
-Exactly 200 cards with stable IDs 1–200.
+Do **not** delete the 100 cards that were not selected for Sugar Coated.
 
-Each card contains:
+The complete 200-card source/archive pool remains important for:
+
+- stable IDs 1–200
+- Saved cards created before v6.5
+- an in-progress pre-v6.5 run whose order can contain any old source ID
+- historical example mappings
+- direct-answer mappings
+- editorial provenance/history
+- future reconsideration of curation decisions
+
+New normal/random Sugar Coated runs use only the curated 100 IDs.
+
+Saved cards and legacy/in-progress state continue resolving with `cardById()` against `PLOT_TWIST_CARDS`, which still contains all 200 source cards.
+
+This is an intentional compatibility contract.
+
+---
+
+# 6. v6.5 State / Runtime Changes
+
+Stable persisted anchors are **not** changed:
+
+- localStorage key: `plotTwistStateV4`
+- deck/state identifier: `masterpiece-200-v1`
+
+New persisted fields:
+
+- `contentMode`
+- `runContentMode`
+
+Older state with neither field normalizes to:
+
+`sugar`
+
+A new normal/random run snapshots:
+
+- `runContentMode`
+- `runCategories`
+
+This prevents changing the home selector from mutating the meaning of an already active run.
+
+`eligibleCards(selectedCategories, modeId)` first obtains the current mode's card pool and then applies category filtering inside that pool.
+
+Saved runs remain independent of the current home mode/category filter.
+
+## Home UI
+
+Mode selector now appears before categories.
+
+- Sugar Coated is selected/usable
+- Cutthroat Honest is visible but disabled
+- mode summary shows Sugar has 100 cards
+- category summary shows how many eligible Sugar cards remain under the selected topic mix
+
+## Game header
+
+Normal/random runs display the snapshotted content-mode context rather than merely `GAME`.
+
+---
+
+# 7. Current Version / PWA
+
+Visible Settings version on PR #12:
+
+`v6.5.0`
+
+Service-worker cache:
+
+`plot-twist-v6.5.0`
+
+New essential offline asset:
+
+`game-modes.js`
+
+Required runtime order:
+
+`deck/history → categories.js → language-polish.js → after-answers.js → game-modes.js → app.js → presentation helpers`
+
+The service worker must continue to preserve the v6.3.1 safety rules:
+
+- `CACHE_PREFIX = 'plot-twist-'`
+- delete only old Plot Twist caches
+- never delete unrelated caches on a shared GitHub Pages origin
+- same-origin/scope runtime caching
+- current named-cache reads/writes
+- awaited `cache.put()`
+- navigation fallback
+
+---
+
+# 8. Source Card/Data Contracts
+
+The repository still contains exactly 200 source cards with IDs 1–200.
+
+Each source card includes:
 
 - `id`
 - `title`
@@ -265,31 +354,11 @@ Each card contains:
 - `choices` — exactly two
 - `twist`
 - `conclusion` — The Point
-- `afterPrompt` — question immediately before the Real-World Example
+- `afterPrompt`
 - `hostPrompts` — exactly two
-- `categories` — one or two valid IDs
+- `categories` — one or two valid IDs after category processing
 
-Internal IDs must remain hidden from players.
-
-## Direct answers
-
-Exactly one `AFTER_ANSWERS[id]` must exist for every ID 1–200.
-
-Each answer must be:
-
-- present
-- declarative, not another question
-- a direct response to the associated `afterPrompt`
-- concise
-- conversational
-- unique
-- safe for runtime protected/meta-language rules
-
-Automated validation proves completeness and style constraints. Semantic fit remains a human editorial requirement.
-
-## Categories
-
-IDs:
+Categories:
 
 - `mind`
 - `relationships`
@@ -298,209 +367,170 @@ IDs:
 - `society`
 - `life`
 
-Rules:
+Exactly 200 `HISTORICAL_EXAMPLES[id]` mappings and exactly 200 `AFTER_ANSWERS[id]` mappings remain aligned to those stable source IDs.
 
-- selecting specific categories removes Mix Everything
-- removing the last specific category restores Mix Everything
-- multiple categories form a union without duplicates
-- Start and Random respect the current filter
-- active runs preserve `runCategories`
-- Saved playback is independent of the current home filter
-
-## Real-World Examples
-
-Exactly one substantive example per card ID 1–200.
-
-Load precedence:
-
-1. `history-a.js` through `history-d.js`
-2. `history-reviewed.js` overrides selected mappings
-
-Do not remove `history-reviewed.js` as apparent duplication.
-
-Accuracy and analogy fit outrank fame. Prefer strong primary, official, academic, archival, court, museum, or first-party sources where practical.
-
-Card 184 intentionally uses the UC Berkeley graduate-admissions / Simpson's paradox example.
+Internal IDs remain hidden from players.
 
 ---
 
-# 6. Product / Editorial Rules
+# 9. Editorial Rules That Must Not Regress
 
-## Two-sided dilemma
+## Two-sided dilemmas
 
-Every card must offer two genuinely reasonable positions before reveal.
-
-Do not create:
+Every card should force a real pre-reveal choice. Avoid:
 
 - sensible answer vs caricature
 - virtue-labelled answer vs obviously bad answer
-- pre-reveal `it depends` escape
-- Plot Twist that merely repeats setup
-- reveal that only congratulates one side
+- `it depends` escape before choosing
+- reveal that merely repeats setup
+- reveal that simply congratulates one side
 
 Target:
 
 `two defensible choices → commitment → meaningful new information → reconsider → clear principle`
 
-Changing sides after reveal is allowed.
+Changing sides after the reveal is allowed.
 
 ## Plain language
 
-Permanent rule:
+Permanent practical rule:
 
-> **Would a regular person naturally say or understand this out loud on the first read?**
+> **Would a regular person naturally understand this out loud on the first read?**
 
-Prefer short direct sentences, familiar words, concrete phrasing, one idea at a time, and natural humour.
+Prefer ordinary words, short sentences, concrete examples, one idea at a time, and natural humour.
 
-Avoid academic/debate/legalistic wording, jargon, stacked metaphors, and sentences needing rereading.
-
-Plain language is part of correctness.
-
-## The Point
-
-The Point should be clear and declarative. It does not need false balance after the reveal.
+Avoid jargon, legalistic prose, debate-club terminology, stacked metaphors, and phrasing that needs rereading.
 
 ## One Last Thing
 
-**One Last Thing is the answer step.**
+One Last Thing is the **answer step**.
 
 Required relation:
 
-`afterPrompt → Real-World Example → explicit AFTER_ANSWERS[id] answer`
+`afterPrompt → Real-World Example → AFTER_ANSWERS[id]`
 
-Do not reintroduce generic consistency tests into this normal flow. Optional Chaos can still contain pressure-test mechanics.
-
-## No grading / ideology score
-
-Do not add moral scores, ideology scores, visible right/wrong grading, or hidden scoring designed to classify a player's worldview.
+Do not reintroduce the old generic consistency-test bank or derive the answer from The Point.
 
 ---
 
-# 7. Persistence / Compatibility
+# 10. Current Validation
 
-Stable anchors:
+GitHub Actions runs:
 
-- localStorage key: `plotTwistStateV4`
-- deck/state ID: `masterpiece-200-v1`
-- card IDs: 1–200
-- historical example IDs: 1–200
-- direct-answer IDs: 1–200 aligned to the same cards
+1. JavaScript syntax checks
+2. `validate-content.cjs`
+3. `validate-runtime.cjs`
+4. `validate-language.cjs`
 
-Visible Settings version:
+## v6.5 content gate
 
-`v6.4.2`
+In addition to all previous 200-card/example/answer rules, it now requires:
 
-Service-worker cache:
+- exactly 100 unique `SUGAR_COATED_CARD_IDS`
+- every selected ID exists in the 200-card source pool
+- every selected ID has a Real-World Example and direct answer
+- every category has at least 10 selected Sugar cards
+- exact Sugar and Cutthroat labels
+- Sugar available with 100 cards
+- Cutthroat unavailable with zero cards
+- version/cache/load/precache wiring for v6.5
 
-`plot-twist-v6.4.2`
+## v6.5 runtime gate
 
-Do not bump `masterpiece-200-v1` for wording/UI/asset-only changes.
+Also requires:
 
-Do not clear site/app data as the normal update path. Doing so destroys Saved cards, settings, categories, and active state and defeats compatibility testing.
+- content-mode DOM targets/wiring
+- Sugar default for old state
+- `contentMode` / `runContentMode` persistence
+- mode snapshot at run start
+- eligible-card filtering inside mode pool
+- full 200-card lookup preserved for Saved/legacy state
+- Cutthroat UI remains disabled until implemented
 
----
+## First integrated v6.5 CI
 
-# 8. PWA / Offline Rules
+Pre-documentation branch head:
 
-Offline-first is non-negotiable.
+`95008cbcfc787e4faa7200a849ff1bfb64e00796`
 
-Service worker must keep these protections:
+Workflow:
 
-- `CACHE_PREFIX = 'plot-twist-'`
-- delete only old Plot Twist caches
-- never delete unrelated caches on the shared origin
-- same-origin/scope runtime caching
-- current named-cache reads/writes
-- awaited `cache.put()`
-- cached navigation fallback
+`Validate Plot Twist`
 
-`after-answers.js` must remain in APP_SHELL.
+Run:
 
-Installed Android PWA must pass a full airplane-mode relaunch test without clearing site data.
+- run #74
+- run ID `33352268119`
+- conclusion: success
+- syntax: success
+- source + 100-card curated mode gate: success
+- runtime/PWA/state/workflow gate: success
+- plain-language gate: success
 
-Runtime protections from the v6.3.1 audit that must not regress include:
-
-- persisted-state normalization
-- localStorage failure guard
-- completed-run Resume handling
-- stable `runCategories`
-- mode-aware PLAY AGAIN
-- Saved runs replay Saved mode
-- duplicate wake-lock prevention
-- Chaos Escape/focus handling
-- `choice-ui.js` owns choice formatting
-- `history-ui.js` owns Real-World Example rendering
-- offline-ready service-worker update/activation handling
-
----
-
-# 9. Validation Contract
-
-GitHub Actions runs three complementary gates.
-
-## `validate-content.cjs`
-
-Must protect at least:
-
-- exactly 200 cards with IDs 1–200
-- required card structure
-- two distinct defensible choices
-- substantive Plot Twists
-- valid categories
-- exactly 200 substantive Real-World Examples
-- exactly 200 explicit direct answers
-- no missing/duplicate direct answers
-- direct answers are declarative rather than more questions
-- runtime/meta-language protections
-- script/load/precache contracts
-- visible version `v6.4.2`
-- cache `plot-twist-v6.4.2`
-- no conclusion-derived One Last Thing fallback
-
-## `validate-runtime.cjs`
-
-Must protect at least:
-
-- service-worker cache isolation and cleanup
-- runtime asset/manifest integrity
-- DOM/routing integrity
-- persistence/state normalization/replay
-- wake lock and Chaos behaviour
-- loading and offline caching of `language-polish.js` and `after-answers.js`
-- One Last Thing reading `AFTER_ANSWERS[current.id]`
-- no old rotating TESTS bank
-- no automatic `card.conclusion` fallback
-- hardened GitHub Actions configuration
-
-## `validate-language.cjs`
-
-Must check final player-facing language, including all 200 direct answers, for conversational sentence length and protected jargon/formal wording.
-
-Do not weaken validators just to make a failing branch green. Fix the content or implementation problem instead.
+This is **not final merge CI** because README, VALIDATION, and this handoff were committed afterward.
 
 ---
 
-# 10. Exact Next Step
+# 11. Future Cutthroat Honest / Obsidian Direction
 
-There is no active material development PR after PR #11 merge.
+The user wants the future Cutthroat Honest mode to follow an Obsidian vault and eventually contain at least 100 cards/questions derived from that knowledge base.
 
-The next step is **hosted Android/PWA acceptance for v6.4.2**.
+Recommended architecture recorded for future development:
 
-Do not clear site data.
+`Obsidian approved source folder → controlled/private source bridge/repository → detect changed Markdown/hash → generate or update candidate Cutthroat cards → draft PR in detratech/plot-twist → validators → explicit user merge authorization → static GitHub-hosted PWA update`
 
-Acceptance checklist:
+Important design principles:
 
-1. Open the hosted/installed app online and confirm Settings shows `v6.4.2`.
-2. Confirm existing Saved cards, settings, category selections, and current state survived the update.
-3. Sample cards across all six categories.
-4. Confirm the order is:
-   `The Point → follow-up question → Real-World Example → One Last Thing / THE SHORT ANSWER → Keep Talking`.
-5. On each sampled card, read the follow-up and then the short answer as a pair. The answer must directly answer that exact question, not merely restate The Point.
-6. Specifically verify the hard-truth card answers:
-   `Say the truth accurately, at the right time, for a real reason, and in a way that helps the person act on it instead of humiliating them.`
-7. Confirm different cards show different card-specific answers.
-8. Confirm category filtering, multi-select, Random, Saved, resume/replay, wake lock, and Chaos still work.
-9. Fully close the app, enable airplane mode, turn Wi-Fi off, relaunch from the installed icon, and verify full gameplay.
-10. If any answer feels indirect, repetitive, unnatural, or mismatched to its question, treat that as an editorial bug and fix the specific `AFTER_ANSWERS[id]` entry rather than reintroducing heuristics.
+- do not make the installed PWA directly watch arbitrary Android filesystem Markdown
+- do not copy the entire personal vault into the public app repository
+- use a controlled subset of vault notes approved for game content
+- maintain source/provenance metadata and a source revision/hash
+- determine which cards are affected by changed source files instead of regenerating everything blindly
+- generated changes should create a draft PR rather than silently publishing themselves
+- keep the finished game fully static/offline after deployment
 
-After acceptance, the next development priority should be chosen from actual user testing feedback rather than speculative feature work.
+Before Cutthroat can become available, a later PR should add:
+
+- a separate stable card namespace/data layer
+- at least 100 playable cards
+- source-note/provenance mapping
+- knowledge snapshot/revision metadata
+- validation appropriate for the explicit vault-backed mode
+- offline precaching
+- state/Saved behaviour across both modes
+- Android acceptance for switching modes
+
+The future explicit mode should not be forced through the current Sugar Coated terminology filter if doing so would contradict the source material it is transparently representing. The two modes need separate content validation contracts.
+
+---
+
+# 12. Exact Next Step
+
+After this handoff commit:
+
+1. re-fetch PR #12 and record its new exact head SHA
+2. wait for/run GitHub Actions against that exact head
+3. inspect all gate results; fix real failures rather than weakening checks
+4. verify current `main` has not unexpectedly moved from the branch base or otherwise assess mergeability
+5. inspect submitted reviews
+6. inspect inline review threads
+7. inspect PR comments/blockers
+8. update PR #12 body with final exact-head verification
+9. leave the PR unmerged until the user explicitly authorizes **PR #12**
+
+After an authorized merge:
+
+1. verify resulting `main` SHA
+2. update this handoff to make v6.5.0 the released baseline
+3. verify post-merge CI
+4. perform hosted Android/PWA acceptance:
+   - Settings shows v6.5.0
+   - both mode names visible
+   - Sugar active
+   - Cutthroat disabled/coming next
+   - Mix Everything reports 100 cards
+   - category counts/filtering work
+   - old Saved cards still work even if not in the 100
+   - pre-existing active run can resume
+   - full card reveal/answer flow works
+   - final airplane-mode relaunch works without clearing app data

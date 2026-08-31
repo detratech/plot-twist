@@ -26,6 +26,21 @@
       <h1 id="homeTitle">PLOT<br><span>TWIST</span></h1>
       <p class="tagline">Choose a side. Say why. Then reveal the twist.</p>
 
+      <section class="content-mode-picker" aria-labelledby="contentModeTitle">
+        <p class="eyebrow" id="contentModeTitle">PICK YOUR MODE</p>
+        <div class="content-mode-grid">
+          <button class="content-mode-chip active" type="button" data-content-mode="sugar" aria-pressed="true">
+            <b>SUGAR COATED FOR SNOWFLAKES</b>
+            <small>The 100 strongest general-mode cards</small>
+          </button>
+          <button class="content-mode-chip" type="button" data-content-mode="cutthroat" aria-pressed="false" disabled>
+            <b>CUTTHROAT HONEST</b>
+            <small>Vault-backed mode · coming next</small>
+          </button>
+        </div>
+        <p id="modeSummary" class="category-summary" role="status">100 cards in this mode.</p>
+      </section>
+
       <section class="category-picker" aria-labelledby="categoryTitle">
         <p class="eyebrow" id="categoryTitle">PICK YOUR VIBE</p>
         <p class="category-help">Pick one, mix a few, or keep everything in.</p>
@@ -62,7 +77,7 @@
           </button>
         </div>
 
-        <p id="categorySummary" class="category-summary" role="status">Everything is in the mix.</p>
+        <p id="categorySummary" class="category-summary" role="status">100 cards in the mix.</p>
       </section>
 
       <div class="home-actions">
@@ -130,6 +145,7 @@
       <div class="utility-card">
         <h2 id="howTitle">How to Play</h2>
         <ol class="rules">
+          <li>Pick a <b>mode</b>. <b>Sugar Coated for Snowflakes</b> is the current 100-card deck. <b>Cutthroat Honest</b> is being built next.</li>
           <li>Pick a topic, mix a few, or leave <b>Mix Everything</b> on.</li>
           <li>Read the card out loud.</li>
           <li>Pick one side before you see the twist. Both choices are meant to be reasonable.</li>
@@ -150,7 +166,7 @@
         <h2 id="settingsTitle">Game Setup</h2>
         <label class="setting-row"><span><b>Keep Screen Awake</b><small id="wakeSupportText">Stops your screen from going dark while you play</small></span><input id="wakeToggle" type="checkbox"></label>
         <label class="setting-row"><span><b>Extra Questions</b><small>Show a couple more questions on each card</small></span><input id="hostToggle" type="checkbox"></label>
-        <div class="setting-row"><span><b>App Version</b><small>Helps confirm the newest version loaded</small></span><strong>v6.4.2</strong></div>
+        <div class="setting-row"><span><b>App Version</b><small>Helps confirm the newest version loaded</small></span><strong>v6.5.0</strong></div>
         <button id="resetButton" class="btn btn-danger">RESET GAME DATA</button>
       </div>
     </section>
@@ -201,6 +217,7 @@
   <script src="categories.js"></script>
   <script src="language-polish.js"></script>
   <script src="after-answers.js"></script>
+  <script src="game-modes.js"></script>
   <script src="app.js"></script>
   <script src="choice-ui.js"></script>
   <script src="history-ui.js"></script>

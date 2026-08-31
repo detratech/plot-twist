@@ -107,14 +107,21 @@ vm.runInContext(
   { filename: 'categories.js' }
 );
 vm.runInContext(read('after-answers.js') + '\nglobalThis.__answers = AFTER_ANSWERS;', context, { filename: 'after-answers.js' });
+vm.runInContext(
+  read('game-modes.js') + '\nglobalThis.__modes = GAME_CONTENT_MODES; globalThis.__sugarIds = SUGAR_COATED_CARD_IDS;',
+  context,
+  { filename: 'game-modes.js' }
+);
 
 const cards = context.__cards;
 const categories = context.__categories;
 const historicalExamples = context.__history;
 const afterAnswers = context.__answers;
+const contentModes = context.__modes;
+const sugarIds = context.__sugarIds;
 
 if (!Array.isArray(cards)) fail('PLOT_TWIST_CARDS did not load as an array.');
-if (cards.length !== 200) fail(`Expected 200 cards, found ${cards.length}.`);
+if (cards.length !== 200) fail(`Expected 200 source cards, found ${cards.length}.`);
 
 const ids = cards.map(card => card.id);
 if (new Set(ids).size !== 200) fail('Card IDs are not unique.');
@@ -225,17 +232,50 @@ if (!Array.isArray(categories) || categories.length !== 6) {
   fail(`Expected six selectable categories, found ${Array.isArray(categories) ? categories.length : 'invalid data'}.`);
 }
 
+// v6.5 keeps the complete 200-card source pool but promotes exactly 100 cards into the playable general mode.
+if (!Array.isArray(sugarIds)) fail('SUGAR_COATED_CARD_IDS did not load as an array.');
+if (sugarIds.length !== 100) fail(`Sugar Coated must contain exactly 100 cards, found ${sugarIds.length}.`);
+if (new Set(sugarIds).size !== 100) fail('Sugar Coated card IDs are not unique.');
+for (const id of sugarIds) {
+  if (!ids.includes(id)) fail(`Sugar Coated references missing source card ${id}.`);
+  if (!historicalExamples[id]) fail(`Sugar Coated card ${id} is missing its Real-World Example.`);
+  if (!afterAnswers[id]) fail(`Sugar Coated card ${id} is missing its direct answer.`);
+}
+if (!contentModes?.sugar || contentModes.sugar.label !== 'SUGAR COATED FOR SNOWFLAKES') {
+  fail('Sugar Coated mode label is missing or changed.');
+}
+if (contentModes.sugar.available !== true || contentModes.sugar.cardIds.length !== 100) {
+  fail('Sugar Coated mode is not the available 100-card mode.');
+}
+if (!contentModes?.cutthroat || contentModes.cutthroat.label !== 'CUTTHROAT HONEST') {
+  fail('Cutthroat Honest mode label is missing or changed.');
+}
+if (contentModes.cutthroat.available !== false || contentModes.cutthroat.cardIds.length !== 0) {
+  fail('Cutthroat Honest must remain unavailable until its vault-backed deck exists.');
+}
+
+const sugarDistribution = Object.fromEntries([...CATEGORY_IDS].map(id => [id, 0]));
+const sugarIdSet = new Set(sugarIds);
+for (const card of cards) {
+  if (!sugarIdSet.has(card.id)) continue;
+  for (const id of card.categories) sugarDistribution[id] += 1;
+}
+for (const [id, count] of Object.entries(sugarDistribution)) {
+  if (count < 10) fail(`Sugar Coated category "${id}" has only ${count} cards; expected at least 10.`);
+}
+
 const index = read('index.html');
 const sw = read('sw.js');
 const app = read('app.js');
 const manifest = read('manifest.webmanifest');
+const modeConfig = read('game-modes.js');
 const choiceUi = read('choice-ui.js');
 const historyUi = read('history-ui.js');
 const consistencyUi = read('consistency-ui.js');
 const languagePolish = read('language-polish.js');
 const gameCss = read('game-v6.2.css');
 const consistencyCss = read('game-v6.3.css');
-const runtimeStatic = [index, app, manifest, choiceUi, historyUi, consistencyUi].join('\n');
+const runtimeStatic = [index, app, manifest, modeConfig, choiceUi, historyUi, consistencyUi].join('\n');
 const runtimeFiles = [
   ...DECK_FILES,
   ...HISTORY_FILES,
@@ -243,6 +283,7 @@ const runtimeFiles = [
   'game-v6.3.css',
   'language-polish.js',
   'after-answers.js',
+  'game-modes.js',
   'choice-ui.js',
   'history-ui.js',
   'consistency-ui.js'
@@ -255,22 +296,30 @@ if (!index.includes('<link rel="stylesheet" href="game-v6.2.css">')) fail('index
 if (!index.includes('<link rel="stylesheet" href="game-v6.3.css">')) fail('index.html does not load game-v6.3.css.');
 if (!index.includes('<script src="language-polish.js"></script>')) fail('index.html does not load language-polish.js.');
 if (!index.includes('<script src="after-answers.js"></script>')) fail('index.html does not load after-answers.js.');
+if (!index.includes('<script src="game-modes.js"></script>')) fail('index.html does not load game-modes.js.');
 if (!index.includes('<script src="choice-ui.js"></script>')) fail('index.html does not load choice-ui.js.');
 if (!index.includes('<script src="history-ui.js"></script>')) fail('index.html does not load history-ui.js.');
 if (!index.includes('<script src="consistency-ui.js"></script>')) fail('index.html does not load consistency-ui.js.');
 if (!(index.indexOf('<script src="categories.js"></script>') < index.indexOf('<script src="language-polish.js"></script>') &&
       index.indexOf('<script src="language-polish.js"></script>') < index.indexOf('<script src="after-answers.js"></script>') &&
-      index.indexOf('<script src="after-answers.js"></script>') < index.indexOf('<script src="app.js"></script>'))) {
-  fail('Runtime data order must be categories.js → language-polish.js → after-answers.js → app.js.');
+      index.indexOf('<script src="after-answers.js"></script>') < index.indexOf('<script src="game-modes.js"></script>') &&
+      index.indexOf('<script src="game-modes.js"></script>') < index.indexOf('<script src="app.js"></script>'))) {
+  fail('Runtime data order must be categories.js → language-polish.js → after-answers.js → game-modes.js → app.js.');
 }
 for (const file of runtimeFiles) {
   if (!sw.includes(`'./${file}'`)) fail(`sw.js does not precache ${file}.`);
 }
 
-if (!sw.includes("plot-twist-v6.4.2")) fail('Service-worker cache is not plot-twist-v6.4.2.');
-if (!index.includes('<b>App Version</b>') || !index.includes('<strong>v6.4.2</strong>')) fail('Settings does not display app version v6.4.2.');
+if (!sw.includes("plot-twist-v6.5.0")) fail('Service-worker cache is not plot-twist-v6.5.0.');
+if (!index.includes('<b>App Version</b>') || !index.includes('<strong>v6.5.0</strong>')) fail('Settings does not display app version v6.5.0.');
 if (!app.includes("masterpiece-200-v1")) fail('App deck version is not masterpiece-200-v1.');
+if (!app.includes("const DEFAULT_CONTENT_MODE = 'sugar'")) fail('App does not default to the Sugar Coated mode.');
+if (!app.includes('contentModeCards(modeId')) fail('App does not route new runs through the selected content mode.');
+if (!app.includes('state.runContentMode = normalizeContentMode(state.contentMode)')) fail('New runs do not snapshot their content mode.');
 if (/\b(?:card|scenario)\s*#?\d+\b/i.test(index)) fail('Visible card/scenario numbering pattern found in index.html.');
+if (!index.includes('SUGAR COATED FOR SNOWFLAKES')) fail('Home screen does not show the required Sugar Coated mode name.');
+if (!index.includes('CUTTHROAT HONEST')) fail('Home screen does not show the required Cutthroat Honest mode name.');
+if (!index.includes('data-content-mode="cutthroat"') || !index.includes('Vault-backed mode · coming next')) fail('Cutthroat Honest is not visibly staged as the next vault-backed mode.');
 if (!index.includes('Both choices are meant to be reasonable.')) fail('How to Play does not state the two-sided dilemma rule in plain language.');
 if (!index.includes('changing your mind is completely fair.')) fail('How to Play does not say that changing sides after the twist is allowed.');
 if (!index.includes('<b>Real-World Example</b>')) fail('How to Play does not explain the Real-World Example step.');
@@ -288,7 +337,6 @@ if (!gameCss.includes('grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)')) f
 if (!gameCss.includes('.choice-wrap::before')) fail('Choice UI is missing the center divider.');
 if (!gameCss.includes("content: 'VS'")) fail('Choice UI is missing the VS marker.');
 
-// One Last Thing must answer the preceding card-specific follow-up, not recycle The Point or ask another generic test.
 if (!consistencyUi.includes("label.textContent = 'ONE LAST THING'")) fail('One Last Thing label is missing.');
 if (!consistencyUi.includes("heading.textContent = 'THE SHORT ANSWER'")) fail('One Last Thing does not present itself as the short answer.');
 if (!consistencyUi.includes('const answers = globalThis.AFTER_ANSWERS;')) fail('One Last Thing does not use the explicit direct-answer map.');
@@ -297,37 +345,34 @@ if (!consistencyUi.includes("historyBox.insertAdjacentElement('afterend', box)")
 if (consistencyUi.includes('function shortAnswer(card)')) fail('Obsolete conclusion-derived short-answer heuristic is still present.');
 if (consistencyUi.includes('card.conclusion')) fail('One Last Thing still derives the answer from The Point instead of the explicit answer map.');
 if (consistencyUi.includes('const TESTS = [')) fail('Old generic One Last Thing question bank is still present.');
-if (consistencyUi.includes('(current.id - 1) % TESTS.length')) fail('One Last Thing still cycles unrelated prompts by card ID.');
 if (!consistencyCss.includes('.consistency-check')) fail('One Last Thing styling is missing.');
 if (!languagePolish.includes('const PHRASE_SWAPS') || !languagePolish.includes('const CARD_OVERRIDES')) {
   fail('Plain-language polish layer is missing its phrase and card overrides.');
 }
 
-assertNoForbiddenRuntimeTerms(runtimeStatic, 'runtime shell');
+assertNoForbiddenRuntimeTerms(runtimeStatic, 'current general-mode runtime shell');
 assertNoMetaLeaks(runtimeStatic, 'runtime shell');
 
-const distribution = {};
-for (const id of CATEGORY_IDS) distribution[id] = 0;
+const sourceDistribution = {};
+for (const id of CATEGORY_IDS) sourceDistribution[id] = 0;
 for (const card of cards) {
-  for (const id of card.categories) distribution[id] += 1;
+  for (const id of card.categories) sourceDistribution[id] += 1;
 }
-for (const [id, count] of Object.entries(distribution)) {
-  if (count < 15) fail(`Category "${id}" has only ${count} cards; expected at least 15.`);
+for (const [id, count] of Object.entries(sourceDistribution)) {
+  if (count < 15) fail(`Source category "${id}" has only ${count} cards; expected at least 15.`);
 }
 
-console.log(`PASS: ${cards.length} unique scenarios loaded.`);
+console.log(`PASS: ${cards.length} unique source scenarios remain loaded.`);
 console.log('PASS: internal IDs 1-200 are unique and complete.');
-console.log('PASS: every card has two scenario paragraphs, two distinct choices, a substantive Plot Twist, The Point, and three follow-up/conversation directions total.');
-console.log('PASS: no "it depends" answer escape choices or obviously insulting choice labels.');
-console.log('PASS: all cards have one or two valid selectable categories.');
-console.log('PASS: exactly 200 substantive real-world examples map one-to-one to the 200 cards.');
-console.log('PASS: exactly 200 concise direct answers map one-to-one to the 200 follow-up questions.');
-console.log('PASS: prohibited explicit worldview terms and authoring/meta-instruction leaks were not found in cards, examples, direct answers, or runtime shell text.');
-console.log('PASS: all deck, history, presentation, plain-language, and direct-answer assets are loaded and precached.');
-console.log('PASS: the post-Point question is followed by the Real-World Example and its explicit card-specific answer.');
-console.log('PASS: One Last Thing no longer recycles The Point or uses a generic question bank.');
-console.log('PASS: the two answer choices remain locked to the prominent left-vs-right layout with a divider, large decision label, and secondary reason.');
-console.log('PASS: the player-facing rules use plain language, keep both choices reasonable, and allow changing sides after the twist.');
-console.log('PASS: settings visibly reports app version v6.4.2.');
-console.log('PASS: deck version masterpiece-200-v1 and cache plot-twist-v6.4.2 are wired.');
-console.log('Category memberships:', distribution);
+console.log('PASS: exactly 100 unique source IDs are curated into Sugar Coated for Snowflakes.');
+console.log('PASS: every Sugar Coated card retains its Real-World Example and direct answer.');
+console.log('PASS: every Sugar Coated category has at least 10 selected cards.');
+console.log('PASS: Cutthroat Honest is named and staged but cannot be played before its vault-backed deck exists.');
+console.log('PASS: every source card still satisfies the two-sided dilemma/content contract.');
+console.log('PASS: exactly 200 substantive real-world examples and 200 concise direct answers remain available for compatibility.');
+console.log('PASS: all runtime assets are loaded and precached in the required order.');
+console.log('PASS: One Last Thing remains the explicit card-specific answer step.');
+console.log('PASS: settings visibly reports app version v6.5.0.');
+console.log('PASS: deck version masterpiece-200-v1 and cache plot-twist-v6.5.0 are wired.');
+console.log('Sugar Coated category memberships:', sugarDistribution);
+console.log('Source category memberships:', sourceDistribution);

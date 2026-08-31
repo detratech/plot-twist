@@ -2,219 +2,162 @@
 
 Plot Twist is an offline-first social scenario game for Android phones, camping trips, game nights, travel, and casual group discussion.
 
-The basic loop is:
+The core loop is:
 
-`pick a side → say why → reveal the Plot Twist → rethink it → discuss → see the real example → get the direct answer`
+`scenario → pick a side → say why → reveal Plot Twist → reconsider → The Point → follow-up question → Real-World Example → One Last Thing / THE SHORT ANSWER → Keep Talking`
 
 ## Current development version
 
-**v6.4.2** is the active release candidate on PR #11.
+**v6.5.0** introduces the content-mode foundation and trims the playable general deck to its strongest 100 cards while preserving the complete 200-card source/archive pool.
 
-This patch fixes the final remaining problem with **One Last Thing**. v6.4.1 stopped asking an unrelated generic question, but it still generated the short answer by recycling the final sentence of **The Point**. That could leave the actual follow-up question unanswered.
+### Modes
 
-v6.4.2 gives every card its own explicitly written direct answer.
+#### SUGAR COATED FOR SNOWFLAKES
 
-Compatibility remains unchanged:
+Available now.
 
-- localStorage key: `plotTwistStateV4`
-- deck/state ID: `masterpiece-200-v1`
-- stable card IDs: 1–200
+- exactly 100 curated cards
+- selected from the existing 200-card source pool
+- intended to keep the strongest dilemmas, reveals, principles, examples, and discussion value
+- category filtering still works inside this 100-card pool
 
-Service-worker cache:
+#### CUTTHROAT HONEST
 
-`plot-twist-v6.4.2`
+Visible in the interface but intentionally disabled in v6.5.0.
 
-## Intended player flow
+This is the reserved slot for the future vault-backed deck. It must not become playable until its own content, source/provenance rules, validators, and offline assets actually exist.
 
-`scenario → choose one of two reasonable sides → explain → Plot Twist → reconsider → The Point → follow-up question → Real-World Example → One Last Thing / THE SHORT ANSWER → Keep Talking`
+## Why the other 100 cards were not deleted
 
-The relationship at the end is important:
+The repository deliberately keeps all source cards with stable IDs 1–200.
 
-1. The card asks a specific follow-up question.
-2. The group considers it.
-3. The Real-World Example gives a concrete case.
-4. **One Last Thing** directly answers that same question.
+This preserves:
 
-It must not introduce another unrelated question and it must not simply repeat The Point.
+- existing Saved-card references
+- in-progress pre-v6.5 runs
+- 200 Real-World Example mappings
+- 200 direct One Last Thing answers
+- historical/editorial provenance
+- the ability to revisit curation decisions later without reconstructing deleted content
 
-## Direct-answer architecture
+`game-modes.js` is the release-selection layer. `SUGAR_COATED_CARD_IDS` contains exactly 100 stable source IDs.
 
-`after-answers.js` contains exactly 200 answers keyed by the stable card IDs 1–200.
+New Sugar Coated normal/random runs use only those IDs. Saved cards continue to resolve against the full 200-card source pool.
 
-Example, card 37 asks:
+## Curation standard
 
-> What makes a hard truth more useful without making it less true?
+The 100-card set was selected for:
 
-Its direct answer is:
+1. a genuinely defensible choice on both sides before the reveal
+2. a setup normal people can discuss without needing specialist knowledge
+3. a Plot Twist that materially changes or complicates the decision
+4. a clear, transferable Point
+5. a Real-World Example that fits the principle
+6. a direct One Last Thing answer that closes the question
+7. memorable read-aloud quality
+8. avoiding duplicate cards that teach substantially the same lesson
+9. useful coverage across all six categories
 
-> Say the truth accurately, at the right time, for a real reason, and in a way that helps the person act on it instead of humiliating them.
+The current curated category memberships are:
 
-`consistency-ui.js` uses:
+- Mind & Truth: 38
+- Relationships & Family: 32
+- Money & Success: 13
+- Tech & Modern Life: 19
+- Society & Culture: 26
+- Life & Purpose: 39
 
-`AFTER_ANSWERS[current.id]`
+Cards may belong to two categories, so these totals intentionally exceed 100.
 
-There is intentionally **no fallback** to `card.conclusion`. If an answer is missing, the section is hidden and CI fails because the answer map must be complete.
+## Data architecture
 
-The old systems are retired:
+The full source model remains exactly 200 cards with stable IDs 1–200.
 
-- no eight-question `TESTS` bank
-- no card-ID modulo selection
-- no `shortAnswer(card)` conclusion-sentence heuristic
+Each source card contains:
 
-## What is included
+- `id`
+- `title`
+- `vibe`
+- `scenario` — exactly two paragraphs
+- `prompt`
+- `choices` — exactly two
+- `twist`
+- `conclusion` — The Point
+- `afterPrompt`
+- `hostPrompts` — exactly two
+- `categories` — one or two category IDs after processing
 
-- 200 local scenario cards
-- six selectable topics plus **Mix Everything**
-- two defensible pre-reveal choices
-- side-by-side A-vs-B layout
-- Plot Twist reveal
-- The Point
-- one follow-up question per card
-- one researched Real-World Example per card
-- one explicit direct answer per card
-- Keep Talking extra questions
-- 16 optional Chaos prompts
-- Saved cards
-- persistent state
-- optional Screen Wake Lock
-- installable offline PWA
-- no framework, backend, runtime API, CDN, remote font, analytics, or build step
+Separate one-to-one data layers remain:
 
-## Plain-language rule
-
-Player-facing writing should sound like something a normal person would understand when read aloud once.
-
-Prefer:
-
-- short, direct sentences
-- familiar everyday words
-- one idea at a time
-- concrete wording
-- conversational questions
-- natural humour
-
-Avoid:
-
-- academic jargon
-- unnecessary legalistic language
-- debate-club terminology
-- stacked metaphors
-- sentences that require rereading
-- clever wording that hides the actual point
-
-The practical test is:
-
-> **Would a regular person naturally understand this out loud on the first read?**
-
-See `PLAIN_LANGUAGE_NOTES.md`.
+- `HISTORICAL_EXAMPLES[id]` — one Real-World Example for every source card
+- `AFTER_ANSWERS[id]` — one explicit direct answer for every source card
 
 ## Main runtime files
 
-- `index.html` — screens and player-facing shell
-- `app.js` — navigation, state, persistence, install, wake lock, service-worker handling
-- `cards.js` — shared card array and Chaos prompts
-- `deck-a.js` through `deck-h.js` — 200 authored cards
-- `categories.js` — category definitions/tag processing
-- `language-polish.js` — final plain-language layer for cards/history
-- `after-answers.js` — 200 explicit direct answers to the 200 follow-up questions
-- `choice-ui.js` — choice label/reason presentation
+- `index.html` — screens, mode picker, category picker, player-facing shell
+- `cards.js` — base card array and Chaos modifiers
+- `deck-a.js` through `deck-h.js` — complete 200-card source pool
+- `categories.js` — category inference/normalization
+- `language-polish.js` — plain-language rendering layer
+- `after-answers.js` — explicit One Last Thing answers for IDs 1–200
+- `game-modes.js` — v6.5 content-mode definitions and curated Sugar Coated IDs
+- `app.js` — state, mode/category routing, persistence, Saved, install, wake lock, PWA handling
+- `choice-ui.js` — prominent A-vs-B choice presentation
 - `history-ui.js` — Real-World Example presentation
-- `consistency-ui.js` — One Last Thing direct-answer presentation; filename retained for compatibility/history
-- `history-a.js` through `history-d.js` plus `history-reviewed.js` — 200 Real-World Examples
+- `consistency-ui.js` — legacy filename; presents One Last Thing / THE SHORT ANSWER
+- `history-a.js` through `history-d.js` plus `history-reviewed.js` — 200 example mappings
 - `sw.js` — offline cache
-- `manifest.webmanifest` — PWA metadata
+- `manifest.webmanifest` — PWA installation metadata
 
-Required data/loading order includes:
+## Compatibility anchors
 
-`deck/history → categories.js → language-polish.js → after-answers.js → app.js → presentation helpers`
+Do not casually change:
 
-`after-answers.js` is precached for offline use.
+- localStorage key: `plotTwistStateV4`
+- deck/state ID: `masterpiece-200-v1`
+- source card IDs: 1–200
+- history IDs: 1–200
+- direct-answer IDs: 1–200
 
-## Card design rules
+v6.5 adds `contentMode` and `runContentMode` to persisted state without changing those compatibility anchors. Older state defaults safely to `sugar`.
 
-Every card still needs:
+Visible Settings version:
 
-1. **Two reasonable choices.** A thoughtful adult can defend either side before the reveal.
-2. **A real commitment.** No `it depends` escape before choosing.
-3. **A meaningful Plot Twist.** The reveal adds information that matters.
-4. **A reason to reconsider.** The reveal does not merely congratulate one side.
-5. **A clear Point.** The lesson can be direct without forced false balance.
-6. **A fitting Real-World Example.** The example stays within what its source supports.
-7. **A direct close.** One Last Thing explicitly answers the follow-up that came before the example.
+`v6.5.0`
 
-Changing sides after the reveal is allowed.
+Service-worker cache:
+
+`plot-twist-v6.5.0`
+
+## Plain-language rule
+
+Player-facing writing should sound like something a normal person would naturally understand when read aloud the first time.
+
+Prefer:
+
+- short direct sentences
+- familiar everyday words
+- one idea at a time
+- conversational questions
+- concrete examples
+- humour that sounds natural in a group
+
+Avoid jargon, debate-club terminology, legalistic prose, stacked metaphors, and clever wording that hides the actual decision.
+
+## Offline-first rule
+
+Offline use after installation/update is non-negotiable.
+
+The service worker precaches all required runtime assets, including `language-polish.js`, `after-answers.js`, and `game-modes.js`.
+
+Do not clear site/app data during ordinary update testing because doing so destroys Saved cards, settings, category choices, and active state.
 
 ## Validation
 
-GitHub Actions runs syntax checks and three complementary validators.
+GitHub Actions runs three complementary gates:
 
-### `validate-content.cjs`
+- `validate-content.cjs` — 200-card source contract, 100-card Sugar Coated contract, examples, answers, categories, mode labels, version/cache wiring
+- `validate-runtime.cjs` — PWA/state/routing/compatibility/workflow regression checks
+- `validate-language.cjs` — conversational-language and sentence-length checks
 
-Checks the 200-card/content contract and now also requires:
-
-- exactly 200 direct answers
-- IDs 1–200 complete
-- every answer is non-empty, declarative, unique, and concise
-- answers do not contain protected player-facing/meta terminology
-- `after-answers.js` is loaded and precached
-- One Last Thing reads the explicit answer map
-- no conclusion-derived fallback
-- no old generic question bank
-- v6.4.2 version/cache wiring
-
-### `validate-runtime.cjs`
-
-Protects PWA/state/workflow behaviour, including:
-
-- safe Plot-Twist-only cache cleanup
-- same-origin/scope cache isolation
-- awaited cache writes
-- runtime/manifest asset wiring
-- persisted-state normalization
-- completed-run/replay behaviour
-- wake lock and Chaos modal handling
-- direct-answer loading, offline precaching, and rendering
-- rejection of the retired conclusion fallback
-- hardened GitHub Actions configuration
-
-### `validate-language.cjs`
-
-Checks the final conversational wording of cards, examples, and all 200 direct answers. It rejects selected jargon and enforces practical sentence-length limits.
-
-The first v6.4.2 integrated CI run found one issue only: direct answer 111 used the word `premise`. The answer was rewritten in normal speech rather than weakening the rule.
-
-See `VALIDATION.md` for the full contract.
-
-## Offline design
-
-Offline-first is non-negotiable.
-
-`sw.js` precaches all essential runtime files, including:
-
-- `language-polish.js`
-- `after-answers.js`
-- `consistency-ui.js`
-
-Do not clear site data during a normal update because that destroys Saved cards, settings, category choices, and active state.
-
-## Android acceptance for v6.4.2
-
-After the PR is authorized, merged, and deployed:
-
-1. Open Plot Twist online.
-2. Confirm Settings shows **v6.4.2**.
-3. Confirm existing Saved cards/settings survive the update.
-4. Play cards across all six topics.
-5. For each sampled card, read the follow-up question.
-6. Read the Real-World Example.
-7. Confirm **One Last Thing → THE SHORT ANSWER** directly answers that exact question.
-8. Confirm it does not merely repeat The Point.
-9. Confirm scenarios, choices, twists, Point, examples, answers, Chaos, and extra questions remain easy to understand aloud.
-10. Confirm category, Random, Saved, Resume, PLAY AGAIN, Settings, wake-lock, and Chaos behaviour still works.
-11. Fully close the installed PWA.
-12. Enable airplane mode and turn Wi-Fi off.
-13. Relaunch from the installed icon and verify full gameplay and direct answers remain available offline.
-
-The final qualitative test is simple:
-
-**If someone reads the question, does One Last Thing actually answer it?**
+See `VALIDATION.md` for the detailed release gate.
