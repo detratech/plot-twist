@@ -3,7 +3,8 @@
 (() => {
   const cardTitle = document.getElementById('cardTitle');
   const historyBox = document.querySelector('.history-example');
-  if (!cardTitle || !historyBox || !Array.isArray(PLOT_TWIST_CARDS)) return;
+  const answers = globalThis.AFTER_ANSWERS;
+  if (!cardTitle || !historyBox || !Array.isArray(PLOT_TWIST_CARDS) || !answers) return;
 
   const box = document.createElement('section');
   box.className = 'consistency-check';
@@ -22,23 +23,6 @@
   box.append(label, heading, text);
   historyBox.insertAdjacentElement('afterend', box);
 
-  function sentences(value) {
-    return String(value || '')
-      .match(/[^.!?]+[.!?]+|[^.!?]+$/g)
-      ?.map(sentence => sentence.trim())
-      .filter(Boolean) || [];
-  }
-
-  function shortAnswer(card) {
-    const parts = sentences(card.conclusion);
-    if (!parts.length) return '';
-    if (parts.length === 1) return parts[0];
-
-    const last = parts[parts.length - 1];
-    const words = last.split(/\s+/).filter(Boolean).length;
-    return words >= 7 ? last : parts.slice(-2).join(' ');
-  }
-
   function renderAnswer() {
     const current = PLOT_TWIST_CARDS.find(card => card.title === cardTitle.textContent);
     if (!current) {
@@ -47,8 +31,8 @@
       return;
     }
 
-    const answer = shortAnswer(current);
-    if (!answer) {
+    const answer = answers[current.id];
+    if (typeof answer !== 'string' || !answer.trim()) {
       text.textContent = '';
       box.hidden = true;
       return;

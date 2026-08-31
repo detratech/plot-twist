@@ -32,10 +32,12 @@ for (const file of DECK_FILES) vm.runInContext(read(file), context, { filename: 
 for (const file of HISTORY_FILES) vm.runInContext(read(file), context, { filename: file });
 vm.runInContext(read('categories.js'), context, { filename: 'categories.js' });
 vm.runInContext(read('language-polish.js'), context, { filename: 'language-polish.js' });
-vm.runInContext('globalThis.__cards = PLOT_TWIST_CARDS; globalThis.__history = HISTORICAL_EXAMPLES;', context);
+vm.runInContext(read('after-answers.js'), context, { filename: 'after-answers.js' });
+vm.runInContext('globalThis.__cards = PLOT_TWIST_CARDS; globalThis.__history = HISTORICAL_EXAMPLES; globalThis.__answers = AFTER_ANSWERS;', context);
 
 const cards = context.__cards;
 const history = context.__history;
+const answers = context.__answers;
 const problems = [];
 
 const JARGON = [
@@ -107,6 +109,12 @@ for (const [id, example] of Object.entries(history)) {
   checkSentenceLength(example.text, `example ${id} text`, 38);
 }
 
+for (const [id, answer] of Object.entries(answers)) {
+  checkJargon(answer, `direct answer ${id}`);
+  checkSentenceLength(answer, `direct answer ${id}`, 34);
+  if (wordCount(answer) > 40) problems.push(`direct answer ${id}: ${wordCount(answer)} words (limit 40)`);
+}
+
 const shellFiles = ['index.html', 'cards.js', 'consistency-ui.js'];
 for (const file of shellFiles) {
   const text = read(file);
@@ -120,5 +128,5 @@ if (problems.length) {
   process.exit(1);
 }
 
-console.log('PASS: player-facing card language avoids the formal/jargon terms covered by the v6.4 plain-language gate.');
-console.log('PASS: prompts, choices, conclusions, follow-ups, scenarios, twists, and real-world examples stay within conversational sentence-length limits.');
+console.log('PASS: player-facing card language and all 200 direct answers avoid the formal/jargon terms covered by the v6.4 plain-language gate.');
+console.log('PASS: prompts, choices, conclusions, follow-ups, direct answers, scenarios, twists, and real-world examples stay within conversational sentence-length limits.');
