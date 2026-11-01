@@ -1,0 +1,2 @@
+# Claude Code — Plot Twist
+Read [AI_TRANSITION.md](AI_TRANSITION.md), [CLAUDE_HANDOFF.md](CLAUDE_HANDOFF.md), [CHATGPT_HANDOFF.md](CHATGPT_HANDOFF.md), `README.md`, `docs/DEVELOPMENT_HANDOFF.md`, `VALIDATION.md`, `PLAIN_LANGUAGE_NOTES.md`. Claude implements approved gameplay/content tasks, self-tests and writes only its journal. Preserve 200-card source pool and mode boundaries. Do not merge or publish without authorization.
